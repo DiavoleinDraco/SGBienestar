@@ -4,6 +4,3 @@
 }
 
 export default Home;
-
-
-
