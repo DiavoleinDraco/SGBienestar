@@ -18,14 +18,14 @@ const style = {
   p: 4,
 };
 
-export default function ModalTyC() {
+export default function ModalTyC({ nombre, texto }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}>Términos y Condicioines</Button>
+      <Button onClick={handleOpen}>{nombre}</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -44,9 +44,7 @@ export default function ModalTyC() {
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Text in a modal
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 2 }}>{texto}</Typography>
           </Box>
         </Fade>
       </Modal>
