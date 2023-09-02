@@ -3,29 +3,22 @@ import AutoComplete from "../components/AutoComplete.jsx";
 import Textfield from "../components/TextField.jsx";
 import ModalTyC from "../components/ModalTyC.jsx";
 import Buttons from "../components/Buttons.jsx";
-
+import Date from "../components/Date.jsx"
+import { Link } from "react-router-dom";
+import ButtonContraseña from "../components/ButtonContraseña.jsx";
 
 export default function Registro () {
-<<<<<<< HEAD
-  return (
-    <div>
-
-   
-    <div>
-    <ComSelect nombre= "Tipo de documento" items={["C.C", "T.I", "PA","C.E"]}/>
-    <ComSelect nombre= "Género" items={["Masculino","Femenino","Otro"]} />
-    <ComSelect nombre= "Tipo de Sangre" items={["A+","O+","B+","AB+","A-","O-","B-","AB-"]} />
-    <ComSelect nombre= "Rol" items={["Instructor","Aprendiz","Administrador"]} />
-=======
+ 
     return (
       <div>
-        <Textfield nombre='Nombres'/>
+      <Textfield nombre='Nombres'/>
       <Textfield nombre='Apellidos'/>
       <ComSelect nombre= "Tipo de documento" items={["C.C", "T.I", "P.A","C.E"]}/>
       <Textfield nombre='Número de documento'/>
+      <Date Descripcion= 'Fecha de Nacimiento' />
+
+
       <ComSelect nombre= "Rol" items={["Instructor","Aprendiz","Administrador"]} />
-
-
       <AutoComplete nombre= 'Ficha' array={[
       { label: 2712267, programa: 'Programación de software' },
       { label: 6384789, programa: 'Programación de software' },
@@ -35,6 +28,7 @@ export default function Registro () {
       { label: 8922224, programa: 'Programación de software' },
       { label: 7289332, programa: 'Programación de software' },
       ]}/>
+      <Textfield nombre='Teléfono'/>
       <Textfield nombre='Dirección'/>
       <AutoComplete nombre= 'EPS' array={[
       { label: 'SALUD TOTAL S.A E.P.S' },
@@ -45,10 +39,12 @@ export default function Registro () {
       ]}/>
       <ComSelect nombre= "Tipo de Sangre" items={["A+","O+","B+","AB+","A-","O-","B-","AB-"]} />
       <ComSelect nombre= "Género" items={["Masculino","Femenino","Otro"]} />
+    
 
       <Textfield nombre='Correo institucional'/>
       <Textfield nombre='Correo personal'/>
-      <Textfield nombre='Contraseña'/>
+      <ButtonContraseña nombre='Contraseña'/>
+      <ButtonContraseña nombre='Confirmar contraseña'/>
       <Textfield nombre='Confirmación de contraseña'/>
       <ModalTyC nombre='Términos y condiciones' texto='Términos y Condiciones del Sitio Web [Tu Nombre de Sitio Web]
         Bienvenido/a a [Tu Nombre de Sitio Web]. Antes de utilizar nuestro sitio web, te pedimos que leas y comprendas los siguientes términos y condiciones:
@@ -64,9 +60,8 @@ export default function Registro () {
         [Fecha de Última Actualización de Términos y Condiciones]'/>
 
       <Buttons nombre='Registrarse'/>
->>>>>>> ca88fe5354a2f8f68db31f6f854c980a40f875b9
-    </div>
 
+      <Link to="/Home">Home</Link>
     </div>
   );
 };

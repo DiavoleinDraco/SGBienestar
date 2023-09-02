@@ -6,7 +6,6 @@ import Select from '@mui/material/Select';
 
 export default function ComSelect({ descrip, items, nombre }) {
   const [elementos, setElementos] = React.useState('');
-
   const handleChange = (event) => {
     setElementos(event.target.value);
   };

@@ -1,17 +1,14 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Registro from './pages/Registro'; 
+import { LasRutas } from "./routers/route";
 
-function App() {
-  return (
+
+function App(){
+  return(
     <div>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/registro" element={<Registro />} />
-      </Routes>
+     <LasRutas />
     </div>
+      
   );
+
 }
 
 export default App;
