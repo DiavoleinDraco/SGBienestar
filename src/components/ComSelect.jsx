@@ -12,7 +12,7 @@ export default function ComSelect({ descrip, items, nombre }) {
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+    <FormControl sx={{ m: 1, width: '25ch' }} size="small">
       <InputLabel id="demo-select-small-label">{nombre}</InputLabel>
       <Select
         labelId="demo-select-small-label"
@@ -34,4 +34,3 @@ export default function ComSelect({ descrip, items, nombre }) {
     </FormControl>
   );
 }
-
