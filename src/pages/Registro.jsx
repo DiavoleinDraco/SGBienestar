@@ -1,24 +1,26 @@
 import ComSelect from "../components/ComSelect.jsx";
 import AutoComplete from "../components/AutoComplete.jsx";
-import Textfield from "../components/TextField.jsx";
+import Textfield from "../components/Textfield.jsx";
 import ModalTyC from "../components/ModalTyC.jsx";
 import Buttons from "../components/Buttons.jsx";
 import Date from "../components/Date.jsx"
 import { Link } from "react-router-dom";
 import ButtonContraseña from "../components/ButtonContraseña.jsx";
+import ComantCorreo from "../components/ComantCorreo.jsx";
+
 
 export default function Registro () {
  
     return (
       <div>
-      <Textfield nombre='Nombres'/>
-      <Textfield nombre='Apellidos'/>
-      <ComSelect nombre= "Tipo de documento" items={["C.C", "T.I", "P.A","C.E"]}/>
-      <Textfield nombre='Número de documento'/>
-      <Date Descripcion= 'Fecha de Nacimiento' />
+      <Textfield nombre='Nombres' required/>
+      <Textfield nombre='Apellidos'required/>
+      <ComSelect nombre= "Tipo de documento" items={["C.C", "T.I", "P.A","C.E"]} required/>
+      <Textfield nombre='Número de documento'required/>
+      <Date Descripcion= 'Fecha de Nacimiento'/>
 
 
-      <ComSelect nombre= "Rol" items={["Instructor","Aprendiz","Administrador"]} />
+      <ComSelect nombre= "Rol" items={["Instructor","Aprendiz","Administrador"]} required/>
       <AutoComplete nombre= 'Ficha' array={[
       { label: 2712267, programa: 'Programación de software' },
       { label: 6384789, programa: 'Programación de software' },
@@ -27,8 +29,9 @@ export default function Registro () {
       { label: 4357722, programa: 'Programación de software' },
       { label: 8922224, programa: 'Programación de software' },
       { label: 7289332, programa: 'Programación de software' },
-      ]}/>
-      <Textfield nombre='Teléfono'/>
+      ]}  obligatorio={true}/>  
+
+      <Textfield nombre='Teléfono'required/>
       <Textfield nombre='Dirección'/>
       <AutoComplete nombre= 'EPS' array={[
       { label: 'SALUD TOTAL S.A E.P.S' },
@@ -37,15 +40,14 @@ export default function Registro () {
       { label: 'MALLAMAS' },
       { label: 'E.P.S SANITAS S.A' },
       ]}/>
-      <ComSelect nombre= "Tipo de Sangre" items={["A+","O+","B+","AB+","A-","O-","B-","AB-"]} />
-      <ComSelect nombre= "Género" items={["Masculino","Femenino","Otro"]} />
+      <ComSelect nombre= "Tipo de Sangre" items={["A+","O+","B+","AB+","A-","O-","B-","AB-"]}/>
+      <ComSelect nombre= "Género" items={["Masculino","Femenino","Otro"]} required/>
     
 
-      <Textfield nombre='Correo institucional'/>
-      <Textfield nombre='Correo personal'/>
-      <ButtonContraseña nombre='Contraseña'/>
-      <ButtonContraseña nombre='Confirmar contraseña'/>
-      <Textfield nombre='Confirmación de contraseña'/>
+      <ComantCorreo label='Correo institucional'institucional/>
+      <ComantCorreo label='Correo personal'/>
+      <ButtonContraseña nombre={"contraseña"} />
+
       <ModalTyC nombre='Términos y condiciones' texto='Términos y Condiciones del Sitio Web [Tu Nombre de Sitio Web]
         Bienvenido/a a [Tu Nombre de Sitio Web]. Antes de utilizar nuestro sitio web, te pedimos que leas y comprendas los siguientes términos y condiciones:
         Aceptación de Términos: Al acceder y utilizar [Tu Nombre de Sitio Web], aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con estos términos, por favor, no uses nuestro sitio web.
