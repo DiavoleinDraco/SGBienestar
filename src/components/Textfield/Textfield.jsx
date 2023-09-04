@@ -24,7 +24,7 @@ export default function Textfield({ nombre, required }) {
         autoComplete="off"
         onBlur={handleBlur}
       >
-        <TextField id="outlined-basic" label={nombre} variant="outlined" />
+        <TextField className='textfield' id="outlined-basic" label={nombre} variant="outlined" />
       </Box>
       {error && <p style={{ color: 'red' }}>Este campo es obligatorio.</p>}
        

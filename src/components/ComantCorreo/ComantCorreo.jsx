@@ -18,6 +18,7 @@ export default function ComantCorreo({ label, institutional }) {
     <FormControl>
       <InputLabel htmlFor="email-input">{label}</InputLabel>
       <Input
+        className='comantcorreo'
         id="email-input"
         type="email"
         value={email}

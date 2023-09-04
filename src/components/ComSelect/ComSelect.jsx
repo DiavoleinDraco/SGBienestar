@@ -23,6 +23,7 @@ export default function ComSelect({ descrip, items, nombre, required }) {
     <FormControl sx={{ m: 1, width: '25ch' }} size="small" required={required}>
       <InputLabel id="demo-select-small-label">{nombre}</InputLabel>
       <Select
+        className='comselect'
         labelId="demo-select-small-label"
         id="demo-select-small"
         value={elementos}

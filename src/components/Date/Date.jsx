@@ -20,11 +20,11 @@ export default function Date({ Descripcion }) {
   return (
     <form id='date' className={classes.container} noValidate>
       <TextField
+        className={classes.textField}
         id="date"
         label={Descripcion}
         type="date"
         defaultValue=""
-        className={classes.textField}
         InputLabelProps={{
           shrink: true,
         }}
