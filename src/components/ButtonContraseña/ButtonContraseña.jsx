@@ -8,6 +8,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import { Visibility } from '@material-ui/icons';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import './ButtonContraseña.css';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +68,7 @@ export default function ButtonContraseña({ nombre }) {
 
   return (
     <div className={classes.root}>
-      <div>
+      <div className='botton'>
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">{nombre}</InputLabel>
           <OutlinedInput
@@ -93,7 +95,7 @@ export default function ButtonContraseña({ nombre }) {
           />
         </FormControl>
       </div>
-      <div>
+      <div className='botton'>
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-confirm-password">Confirmar {nombre}</InputLabel>
           <OutlinedInput
@@ -129,4 +131,3 @@ export default function ButtonContraseña({ nombre }) {
     </div>
   );
 }
-

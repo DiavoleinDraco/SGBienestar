@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import './Date.css';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Date({ Descripcion }) {
   const classes = useStyles();
   return (
-    <form className={classes.container} noValidate>
+    <form id='date' className={classes.container} noValidate>
       <TextField
         id="date"
         label={Descripcion}
