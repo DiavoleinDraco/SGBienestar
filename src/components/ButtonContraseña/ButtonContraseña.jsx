@@ -47,7 +47,7 @@ export default function ButtonContraseña({ nombre }) {
   };
 
   const handleBlur = () => {
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
 
     if (!passwordPattern.test(values.password)) {
       setPasswordError(true);

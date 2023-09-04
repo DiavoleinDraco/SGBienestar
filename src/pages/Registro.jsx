@@ -1,12 +1,12 @@
-import ComSelect from "../components/ComSelect.jsx";
-import AutoComplete from "../components/AutoComplete.jsx";
-import Textfield from "../components/Textfield.jsx";
-import ModalTyC from "../components/ModalTyC.jsx";
-import Buttons from "../components/Buttons.jsx";
-import Date from "../components/Date.jsx"
+import ComSelect from "../components/ComSelect/ComSelect.jsx";
+import AutoComplete from "../components/AutoComplete/AutoComplete.jsx";
+import Textfield from "../components/Textfield/Textfield.jsx";
+import ModalTyC from "../components/ModalTyC/ModalTyC.jsx";
+import Buttons from "../components/Buttons/Buttons.jsx";
+import Date from "../components/Date/Date.jsx"
 import { Link } from "react-router-dom";
-import ButtonContraseña from "../components/ButtonContraseña.jsx";
-import ComantCorreo from "../components/ComantCorreo.jsx";
+import ButtonContraseña from "../components/ButtonContraseña/ButtonContraseña.jsx";
+import ComantCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 
 
 export default function Registro () {
@@ -29,7 +29,7 @@ export default function Registro () {
       { label: 4357722, programa: 'Programación de software' },
       { label: 8922224, programa: 'Programación de software' },
       { label: 7289332, programa: 'Programación de software' },
-      ]}  obligatorio={true}/>  
+      ]}/>  
 
       <Textfield nombre='Teléfono'required/>
       <Textfield nombre='Dirección'/>
@@ -44,7 +44,7 @@ export default function Registro () {
       <ComSelect nombre= "Género" items={["Masculino","Femenino","Otro"]} required/>
     
 
-      <ComantCorreo label='Correo institucional'institucional/>
+      <ComantCorreo label='Correo institucional'institutional/>
       <ComantCorreo label='Correo personal'/>
       <ButtonContraseña nombre={"contraseña"} />
 

@@ -8,6 +8,8 @@ export default function Textfield({ nombre, required }) {
   const handleBlur = (event) => {
     if (required && event.target.value === '') {
       setError(true);
+    } else {
+      setError(false)
     }
   };
 
