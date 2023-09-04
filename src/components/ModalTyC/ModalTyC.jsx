@@ -25,7 +25,7 @@ export default function ModalTyC({ nombre, texto }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>{nombre}</Button>
+      <Button className='modaltyc' onClick={handleOpen}>{nombre}</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

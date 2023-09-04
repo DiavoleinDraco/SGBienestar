@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 export default function Buttons({ nombre }) {
   return (
     <Stack direction="row" spacing={2}>
-      <Button variant="outlined">{nombre}</Button>
+      <Button className='buttons' variant="outlined">{nombre}</Button>
     </Stack>
   );
 }

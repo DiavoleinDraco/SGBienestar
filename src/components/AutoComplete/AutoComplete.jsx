@@ -7,6 +7,7 @@ export default function AutoComplete({ nombre, array, obligatorio }) {
 
   return (
     <Autocomplete
+      className='autocomplete'
       disablePortal
       id="Campo-autocomplete"
       options={array}
