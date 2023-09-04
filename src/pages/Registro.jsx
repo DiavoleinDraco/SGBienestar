@@ -6,7 +6,7 @@ import Buttons from "../components/Buttons/Buttons.jsx";
 import Date from "../components/Date/Date.jsx"
 import { Link } from "react-router-dom";
 import ButtonContraseña from "../components/ButtonContraseña/ButtonContraseña.jsx";
-import ComantCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
+import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx"
 
 
 export default function Registro () {
@@ -44,8 +44,8 @@ export default function Registro () {
       <ComSelect nombre= "Género" items={["Masculino","Femenino","Otro"]} required/>
     
 
-      <ComantCorreo label='Correo institucional'institutional/>
-      <ComantCorreo label='Correo personal'/>
+      <InputCorreo label='Correo institucional'institutional/>  
+      <InputCorreo label='Correo personal'personal/>
       <ButtonContraseña nombre={"contraseña"} />
 
       <ModalTyC nombre='Términos y condiciones' texto='Términos y Condiciones del Sitio Web [Tu Nombre de Sitio Web]
