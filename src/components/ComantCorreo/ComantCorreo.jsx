@@ -32,6 +32,6 @@ export default function InputCorreo({ label, personal, institutional }) {
       )}
     </FormControl>
   );
-}
+};
 
 

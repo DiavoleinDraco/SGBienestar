@@ -20,29 +20,32 @@ export default function ComSelect({ descrip, items, nombre, required }) {
   };
 
   return (
-    <FormControl sx={{ m: 1, width: '25ch' }} size="small" required={required}>
-      <InputLabel id="demo-select-small-label">{nombre}</InputLabel>
-      <Select
-        className='comselect'
-        labelId="demo-select-small-label"
-        id="demo-select-small"
-        value={elementos}
-        label={nombre}
-        onChange={handleChange}
-        onBlur={handleBlur} 
-        error={error} 
-      >
-        <MenuItem value="">
-          {descrip} <em>opciones</em>
-        </MenuItem>
+    <div>
+      <FormControl variant="standard" sx={{ m: 1, width: '25ch' }} size="small" required={required}>
+        <InputLabel id="demo-simple-select-standard-label">{nombre}</InputLabel>
+        <Select
+          className='comselect'
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={elementos}
+          onChange={handleChange}
+          label={nombre}
+          onBlur={handleBlur} 
+          error={error} 
 
-        {items.map((element) => (
-          <MenuItem key={element} value={element}>
+        >
+          <MenuItem value="">
+          {descrip} <em>opciones</em>
+          </MenuItem>
+          {items.map((element) => (
+          <MenuItem key={element} value={element} >
             {element}
           </MenuItem>
         ))}
       </Select>
       {error && <p style={{ color: 'red' }}>Este campo es obligatorio.</p>}
     </FormControl>
+    </div>
+
   );
-}
+};
