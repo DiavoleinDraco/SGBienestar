@@ -4,4 +4,6 @@ body {
     background-attachment: fixed; /* Evita que el fondo se mueva con el contenido */
     background-repeat: no-repeat; /* Evita la repetición del fondo */
     font-family: Arial, sans-serif;
+    align-items: center;
+    text-align: center;
 }

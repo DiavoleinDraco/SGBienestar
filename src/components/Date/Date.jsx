@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 200,
+    margin: '10px',
   },
   mainBtn: {
     backgroundColor: 'rgba(195, 193, 192, 0.8)',

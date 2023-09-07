@@ -2,31 +2,33 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { makeStyles } from '@mui/styles';
+import './Textfield.css';
 
 const useStyles = makeStyles({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
-    width: '50%', /* O ajusta el ancho que desees */
-    margin: '0 auto',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '100px auto', // Centra vertical y horizontalmente
   },
   mainBtn: {
     backgroundColor: 'rgba(195, 193, 192, 0.8)',
-    width: '230px',
     borderRadius: '10px',
-    textAlign: 'center',
-    margin: '0 auto',
+    textAlign: 'center', // Centra horizontalmente
+    margin: '10px auto', // Centra horizontalmente
     border: '1px solid black',
+    padding: '10px', // Agrega espacio interior para un mejor aspecto
+    boxSizing: 'border-box', // Evita que el padding afecte el ancho total
   },
   errorText: {
-    color: 'black', // Establece el color del texto de error en negro
+    color: 'black',
   },
   textField: {
-    maxWidth: '100%', // Establece un ancho máximo para el TextField
+    maxWidth: '100%',
   },
   errorMessage: {
-    maxHeight: '2em', // Establece una altura máxima para el mensaje de error
-    overflow: 'hidden', // Oculta cualquier contenido que desborde
+    maxHeight: '2em',
+    overflow: 'hidden',
   },
 });
 
@@ -43,7 +45,7 @@ export default function Textfield({ nombre, required }) {
   };
 
   return (
-    <div className={classes.mainBtn}>
+    <div className={classes.container}>
       <Box
         component="form"
         sx={{
@@ -53,7 +55,9 @@ export default function Textfield({ nombre, required }) {
         autoComplete="off"
         onBlur={handleBlur}
       >
-        <TextField className={classes.textField} id="outlined-basic" label={nombre} variant="outlined" />
+        <div className={classes.mainBtn}>
+          <TextField className={classes.textField} id="outlined-basic" label={nombre} variant="outlined" />
+        </div>
       </Box>
       {error && <p className={`${classes.errorText} ${classes.errorMessage}`}>Este campo es obligatorio.</p>}
     </div>
