@@ -16,14 +16,6 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
     margin: '10px',
   },
-  mainBtn: {
-    backgroundColor: 'rgba(195, 193, 192, 0.8)',
-    width: '230px',
-    borderRadius: '10px',
-    textAlign: 'center',
-    margin: '0 auto',
-    border: '1px solid black',
-  },
   errorText: {
     color: 'black', // Cambia el color del mensaje de error a rojo
   },

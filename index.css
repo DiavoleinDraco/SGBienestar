@@ -6,4 +6,7 @@ body {
     font-family: Arial, sans-serif;
     align-items: center;
     text-align: center;
+    display: block !important;
+    padding-top: 225px;
+    overflow:hidden;
 }

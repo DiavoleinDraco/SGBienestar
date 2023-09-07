@@ -1,0 +1,22 @@
+.container {
+  background-color: #f6f6f6;
+  border-radius: 51px;
+  width: 700px;
+  height: 900px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.item {
+  background: lightblue;
+  flex-basis: 150px;
+  border-radius: 80px;
+  justify-content: center;
+  align-items: center;
+  display: block !important;
+  
+}
