@@ -3,14 +3,17 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
-export default function InputCorreo({ label, personal, institutional }) {
+export default function InputCorreo({ label, personal, institutional, onChange }) {
   const [email, setEmail] = React.useState('');
   const isEmailValid = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email);
   const isInstitutionalEmailValid = /@soy\.sena\.edu\.co$/.test(email) || /\@sena\.edu\.co$/.test(email);
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const handleInputChange = (e) => {
+    const fieldValue = e.target.value;
+    setEmail(e.target.value);
+    onChange(fieldValue);
   };
+
 
   const esCorreoPersonalValido = personal ? isEmailValid : true;
   const esCorreoInstitucionalValido = institutional ? isInstitutionalEmailValid : true;
@@ -22,7 +25,7 @@ export default function InputCorreo({ label, personal, institutional }) {
         id="email-input"
         type="email"
         value={email}
-        onChange={handleEmailChange}
+        onChange={handleInputChange}
         error={!esCorreoPersonalValido || !esCorreoInstitucionalValido}
         fullWidth
         required

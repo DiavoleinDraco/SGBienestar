@@ -2,10 +2,16 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import './Textfield.css';
+import { useState } from 'react';
 
-  
+export default function Textfield({ name, required, onChange }) {
+  const [error, setError] = useState('')
 
-export default function Textfield({ nombre, required }) {
+  const handleInputChange = (e) => {
+    const fieldValue = e.target.value;
+    onChange(fieldValue); // Llama a la función onChange pasando el valor del campo
+  };
+
   const handleBlur = (event) => {
     if (required && event.target.value === '') {
       setError(true);
@@ -24,11 +30,12 @@ export default function Textfield({ nombre, required }) {
         noValidate
         autoComplete="off"
         onBlur={handleBlur}
+        
       >
         <div className='caj'>
-          <TextField id="standard-basic" label={nombre} variant="standard" />
+          <TextField id="standard-basic" label={name} variant="standard" onChange={handleInputChange} />
         </div>
       </Box>
     </div>
   );
-}
+};

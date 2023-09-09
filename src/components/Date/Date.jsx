@@ -21,12 +21,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Date({ Descripcion }) {
+export default function Date({ Descripcion, onChange }) {
+  const handleInputChange = (e) => {
+    const fieldValue = e.target.value;
+    onChange(fieldValue);
+  };
   const classes = useStyles();
   return (
     <form className={classes.mainBtn}  noValidate>
       <TextField
         className={classes.textField}
+        onChange={handleInputChange}
         id="date"
         label={Descripcion}
         type="date"

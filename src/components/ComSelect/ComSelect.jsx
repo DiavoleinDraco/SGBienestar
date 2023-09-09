@@ -4,13 +4,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function ComSelect({ descrip, items, nombre, required }) {
+export default function ComSelect({ descrip, items, nombre, required, onChange }) {
   const [elementos, setElementos] = React.useState('');
   const [error, setError] = React.useState(false); 
 
-  const handleChange = (event) => {
-    setElementos(event.target.value);
-    setError(false);
+  const handleInputChange = (e) => {
+    const fieldValue = e.target.value;
+    setElementos(fieldValue);
+    onChange(fieldValue);
   };
 
   const handleBlur = () => {
@@ -21,17 +22,17 @@ export default function ComSelect({ descrip, items, nombre, required }) {
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, width: '25ch' }} size="small" required={required}>
+      <FormControl variant="standard" sx={{ m: 1, width: '25ch' }} size="small" >
         <InputLabel id="demo-simple-select-standard-label">{nombre}</InputLabel>
         <Select
           className='comselect'
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           value={elementos}
-          onChange={handleChange}
           label={nombre}
           onBlur={handleBlur} 
           error={error} 
+          onChange={handleInputChange}
 
         >
           <MenuItem value="">

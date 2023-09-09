@@ -26,8 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonContraseña({ nombre }) {
+export default function ButtonContraseña({ nombre, onChange }) {
+  const [elementos, setElementos] = React.useState('');
   const classes = useStyles();
+
+
   const [passwordValues, setPasswordValues] = useState({
     password: '',
     showPassword: false,
@@ -40,7 +43,10 @@ export default function ButtonContraseña({ nombre }) {
   const [passwordError, setPasswordError] = useState(false);
 
   const handleChange = (prop) => (event) => {
-    setPasswordValues({ ...passwordValues, [prop]: event.target.value });
+    setPasswordValues({ ...passwordValues, [prop]: event.target.value })
+    const fieldValue = event.target.value
+    setElementos(fieldValue)
+    onChange(fieldValue)
   };
 
   const handleChangeConfirmPassword = (prop) => (event) => {

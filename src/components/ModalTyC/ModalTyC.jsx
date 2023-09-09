@@ -37,12 +37,22 @@ const contentStyle = {
 };
 
 
-export default function ModalTyC({ nombre, texto }) {
+export default function ModalTyC({ nombre, texto, onChange}) {
+  const [elementos, setElementos] = React.useState(false)
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false)
+    // Cuando se cierra el modal, pasa el valor de elementos al componente padre
+    onChange(elementos)
+  };
   const classes = styles ()
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+  const handleInputChange = () => {
+    // Invierte el valor de elementos cuando se cambia el Checkbox
+    setElementos(!elementos);
+  };
 
   return (
     <div>
@@ -63,13 +73,13 @@ export default function ModalTyC({ nombre, texto }) {
       >
         <Fade in={open}>
           <Box sx={modalStyle}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+            <Typography id="transition-modal-title" variant="h6" component="h2" >
              Politicas De Terminos Y Condiciones
             </Typography>
-            <Typography id="transition-modal-description" sx={contentStyle}>{texto} <Checkbox {...label} /> Aceptar términos y condiciones.</Typography>
+            <Typography id="transition-modal-description" sx={contentStyle}> {texto} <Checkbox {...label} checked={elementos} onChange={handleInputChange} /> Aceptar términos y condiciones.</Typography>
           </Box>
         </Fade>
       </Modal>
     </div>
   );
-}
+};

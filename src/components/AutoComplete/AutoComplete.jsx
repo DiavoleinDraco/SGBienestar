@@ -6,7 +6,7 @@ import './AutoComplete.css'
 
 
 
-export default function AutoComplete({ nombre, array, obligatorio }) {
+export default function AutoComplete({ nombre, array, obligatorio, onChange }) {
   const [value, setValue] = React.useState(null); 
 
   return (
@@ -19,14 +19,21 @@ export default function AutoComplete({ nombre, array, obligatorio }) {
         options={array}
         value={value} 
         onChange={(event, newValue) => {
-          setValue(newValue);
-        }}  
+          if (newValue && newValue.label) {
+            setValue(newValue);
+            onChange(newValue.label); 
+          } else {
+            setValue(null);
+            onChange(''); 
+          }
+        }}
         sx={{ m: 1,  }} size="small" 
         PopperProps={{
           style: { marginTop: '8px'}
         }}
+        getOptionLabel={(option) => (option.label || '').toString()}
         renderInput={(params) => (
-          <TextField {...params} label={nombre} required={obligatorio} variant="standard"  className='le'/>
+          <TextField {...params} label={nombre} required={obligatorio} variant="standard"  className='le' />
         )}
       />
 
