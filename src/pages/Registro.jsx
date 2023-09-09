@@ -19,7 +19,8 @@ export default function Registro () {
   const handleChange = (fieldName, fieldValue) => {
     setInfo((prevInfo) => {
       const updatedInfo = { ...prevInfo, [fieldName]: fieldValue }
-      console.log('formData:', updatedInfo)
+      const jsonData = JSON.stringify(updatedInfo, null, 2)
+      console.log('formData:', jsonData)
       return updatedInfo
     });
     // Limpiar el error del campo cuando cambia
@@ -49,8 +50,10 @@ export default function Registro () {
     const validationErrors = validateForm(info);
     if (Object.keys(validationErrors).length === 0) {
       // No hay errores de validación, puedes enviar el formulario
-      const jsonData = JSON.stringify(info, null, 2) // Convierte el objeto en una cadena JSON
-      console.log('formData:', jsonData); // Imprime la cadena JSON en la consola
+      console.log(info)
+       // Convierte el objeto en una cadena JSON
+      //console.log('formData:', jsonData); // Imprime la cadena JSON en la consola
+      console.log(typeof (jsonData))
       setSubmittedData(info)
     } else {
       // Hay errores de validación, muestra los errores
