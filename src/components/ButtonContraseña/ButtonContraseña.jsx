@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { Input } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import { Visibility } from '@material-ui/icons';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import './ButtonContraseña.css';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,25 +22,37 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   textField: {
-    width: '25ch',
+    width: '200px',
   },
 }));
 
 export default function ButtonContraseña({ nombre }) {
   const classes = useStyles();
-  const [values, setValues] = useState({
+  const [passwordValues, setPasswordValues] = useState({
     password: '',
-    confirmPassword: '',
     showPassword: false,
   });
+  const [confirmPasswordValues, setConfirmPasswordValues] = useState({
+    confirmPassword: '',
+    showConfirmPassword: false,
+  });
+
   const [passwordError, setPasswordError] = useState(false);
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setPasswordValues({ ...passwordValues, [prop]: event.target.value });
+  };
+
+  const handleChangeConfirmPassword = (prop) => (event) => {
+    setConfirmPasswordValues({ ...confirmPasswordValues, [prop]: event.target.value });
   };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setPasswordValues({ ...passwordValues, showPassword: !passwordValues.showPassword });
+  };
+
+  const handleClickShowConfirmPassword = () => {
+    setConfirmPasswordValues({ ...confirmPasswordValues, showConfirmPassword: !confirmPasswordValues.showConfirmPassword });
   };
 
   const handleMouseDownPassword = (event) => {
@@ -51,7 +62,7 @@ export default function ButtonContraseña({ nombre }) {
   const handleBlur = () => {
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
 
-    if (!passwordPattern.test(values.password)) {
+    if (!passwordPattern.test(passwordValues.password)) {
       setPasswordError(true);
     } else {
       setPasswordError(false);
@@ -59,7 +70,7 @@ export default function ButtonContraseña({ nombre }) {
   };
 
   const handleConfirmPasswordBlur = () => {
-    if (values.password !== values.confirmPassword) {
+    if (passwordValues.password !== confirmPasswordValues.confirmPassword) {
       setPasswordError(true);
     } else {
       setPasswordError(false);
@@ -69,12 +80,12 @@ export default function ButtonContraseña({ nombre }) {
   return (
     <div className={classes.root}>
       <div className='botton'>
-        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">{nombre}</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+          <InputLabel htmlFor="standard-adornment-password">{nombre}</InputLabel>
+          <Input
+            id="standard-adornment-password"
+            type={passwordValues.showPassword ? 'text' : 'password'}
+            value={passwordValues.password}
             onChange={handleChange('password')}
             onBlur={handleBlur}
             error={passwordError}
@@ -85,35 +96,33 @@ export default function ButtonContraseña({ nombre }) {
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
-                  edge="end"
                 >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  {passwordValues.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
-            labelWidth={80}
           />
         </FormControl>
       </div>
       <div className='botton'>
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-confirm-password">Confirmar {nombre}</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-confirm-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.confirmPassword}
-            onChange={handleChange('confirmPassword')}
+          <InputLabel htmlFor="standard-adornment-password">Confirmar {nombre}</InputLabel>
+          <Input
+            id="standard-adornment-password"
+            type={confirmPasswordValues.showConfirmPassword ? 'text' : 'password'}
+            value={confirmPasswordValues.confirmPassword}
+            onChange={handleChangeConfirmPassword('confirmPassword')}
             onBlur={handleConfirmPasswordBlur}
             error={passwordError}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
+                  onClick={handleClickShowConfirmPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  {confirmPasswordValues.showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
@@ -123,7 +132,7 @@ export default function ButtonContraseña({ nombre }) {
       </div>
       {passwordError && (
         <div style={{ color: 'red' }}>
-          {values.password === values.confirmPassword
+          {passwordValues.password === confirmPasswordValues.confirmPassword
             ? 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un carácter especial y un número.'
             : 'Las contraseñas no coinciden.'}
         </div>

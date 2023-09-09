@@ -3,6 +3,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import './ComSelect.css'
 
 export default function ComSelect({ descrip, items, nombre, required }) {
   const [elementos, setElementos] = React.useState('');
@@ -21,7 +22,7 @@ export default function ComSelect({ descrip, items, nombre, required }) {
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, width: '25ch' }} size="small" required={required}>
+      <FormControl className='contene' variant="standard" sx={{ m: 1, width: '25ch' }} size="small" required={required}>
         <InputLabel id="demo-simple-select-standard-label">{nombre}</InputLabel>
         <Select
           className='comselect'

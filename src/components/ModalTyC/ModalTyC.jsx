@@ -6,6 +6,7 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {makeStyles } from '@material-ui/core';
+import Checkbox from '@mui/material/Checkbox';
 
 const modalStyle = {
   position: 'absolute',
@@ -14,7 +15,7 @@ const modalStyle = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   height: 600, // Aumenta la altura del modal
-  bgcolor: '#000',
+  bgcolor: 'blue',
   border: '2px solid white',
   boxShadow: 24,
 };
@@ -38,6 +39,7 @@ export default function ModalTyC({ nombre, texto }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = styles ()
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
   return (
     <div>
@@ -61,7 +63,7 @@ export default function ModalTyC({ nombre, texto }) {
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Text in a modal
             </Typography>
-            <Typography id="transition-modal-description" sx={contentStyle}>{texto}</Typography>
+            <Typography id="transition-modal-description" sx={contentStyle}>{texto} <Checkbox {...label} /> Aceptar términos y condiciones.</Typography>
           </Box>
         </Fade>
       </Modal>
