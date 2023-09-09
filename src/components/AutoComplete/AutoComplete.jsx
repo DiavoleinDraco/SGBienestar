@@ -5,7 +5,6 @@ import { Stack } from '@mui/material';
 import './AutoComplete.css'
 
 
-
 export default function AutoComplete({ nombre, array, obligatorio, onChange }) {
   const [value, setValue] = React.useState(null); 
 

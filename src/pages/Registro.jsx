@@ -8,7 +8,10 @@ import { Link } from "react-router-dom";
 import ButtonContraseña from "../components/ButtonContraseña/ButtonContraseña.jsx";
 import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import './registro.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import get from "../UseFetch.js";
+
+
 
 
 export default function Registro () {
@@ -57,6 +60,30 @@ export default function Registro () {
       setErrors(validationErrors)
     };
   };
+  const [value, actualizar]= useState([])
+  useEffect(()=> {
+  get('/ficha').then(data =>{
+    actualizar(data)
+  })
+  .catch(error=>  {
+    console.error('Error al enontrar resultado', error)
+  });
+  },[]);
+
+  const fichas = value.map(item => item.codigo)
+
+  const [valorE, setEps]= useState([])
+  useEffect(()=> {
+  get('/eps').then(data =>{
+    setEps(data)
+  })
+  .catch(error=>  {
+    console.error('Error al enontrar resultado', error)
+  });
+  },[]);
+
+  const eps = valorE.map(item => item.nombre)
+
 
     return (
       <div className="padre">
@@ -117,13 +144,7 @@ export default function Registro () {
       <div className="item">
         <AutoComplete 
         nombre= 'Ficha' 
-        array={[{ label: 2712267 },
-                { label: 6384789 },
-                { label: 9039843 },
-                { label: 2435363 },
-                { label: 4357722 },
-                { label: 8922224 },
-                { label: 7289332 }]}
+        array={fichas.map(a=>({label: a}))}
          onChange={(value) => handleChange('Ficha', value)}/>
       </div>
 
@@ -142,13 +163,10 @@ export default function Registro () {
       <div className="item">
         <AutoComplete 
         nombre= 'EPS' 
-        array={[{ label: 'SALUD TOTAL S.A E.P.S' },
-                { label: 'SALUDVIDA S.A E.P.  S' },
-                { label: 'SAVIA SALUD EPS' },
-                { label: 'MALLAMAS' },
-                { label: 'E.P.S SANITAS S.A' }]} 
+        array={eps.map(b=>({label:b}))} 
         onChange={(value) => handleChange('EPS', value)}/>
       </div>
+
 
       <div className="item">
         <ComSelect 
