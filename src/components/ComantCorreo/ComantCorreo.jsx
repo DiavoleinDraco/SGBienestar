@@ -2,6 +2,7 @@ import * as React from 'react';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import './ComantCorreo.css';
 
 export default function InputCorreo({ label, personal, institutional, onChange }) {
   const [email, setEmail] = React.useState('');
@@ -20,7 +21,7 @@ export default function InputCorreo({ label, personal, institutional, onChange }
 
   return (
     <FormControl>
-      <InputLabel htmlFor="email-input">{label}</InputLabel>
+      <InputLabel className='email' htmlFor="email-input">{label}</InputLabel>
       <Input
         id="email-input"
         type="email"
@@ -31,10 +32,8 @@ export default function InputCorreo({ label, personal, institutional, onChange }
         required
       />
       {(!esCorreoPersonalValido || !esCorreoInstitucionalValido) && (
-        <p style={{ color: 'red' }}>Correo electrónico no válido</p>
+        <p style={{ color: '#000' }}>Correo electrónico no válido</p>
       )}
     </FormControl>
   );
 };
-
-

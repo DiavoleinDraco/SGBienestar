@@ -2,21 +2,7 @@
 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-align: center;
 } 
-/*texto  input*/
 
-/*cont caja */
-.stack{
-
-border-radius: 6px;
-
-
-    }
-
-.autocomplete{
-
-
-
-}
-.le{
-  background: red;
+.autocomplete {
+  width: 200px !important;
 }

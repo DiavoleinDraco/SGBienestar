@@ -1,33 +1,39 @@
 body {
   margin: 0;
-  padding: 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+
+  background-image: url(./fondo/Background\ original.png);
+  background-size: 100% 100%; /* Hace que el fondo cubra toda la pantalla sin recortar */
+  background-attachment: fixed; /* Evita que el fondo se mueva con el contenido */
+  background-repeat: no-repeat; /* Evita la repetición del fondo */
+  font-family: Arial, sans-serif;
 }
 
-.container {
-  background-color: #ffffff;
-  border-radius: 51px;
-  width: 80%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 20px;
-  justify-items: center;
-  align-items: center;
-  padding: 20px; /* Agrega un relleno para separar el contenido del borde del contenedor */
-  margin: 0 auto;
-}
-
-.item {
-  background: lightblue;
+.padre {
+  background-color: rgba(202, 202, 202, 0.175);
+  width: 1000px;
+  margin: 30%;
   border-radius: 20px;
-  text-align: center;
-  padding: 10px; /* Agrega un relleno a los elementos para separar su contenido del fondo */
 }
 
-  /* Estilo para mensajes de error */
+.form {
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: 1600px;
+justify-content: space-evenly
+;
+  align-content: center;
+}
+.item {
+  border-radius: 20px;
+  background: lightcyan;
+
+
+  /* Agrega un relleno a los elementos para separar su contenido del fondo */
+}
+
+/* Estilo para mensajes de error */
 .error-message {
   color: red;
   font-size: 14px;
@@ -36,4 +42,26 @@ body {
 /* Estilo para resaltar campos con errores */
 .error-field {
   border: 2px solid red;
+}
+
+.contenedor1 {
+  border: 1px black solid;
+  width: 300px;
+  height: 400px;
+  padding: 1px;
+  background: lightblue;
+}
+
+.contenedor2 {
+  border: 1px red solid;
+  width: 300px;
+  background: lightblue;
+  height: 400px;
+}
+
+.contenedor3 {
+  border: 1px green solid;
+  width: 300px;
+ 
+  height: 400px;
 }

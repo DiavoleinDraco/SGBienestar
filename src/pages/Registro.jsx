@@ -51,9 +51,6 @@ export default function Registro () {
     if (Object.keys(validationErrors).length === 0) {
       // No hay errores de validación, puedes enviar el formulario
       console.log(info)
-       // Convierte el objeto en una cadena JSON
-      //console.log('formData:', jsonData); // Imprime la cadena JSON en la consola
-      console.log(typeof (jsonData))
       setSubmittedData(info)
     } else {
       // Hay errores de validación, muestra los errores
@@ -62,14 +59,14 @@ export default function Registro () {
   };
 
     return (
-      <div>
+      <div className="padre">
         {submittedData ? (
         <div>
           <pre>{JSON.stringify(submittedData, null, 2)}</pre>
       </div>) : ( 
-      <form onSubmit={handleSubmit}>
-      <div className="container">
+      <form onSubmit={handleSubmit} className="form">
 
+      <div className="contenedor1">
       <div className="item">
         <Textfield 
         name='Nombres'
@@ -114,7 +111,9 @@ export default function Registro () {
         items={["Instructor","Aprendiz","Administrador"]} 
         onChange={(value) => handleChange('Rol', value)}/>
       </div>
+      </div>
       
+      <div className="contenedor2">
       <div className="item">
         <AutoComplete 
         nombre= 'Ficha' 
@@ -164,7 +163,9 @@ export default function Registro () {
         items={["Masculino","Femenino","Otro"]} 
         onChange={(value) => handleChange('Genero', value)}/>
       </div>
+      </div>
 
+      <div className="contenedor3">
       <div className="item">
         <InputCorreo 
         label='Correo institucional' 
@@ -193,10 +194,11 @@ export default function Registro () {
         </div>
 
       <div className="item">
-        <Buttons nombre='Registrarse'/></div>
+        <Buttons nombre='Registrarse'/>
+      </div>
+      </div>
 
       <Link to="/Home">Home</Link>
-      </div>
       </form>
       )}
       </div>

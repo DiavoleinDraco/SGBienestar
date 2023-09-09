@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    background:"red",
+    width:" 250",
   },
   margin: {
     margin: theme.spacing(1),
@@ -22,7 +24,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   textField: {
-    width: '25ch',
+    width: '200px',
+  },
+  nombre: {
+    fontSize: '200px',
   },
 }));
 
@@ -85,9 +90,9 @@ export default function ButtonContraseña({ nombre, onChange }) {
 
   return (
     <div className={classes.root}>
-      <div className='botton'>
+      <div className='botton1'>
         <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-          <InputLabel htmlFor="standard-adornment-password">{nombre}</InputLabel>
+          <InputLabel className='contraseña' htmlFor="standard-adornment-password">{nombre}</InputLabel>
           <Input
             id="standard-adornment-password"
             type={passwordValues.showPassword ? 'text' : 'password'}
@@ -110,9 +115,12 @@ export default function ButtonContraseña({ nombre, onChange }) {
           />
         </FormControl>
       </div>
-      <div className='botton'>
+
+
+
+      <div className='botton2'>
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-          <InputLabel htmlFor="standard-adornment-password">Confirmar {nombre}</InputLabel>
+          <InputLabel className='comf' htmlFor="standard-adornment-password">Confirmar {nombre}</InputLabel>
           <Input
             id="standard-adornment-password"
             type={confirmPasswordValues.showConfirmPassword ? 'text' : 'password'}
@@ -136,13 +144,6 @@ export default function ButtonContraseña({ nombre, onChange }) {
           />
         </FormControl>
       </div>
-      {passwordError && (
-        <div style={{ color: 'red' }}>
-          {passwordValues.password === confirmPasswordValues.confirmPassword
-            ? 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un carácter especial y un número.'
-            : 'Las contraseñas no coinciden.'}
-        </div>
-      )}
     </div>
   );
 }
