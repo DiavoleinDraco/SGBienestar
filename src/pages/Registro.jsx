@@ -10,57 +10,38 @@ import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import './registro.css';
 import { useState, useEffect } from "react";
 import get from "../UseFetch.js";
-
-
-
+import Paginacion from "../components/Paginacion/Paginacion.jsx";
 
 export default function Registro () {
   const [info, setInfo] = useState({})
   const [submittedData, setSubmittedData] = useState(null);
   const [errors, setErrors] = useState({});
+  const [jsonData, setJsonData] = useState(null)
+  const [value, actualizar] = useState([])
+  const [valorE, setEps] = useState([])
 
   const handleChange = (fieldName, fieldValue) => {
     setInfo((prevInfo) => {
       const updatedInfo = { ...prevInfo, [fieldName]: fieldValue }
-      const jsonData = JSON.stringify(updatedInfo, null, 2)
-      console.log('formData:', jsonData)
+      setJsonData(JSON.stringify(updatedInfo, null, 2))
       return updatedInfo
     });
-    // Limpiar el error del campo cuando cambia
     setErrors((prevErrors) => {
       return { ...prevErrors, [fieldName]: '' };
     });
   };
 
-  const validateForm = (formData) => {
-    const validationErrors = {};
-    if (!formData.Nombres) {
-      validationErrors.Nombres = 'Campo obligatorio'
-    }
-    if (!formData.Apellidos) {
-      validationErrors.Apellidos = 'Campo obligatorio'
-    }
-    if (!formData.TipoDoc) {
-      validationErrors.TipoDoc = 'Campo obligatorio'
-    }
-    // Agrega otras validaciones según tus requisitos
-    return validationErrors;
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault()
-    // Realizar la validación antes de enviar
     const validationErrors = validateForm(info);
     if (Object.keys(validationErrors).length === 0) {
-      // No hay errores de validación, puedes enviar el formulario
       console.log(info)
       setSubmittedData(info)
     } else {
-      // Hay errores de validación, muestra los errores
       setErrors(validationErrors)
     };
   };
-  const [value, actualizar]= useState([])
+
   useEffect(()=> {
   get('/ficha').then(data =>{
     actualizar(data)
@@ -72,7 +53,7 @@ export default function Registro () {
 
   const fichas = value.map(item => item.codigo)
 
-  const [valorE, setEps]= useState([])
+  
   useEffect(()=> {
   get('/eps').then(data =>{
     setEps(data)
@@ -87,10 +68,6 @@ export default function Registro () {
 
     return (
       <div className="padre">
-        {submittedData ? (
-        <div>
-          <pre>{JSON.stringify(submittedData, null, 2)}</pre>
-      </div>) : ( 
       <form onSubmit={handleSubmit} className="form">
 
       <div className="contenedor1">
@@ -212,13 +189,14 @@ export default function Registro () {
         </div>
 
       <div className="item">
-        <Buttons nombre='Registrarse'/>
+        <Buttons nombre='Registrarse' onclick={() => {console.log(jsonData)}}/>
       </div>
       </div>
 
+      <Paginacion />
+
       <Link to="/Home">Home</Link>
       </form>
-      )}
       </div>
   )
 };

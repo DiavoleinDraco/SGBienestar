@@ -28,8 +28,6 @@ export default function InputCorreo({ label, personal, institutional, onChange }
         value={email}
         onChange={handleInputChange}
         error={!esCorreoPersonalValido || !esCorreoInstitucionalValido}
-        fullWidth
-        required
       />
       {(!esCorreoPersonalValido || !esCorreoInstitucionalValido) && (
         <p style={{ color: '#000' }}>Correo electrónico no válido</p>
