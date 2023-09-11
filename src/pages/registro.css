@@ -2,32 +2,41 @@ body {
   margin: 0;
 
   background-image: url(./fondo/Background\ original.png);
-  background-size: 100% 100%; /* Hace que el fondo cubra toda la pantalla sin recortar */
-  background-attachment: fixed; /* Evita que el fondo se mueva con el contenido */
-  background-repeat: no-repeat; /* Evita la repetición del fondo */
+  background-size: 100% 100%;
+  /* Hace que el fondo cubra toda la pantalla sin recortar */
+  background-attachment: fixed;
+  /* Evita que el fondo se mueva con el contenido */
+  background-repeat: no-repeat;
+  /* Evita la repetición del fondo */
   font-family: Arial, sans-serif;
 }
 
 .padre {
-  background-color: rgba(202, 202, 202, 0.175);
+
   width: 1000px;
-  margin: 30%;
+  margin: 0 auto;
   border-radius: 20px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.405);
 }
 
+/* form es el padre de la clase padre */
 .form {
-  width: 1000px;
+  width: 100% !important;
+  height: 100% !important;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  height: 1600px;
-justify-content: space-evenly
-;
+  height: 600px;
+
+  justify-content: space-evenly;
   align-content: center;
 }
+
 .item {
-  border-radius: 20px;
-  background: lightcyan;
+  width: 250px;
+  height: 65px;
+
 
 
   /* Agrega un relleno a los elementos para separar su contenido del fondo */
@@ -44,24 +53,65 @@ justify-content: space-evenly
   border: 2px solid red;
 }
 
+.cont-registro {
+  background: #f6f6f6;
+  color: blueviolet;
+
+}
+
 .contenedor1 {
-  border: 1px black solid;
+  border-radius: 15px;
   width: 300px;
-  height: 400px;
-  padding: 1px;
-  background: lightblue;
+  height: 600px;
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .contenedor2 {
-  border: 1px red solid;
+  border-radius: 15px;
   width: 300px;
-  background: lightblue;
-  height: 400px;
+  height: 600px;
+  padding: 1px;
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .contenedor3 {
-  border: 1px green solid;
+  border-radius: 15px;
   width: 300px;
- 
-  height: 400px;
+  height: 600px;
+  padding: 1px;
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.botton1 {
+  width: 200px !important;
+  padding-left: 25px;
+  background: none !important;
+  padding-top: 10px !important;
+}
+
+.botton2 {
+  padding-left: 15px;
+  background: none !important;
+  padding-top: 20px !important;
+}
+
+.item-centered {
+  padding-left: 26px;
+}
+
+a {
+  background: #f6f6f6;
+
 }

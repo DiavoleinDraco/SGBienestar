@@ -1,8 +1,24 @@
-#disable-close-on-select{
-font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  text-align: center;
-} 
+#disable-close-on-select {
 
-.autocomplete {
-  width: 200px !important;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+
+
+}
+.stack{
+  width: 100% !important;
+  height: 100%;
+
+}
+.le{
+
+width: 200px !important;
+margin-top:5% !important;
+
+
+
+
+
+
+
 }

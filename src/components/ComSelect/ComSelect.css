@@ -1,3 +1,12 @@
 .comselect {
     width: 200px !important;
+    
+}
+.comselect{
+ left: 10px !important;
+}
+
+#demo-simple-select-standard-label{
+  left: 10px;
+  top: 2px;
 }

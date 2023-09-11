@@ -11,7 +11,6 @@ export default function AutoComplete({ nombre, array, obligatorio, onChange }) {
   return (
     <Stack className='stack' spacing={1} sx={{ width: 300 }}>
     <Autocomplete
-        className='autocomplete'
         disablePortal
         id="disable-close-on-select"
         disableCloseOnSelect

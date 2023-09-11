@@ -41,7 +41,8 @@ export default function ComSelect({
           error={error}
           onChange={handleInputChange}
         >
-          <MenuItem value="">
+          <MenuItem value=""
+          className="esto">
             {descrip} <em>opciones</em>
           </MenuItem>
           {items.map((element) => (
@@ -50,7 +51,7 @@ export default function ComSelect({
             </MenuItem>
           ))}
         </Select>
-        {error && <p style={{ color: "#000" }}>Este campo es obligatorio.</p>}
+        {error && <p style={{ color: "red" }}>Este campo es obligatorio.</p>}
       </FormControl>
     </div>
   );

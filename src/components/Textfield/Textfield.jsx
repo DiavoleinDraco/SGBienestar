@@ -26,7 +26,7 @@ export default function Textfield({ name, required, onChange }) {
         className="letras"
         component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "25ch" }
+          "& > :not(style)": { m: 1, width: "26ch" } 
         }}
         noValidate
         autoComplete="off"
@@ -39,6 +39,7 @@ export default function Textfield({ name, required, onChange }) {
             variant="standard"
             onChange={handleInputChange}
           />
+          
         </div>
       </Box>
     </div>
