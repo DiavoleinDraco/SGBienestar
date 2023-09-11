@@ -20,7 +20,7 @@ export default function InputCorreo({ label, personal, institutional, onChange }
   const esCorreoInstitucionalValido = institutional ? isInstitutionalEmailValid : true;
 
   return (
-    <FormControl>
+    <FormControl className='f'>
       <InputLabel className='email' htmlFor="email-input">{label}</InputLabel>
       <Input
         id="email-input"
@@ -32,7 +32,7 @@ export default function InputCorreo({ label, personal, institutional, onChange }
         required
       />
       {(!esCorreoPersonalValido || !esCorreoInstitucionalValido) && (
-        <p style={{ color: '#000' }}>Correo electrónico no válido</p>
+        <p style={{ color: 'black' }}>Correo electrónico no válido</p>
       )}
     </FormControl>
   );

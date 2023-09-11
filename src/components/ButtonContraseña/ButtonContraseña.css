@@ -4,15 +4,18 @@
 
 }
 
-
-.comf{
-    font-size: 15px !important;
+/* button contrasena */
+.contraseña {
+    font-size: 15.5px !important;
+    top: 5px !important;
+    left: 2px !important;
     text-align: start !important;
-
 }
 
-.contraseña{
-    font-size: 15px !important;
+/*  buton comfirmar contrasena */
+.comf {
+    font-size: 15.5px !important;
     text-align: start !important;
-
+    left: -12px !important;
+    top: 5px !important;
 }
