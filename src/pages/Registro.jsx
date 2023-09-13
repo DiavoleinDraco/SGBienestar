@@ -144,7 +144,7 @@ export default function Registro () {
       <div className="item">
         <AutoComplete 
         nombre= 'Ficha' 
-        array={fichas.map(a=>({label: a}))}
+        array={fichasOptions}
          onChange={(value) => handleChange('Ficha', value)}/>
       </div>
 
@@ -163,7 +163,7 @@ export default function Registro () {
       <div className="item">
         <AutoComplete 
         nombre= 'EPS' 
-        array={eps.map(b=>({label:b}))} 
+        array={EpsOpciones} 
         onChange={(value) => handleChange('EPS', value)}/>
       </div>
 
