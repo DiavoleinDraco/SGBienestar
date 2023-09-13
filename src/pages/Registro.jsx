@@ -58,20 +58,32 @@ export default function Registro() {
     }
   };
 
-  const [value, actualizar] = useState([]);
+  const [fichas, setFichas] = useState([]);
+  const [selectedFichaId, setSelectedFichaId] = useState(null);
+  
   useEffect(() => {
     get("/ficha")
       .then((data) => {
-        actualizar(data);
+        setFichas(data);
       })
       .catch((error) => {
-        console.error("Error al enontrar resultado", error);
+        console.error("Error al encontrar resultado", error);
       });
   }, []);
+  
+  const handleFichaChange = (selectedValue) => {
+    const selectedId = selectedValue.value
+    setSelectedFichaId(selectedId);
+  };
+  
 
-  const fichas = value.map((item) => item.codigo);
+    const fichasOptions = fichas.map((ficha) => ({
+    label: ficha.codigo , value: ficha["_id"]}));
+
 
   const [valorE, setEps] = useState([]);
+  const [selectedEpsId,setSelecteEpsId ]= useState(null)
+
   useEffect(() => {
     get("/eps")
       .then((data) => {
@@ -82,7 +94,15 @@ export default function Registro() {
       });
   }, []);
 
-  const eps = valorE.map((item) => item.nombre);
+  const handleEpsChange = (selectedValue) => {
+  const selectedIdE = selectedValue.value
+  setSelecteEpsId(selectedIdE);
+
+  };
+
+  const EpsOpciones = valorE.map ((valorE) => ({
+  label: valorE.nombre , value: valorE["_id"]}));
+
 
   return (
     <div className="padre">
@@ -155,13 +175,13 @@ export default function Registro() {
           </div>
 
           <div className="contenedor2">
-            <div className="item">
+          <div className="item">
               <AutoComplete
                 nombre="Ficha"
-                array={fichas.map((a) => ({ label: a }))}
-                onChange={(value) => handleChange("Ficha", value)}
-              />
-            </div>
+                array={fichasOptions}
+                onChange={(selectedValue) => handleFichaChange(selectedValue)}
+             />
+          </div>
 
             <div className="item">
               <Textfield
@@ -180,8 +200,8 @@ export default function Registro() {
             <div className="item">
               <AutoComplete
                 nombre="Eps"
-                array={eps.map((b) => ({ label: b }))}
-                onChange={(value) => handleChange("EPS", value)}
+                array={EpsOpciones}
+                onChange={(selectedValue) => handleChange("EPS", selectedValue)}
               />
             </div>
 

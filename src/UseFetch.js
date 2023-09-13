@@ -1,5 +1,5 @@
 
-const UrlApi= "https://prueba-ybo9.onrender.com"
+const UrlApi= "https://proyecto-backend-sgbienestar.onrender.com"
 export default async function get (pat){
 try{
   
