@@ -81,25 +81,6 @@ export default function Registro () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   //! ROL 
   useEffect(() => {
     get("/rol")
@@ -129,22 +110,6 @@ const rolOption = rol.map((rol) => ({
 label: rol.nombre , value: rol["_id"]}));
 
 //! FIN ROL 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //! FICHA 
@@ -228,21 +193,6 @@ label: rol.nombre , value: rol["_id"]}));
     //! FIN EPS 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
       <div className="padre">
       <form onSubmit={handleSubmit} className="form">
@@ -284,18 +234,6 @@ label: rol.nombre , value: rol["_id"]}));
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
       <div className="item">
       <ComSelect 
           nombre="Rol" 
@@ -306,10 +244,6 @@ label: rol.nombre , value: rol["_id"]}));
         />
         
       </div>
-
-
-
-
 
 
 
@@ -328,22 +262,6 @@ label: rol.nombre , value: rol["_id"]}));
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <div className="item">
         <Textfield 
         name='Teléfono' 
@@ -359,21 +277,6 @@ label: rol.nombre , value: rol["_id"]}));
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <div className="item">
       <AutoComplete
           nombre="EPS"
@@ -383,23 +286,6 @@ label: rol.nombre , value: rol["_id"]}));
           value={setSelecteEpsId} 
         />
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
