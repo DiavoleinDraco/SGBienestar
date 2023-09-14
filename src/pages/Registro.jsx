@@ -9,34 +9,16 @@ import ButtonContraseña from "../components/ButtonContraseña/ButtonContraseña
 import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import './registro.css';
 import { useState, useEffect } from "react";
-import get from "../UseFetch.js";
+//import get from "../UseFetch.js";
 
 export default function Registro () {
   const [info, setInfo] = useState({});
-  const [submittedData, setSubmittedData] = useState(null);
   const [errors, setErrors] = useState({});
   const [jsonData, setJsonData] = useState(null);
   const [fichas, setFichas] = useState([]);
   const [selectedFichaId, setSelectedFichaId] = useState(null);
   const [valorE, setEps] = useState([]);
   const [selectedEpsId,setSelecteEpsId ]= useState(null);
-
-  
-  let errorCampo = {};
-  const validate = (data) => {
-    if(!data.Nombres || !data.Apellidos || !data.Tipodedocumento || !data.Numerodedocumento || !data.Rol || !data.Teléfono){
-      errorCampo.Nombres = 'Este campo es obligatorio'
-      errorCampo.Apellidos = 'Este campo es obligatorio'
-      errorCampo.Tipodedocumento = 'Este campo es obligatorio'
-      errorCampo.Numerodedocumento = 'Este campo es obligatorio'
-      errorCampo.Rol = 'Este campo es obligatorio'
-      errorCampo.Teléfono = 'Este campo es obligatorio'
-    } else {
-      console.log('hola')
-    }
-    setErrors(errorCampo)
-    console.log(errorCampo) 
-  };
 
   const handleChange = (fieldName, fieldValue) => {
     setInfo((prevInfo) => {
@@ -48,19 +30,8 @@ export default function Registro () {
       return { ...prevErrors, [fieldName]: '' };
     });
   };
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const validationErrors = validate(info);
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(info)
-      setSubmittedData(info)
-    } else {
-      setErrors(validationErrors)
-    };
-  };
   
-  useEffect(() => {
+/*  useEffect(() => {
     get("/ficha")
       .then((data) => {
         setFichas(data);
@@ -93,10 +64,10 @@ export default function Registro () {
   };
   const EpsOpciones = valorE.map ((valorE) => ({
   label: valorE.nombre , value: valorE["_id"]}));
-
+*/
     return (
       <div className="padre">
-      <form onSubmit={handleSubmit} className="form">
+      <form className="form">
 
       <div className="contenedor1">
       <div className="item">
@@ -117,7 +88,8 @@ export default function Registro () {
         <ComSelect 
         nombre= "Tipo de documento" 
         items={["C.C", "T.I", "P.A","C.E"]} 
-        onChange={(value) => handleChange('TipoDoc', value)}/>
+        onChange={(value) => handleChange('TipoDoc', value)}
+        required/>
       </div>
 
       <div className="item">
@@ -137,7 +109,8 @@ export default function Registro () {
         <ComSelect 
         nombre= "Rol" 
         items={["Instructor","Aprendiz","Administrador"]} 
-        onChange={(value) => handleChange('Rol', value)}/>
+        onChange={(value) => handleChange('Rol', value)}
+        required/>
       </div>
       </div>
       
@@ -145,7 +118,7 @@ export default function Registro () {
       <div className="item">
         <AutoComplete 
         nombre= 'Ficha' 
-        array={fichasOptions}
+        array={["a"]}
         onChange={(value) => handleChange('Ficha', value)}/>
       </div>
 
@@ -165,7 +138,7 @@ export default function Registro () {
       <div className="item">
         <AutoComplete 
         nombre= 'EPS' 
-        array={EpsOpciones} 
+        array={["b"]} 
         onChange={(value) => handleChange('EPS', value)}/>
       </div>
 
@@ -190,14 +163,15 @@ export default function Registro () {
         <InputCorreo 
         label='Correo institucional' 
         institutional 
-        onChange={(value) => handleChange('CorreoInsti', value)}/>
+        onChange={(value) => handleChange('CorreoInsti', value)}
+        required/>
       </div>
 
       <div className="item">
         <InputCorreo 
-        label='Correo personal'
-        personal 
-        onChange={(value) => handleChange('CorreoPer', value)}/>
+          label='Correo personal'
+          personal 
+          onChange={(value) => handleChange('CorreoPer', value)}/>
       </div>
 
       <div className="item">

@@ -7,35 +7,21 @@ import { useState } from "react";
 export default function Textfield({ name, required, onChange }) {
   const [error, setError] = useState('');
 
-  const telefonoRegex = /^\+(?:\d{1,3}[-\s])?\d{10,14}$/;
-
-  const validate = (data) => {
-    if (required && data.trim() === '') {
-      setError('Este campo es obligatorio');
-    } else {
-      setError('');
-    };
-
-    if(name === 'Teléfono' && telefonoRegex.test(data)){
-      console.log('hola')
-      setError('')
-    } else {
-      setError('Teléfono inválido')
-    }
-  };
+  const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
 
   const handleInputChange = (e) => {
     const fieldValue = e.target.value;
-    validate(fieldValue)
     onChange(fieldValue)
   };
 
   const handleBlur = (event) => {
     if (required && event.target.value === '') {
-      setError(true && 'Este campo es obligatorio');
+      setError('Este campo es obligatorio');
+    } else if(name === 'Teléfono' && !telefonoRegex.test(event.target.value)){
+      setError('Teléfono inválido');
     } else {
-      setError(false);
-    }
+      setError(false)
+    };
   };
 
   return (
