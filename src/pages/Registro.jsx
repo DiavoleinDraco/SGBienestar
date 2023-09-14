@@ -9,7 +9,8 @@ import ButtonContraseña from "../components/ButtonContraseña/ButtonContraseña
 import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import './registro.css';
 import { useState, useEffect } from "react";
-import get from "../UseFetch.js";
+import get, { post } from "../UseFetch.js";
+
 
 export default function Registro () {
   const [info, setInfo] = useState({});
@@ -18,8 +19,11 @@ export default function Registro () {
   const [jsonData, setJsonData] = useState(null);
   const [fichas, setFichas] = useState([]);
   const [selectedFichaId, setSelectedFichaId] = useState(null);
-  const [valorE, setEps] = useState([]);
+  const [eps, setEps] = useState([]);
   const [selectedEpsId,setSelecteEpsId ]= useState(null);
+  const [datosListos, setDatosListos] = useState(false);
+  const [rol, setRol] = useState([])
+  const [selectRolId, setSelectRolId] = useState (null)
 
   
   let errorCampo = {};
@@ -41,7 +45,7 @@ export default function Registro () {
   const handleChange = (fieldName, fieldValue) => {
     setInfo((prevInfo) => {
       const updatedInfo = { ...prevInfo, [fieldName]: fieldValue }
-      setJsonData(JSON.stringify(updatedInfo, null, 2))
+      setJsonData(JSON.stringify(info, null, 2))
       return updatedInfo
     });
     setErrors((prevErrors) => {
@@ -49,17 +53,101 @@ export default function Registro () {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const validationErrors = validate(info);
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(info)
-      setSubmittedData(info)
-    } else {
-      setErrors(validationErrors)
-    };
-  };
+
+  useEffect(() => {
+    if (fichas.length > 0 && eps.length > 0 && rol.length > 0) {
+      
+      setDatosListos(true);
+    }
+  }, [fichas, eps, rol]);
   
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+    
+    if (datosListos) {
+      const validationErrors = validate(info);
+      if (Object.keys(validationErrors).length === 0) {
+        console.log(info);
+        setSubmittedData(info);
+      } else {
+        setErrors(validationErrors);
+      }
+    } else {
+      console.log("Esperando a que se carguen los datos...");
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //! ROL 
+  useEffect(() => {
+    get("/rol")
+    .then((data) => {
+     setRol(data);
+     
+  })
+  .catch((error) => {
+    console.error("Error al encontrart el resultado", error);
+  });
+}, []);
+
+const handleRolFormSubmit = (selectRolvalue) => {
+  const selectRolOption = rolOption.find(
+    (option) => option.label === selectRolvalue
+  );
+  if (selectRolOption) {
+    const selectRolId = selectRolOption.value;
+    const updatedInfo = { ...info, rol: selectRolId };
+    setInfo(updatedInfo)
+    setSelectRolId(selectRolId);
+    console.log(updatedInfo);
+  }
+}
+
+const rolOption = rol.map((rol) => ({
+label: rol.nombre , value: rol["_id"]}));
+
+//! FIN ROL 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//! FICHA 
   useEffect(() => {
     get("/ficha")
       .then((data) => {
@@ -70,29 +158,90 @@ export default function Registro () {
       });
   }, []);
   
-  const handleFichaChange = (selectedValue) => {
-    const selectedId = selectedValue.value
-    setSelectedFichaId(selectedId);
+  const handleFichaFormSubmit = (selectedFichaValue) => {
+    const selectedFichaOption = fichasOptions.find(
+      (option) => option.label === selectedFichaValue
+    );
+  
+    if (selectedFichaOption) {
+      const selectedFichaId = selectedFichaOption.value;
+      const updatedInfo = { ...info, ficha: selectedFichaId };
+      setInfo(updatedInfo);
+      setSelectedFichaId(selectedFichaId); // This should be setSelectedFichaId, not value
+      console.log(updatedInfo);
+    }
   };
+
     const fichasOptions = fichas.map((ficha) => ({
     label: ficha.codigo , value: ficha["_id"]}));
+//! FIN FICHA 
 
-  useEffect(() => {
-    get("/eps")
-      .then((data) => {
-        setEps(data);
-      })
-      .catch((error) => {
-        console.error("Error al enontrar resultado", error);
-      });
-  }, []);
 
-  const handleEpsChange = (selectedValue) => {
-  const selectedIdE = selectedValue.value
-  setSelecteEpsId(selectedIdE)
-  };
-  const EpsOpciones = valorE.map ((valorE) => ({
-  label: valorE.nombre , value: valorE["_id"]}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//! EPS 
+    useEffect(() => {
+      get("/eps")
+        .then((data) => {
+          setEps(data);
+        })
+        .catch((error) => {
+          console.error("Error al encontrar resultados de EPS", error);
+        });
+    }, []);
+  
+    const handleEpsFormSubmit = (selectedEpsValue) => {
+      const selectedEpsOption = epsOptions.find(
+        (option) => option.label === selectedEpsValue
+      );
+  
+      if (selectedEpsOption) {
+        const selectedEpsId = selectedEpsOption.value;
+        const updatedInfo = { ...info, eps: selectedEpsId };
+        setInfo(updatedInfo);
+        setSelecteEpsId(selectedEpsId); 
+        console.log(updatedInfo);
+      }
+    };
+  
+    const epsOptions = eps.map((eps) => ({
+      label: eps.nombre,
+      value: eps["_id"],
+    }));
+
+
+
+    //! FIN EPS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
       <div className="padre">
@@ -102,14 +251,14 @@ export default function Registro () {
       <div className="item">
         <Textfield 
         name='Nombres'
-        onChange={(value) => handleChange('Nombres', value)}
+        onChange={(value) => handleChange('nombres', value)}
         required/>
       </div>
 
       <div className="item">
         <Textfield 
         name='Apellidos' 
-        onChange={(value) => handleChange('Apellidos', value)}
+        onChange={(value) => handleChange('apellidos', value)}
         required/>
       </div>
 
@@ -117,71 +266,155 @@ export default function Registro () {
         <ComSelect 
         nombre= "Tipo de documento" 
         items={["C.C", "T.I", "P.A","C.E"]} 
-        onChange={(value) => handleChange('TipoDoc', value)}/>
+        onChange={(value) => handleChange('tipo_doc', value)}/>
       </div>
 
       <div className="item">
         <Textfield 
         name='Número de documento' 
-        onChange={(value) => handleChange('NumeroDoc', value)}
+        onChange={(value) => handleChange('n_doc', value)}
         required/>
       </div>
 
       <div className="item">
         <Date 
         Descripcion= 'Fecha de Nacimiento' 
-        onChange={(value) => handleChange('FechaNac', value)}/>
+        onChange={(value) => handleChange('nacimiento', value)}/>
       </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <div className="item">
-        <ComSelect 
-        nombre= "Rol" 
-        items={["Instructor","Aprendiz","Administrador"]} 
-        onChange={(value) => handleChange('Rol', value)}/>
+      <ComSelect 
+          nombre="Rol" 
+          items={rolOption.map(opcion => opcion.label)}
+          onChange={(value) => handleRolFormSubmit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectRolId} 
+        />
+        
       </div>
+
+
+
+
+
+
+
       </div>
       
       <div className="contenedor2">
       <div className="item">
-        <AutoComplete 
-        nombre= 'Ficha' 
-        array={fichasOptions}
-        onChange={(value) => handleChange('Ficha', value)}/>
+      <AutoComplete
+          nombre="Ficha"
+          array={fichasOptions}
+          onChange={(value) => handleFichaFormSubmit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectedFichaId} 
+            />
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <div className="item">
         <Textfield 
         name='Teléfono' 
-        onChange={(value) => handleChange('Telefono', value)}
+        onChange={(value) => handleChange('telefono', value)}
         required/>
       </div>
 
       <div className="item">
         <Textfield 
         name='Dirección' 
-        onChange={(value) => handleChange('Dirección', value)}/>
+        onChange={(value) => handleChange('direccion', value)}/>
       </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <div className="item">
-        <AutoComplete 
-        nombre= 'EPS' 
-        array={EpsOpciones} 
-        onChange={(value) => handleChange('EPS', value)}/>
+      <AutoComplete
+          nombre="EPS"
+          array={epsOptions}
+          onChange={(value) => handleEpsFormSubmit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelecteEpsId} 
+        />
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
       <div className="item">
         <ComSelect 
         nombre= "Tipo de Sangre" 
         items={["A+","O+","B+","AB+","A-","O-","B-","AB-"]} 
-        onChange={(value) => handleChange('TipoSangre', value)}/>
+        onChange={(value) => handleChange('rh', value)}/>
       </div>
 
       <div className="item">
         <ComSelect 
         nombre= "Género" 
         items={["Masculino","Femenino","Otro"]} 
-        onChange={(value) => handleChange('Genero', value)}/>
+        onChange={(value) => handleChange('genero', value)}/>
       </div>
       </div>
 
@@ -190,31 +423,31 @@ export default function Registro () {
         <InputCorreo 
         label='Correo institucional' 
         institutional 
-        onChange={(value) => handleChange('CorreoInsti', value)}/>
+        onChange={(value) => handleChange('correo_inst', value)}/>
       </div>
 
       <div className="item">
         <InputCorreo 
         label='Correo personal'
         personal 
-        onChange={(value) => handleChange('CorreoPer', value)}/>
+        onChange={(value) => handleChange('correo_pers', value)}/>
       </div>
 
       <div className="item">
         <ButtonContraseña 
         nombre={"contraseña"} 
-        onChange={(value) => handleChange('Contraseña', value)}/>
+        onChange={(value) => handleChange('contrasena', value)}/>
       </div>
 
       <div className="item">
         <ModalTyC 
         nombre='Términos y condiciones' 
         texto='Términos y Condiciones del Sitio Web' 
-        onChange={(value) => handleChange('TyC', value)}/>
+        onChange={(value) => handleChange('pps', value)}/>
         </div>
 
       <div className="item">
-        <Buttons nombre='Registrarse' onclick={() => {console.log(jsonData)}}/>
+        <Buttons nombre='Registrarse' onclick={() => {post("/registro",info); console.log(info)}}/>
       </div>
       </div>
 
