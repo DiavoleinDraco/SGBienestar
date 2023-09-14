@@ -11,26 +11,104 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.padre {
-
-  width: 1000px;
-  margin: 0 auto;
-  border-radius: 20px;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.405);
+.container{
+  margin: auto;
+  width: 800PX;
+  padding: 30PX;
 }
-
 /* form es el padre de la clase padre */
 .form {
-  width: 100% !important;
-  height: 100% !important;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  height: 600px;
+ 
+ display: flex;
+ flex-wrap:wrap;
+ justify-content: center;
+ align-content: start;
 
+  margin:50px auto;
+  background: #F6F6F6;
+  border-radius: 23px;
+  width: 600PX;
+  padding: 5px;
+}
+.tittle{
+  font-size: 2em;
+  color: #3c1263;
+  font-family:  Geneva, Verdana, sans-serif;
+}
+
+ul, li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.slider{
+  position: relative;
+  left: 4px
+  ;
+  width: 440px;
+  
+  height: 600px;
+  margin: 0;
+
+}
+
+ul.slider li{
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: inherit;
+  height: inherit;
+  transition:  opacity .4s;
+
+}
+
+
+
+
+ul.slider li:first-child{
+  opacity: 1;
+
+
+}
+
+
+ul.slider li:target{
+  opacity: 1;
+
+}
+.menu{
+  text-align: center;
+  margin: 20px;
+}
+.uno{
+  left: 400PX;
+}
+
+.menu li{
+ 
+  text-align: center;
+  display: flex;
+  width: 300px;
   justify-content: space-evenly;
-  align-content: center;
+
+
+}
+
+.menu li a{
+  display: inline-block;
+  background: #3c1263;
+  text-decoration: none;
+  background: f6f6f6;
+  padding: 19px;
+  color: #F6F6F6;
+  font-weight: 900px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  border-radius: 100%;
+
 }
 
 .item {
@@ -38,80 +116,20 @@ body {
   height: 65px;
 
 
-
-  /* Agrega un relleno a los elementos para separar su contenido del fondo */
+  
 }
 
-/* Estilo para mensajes de error */
-.error-message {
-  color: red;
-  font-size: 14px;
-}
 
-/* Estilo para resaltar campos con errores */
-.error-field {
-  border: 2px solid red;
-}
+.contenedor{
+ border-radius: 23px;
 
-.cont-registro {
-  background: #f6f6f6;
-  color: blueviolet;
+height: inherit;
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+justify-content: space-evenly;
+ background: #F6F6F6;
 
 }
 
-.contenedor1 {
-  border-radius: 15px;
-  width: 300px;
-  height: 600px;
-  background: #f6f6f6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
 
-.contenedor2 {
-  border-radius: 15px;
-  width: 300px;
-  height: 600px;
-  padding: 1px;
-  background: #f6f6f6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.contenedor3 {
-  border-radius: 15px;
-  width: 300px;
-  height: 600px;
-  padding: 1px;
-  background: #f6f6f6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.botton1 {
-  width: 200px !important;
-  padding-left: 25px;
-  background: none !important;
-  padding-top: 10px !important;
-}
-
-.botton2 {
-  padding-left: 15px;
-  background: none !important;
-  padding-top: 20px !important;
-}
-
-.item-centered {
-  padding-left: 26px;
-}
-
-a {
-  background: #f6f6f6;
-
-}
