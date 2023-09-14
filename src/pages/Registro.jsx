@@ -10,15 +10,33 @@ import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import './registro.css';
 import { useState, useEffect } from "react";
 import get from "../UseFetch.js";
-import Paginacion from "../components/Paginacion/Paginacion.jsx";
 
 export default function Registro () {
-  const [info, setInfo] = useState({})
+  const [info, setInfo] = useState({});
   const [submittedData, setSubmittedData] = useState(null);
   const [errors, setErrors] = useState({});
-  const [jsonData, setJsonData] = useState(null)
-  const [value, actualizar] = useState([])
+  const [jsonData, setJsonData] = useState(null);
+  const [fichas, setFichas] = useState([]);
+  const [selectedFichaId, setSelectedFichaId] = useState(null);
+  const [valorE, setEps] = useState([]);
+  const [selectedEpsId,setSelecteEpsId ]= useState(null);
 
+  
+  let errorCampo = {};
+  const validate = (data) => {
+    if(!data.Nombres || !data.Apellidos || !data.Tipodedocumento || !data.Numerodedocumento || !data.Rol || !data.Teléfono){
+      errorCampo.Nombres = 'Este campo es obligatorio'
+      errorCampo.Apellidos = 'Este campo es obligatorio'
+      errorCampo.Tipodedocumento = 'Este campo es obligatorio'
+      errorCampo.Numerodedocumento = 'Este campo es obligatorio'
+      errorCampo.Rol = 'Este campo es obligatorio'
+      errorCampo.Teléfono = 'Este campo es obligatorio'
+    } else {
+      console.log('hola')
+    }
+    setErrors(errorCampo)
+    console.log(errorCampo) 
+  };
 
   const handleChange = (fieldName, fieldValue) => {
     setInfo((prevInfo) => {
@@ -33,7 +51,7 @@ export default function Registro () {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const validationErrors = validateForm(info);
+    const validationErrors = validate(info);
     if (Object.keys(validationErrors).length === 0) {
       console.log(info)
       setSubmittedData(info)
@@ -41,9 +59,6 @@ export default function Registro () {
       setErrors(validationErrors)
     };
   };
-
-  const [fichas, setFichas] = useState([]);
-  const [selectedFichaId, setSelectedFichaId] = useState(null);
   
   useEffect(() => {
     get("/ficha")
@@ -59,14 +74,8 @@ export default function Registro () {
     const selectedId = selectedValue.value
     setSelectedFichaId(selectedId);
   };
-  
-
     const fichasOptions = fichas.map((ficha) => ({
     label: ficha.codigo , value: ficha["_id"]}));
-
-
-  const [valorE, setEps] = useState([]);
-  const [selectedEpsId,setSelecteEpsId ]= useState(null)
 
   useEffect(() => {
     get("/eps")
@@ -80,14 +89,10 @@ export default function Registro () {
 
   const handleEpsChange = (selectedValue) => {
   const selectedIdE = selectedValue.value
-  setSelecteEpsId(selectedIdE);
-
+  setSelecteEpsId(selectedIdE)
   };
-
   const EpsOpciones = valorE.map ((valorE) => ({
   label: valorE.nombre , value: valorE["_id"]}));
-
-
 
     return (
       <div className="padre">
@@ -97,33 +102,29 @@ export default function Registro () {
       <div className="item">
         <Textfield 
         name='Nombres'
-        onChange={(value) => handleChange('Nombres', value)} 
-        error={errors.Nombres}
-        className={errors.Nombres ? 'error-field' : ''}/>
-        {errors.Nombres && <p className="error-message">{errors.Nombres}</p>}
+        onChange={(value) => handleChange('Nombres', value)}
+        required/>
       </div>
 
       <div className="item">
         <Textfield 
         name='Apellidos' 
-        onChange={(value) => handleChange('Apellidos', value)} 
-        error={errors.Apellidos}/>
-        {errors.Apellidos && <p className="error-message">{errors.Apellidos}</p>}
+        onChange={(value) => handleChange('Apellidos', value)}
+        required/>
       </div>
 
       <div className="item">
         <ComSelect 
         nombre= "Tipo de documento" 
         items={["C.C", "T.I", "P.A","C.E"]} 
-        onChange={(value) => handleChange('TipoDoc', value)} 
-        error={errors.TipoDoc}/>
-        {errors.TipoDoc && <p className="error-message">{errors.TipoDoc}</p>}
+        onChange={(value) => handleChange('TipoDoc', value)}/>
       </div>
 
       <div className="item">
         <Textfield 
         name='Número de documento' 
-        onChange={(value) => handleChange('NumeroDoc', value)}/>
+        onChange={(value) => handleChange('NumeroDoc', value)}
+        required/>
       </div>
 
       <div className="item">
@@ -145,13 +146,14 @@ export default function Registro () {
         <AutoComplete 
         nombre= 'Ficha' 
         array={fichasOptions}
-         onChange={(value) => handleChange('Ficha', value)}/>
+        onChange={(value) => handleChange('Ficha', value)}/>
       </div>
 
       <div className="item">
         <Textfield 
         name='Teléfono' 
-        onChange={(value) => handleChange('Telefono', value)}/>
+        onChange={(value) => handleChange('Telefono', value)}
+        required/>
       </div>
 
       <div className="item">
@@ -216,10 +218,8 @@ export default function Registro () {
       </div>
       </div>
 
-      <Paginacion />
-
       <Link to="/Home">Home</Link>
       </form>
       </div>
-  )
+  );
 };

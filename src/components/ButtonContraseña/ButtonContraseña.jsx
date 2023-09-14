@@ -108,7 +108,7 @@ export default function ButtonContraseña({ nombre, onChange }) {
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                 >
-                  {passwordValues.showPassword ? <VisibilityOff /> : <Visibility />}
+                  {passwordValues.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
