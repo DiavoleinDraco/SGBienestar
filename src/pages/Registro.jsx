@@ -164,10 +164,16 @@ label: rol.nombre , value: rol["_id"]}));
 
 
     return (
-      <div className="padre">
+    
+    
       <form className="form">
-
-      <div className="contenedor1">
+        <h1 className="tittle">Registrate</h1>
+        
+    
+        <ul className="slider">
+          <li id="slide1" >
+            
+      <div className="contenedor uno">
       <div className="item">
         <Textfield 
         name='Nombres'
@@ -213,15 +219,14 @@ label: rol.nombre , value: rol["_id"]}));
           getOptionLabel={(option) => option.label}
           value={setSelectRolId} 
           required
-        />
-        
+        /> 
       </div>
-
-
-
       </div>
-      
-      <div className="contenedor2">
+   </li>
+
+
+    <li id="slide2">
+      <div className="contenedor dos">
       <div className="item">
       <AutoComplete
           nombre="Ficha"
@@ -275,8 +280,9 @@ label: rol.nombre , value: rol["_id"]}));
         onChange={(value) => handleChange('genero', value)}/>
       </div>
       </div>
-
-      <div className="contenedor3">
+      </li>
+      <li id="slide3">
+      <div className="contenedor tres">
       <div className="item">
         <InputCorreo 
         label='Correo institucional' 
@@ -320,9 +326,17 @@ label: rol.nombre , value: rol["_id"]}));
         disabled={!aceptoTerminos}/>
       </div>
       </div>
-
+      </li>
+      </ul>
+      <ul className="menu">
+        <li><a href="#slide1">1</a>
+        <a href="#slide2">2</a>
+        <a href="#slide3">3</a>
+        </li>
+      </ul>
+  
       <Link to="/Home">Home</Link>
       </form>
-      </div>
+
   );
 };
