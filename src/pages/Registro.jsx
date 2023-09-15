@@ -22,7 +22,12 @@ export default function Registro () {
   const [selectedEpsId,setSelecteEpsId ]= useState(null);
   const [datosListos, setDatosListos] = useState(false);
   const [rol, setRol] = useState([])
-  const [selectRolId, setSelectRolId] = useState (null)
+  const [selectRolId, setSelectRolId] = useState (null);
+  const [aceptoTerminos, setAceptoTerminos] = useState(false);
+
+  const handleAceptoTerminosChange = (value) => {
+    setAceptoTerminos(value);
+  };
 
   const handleChange = (fieldName, fieldValue) => {
     setInfo((prevInfo) => {
@@ -46,8 +51,6 @@ export default function Registro () {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    
     if (datosListos) {
       const validationErrors = validate(info);
       if (Object.keys(validationErrors).length === 0) {
@@ -292,18 +295,29 @@ label: rol.nombre , value: rol["_id"]}));
       <div className="item">
         <ButtonContraseña 
         nombre={"contraseña"} 
-        onChange={(value) => handleChange('contrasena', value)}/>
+        onChange={(value) => handleChange('contrasena', value)}
+        required/>
       </div>
 
       <div className="item">
         <ModalTyC 
         nombre='Términos y condiciones' 
         texto='Términos y Condiciones del Sitio Web' 
-        onChange={(value) => handleChange('pps', value)}/>
+        onChange={handleAceptoTerminosChange}
+        aceptoTerminos={aceptoTerminos}/>
         </div>
 
       <div className="item">
-        <Buttons nombre='Registrarse' onclick={() => {post("/registro",info); console.log(info)}}/>
+        <Buttons nombre='Registrarse' 
+        onclick={() => {
+          if (aceptoTerminos) {
+            post("/registro", info);
+            console.log(info);
+          } else {
+            console.log("Debes aceptar los términos y condiciones para registrarte");
+          }
+        }}
+        disabled={!aceptoTerminos}/>
       </div>
       </div>
 

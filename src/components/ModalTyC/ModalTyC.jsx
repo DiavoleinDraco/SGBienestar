@@ -43,15 +43,26 @@ export default function ModalTyC({ nombre, texto, onChange}) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false)
-    // Cuando se cierra el modal, pasa el valor de elementos al componente padre
     onChange(elementos)
   };
   const classes = styles ()
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
   const handleInputChange = () => {
-    // Invierte el valor de elementos cuando se cambia el Checkbox
     setElementos(!elementos);
+    onChange(!elementos);
+  };
+
+  const handleRegistroClick = () => {
+    // Lógica para el registro aquí, verificar que elementos sea verdadero antes de registrar.
+    if (elementos) {
+      // Realizar el registro
+      console.log('Usuario registrado');
+      handleClose(); // Cerrar el modal después del registro
+    } else {
+      // Mostrar un mensaje de error o indicar al usuario que debe aceptar los términos y condiciones.
+      console.log('Debes aceptar los términos y condiciones para registrarte');
+    }
   };
 
   return (

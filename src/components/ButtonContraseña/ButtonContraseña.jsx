@@ -31,9 +31,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonContraseña({ nombre, onChange }) {
-  const [elementos, setElementos] = React.useState('');
+export default function ButtonContraseña({ nombre, onChange, required }) {
+  const [passwordError, setPasswordError] = useState(false);
   const classes = useStyles();
+  
 
 
   const [passwordValues, setPasswordValues] = useState({
@@ -45,12 +46,9 @@ export default function ButtonContraseña({ nombre, onChange }) {
     showConfirmPassword: false,
   });
 
-  const [passwordError, setPasswordError] = useState(false);
-
   const handleChange = (prop) => (event) => {
     setPasswordValues({ ...passwordValues, [prop]: event.target.value })
     const fieldValue = event.target.value
-    setElementos(fieldValue)
     onChange(fieldValue)
   };
 
@@ -70,22 +68,25 @@ export default function ButtonContraseña({ nombre, onChange }) {
     event.preventDefault();
   };
 
-  const handleBlur = () => {
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+  const passwordPattern = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
+  const passwordsMatch = passwordValues.password === confirmPasswordValues.confirmPassword;
+  const passwordValid = !passwordPattern ? 'f' : true;
+  
 
+  const handleBlur = () => {
     if (!passwordPattern.test(passwordValues.password)) {
-      setPasswordError(true);
+      setPasswordError('Contraseña inválida');
     } else {
-      setPasswordError(false);
+      setPasswordError('');
     }
   };
-
+  
   const handleConfirmPasswordBlur = () => {
-    if (passwordValues.password !== confirmPasswordValues.confirmPassword) {
+    if (!passwordsMatch) {
       setPasswordError(true);
     } else {
-      setPasswordError(false);
-    }
+      setPasswordError('');
+    };
   };
 
   return (
@@ -99,8 +100,9 @@ export default function ButtonContraseña({ nombre, onChange }) {
             value={passwordValues.password}
             onChange={handleChange('password')}
             onBlur={handleBlur}
-            error={passwordError}
             label={nombre}
+            error={Boolean(passwordError)}
+            helperText={passwordError}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -113,10 +115,10 @@ export default function ButtonContraseña({ nombre, onChange }) {
               </InputAdornment>
             }
           />
+          {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>) ||
+          (passwordValid) && (<p style={{ color: 'red' }}>Contraseña inválida</p>)}
         </FormControl>
       </div>
-
-
 
       <div className='botton2'>
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
@@ -127,7 +129,8 @@ export default function ButtonContraseña({ nombre, onChange }) {
             value={confirmPasswordValues.confirmPassword}
             onChange={handleChangeConfirmPassword('confirmPassword')}
             onBlur={handleConfirmPasswordBlur}
-            error={passwordError}
+            error={Boolean(passwordError)}
+            helperText={passwordError}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -142,8 +145,9 @@ export default function ButtonContraseña({ nombre, onChange }) {
             }
             labelWidth={160}
           />
+          {(!passwordsMatch) && (<p style={{ color: 'red' }}>Las contraseñas no coinciden.</p>)}
         </FormControl>
       </div>
     </div>
   );
-}
+};
