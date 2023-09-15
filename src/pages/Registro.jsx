@@ -294,7 +294,6 @@ label: rol.nombre , value: rol["_id"]}));
       <div className="item">
         <InputCorreo 
         label='Correo personal'
-        personal 
         onChange={(value) => handleChange('correo_pers', value)}/>
       </div>
 
@@ -305,7 +304,7 @@ label: rol.nombre , value: rol["_id"]}));
         required/>
       </div>
 
-      <div className="item">
+      <div className="item-TyC">
         <ModalTyC 
         nombre='Términos y condiciones' 
         texto='Términos y Condiciones del Sitio Web' 
@@ -326,6 +325,7 @@ label: rol.nombre , value: rol["_id"]}));
         disabled={!aceptoTerminos}/>
       </div>
       </div>
+
       </li>
       </ul>
       <ul className="menu">

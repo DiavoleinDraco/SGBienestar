@@ -5,7 +5,7 @@ import { Stack } from '@mui/material';
 import './AutoComplete.css'
 
 
-export default function AutoComplete({ nombre, array, obligatorio, onChange }) {
+export default function AutoComplete({ nombre, array, onChange }) {
   const [value, setValue] = React.useState(null); 
 
   return (
@@ -31,7 +31,7 @@ export default function AutoComplete({ nombre, array, obligatorio, onChange }) {
         }}
         getOptionLabel={(option) => (option.label || '').toString()}
         renderInput={(params) => (
-          <TextField {...params} label={nombre} required={obligatorio} variant="standard"  className='le' />
+          <TextField {...params} label={nombre} variant="standard" className='le' />
         )}
       />
 

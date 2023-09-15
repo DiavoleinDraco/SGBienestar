@@ -69,6 +69,7 @@ ul.slider li{
 
 ul.slider li:first-child{
   opacity: 1;
+  z-index: 1;
 
 
 }
@@ -76,6 +77,7 @@ ul.slider li:first-child{
 
 ul.slider li:target{
   opacity: 1;
+  z-index: 1;
 
 }
 .menu{
@@ -132,4 +134,7 @@ justify-content: space-evenly;
 
 }
 
+.item-TyC {
+  padding-top: 90px;
+}
 

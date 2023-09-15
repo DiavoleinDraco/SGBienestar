@@ -3,6 +3,7 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import './ComantCorreo.css';
+import get from '../../UseFetch';
 
 
 export default function InputCorreo({ label, institutional, onChange, required }){
@@ -11,7 +12,18 @@ export default function InputCorreo({ label, institutional, onChange, required }
   const [esSenadominioValid, setSenadominioValid] = useState(true);
   const [error, setError] = useState(''); 
 
+  useEffect(() => {
+    get('/dominio-sena')
+      .then(data => {
+        actualizarI(data);
+      })
+      .catch(error => {
+        console.error('Error al encontrar resultado', error);
+      });
+  }, []);
+
   const InstitucionalEmailValid = valueI.map(item => item.nombre);
+  
   const handleInputChange = (e) => {
     const fieldValue = e.target.value;
     setEmail(fieldValue);
@@ -38,12 +50,11 @@ export default function InputCorreo({ label, institutional, onChange, required }
         type="email"
         value={email}
         onChange={handleInputChange}
-        error={ false || false || false}
+        error={ Boolean(error)}
         onBlur={handleBlur}
         helperText={error}
       />
-      {(!esCorreoInstitucionalValido) && (
-        <p style={{ color: 'red' }}>Correo electrónico no válido</p> ) ||
+      {(!esCorreoInstitucionalValido) && (<p style={{ color: 'red' }}>Correo electrónico no válido</p> ) ||
         (error) && (<p style={{ color: "red" }}>Este campo es obligatorio.</p>)}
     </FormControl>
   );

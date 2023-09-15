@@ -70,7 +70,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
 
   const passwordPattern = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
   const passwordsMatch = passwordValues.password === confirmPasswordValues.confirmPassword;
-  const passwordValid = !passwordPattern ? 'f' : true;
+  const passwordValid = !passwordPattern ? '' : false;
   
 
   const handleBlur = () => {
@@ -115,7 +115,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
               </InputAdornment>
             }
           />
-          {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>) ||
+          {(passwordError && required) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>) ||
           (passwordValid) && (<p style={{ color: 'red' }}>Contraseña inválida</p>)}
         </FormControl>
       </div>
