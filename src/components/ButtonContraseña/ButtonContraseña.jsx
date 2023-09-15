@@ -92,7 +92,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
   return (
     <div className={classes.root}>
       <div className='botton1'>
-        <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+        <FormControl sx={{ m: 1, width: '210px' }} variant="standard">
           <InputLabel className='contraseña' htmlFor="standard-adornment-password">{nombre}</InputLabel>
           <Input
             id="standard-adornment-password"

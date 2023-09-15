@@ -1,5 +1,14 @@
 
 .email{
     left: -12px !important;
-    top: 8px !important; 
+    top: 8px !important;
+}
+
+#email-input {
+    position: relative;
+    width: 200px;
+}
+
+.imput-email {
+    position: relative;
 }

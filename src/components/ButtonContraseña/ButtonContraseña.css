@@ -1,21 +1,33 @@
 .botton {
     width: 100% !important;
     background: lightcyan;
-
 }
 
 /* button contrasena */
 .contraseña {
-    font-size: 15.5px !important;
+    font-size: 17.5px !important;
     top: 5px !important;
-    left: 2px !important;
+    left: 0px !important;
     text-align: start !important;
 }
 
 /*  buton comfirmar contrasena */
 .comf {
-    font-size: 15.5px !important;
+    font-size: 17.5px !important;
     text-align: start !important;
-    left: -12px !important;
-    top: 5px !important;
+    left: -15px !important;
+    top: 8px !important;
 }
+
+.botton1 {
+    position: relative;
+    top: -20px;
+    left: -2px;
+}
+
+.botton2 {
+    position: relative;
+    top: -10px;
+    left: 18px;
+}
+

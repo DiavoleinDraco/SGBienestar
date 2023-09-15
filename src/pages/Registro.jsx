@@ -283,7 +283,7 @@ label: rol.nombre , value: rol["_id"]}));
       </li>
       <li id="slide3">
       <div className="contenedor tres">
-      <div className="item">
+      <div className=" item item-correo">
         <InputCorreo 
         label='Correo institucional' 
         institutional 
@@ -291,7 +291,7 @@ label: rol.nombre , value: rol["_id"]}));
         required/>
       </div>
 
-      <div className="item">
+      <div className="item item-correo">
         <InputCorreo 
         label='Correo personal'
         onChange={(value) => handleChange('correo_pers', value)}/>
@@ -299,7 +299,7 @@ label: rol.nombre , value: rol["_id"]}));
 
       <div className="item">
         <ButtonContraseña 
-        nombre={"contraseña"} 
+        nombre={"Contraseña"} 
         onChange={(value) => handleChange('contrasena', value)}
         required/>
       </div>
@@ -312,7 +312,7 @@ label: rol.nombre , value: rol["_id"]}));
         aceptoTerminos={aceptoTerminos}/>
         </div>
 
-      <div className="item">
+      <div className="item item-reg">
         <Buttons nombre='Registrarse' 
         onclick={() => {
           if (aceptoTerminos) {

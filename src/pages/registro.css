@@ -135,6 +135,21 @@ justify-content: space-evenly;
 }
 
 .item-TyC {
-  padding-top: 90px;
+  position: relative;
+  top: 50px;
 }
 
+.botton1 {
+  width: 200px;
+  padding: 30px;
+  margin-top: -13% !important;
+}
+
+.item-correo {
+  margin: -14px;
+}
+
+.item-reg {
+  position: relative;
+  top: 40px;
+}

@@ -42,7 +42,7 @@ export default function InputCorreo({ label, institutional, onChange, required }
   };
   
   return (
-    <FormControl>
+    <FormControl className='imput-email'>
       <InputLabel className='email' htmlFor="email-input">{label}</InputLabel>
       <Input
         autoComplete="off"
