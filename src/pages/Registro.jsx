@@ -192,7 +192,7 @@ label: rol.nombre , value: rol["_id"]}));
         <ComSelect 
         nombre= "Tipo de documento" 
         items={["C.C", "T.I", "P.A","C.E"]} 
-        onChange={(value) => handleChange('TipoDoc', value)}
+        onChange={(value) => handleChange('tipo_doc', value)}
         required/>
       </div>
 
