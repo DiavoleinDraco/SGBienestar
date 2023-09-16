@@ -29,10 +29,10 @@ export default function Registro () {
     setAceptoTerminos(value);
   };
 
+  let updatedInfo = null
   const handleChange = (fieldName, fieldValue) => {
     setInfo((prevInfo) => {
-      const updatedInfo = { ...prevInfo, [fieldName]: fieldValue }
-      setJsonData(JSON.stringify(info, null, 2))
+      updatedInfo = { ...prevInfo, [fieldName]: fieldValue}
       return updatedInfo
     });
     setErrors((prevErrors) => {
@@ -47,24 +47,6 @@ export default function Registro () {
       setDatosListos(true);
     }
   }, [fichas, eps, rol]);
-  
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (datosListos) {
-      const validationErrors = validate(info);
-      if (Object.keys(validationErrors).length === 0) {
-        console.log(info);
-        setSubmittedData(info);
-      } else {
-        setErrors(validationErrors);
-      }
-    } else {
-      console.log("Esperando a que se carguen los datos...");
-    }
-  };
-
-
 
   //! ROL 
   useEffect(() => {
@@ -96,7 +78,6 @@ label: rol.nombre , value: rol["_id"]}));
 
 //! FIN ROL 
 
-
 //! FICHA 
   useEffect(() => {
     get("/ficha")
@@ -125,7 +106,6 @@ label: rol.nombre , value: rol["_id"]}));
     const fichasOptions = fichas.map((ficha) => ({
     label: ficha.codigo , value: ficha["_id"]}));
 //! FIN FICHA 
-
 
 
 //! EPS 
@@ -209,8 +189,6 @@ label: rol.nombre , value: rol["_id"]}));
         onChange={(value) => handleChange('nacimiento', value)}/>
       </div>
 
-
-
       <div className="item">
       <ComSelect 
           nombre="Rol" 
@@ -224,7 +202,6 @@ label: rol.nombre , value: rol["_id"]}));
       </div>
    </li>
 
-
     <li id="slide2">
       <div className="contenedor dos">
       <div className="item">
@@ -236,8 +213,6 @@ label: rol.nombre , value: rol["_id"]}));
           value={setSelectedFichaId} 
             />
       </div>
-
-
 
       <div className="item">
         <Textfield 
@@ -283,7 +258,7 @@ label: rol.nombre , value: rol["_id"]}));
       </li>
       <li id="slide3">
       <div className="contenedor tres">
-      <div className=" item item-correo">
+      <div className="item">
         <InputCorreo 
         label='Correo institucional' 
         institutional 
@@ -291,7 +266,7 @@ label: rol.nombre , value: rol["_id"]}));
         required/>
       </div>
 
-      <div className="item item-correo">
+      <div className="item">
         <InputCorreo 
         label='Correo personal'
         onChange={(value) => handleChange('correo_pers', value)}/>
@@ -299,7 +274,7 @@ label: rol.nombre , value: rol["_id"]}));
 
       <div className="item">
         <ButtonContraseña 
-        nombre={"Contraseña"} 
+        nombre={"contraseña"} 
         onChange={(value) => handleChange('contrasena', value)}
         required/>
       </div>
@@ -308,18 +283,18 @@ label: rol.nombre , value: rol["_id"]}));
         <ModalTyC 
         nombre='Términos y condiciones' 
         texto='Términos y Condiciones del Sitio Web' 
-        onChange={handleAceptoTerminosChange}
-        aceptoTerminos={aceptoTerminos}/>
+        onChange={handleAceptoTerminosChange}/>
         </div>
 
-      <div className="item item-reg">
+      <div className="item">
         <Buttons nombre='Registrarse' 
         onclick={() => {
           if (aceptoTerminos) {
+            info['pps'] = aceptoTerminos
             post("/registro", info);
             console.log(info);
           } else {
-            console.log("Debes aceptar los términos y condiciones para registrarte");
+            console.error("Debes aceptar los términos y condiciones para registrarte");
           }
         }}
         disabled={!aceptoTerminos}/>

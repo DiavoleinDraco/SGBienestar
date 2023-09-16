@@ -6,21 +6,28 @@ import { useState } from "react";
 
 export default function Textfield({ name, required, onChange }) {
   const [error, setError] = useState('');
+  const [data, setData] = useState('');
+  const [errorTelefono, setErrorTelefono] = useState('');
 
   const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
 
   const handleInputChange = (e) => {
     const fieldValue = e.target.value;
     onChange(fieldValue)
+    setData(fieldValue)
   };
 
-  const handleBlur = (event) => {
-    if (required && event.target.value === '') {
-      setError('Este campo es obligatorio');
-    } else if(name === 'Teléfono' && !telefonoRegex.test(event.target.value)){
-      setError('Teléfono inválido');
+  const handleBlur = () => {
+    if (required && data === '') {
+      setError(true);
     } else {
       setError(false)
+    };
+
+    if(name === 'Teléfono' && !telefonoRegex.test(data)){
+      setErrorTelefono(true);
+    } else {
+      setErrorTelefono(false)
     };
   };
 
@@ -42,9 +49,11 @@ export default function Textfield({ name, required, onChange }) {
             label={name}
             variant="standard"
             onChange={handleInputChange}
-            error={Boolean(error)}
-            helperText={error}
+            error={Boolean(error || errorTelefono)}
+            helperText={error || errorTelefono}
           />
+          {(error) && (<p style={{ color: "RED" }}>Este campo es obligatorio.</p>) || 
+          (errorTelefono) && (<p style={{ color: "RED" }}>Teléfono inválido</p>)}
         </div>
       </Box>
     </div>

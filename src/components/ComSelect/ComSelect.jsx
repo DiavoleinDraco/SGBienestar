@@ -47,7 +47,7 @@ export default function ComSelect({ descrip, items, nombre, required, onChange  
             </MenuItem>
           ))}
         </Select>
-        {error && <p style={{ color: "red" }}>Este campo es obligatorio.</p>}
+        {error && <p style={{ color: "RED" }}>Este campo es obligatorio.</p>}
       </FormControl>
     </div>
   );

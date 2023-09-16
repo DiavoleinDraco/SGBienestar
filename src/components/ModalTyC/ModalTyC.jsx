@@ -53,21 +53,9 @@ export default function ModalTyC({ nombre, texto, onChange}) {
     onChange(!elementos);
   };
 
-  const handleRegistroClick = () => {
-    // Lógica para el registro aquí, verificar que elementos sea verdadero antes de registrar.
-    if (elementos) {
-      // Realizar el registro
-      console.log('Usuario registrado');
-      handleClose(); // Cerrar el modal después del registro
-    } else {
-      // Mostrar un mensaje de error o indicar al usuario que debe aceptar los términos y condiciones.
-      console.log('Debes aceptar los términos y condiciones para registrarte');
-    }
-  };
-
   return (
     <div>
-      <Button onClick={handleOpen}>{nombre}</Button>
+      <Button onClick={handleOpen}> <Typography id="transition-modal-description" sx={contentStyle}>{nombre} <Checkbox {...label} checked={elementos} onChange={handleInputChange} /></Typography></Button>
       <Modal
         className={classes.maiBtn}
         aria-labelledby="transition-modal-title"
@@ -85,9 +73,8 @@ export default function ModalTyC({ nombre, texto, onChange}) {
         <Fade in={open}>
           <Box sx={modalStyle}>
             <Typography id="transition-modal-title" variant="h6" component="h2" >
-             Politicas De Terminos Y Condiciones
+             {texto}
             </Typography>
-            <Typography id="transition-modal-description" sx={contentStyle}> {texto} <Checkbox {...label} checked={elementos} onChange={handleInputChange} /> Aceptar términos y condiciones.</Typography>
           </Box>
         </Fade>
       </Modal>

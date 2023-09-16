@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonContraseña({ nombre, onChange, required }) {
   const [passwordError, setPasswordError] = useState(false);
   const classes = useStyles();
+  const [errorValido, setErrorValido] = useState(false);
   
 
 
@@ -68,19 +69,24 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
     event.preventDefault();
   };
 
-  const passwordPattern = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
+  const passwordPattern = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,20}$/;
   const passwordsMatch = passwordValues.password === confirmPasswordValues.confirmPassword;
-  const passwordValid = !passwordPattern ? '' : false;
   
 
   const handleBlur = () => {
-    if (!passwordPattern.test(passwordValues.password)) {
-      setPasswordError('Contraseña inválida');
+    if (required && passwordValues.password === '') {
+      setPasswordError(true);
     } else {
       setPasswordError('');
     }
+
+    if (!passwordPattern.test(passwordValues.password)) {
+      setErrorValido(true);
+    } else {
+      setErrorValido('');
+    }
+
   };
-  
   const handleConfirmPasswordBlur = () => {
     if (!passwordsMatch) {
       setPasswordError(true);
@@ -101,8 +107,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
             onChange={handleChange('password')}
             onBlur={handleBlur}
             label={nombre}
-            error={Boolean(passwordError)}
-            helperText={passwordError}
+            error={Boolean(passwordError || errorValido)}
+            helperText={passwordError || errorValido}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -115,8 +121,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
               </InputAdornment>
             }
           />
-          {(passwordError && required) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>) ||
-          (passwordValid) && (<p style={{ color: 'red' }}>Contraseña inválida</p>)}
+          {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>) ||
+          (errorValido) && (<p style={{ color: 'red' }}>Contraseña inválida</p>)}
         </FormControl>
       </div>
 

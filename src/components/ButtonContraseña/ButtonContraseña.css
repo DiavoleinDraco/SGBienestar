@@ -31,3 +31,7 @@
     left: 18px;
 }
 
+.MuiInput-underline.Mui-error:after {
+    transform: scaleX(1);
+    border-bottom-color: rgba(0, 0, 0, 0.668) !important;
+}
