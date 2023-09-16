@@ -11,6 +11,7 @@ body {
 
 /* form es el padre de la clase padre */
 .form {
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -28,17 +29,34 @@ body {
   height: 710px;
   width: 770px;
   /* left: 58%;*/
-  top: 240px; 
+  top: 320px; 
   background: rgba(255, 255, 255, 0.5);
   z-index: -1;
 
 }
 
+
+#imagenes{
+  position: absolute;
+  width: 490px;
+  top: -9px;
+  left: auto;
+  height:20em;
+
+
+  
+
+  
+}
+#imagenes img{
+object-fit: cover;
+  height: auto;
+  width: 100%;
+}
 .father {
   flex-wrap: wrap;
-
   display: flex;
-  margin: 50px auto;
+  margin: 150px auto;
   width: 900px;
   justify-content: center;
   align-content: center;
@@ -46,7 +64,7 @@ body {
 
 .child-two {
   position: absolute;
-  top: 162px; 
+  top: 250px; 
   border-radius: 30px;
   height: 850px;
   width: 685px;

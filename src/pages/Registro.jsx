@@ -10,6 +10,7 @@ import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import './registro.css';
 import { useState, useEffect } from "react";
 import get, { post } from "../UseFetch.js";
+import miimagen from '../pages/imagenes/sena-bienestar.png'
 
 
 export default function Registro () {
@@ -166,8 +167,12 @@ label: rol.nombre , value: rol["_id"]}));
     return (
     
     
-
+       
       <div className="father"> 
+
+      <div id="imagenes">
+        <img src={miimagen} alt="sena-imagen" />
+      </div>
       <div className="child"></div>
       <div className="child-two"></div>
       
@@ -339,6 +344,7 @@ label: rol.nombre , value: rol["_id"]}));
       </ul>
       </form>
       </div>
+      
 
   );
 };
