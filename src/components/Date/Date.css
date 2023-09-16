@@ -1,5 +1,4 @@
-
-#date{
- text-align: start;
-    color: grey;
+.mainBtn {
+    position: relative;
+    right: 18px !important;
 }

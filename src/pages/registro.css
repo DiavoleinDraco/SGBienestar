@@ -61,6 +61,8 @@ body {
   font-size: 3em;
   color: #3c1263;
   font-family: 'Questrial', sans-serif;
+  position: relative;
+  top: 16px;
 }
 
 ul,
@@ -71,7 +73,7 @@ li {
 
 }
 
-ul.slider {
+ul.slider { 
   position: relative;
   width: 440px;
   height: 750px;
@@ -134,10 +136,6 @@ ul.slider li:target {
 .item {
   width: 250px;
   height: 60px;
-
-
-
-
 }
 
 .contenedor {
@@ -154,7 +152,8 @@ ul.slider li:target {
 
 .item-TyC {
   position: relative;
-  top: 50px;
+  top: 56px;
+  right: 10px;
 }
 
 .botton1 {
@@ -170,4 +169,11 @@ ul.slider li:target {
 .item-reg {
   position: relative;
   top: 40px;
+}
+
+.item-fecha, 
+.item-ficha,
+.item-eps {
+  position: relative;
+  right: 14px;
 }

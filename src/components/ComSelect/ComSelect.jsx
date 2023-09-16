@@ -25,7 +25,7 @@ export default function ComSelect({ descrip, items, nombre, required, onChange  
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, width: "25ch" }} size="small">
+      <FormControl className="comselect-imput" variant="standard" sx={{ m: 1, width: "200px" }} size="small">
         <InputLabel id="demo-simple-select-standard-label">{nombre}</InputLabel>
         <Select
           className="comselect"
