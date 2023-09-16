@@ -21,14 +21,14 @@
 
 .botton1 {
     position: relative;
-    top: -20px;
-    left: -2px;
+    top: -30px;
+    right: 18px;
 }
 
 .botton2 {
     position: relative;
-    top: -10px;
-    left: 18px;
+    top: 2px;
+    left: 6px;
 }
 
 .MuiInput-underline.Mui-error:after {

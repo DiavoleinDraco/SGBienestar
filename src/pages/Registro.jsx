@@ -10,6 +10,7 @@ import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import './registro.css';
 import { useState, useEffect } from "react";
 import get, { post } from "../UseFetch.js";
+import miimagen from '../pages/imagenes/sena-bienestar.png'
 
 
 export default function Registro () {
@@ -146,6 +147,15 @@ label: rol.nombre , value: rol["_id"]}));
     return (
     
     
+       
+      <div className="father"> 
+
+      <div id="imagenes">
+        <img src={miimagen} alt="sena-imagen" />
+      </div>
+      <div className="child"></div>
+      <div className="child-two"></div>
+      
       <form className="form">
         <h1 className="tittle">Registrate</h1>
         
@@ -172,7 +182,7 @@ label: rol.nombre , value: rol["_id"]}));
         <ComSelect 
         nombre= "Tipo de documento" 
         items={["C.C", "T.I", "P.A","C.E"]} 
-        onChange={(value) => handleChange('TipoDoc', value)}
+        onChange={(value) => handleChange('tipo_doc', value)}
         required/>
       </div>
 
@@ -183,7 +193,7 @@ label: rol.nombre , value: rol["_id"]}));
         required/>
       </div>
 
-      <div className="item">
+      <div className="item item-fecha">
         <Date 
         Descripcion= 'Fecha de Nacimiento' 
         onChange={(value) => handleChange('nacimiento', value)}/>
@@ -204,7 +214,7 @@ label: rol.nombre , value: rol["_id"]}));
 
     <li id="slide2">
       <div className="contenedor dos">
-      <div className="item">
+      <div className="item item-ficha">
       <AutoComplete
           nombre="Ficha"
           array={fichasOptions}
@@ -229,7 +239,7 @@ label: rol.nombre , value: rol["_id"]}));
 
 
 
-      <div className="item">
+      <div className="item item-eps">
       <AutoComplete
           nombre="EPS"
           array={epsOptions}
@@ -309,9 +319,9 @@ label: rol.nombre , value: rol["_id"]}));
         <a href="#slide3">3</a>
         </li>
       </ul>
-  
-      <Link to="/Home">Home</Link>
       </form>
+      </div>
+      
 
   );
 };
