@@ -213,7 +213,7 @@ label: rol.nombre , value: rol["_id"]}));
         required/>
       </div>
 
-      <div className="item">
+      <div className="item item-fecha">
         <Date 
         Descripcion= 'Fecha de Nacimiento' 
         onChange={(value) => handleChange('nacimiento', value)}/>
@@ -237,7 +237,7 @@ label: rol.nombre , value: rol["_id"]}));
 
     <li id="slide2">
       <div className="contenedor dos">
-      <div className="item">
+      <div className="item item-ficha">
       <AutoComplete
           nombre="Ficha"
           array={fichasOptions}
@@ -262,7 +262,7 @@ label: rol.nombre , value: rol["_id"]}));
 
 
 
-      <div className="item">
+      <div className="item item-eps">
       <AutoComplete
           nombre="EPS"
           array={epsOptions}
