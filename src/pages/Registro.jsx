@@ -166,6 +166,11 @@ label: rol.nombre , value: rol["_id"]}));
     return (
     
     
+
+      <div className="father"> 
+      <div className="child"></div>
+      <div className="child-two"></div>
+      
       <form className="form">
         <h1 className="tittle">Registrate</h1>
         
@@ -236,8 +241,6 @@ label: rol.nombre , value: rol["_id"]}));
           value={setSelectedFichaId} 
             />
       </div>
-
-
 
       <div className="item">
         <Textfield 
@@ -334,9 +337,8 @@ label: rol.nombre , value: rol["_id"]}));
         <a href="#slide3">3</a>
         </li>
       </ul>
-  
-      <Link to="/Home">Home</Link>
       </form>
+      </div>
 
   );
 };
