@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { Visibility } from '@material-ui/icons';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import './ButtonContraseña.css';
+import Tooltip from '@mui/material/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,9 +36,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
   const [passwordError, setPasswordError] = useState(false);
   const classes = useStyles();
   const [errorValido, setErrorValido] = useState(false);
+
   
-
-
   const [passwordValues, setPasswordValues] = useState({
     password: '',
     showPassword: false,
@@ -69,7 +69,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
     event.preventDefault();
   };
 
-  const passwordPattern = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,20}$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{8,20}$/
+  ;
   const passwordsMatch = passwordValues.password === confirmPasswordValues.confirmPassword;
   
 
@@ -83,7 +84,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
     if (!passwordPattern.test(passwordValues.password)) {
       setErrorValido(true);
     } else {
-      setErrorValido('');
+      setErrorValido(false);
     }
 
   };
@@ -91,13 +92,16 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
     if (!passwordsMatch) {
       setPasswordError(true);
     } else {
-      setPasswordError('');
+      setPasswordError(false);
     };
   };
 
   return (
     <div className={classes.root}>
       <div className='botton1'>
+        <Tooltip title='La contraseña debe contener al menos 8 caracteres, incluyendo números, mayúsculas, minúsculas y caracteres especiales.'
+        arrow
+        sx={{ fontSize: '26px' }}>
         <FormControl sx={{ m: 1, width: '210px' }} variant="standard">
           <InputLabel className='contraseña' htmlFor="standard-adornment-password">{nombre}</InputLabel>
           <Input
@@ -107,8 +111,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
             onChange={handleChange('password')}
             onBlur={handleBlur}
             label={nombre}
-            error={Boolean(passwordError || errorValido)}
-            helperText={passwordError || errorValido}
+            error={Boolean(passwordError)}
+            helperText={passwordError}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -124,6 +128,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
           {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>) ||
           (errorValido) && (<p style={{ color: 'red' }}>Contraseña inválida</p>)}
         </FormControl>
+        </Tooltip>
       </div>
 
       <div className='botton2'>

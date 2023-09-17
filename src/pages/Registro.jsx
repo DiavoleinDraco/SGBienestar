@@ -11,6 +11,10 @@ import './registro.css';
 import { useState, useEffect } from "react";
 import get, { post } from "../UseFetch.js";
 import miimagen from '../pages/imagenes/sena-bienestar.png'
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Stack from '@mui/material/Stack';
+import { forwardRef } from "react";
 
 
 export default function Registro () {
@@ -25,7 +29,19 @@ export default function Registro () {
   const [rol, setRol] = useState([])
   const [selectRolId, setSelectRolId] = useState (null);
   const [aceptoTerminos, setAceptoTerminos] = useState(false);
+  const [open, setOpen] = useState(false);
 
+  const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+  
   const handleAceptoTerminosChange = (value) => {
     setAceptoTerminos(value);
   };
@@ -40,6 +56,20 @@ export default function Registro () {
       return { ...prevErrors, [fieldName]: '' };
     });
   };
+
+  const handleRegistroClick = () => {
+    if (aceptoTerminos) {;
+      if (aceptoTerminos) {
+        info['pps'] = aceptoTerminos;
+        post("/registro", info)
+        console.log('Registro exitoso',info)
+      } else {
+        setOpen(true);
+      }
+    } else {
+      setOpen(true);
+    }
+  }
 
 
   useEffect(() => {
@@ -70,7 +100,6 @@ const handleRolFormSubmit = (selectRolvalue) => {
     const updatedInfo = { ...info, rol: selectRolId };
     setInfo(updatedInfo)
     setSelectRolId(selectRolId);
-    console.log(updatedInfo);
   }
 }
 
@@ -139,14 +168,9 @@ label: rol.nombre , value: rol["_id"]}));
       value: eps["_id"],
     }));
 
-
-
     //! FIN EPS 
 
-
     return (
-    
-    
        
       <div className="father"> 
 
@@ -264,6 +288,7 @@ label: rol.nombre , value: rol["_id"]}));
         items={["Masculino","Femenino","Otro"]} 
         onChange={(value) => handleChange('genero', value)}/>
       </div>
+
       </div>
       </li>
       <li id="slide3">
@@ -289,6 +314,14 @@ label: rol.nombre , value: rol["_id"]}));
         required/>
       </div>
 
+      <Stack spacing={2} sx={{ width: '100%' }}>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          Completa todos los campos obligatorios!
+        </Alert>
+      </Snackbar>
+    </Stack>
+
       <div className="item-TyC">
         <ModalTyC 
         nombre='Términos y condiciones' 
@@ -298,15 +331,7 @@ label: rol.nombre , value: rol["_id"]}));
 
       <div className="item">
         <Buttons nombre='Registrarse' 
-        onclick={() => {
-          if (aceptoTerminos) {
-            info['pps'] = aceptoTerminos
-            post("/registro", info);
-            console.log(info);
-          } else {
-            console.error("Debes aceptar los términos y condiciones para registrarte");
-          }
-        }}
+        onclick={(handleRegistroClick)}
         disabled={!aceptoTerminos}/>
       </div>
       </div>
@@ -321,7 +346,5 @@ label: rol.nombre , value: rol["_id"]}));
       </ul>
       </form>
       </div>
-      
-
   );
 };
