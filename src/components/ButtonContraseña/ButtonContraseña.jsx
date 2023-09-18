@@ -69,7 +69,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
     event.preventDefault();
   };
 
-  const passwordPattern = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{8,20}$/
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,20}/;
   ;
   const passwordsMatch = passwordValues.password === confirmPasswordValues.confirmPassword;
   

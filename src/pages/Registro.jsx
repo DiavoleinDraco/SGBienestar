@@ -312,7 +312,8 @@ label: rol.nombre , value: rol["_id"]}));
       <div className="item">
         <Textfield 
         name='Dirección' 
-        onChange={(value) => handleChange('direccion', value)}/>
+        onChange={(value) => handleChange('direccion', value)}
+        required/>
       </div>
 
 
@@ -340,7 +341,8 @@ label: rol.nombre , value: rol["_id"]}));
         <ComSelect 
         nombre= "Género" 
         items={["Masculino","Femenino","Otro"]} 
-        onChange={(value) => handleChange('genero', value)}/>
+        onChange={(value) => handleChange('genero', value)}
+        required/>
       </div>
 
       </div>
@@ -371,17 +373,10 @@ label: rol.nombre , value: rol["_id"]}));
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-             Completa todos los campos obligatorios
+             Completa todos los campos obligatorios y de forma correcta!
        </Alert>
-      </Snackbar>
-         {registroExitoso && (
-         <Snackbar open={registroExitoso} autoHideDuration={6000} onClose={() => setRegistroExitoso(false)}>
-          <Alert onClose={() => setRegistroExitoso(false)} severity="success" sx={{ width: '100%' }}>
-             ¡Registro exitoso!
-        </Alert>
-      </Snackbar>
-  )}
-</Stack>
+        </Snackbar>
+      </Stack>
 
       <div className="item-TyC">
         <ModalTyC 
@@ -422,7 +417,7 @@ label: rol.nombre , value: rol["_id"]}));
         disabled={!aceptoTerminos}/>
       </div>
       </div>
-
+      
       </li>
       </ul>
       <ul className="menu">
@@ -432,6 +427,9 @@ label: rol.nombre , value: rol["_id"]}));
         </li>
       </ul>
       </form>
+      <div id="home" >
+      <Link to="/home">Home</Link>
+      </div>
       </div>
   );
 };
