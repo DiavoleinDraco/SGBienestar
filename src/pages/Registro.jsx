@@ -30,6 +30,9 @@ export default function Registro () {
   const [selectRolId, setSelectRolId] = useState (null);
   const [aceptoTerminos, setAceptoTerminos] = useState(false);
   const [open, setOpen] = useState(false);
+  const [registroExitoso, setRegistroExitoso] = useState(false);
+
+
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -57,19 +60,52 @@ export default function Registro () {
     });
   };
 
-  const handleRegistroClick = () => {
-    if (aceptoTerminos) {;
-      if (aceptoTerminos) {
-        info['pps'] = aceptoTerminos;
-        post("/registro", info)
-        console.log('Registro exitoso',info)
-      } else {
-        setOpen(true);
+  
+  const validarCamposObligatorios = () => {
+    const camposObligatorios = [
+    'nombres',
+    'apellidos',
+    'tipo_doc',
+    'n_doc',
+    'telefono',
+    'correo_inst',
+    'rol', 
+    'genero',
+    'contrasena',
+    'direccion'
+    ];
+    const errores = {};
+
+    camposObligatorios.forEach((campo) => {
+      if (!info[campo] || info[campo] === false) {
+        errores[campo] = 'Este campo es obligatorio.';
       }
+    });
+
+
+    setErrors(errores);
+    return Object.keys(errores).length === 0;
+  };
+
+  const realizarRegistro = () => {
+    post("/registro", info)
+    console.log('Registro exitoso',info)
+  };
+  
+  
+
+  const handleRegistroClick = () => {
+    const camposObligatoriosLlenos = validarCamposObligatorios();
+  
+    if (aceptoTerminos && camposObligatoriosLlenos) {
+      info['pps'] = true;
+      realizarRegistro();
     } else {
-      setOpen(true);
+      info['pps'] = false;
+      setOpen(true); 
     }
-  }
+  };
+  
 
 
   useEffect(() => {
@@ -92,16 +128,15 @@ export default function Registro () {
 }, []);
 
 const handleRolFormSubmit = (selectRolvalue) => {
-  const selectRolOption = rolOption.find(
-    (option) => option.label === selectRolvalue
-  );
+  const selectRolOption = rolOption.find((option) => option.label === selectRolvalue);
   if (selectRolOption) {
     const selectRolId = selectRolOption.value;
     const updatedInfo = { ...info, rol: selectRolId };
-    setInfo(updatedInfo)
-    setSelectRolId(selectRolId);
+    setInfo(updatedInfo); 
   }
 }
+
+
 
 const rolOption = rol.map((rol) => ({
 label: rol.nombre , value: rol["_id"]}));
@@ -128,7 +163,7 @@ label: rol.nombre , value: rol["_id"]}));
       const selectedFichaId = selectedFichaOption.value;
       const updatedInfo = { ...info, ficha: selectedFichaId };
       setInfo(updatedInfo);
-      setSelectedFichaId(selectedFichaId); // This should be setSelectedFichaId, not value
+      setSelectedFichaId(selectedFichaId); 
       console.log(updatedInfo);
     }
   };
@@ -169,6 +204,7 @@ label: rol.nombre , value: rol["_id"]}));
     }));
 
     //! FIN EPS 
+    
 
     return (
        
@@ -315,17 +351,50 @@ label: rol.nombre , value: rol["_id"]}));
       </div>
 
       <Stack spacing={2} sx={{ width: '100%' }}>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-          Completa todos los campos obligatorios!
+             Completa todos los campos obligatorios
+       </Alert>
+      </Snackbar>
+         {registroExitoso && (
+         <Snackbar open={registroExitoso} autoHideDuration={6000} onClose={() => setRegistroExitoso(false)}>
+          <Alert onClose={() => setRegistroExitoso(false)} severity="success" sx={{ width: '100%' }}>
+             ¡Registro exitoso!
         </Alert>
       </Snackbar>
-    </Stack>
+  )}
+</Stack>
 
       <div className="item-TyC">
         <ModalTyC 
         nombre='Términos y condiciones' 
-        texto='Términos y Condiciones del Sitio Web' 
+        texto='1. Aceptación de los Términos y Condiciones
+        1.1. Al utilizar la aplicación BiSport y los servicios relacionados, usted acepta cumplir y estar sujeto a los términos y condiciones establecidos en este Acuerdo.
+        2. Servicios
+        2.1. BiSport permite a los usuarios administrar, prestar y solicitar implementos deportivos.
+        2.2. Usted reconoce y acepta que BiSport puede recopilar y almacenar información personal, incluyendo, pero no limitado a, nombre, dirección, número de teléfono, dirección de correo electrónico y otra información relevante para el servicio.
+        3. Uso Adecuado
+        3.1. Usted se compromete a utilizar la aplicación BiSport y sus servicios de manera ética y legal.
+        3.2. Usted no debe utilizar la aplicación BiSport para:
+        a. Realizar actividades ilegales o fraudulentas.
+        b. Difamar, acosar o violar los derechos de privacidad de otros usuarios.
+        c. Proporcionar información falsa o engañosa.
+        4. Privacidad de los Datos
+        4.1. La recopilación y el uso de sus datos personales están sujetos a nuestra Política de Privacidad. Esta política explica cómo se recopilan, almacenan y utilizan los datos personales de los usuarios, así como los derechos de los usuarios sobre sus datos.
+        4.2. Al aceptar estos términos y condiciones, usted también acepta nuestra Política de Privacidad.
+        5. Opción de Aceptación de Términos y Condiciones
+        5.1. Antes de utilizar la aplicación BiSport, los usuarios tendrán la opción de aceptar o rechazar estos Términos y Condiciones y la Política de Privacidad. El uso continuado de la aplicación después de la aceptación se considerará como un acuerdo a estos términos.
+        6. Responsabilidad
+        6.1. BiSport no asume responsabilidad por la pérdida, daño o robo de los implementos deportivos prestados o solicitados a través de la plataforma.
+        7. Modificaciones y Terminación
+        7.1. BiSport se reserva el derecho de modificar, suspender o terminar la aplicación y sus servicios en cualquier momento, por cualquier motivo y sin previo aviso.
+        8. Ley Aplicable y Jurisdicción
+        8.1. Este Acuerdo se rige por las leyes de Colombia. Cualquier disputa relacionada con este Acuerdo estará sujeta a la jurisdicción exclusiva de los tribunales de Montería.
+        9. Contacto
+        9.1.  Para ponerse en contacto con BiSport con respecto a este Acuerdo o cualquier otro asunto, utilice la siguiente información de contacto: [Correo Electrónico de Soporte] o [Número de Teléfono de Soporte de BiSport].
+        10. Aceptación
+        10.1. Al utilizar la aplicación BiSport, usted reconoce que ha leído, comprendido y aceptado los términos y condiciones de este Acuerdo y la Política de Privacidad.
+        ' 
         onChange={handleAceptoTerminosChange}/>
         </div>
 

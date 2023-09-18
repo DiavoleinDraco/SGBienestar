@@ -8,17 +8,20 @@ import Typography from '@mui/material/Typography';
 import {makeStyles } from '@material-ui/core';
 import Checkbox from '@mui/material/Checkbox';
 
+
 const modalStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 600,
   height: 600, // Aumenta la altura del modal
   bgcolor: '#f6f6f6',
-
   border: '2px solid black',
   boxShadow: 24,
+  maxHeight: '80vh',
+  overflow: 'auto',
+  padding: '20px'
 };
 
 const styles = makeStyles ({
