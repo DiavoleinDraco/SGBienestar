@@ -31,7 +31,7 @@ export default function Registro () {
   const [aceptoTerminos, setAceptoTerminos] = useState(false);
   const [open, setOpen] = useState(false);
   const [registroExitoso, setRegistroExitoso] = useState(false);
-
+  const [valueI, actualizarI] = useState([]);
 
 
   const Alert = forwardRef(function Alert(props, ref) {
@@ -96,9 +96,15 @@ export default function Registro () {
 
   const handleRegistroClick = () => {
     const camposObligatoriosLlenos = validarCamposObligatorios();
-  
-    if (aceptoTerminos && camposObligatoriosLlenos) {
+    const InstitucionalEmailValid = valueI.map(item => item.nombre);
+    const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
+    const passwordPattern = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{8,20}$/
+    if (aceptoTerminos && camposObligatoriosLlenos &&  
+      InstitucionalEmailValid.some(domain => info["correo_inst"].endsWith(domain)) && 
+      telefonoRegex.test(info["telefono"]) &&
+      passwordPattern.test(info["contrasena"])) {
       info['pps'] = true;
+
       realizarRegistro();
     } else {
       info['pps'] = false;
@@ -109,11 +115,23 @@ export default function Registro () {
 
 
   useEffect(() => {
-    if (fichas.length > 0 && eps.length > 0 && rol.length > 0) {
-      
+    if (fichas.length > 0 && eps.length > 0 && rol.length > 0) { 
       setDatosListos(true);
     }
   }, [fichas, eps, rol]);
+  //! DOMINIO
+
+  useEffect(() => {
+    get('/dominio-sena')
+      .then(data => {
+        actualizarI(data);
+      })
+      .catch(error => {
+        console.error('Error al encontrar resultado', error);
+      });
+  }, []);
+
+//! FIN DOMIN IO
 
   //! ROL 
   useEffect(() => {
