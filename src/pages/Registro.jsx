@@ -81,8 +81,7 @@ export default function Registro () {
         errores[campo] = 'Este campo es obligatorio.';
       }
     });
-
-
+    
     setErrors(errores);
     return Object.keys(errores).length === 0;
   };
@@ -98,7 +97,7 @@ export default function Registro () {
     const camposObligatoriosLlenos = validarCamposObligatorios();
     const InstitucionalEmailValid = valueI.map(item => item.nombre);
     const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
-    const passwordPattern = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{8,20}$/
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/
     if (aceptoTerminos && camposObligatoriosLlenos &&  
       InstitucionalEmailValid.some(domain => info["correo_inst"].endsWith(domain)) && 
       telefonoRegex.test(info["telefono"]) &&

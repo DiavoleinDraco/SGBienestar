@@ -69,7 +69,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
     event.preventDefault();
   };
 
-  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,20}/;
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
   ;
   const passwordsMatch = passwordValues.password === confirmPasswordValues.confirmPassword;
   
@@ -125,8 +125,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
               </InputAdornment>
             }
           />
-          {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>) ||
-          (errorValido) && (<p style={{ color: 'red' }}>Contraseña inválida</p>)}
+          {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio.</p>) ||
+          (errorValido) && (<p style={{ color: 'red' }}>Contraseña inválida.</p>)}
         </FormControl>
         </Tooltip>
       </div>

@@ -54,7 +54,7 @@ export default function InputCorreo({ label, institutional, onChange, required }
         onBlur={handleBlur}
         helperText={error}
       />
-      {(!esCorreoInstitucionalValido) && (<p style={{ color: 'red' }}>Correo electrónico no válido</p> ) ||
+      {(!esCorreoInstitucionalValido) && (<p style={{ color: 'red' }}>Correo electrónico no válido.</p> ) ||
         (error) && (<p style={{ color: "red" }}>Este campo es obligatorio.</p>)}
     </FormControl>
   );

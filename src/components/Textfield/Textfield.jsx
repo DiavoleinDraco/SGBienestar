@@ -53,7 +53,7 @@ export default function Textfield({ name, required, onChange }) {
             helperText={error || errorTelefono}
           />
           {(error) && (<p style={{ color: "RED" }}>Este campo es obligatorio.</p>) || 
-          (errorTelefono) && (<p style={{ color: "RED" }}>Teléfono inválido</p>)}
+          (errorTelefono) && (<p style={{ color: "RED" }}>Teléfono inválido.</p>)}
         </div>
       </Box>
     </div>
