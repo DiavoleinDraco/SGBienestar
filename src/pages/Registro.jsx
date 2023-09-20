@@ -234,7 +234,7 @@ label: rol.nombre , value: rol["_id"]}));
       <div className="child-two"></div>
       
       <form className="form">
-        <h1 className="tittle">Registrate</h1>
+        <h1 className="tittle">REGISTRATE</h1>
         
     
         <ul className="slider">
