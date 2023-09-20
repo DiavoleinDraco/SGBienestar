@@ -390,6 +390,7 @@ export default function Registro() {
 
               <div className="item-TyC">
                 <ModalTyC
+                //Utilizo la etiqueta p para los saltos de linea.
                   nombre="Términos y condiciones"
                   texto={
                     <div className="texto-derecha">
