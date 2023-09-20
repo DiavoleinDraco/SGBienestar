@@ -78,7 +78,7 @@ export default function Login() {
         <h1 className='items titulo'>BIENVENIDO</h1>
 
 
-        <div className='items'>
+        <div className='items item-correo'>
           <InputCorreo
             label='Correo institucional'
             institutional
@@ -87,7 +87,7 @@ export default function Login() {
         </div>
 
 
-        <div className='items'>
+        <div className='items item-contraseña'>
           <ContraseñaLogin
             onChange={(value) => handleChange('contrasena', value)}
             nombre='Contraseña'
@@ -96,7 +96,7 @@ export default function Login() {
 
 
 
-        <div className='items'>
+        <div className='items item-sesion'>
           <Buttons
             nombre='Iniciar sesión'
             onclick={handleRegistroClick} />

@@ -196,3 +196,13 @@ ul.slider li:target {
   position: relative;
   right: 14px;
 }
+
+.titulo-TyC {
+  text-align: center !important;
+}
+
+.texto-derecha {
+  text-align: left;
+  direction: ltr;
+}
+
