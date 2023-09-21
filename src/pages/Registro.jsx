@@ -87,50 +87,65 @@ export default function Registro() {
     return Object.keys(errores).length === 0;
   };
 
-  const realizarRegistro = async () => {
-    try {
-      const response = await post("/registro", info);
-      const idNewUser = await getParametre(`/registro/usuario/findByMail/`,correoInstitucional)
-      .then(id =>  navegacion(`/auth/${id._id}`))
-    } catch (error) {
-      console.log('No se encontro la informacion', error);
-    }
-  };
 
-  const handleRegistroClick = () => {
+
+  const handleRegistroClick = async () => {
     const camposObligatoriosLlenos = validarCamposObligatorios();
     const InstitucionalEmailValid = valueI.map((item) => item.nombre);
     const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/
-    try{
-    if (aceptoTerminos && camposObligatoriosLlenos &&  
-      InstitucionalEmailValid.some(domain => info["correo_inst"].endsWith(domain)) && 
-      telefonoRegex.test(info["telefono"]) &&
-      passwordPattern.test(info["contrasena"])) {
-      info['pps'] = true;
-
-      realizarRegistro();
-      setRegistroExitoso(true);
-      setCorreoValido(true); 
-      setErrorMensaje(null);
-    } else {
-      info['pps'] = false;
-      setOpen(true);
-      setCorreoValido(false); 
-    }  
-  }catch (error) {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
+  
+    try {
+      if (
+        aceptoTerminos &&
+        camposObligatoriosLlenos &&
+        InstitucionalEmailValid.some((domain) =>
+          info["correo_inst"].endsWith(domain)
+        ) &&
+        telefonoRegex.test(info["telefono"]) &&
+        passwordPattern.test(info["contrasena"])
+      ) {
+        info['pps'] = true;
+  
+        
+        await post("/registro", info);
+  
+        const idNewUser = await getParametre(
+          `/registro/usuario/findByMail/`,
+          info["correo_inst"]
+        );
+  
+        
+        if (idNewUser && idNewUser._id) {
+          navegacion(`/auth/${idNewUser._id}`);
+        } else {
+         
+          setOpen(true);
+          setErrorMensaje("Error al obtener el ID del nuevo usuario.");
+        }
+  
+        setRegistroExitoso(true);
+        setCorreoValido(true);
+        setErrorMensaje(null);
+      } else {
+        info['pps'] = false;
+        setOpen(true);
+        setCorreoValido(false);
+      }
+    } catch (error) {
       if (error.message.includes('El correo electrónico ya está en uso.')) {
         setOpen(true);
-        setErrorMensaje('El correo electrónico ya está en uso. Por favor, elija otro.');
+        setErrorMensaje('Error en la solicitud');
       } else {
         info["pps"] = false;
         setOpen(true);
-        setErrorMensaje('Error en la solicitud. Por favor, inténtelo nuevamente.');
+        setErrorMensaje(
+          'El correo electrónico ya está en uso. Por favor, elija otro.'
+        );
         console.error('Error en la solicitud:', error);
       }
-      
     }
-
+  };
   
 
 
@@ -374,7 +389,10 @@ export default function Registro() {
         <InputCorreo 
         label='Correo institucional' 
         institutional 
-        onChange={(value) => handleChange('correo_inst', value)}
+        onChange={(value) => {
+          handleChange('correo_inst', value); 
+          setCorreoInstitucional(value); 
+       }}
         required/>
       </div>
 
@@ -461,4 +479,4 @@ export default function Registro() {
       </div>
     </div>
   )
- }}
+ }
