@@ -193,7 +193,7 @@ ul.slider li:target {
 .item-TyC {
   position: relative;
   top: 56px;
-  right: 10px;
+  right: -20px;
 }
 
 .botton1 {
@@ -216,6 +216,12 @@ ul.slider li:target {
 .item-eps {
   position: relative;
   right: 14px;
+}
+
+.item-contraseña {
+  position: relative;
+  bottom: 10px;
+  left: 10px;
 }
 
 /*Para que este bien acomodado el modal*/

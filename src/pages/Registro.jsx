@@ -403,7 +403,7 @@ export default function Registro() {
                 />
               </div>
 
-      <div className="item">
+      <div className="item item-contraseña">
         <ButtonContraseña 
         nombre={"contraseña"} 
         onChange={(value) => handleChange('contrasena', value)}
