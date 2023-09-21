@@ -61,6 +61,7 @@ object-fit: cover;
   width: 900px;
   justify-content: center;
   align-content: center;
+  outline: 1px solid black;
 }
 
 .child-two {
