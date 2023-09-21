@@ -6,9 +6,28 @@
   height: 590px !important;
   justify-content: space-evenly;
   align-content: space-evenly;
-  background: rgba(255, 255, 255, 0.500);
+  background: #f6f6f6;
   box-shadow: 0 0 1rem 0 rgba(8, 10, 76, 0.2); 
   border-radius: 30px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   
 }
 
@@ -30,6 +49,7 @@
 
 }
 
+
 .items {
   height: 50px;
   width: 300px;
@@ -39,17 +59,29 @@
 .titulo{
   color: #3c1263;
   font-family: "Questrial", sans-serif;
-  font-size: 2.5em !important;
+  font-size: 2.7em !important;
 
 }
 
 
 .twos{
   position: absolute;
-  top: 266px; 
+  top: 276px; 
   border-radius: 30px;
-  height: 530px;
+  height: 500px;
   width: 585px;
+  /* left: 42%;
+  top: 110px; */
+  background: rgba(255, 255, 255, 0.500);
+  z-index: -1;
+}
+
+.ones{
+  position: absolute;
+  top: 330px; 
+  border-radius: 30px;
+  height: 400px;
+  width: 655px;
   /* left: 42%;
   top: 110px; */
   background: rgba(255, 255, 255, 0.500);
@@ -79,7 +111,7 @@ background: #3c1263;
   box-sizing: border-box;
 }
 
-.item-casa:hover {
+.item-casaa:hover {
   cursor: pointer;
 }
 
@@ -112,4 +144,16 @@ background: #3c1263;
 
 
 /* cssssssss */
+
+
+
+
+
+
+
+
+
+
+
+
 

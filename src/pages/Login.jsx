@@ -75,7 +75,7 @@ export default function Login() {
       <div className='hijoo'>
       <div className='ones'></div>
       <div className='twos'></div>
-        <div className='items'>
+        <div className='items box'>
           <h1 className='titulo' >BIENVENIDO</h1>
            </div>
         

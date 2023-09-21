@@ -19,8 +19,44 @@ body {
   background: #f6f6f6;
   border-radius: 30px;
   border: 1px;
+  margin-bottom: 90px;
   width: 600px;
 }
+
+
+
+.item-casaa{
+  width: 50px;
+  color: #f6f6f6;
+  background: #3c1263;
+  border-radius: 100% !important;
+  height: 50px;
+  justify-self: start !important;
+position: absolute;
+  box-sizing: border-box;
+  align-self: flex-end;
+}
+
+.item-casaa:hover {
+  cursor: pointer;
+}
+
+.linkk{
+  height: inherit;
+  width: inherit;
+  padding: 15px;
+  color: #f6f6f6;
+  border-radius: 80px;
+}
+.casaaa{
+  border-radius: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height: inherit;
+  width: inherit;
+}
+
 
 .child {
   border-radius: 30px;
@@ -32,6 +68,7 @@ body {
   background: rgba(255, 255, 255, 0.5);
   z-index: -1;
 }
+
 
 #imagenes {
   position: absolute;
@@ -52,7 +89,7 @@ body {
   width: 900px;
   justify-content: center;
   align-content: center;
-  outline: 1px solid black;
+  /* outline: 1px solid black; */
 }
 
 .child-two {
