@@ -1,94 +1,115 @@
 .padree {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 30px;
   display: flex;
   margin: 15em auto;
   flex-wrap: wrap;
   width: 500px !important;
-  height: 560px !important;
+  height: 590px !important;
   justify-content: space-evenly;
   align-content: space-evenly;
+  background: rgba(255, 255, 255, 0.500);
+  box-shadow: 0 0 1rem 0 rgba(8, 10, 76, 0.2); 
+  border-radius: 30px;
+  
 }
 
 #imagenes {
-  position: absolute;
+  width: 400px;
+  height: 50px;
 }
 
 .hijoo {
   display: flex;
   flex-wrap: wrap;
-  width: 500px !important;
+  width: 700px !important;
   height: 500px !important;
   justify-content: center;
   align-content: space-evenly;
-  border-radius: 30px;
+
+  
+
+
 }
 
 .items {
-  height: 60px;
+  height: 50px;
   width: 300px;
+ 
 }
 
-.titulo {
+.titulo{
   color: #3c1263;
   font-family: "Questrial", sans-serif;
-  position: relative;
-  bottom: 20%;
-  left: 18%;
+  font-size: 2.5em !important;
+
 }
 
+
+.twos{
+  position: absolute;
+  top: 266px; 
+  border-radius: 30px;
+  height: 530px;
+  width: 585px;
+  /* left: 42%;
+  top: 110px; */
+  background: rgba(255, 255, 255, 0.500);
+  z-index: -1;
+}
+
+.inicio-s{
+  border-radius: 50px;
+  width: 240px;
+color: #f6f6f6;
+outline: 1px solid  #3c1263;
+}
+.inicio-s:hover{
+  border-radius: 50px;
+  width: 240px;
+color: #f6f6f6;
+background: #3c1263;
+}
+
+
 .item-casa {
-  display: flex;
-  width: 130px;
+  width: 50px;
   color: #f6f6f6;
   background: #3c1263;
-  justify-content: space-evenly;
-  align-content: center;
-  border-radius: 30px;
-  height: 35px;
+  border-radius: 100% !important;
+  height: 50px;
+  box-sizing: border-box;
 }
 
 .item-casa:hover {
   cursor: pointer;
 }
 
-.casaa {
+.link{
+  height: inherit;
+  width: inherit;
+  padding: 15px;
+  color: #f6f6f6;
+  border-radius: 80px;
+}
+.casaa{
+  border-radius: 900px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  height: inherit;
+  width: inherit;
 }
 
-.casaa a {
-  flex-grow: 1;
-  text-decoration: none;
-
-  color: #f6f6f6;
-  font-size: 1.1em;
-}
 
 .bi-house-door-fill {
   position: relative;
   top: 1px;
 }
 
+
+
 /*Acomodando los campos que se utilizan en el login*/
-.item-correo {
-  width: 200px;
-  position: relative;
-  top: 10%;
-  right: 26%;
-}
 
-.item-contraseña {
-  width: 200px;
-  position: relative;
-  bottom: 10%;
-  left: 19%;
-}
 
-.item-sesion {
-  width: 180px;
-  position: relative;
-  top: 15%;
-  right: 20%;
-}
+
+/* cssssssss */
+

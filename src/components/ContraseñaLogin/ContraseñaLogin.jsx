@@ -34,9 +34,9 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
     }
 
     return (
-      <div className='padre'>
-        <div className='Contraseña-login'>
-        <FormControl sx={{ m: 1, width: '210px' }} variant="standard">
+
+        
+        <FormControl  className='conts' sx={{ m: 1, }} variant="standard">
           <InputLabel className='contraseña' htmlFor="standard-adornment-password">{nombre}</InputLabel>
           <Input
             id="standard-adornment-password"
@@ -61,8 +61,8 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
           />
           {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>)}
         </FormControl>
-        </div>
-      </div>
+
+  
     );
   };
   

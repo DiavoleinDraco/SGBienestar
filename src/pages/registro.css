@@ -175,27 +175,6 @@ ul.slider li:target {
   right: 10px;
 }
 
-.botton1 {
-  width: 200px;
-  padding: 30px;
-  margin-top: -13% !important;
-}
-
-.item-correo {
-  margin: -14px;
-}
-
-.item-reg {
-  position: relative;
-  top: 40px;
-}
-
-.item-fecha, 
-.item-ficha,
-.item-eps {
-  position: relative;
-  right: 14px;
-}
 
 /*Para que este bien acomodado el modal*/
 .titulo-TyC {
