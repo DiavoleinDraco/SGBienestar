@@ -69,14 +69,16 @@ export default function Login() {
   return (
 
     <div className='padree'>
-      <div id="imagenes">
+      <div id="imagenes"className='items'   >
         <img src={miimagen} alt="sena-imagen" />
       </div>
-
       <div className='hijoo'>
-
-        <h1 className='items titulo'>BIENVENIDO</h1>
-
+      <div className='ones'></div>
+      <div className='twos'></div>
+        <div className='items'>
+          <h1 className='titulo' >BIENVENIDO</h1>
+           </div>
+        
 
         <div className='items item-correo'>
           <InputCorreo
@@ -87,7 +89,7 @@ export default function Login() {
         </div>
 
 
-        <div className='items item-contraseña'>
+        <div className='items'>
           <ContraseñaLogin
             onChange={(value) => handleChange('contrasena', value)}
             nombre='Contraseña'
@@ -96,29 +98,32 @@ export default function Login() {
 
 
 
-        <div className='items item-sesion'>
+        <div className='items inicio-s'>
           <Buttons
             nombre='Iniciar sesión'
             onclick={handleRegistroClick} />
-          <Stack spacing={2} sx={{ width: '100%' }}>
+        </div>
+        
+      </div>
+      <div className='item-casa'>
+        <div className='casaa '>
+          <Link to="/home" className='link'>
+            <i class="bi bi-house-door-fill">
+              </i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+              <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
+            </svg></Link>
+        </div>
+      </div>
+
+     
+      <Stack spacing={2} sx={{ width: '100%' }}>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              <Alert onClose={handleClose} severity="error" sx={{ width: '100%', background: "", }}>
                 Completa todos los campos obligatorios y de forma correcta!
               </Alert>
             </Snackbar>
           </Stack>
-        </div>
-      </div>
-
-      <div className='items item-casa'>
-        <div className='casaa'>
-          <Link to="/home">
-            <i class="bi bi-house-door-fill">
-              </i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-              <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
-            </svg> HOME</Link>
-        </div>
-      </div>
     </div>
+    
   );
 };

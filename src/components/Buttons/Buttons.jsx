@@ -6,7 +6,7 @@ import './Buttons.css';
 export default function Buttons({ nombre, onclick}) {
 
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack  className='pad' direction="row" spacing={2}>
       <Button className='buttons' variant="outlined" onClick={onclick}>{nombre}</Button>
     </Stack>
   );

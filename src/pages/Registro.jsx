@@ -32,6 +32,8 @@ export default function Registro() {
   const [open, setOpen] = useState(false);
   const [registroExitoso, setRegistroExitoso] = useState(false);
   const [valueI, actualizarI] = useState([]);
+  const [errorMensaje, setErrorMensaje] = useState(null);
+  const [correoValido, setCorreoValido] = useState(true); 
   const [correoInstitucional, setCorreoInstitucional] = useState(false);
 
   const Alert = forwardRef(function Alert(props, ref) {
@@ -85,39 +87,67 @@ export default function Registro() {
     return Object.keys(errores).length === 0;
   };
 
-  const realizarRegistro = async () => {
-    try {
-      const response = await post("/registro", info);
-      const idNewUser = await getParametre(`/registro/usuario/findByMail/`,correoInstitucional)
-      .then(id =>  navegacion(`/auth/${id._id}`))
-    } catch (error) {
-      console.log('No se encontro la informacion', error);
-    }
-  };
 
-  const handleRegistroClick = () => {
+
+  const handleRegistroClick = async () => {
     const camposObligatoriosLlenos = validarCamposObligatorios();
     const InstitucionalEmailValid = valueI.map((item) => item.nombre);
     const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
-    const passwordPattern =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
-    if (
-      aceptoTerminos &&
-      camposObligatoriosLlenos &&
-      InstitucionalEmailValid.some((domain) =>
-        info["correo_inst"].endsWith(domain)
-      ) &&
-      telefonoRegex.test(info["telefono"]) &&
-      passwordPattern.test(info["contrasena"])
-    ) {
-      info["pps"] = true;
-
-      realizarRegistro();
-    } else {
-      info["pps"] = false;
-      setOpen(true);
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
+  
+    try {
+      if (
+        aceptoTerminos &&
+        camposObligatoriosLlenos &&
+        InstitucionalEmailValid.some((domain) =>
+          info["correo_inst"].endsWith(domain)
+        ) &&
+        telefonoRegex.test(info["telefono"]) &&
+        passwordPattern.test(info["contrasena"])
+      ) {
+        info['pps'] = true;
+  
+        
+        await post("/registro", info);
+  
+        const idNewUser = await getParametre(
+          `/registro/usuario/findByMail/`,
+          info["correo_inst"]
+        );
+  
+        
+        if (idNewUser && idNewUser._id) {
+          navegacion(`/auth/${idNewUser._id}`);
+        } else {
+         
+          setOpen(true);
+          setErrorMensaje("Error al obtener el ID del nuevo usuario.");
+        }
+  
+        setRegistroExitoso(true);
+        setCorreoValido(true);
+        setErrorMensaje(null);
+      } else {
+        info['pps'] = false;
+        setOpen(true);
+        setCorreoValido(false);
+      }
+    } catch (error) {
+      if (error.message.includes('El correo electrónico ya está en uso.')) {
+        setOpen(true);
+        setErrorMensaje('Error en la solicitud');
+      } else {
+        info["pps"] = false;
+        setOpen(true);
+        setErrorMensaje(
+          'El correo electrónico ya está en uso. Por favor, elija otro.'
+        );
+        console.error('Error en la solicitud:', error);
+      }
     }
   };
+  
+
 
   useEffect(() => {
     if (fichas.length > 0 && eps.length > 0 && rol.length > 0) {
@@ -343,29 +373,28 @@ export default function Registro() {
                 />
               </div>
 
-              <div className="item">
-                <ComSelect
-                  nombre="Género"
-                  items={["Masculino", "Femenino", "Otro"]}
-                  onChange={(value) => handleChange("genero", value)}
-                  required
-                />
-              </div>
-            </div>
-          </li>
-          <li id="slide3">
-            <div className="contenedor tres">
-              <div className="item">
-                <InputCorreo
-                  label="Correo institucional"
-                  institutional
-                  onChange={(value) => {
-                     handleChange('correo_inst', value); 
-                     setCorreoInstitucional(value); 
-                  }}
-                  required
-                />
-              </div>
+      <div className="item">
+        <ComSelect 
+        nombre= "Género" 
+        items={["Masculino","Femenino","Otro"]} 
+        onChange={(value) => handleChange('genero', value)}
+        required/>
+      </div>
+
+      </div>
+      </li>
+      <li id="slide3">
+      <div className="contenedor tres">
+      <div className="item">
+        <InputCorreo 
+        label='Correo institucional' 
+        institutional 
+        onChange={(value) => {
+          handleChange('correo_inst', value); 
+          setCorreoInstitucional(value); 
+       }}
+        required/>
+      </div>
 
               <div className="item">
                 <InputCorreo
@@ -374,31 +403,22 @@ export default function Registro() {
                 />
               </div>
 
-              <div className="item">
-                <ButtonContraseña
-                  nombre={"contraseña"}
-                  onChange={(value) => handleChange("contrasena", value)}
-                  required
-                />
-              </div>
+      <div className="item">
+        <ButtonContraseña 
+        nombre={"contraseña"} 
+        onChange={(value) => handleChange('contrasena', value)}
+        required/>
+      </div>
 
-              <Stack spacing={2} sx={{ width: "100%" }}>
-                <Snackbar
-                  open={open}
-                  autoHideDuration={6000}
-                  onClose={handleClose}
-                >
-                  <Alert
-                    onClose={handleClose}
-                    severity="error"
-                    sx={{ width: "100%" }}
-                  >
-                    Completa todos los campos obligatorios y de forma correcta!
-                  </Alert>
-                </Snackbar>
-              </Stack>
+      <Stack>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+              {errorMensaje || "Completa todos los campos obligatorios y de forma correcta!"}
+              </Alert>
+          </Snackbar>
+        </Stack>  
 
-              <div className="item-TyC">
+        <div className="item-TyC">
                 <ModalTyC
                 //Utilizo la etiqueta p para los saltos de linea.
                   nombre="Términos y condiciones"
@@ -458,5 +478,5 @@ export default function Registro() {
         <Link to="/home">Home</Link>
       </div>
     </div>
-  );
-}
+  )
+ }

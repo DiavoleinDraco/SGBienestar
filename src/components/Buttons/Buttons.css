@@ -1,3 +1,22 @@
 .buttons {
-    width: 250px !important;
+ 
+    width: inherit !important;
+    height: inherit !important;
+    border-radius: 50px !important;
+    border: none !important;
+  
+
+    
+
+  
+   
+
+}
+
+.pad{
+    width: inherit;
+    height: inherit;
+    border-radius: 50px !important;
+   border: none !important;
+  
 }
