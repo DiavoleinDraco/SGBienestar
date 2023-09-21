@@ -196,3 +196,14 @@ ul.slider li:target {
   position: relative;
   right: 14px;
 }
+
+/*Para que este bien acomodado el modal*/
+.titulo-TyC {
+  text-align: center !important;
+}
+
+.texto-derecha {
+  text-align: left;
+  direction: ltr;
+}
+

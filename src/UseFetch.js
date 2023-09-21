@@ -1,4 +1,5 @@
-const UrlApi= "https://proyecto-backend-sgbienestar.onrender.com"
+
+const UrlApi= "https://pruebas-l16n.onrender.com"
 
 export default async function get (pat){
 try{
@@ -41,3 +42,17 @@ export async function post(pat, data) {
     throw error;
   }
 }
+
+export  async function getParametre (pat,parametro){
+  try{
+
+    const response= await fetch(UrlApi+pat+parametro)
+    const data= await response.json()
+    return data
+
+  } catch(error){
+    console.log('No se encontro la informacion', error)
+
+  }
+
+  }

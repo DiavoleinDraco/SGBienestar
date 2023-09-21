@@ -4,12 +4,12 @@ import Textfield from "../components/Textfield/Textfield.jsx";
 import ModalTyC from "../components/ModalTyC/ModalTyC.jsx";
 import Buttons from "../components/Buttons/Buttons.jsx";
 import Date from "../components/Date/Date.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonContraseña from "../components/ButtonContraseña/ButtonContraseña.jsx";
 import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import "./registro.css";
 import { useState, useEffect } from "react";
-import get, { post } from "../UseFetch.js";
+import get, {getParametre, post } from "../UseFetch.js";
 import miimagen from "../pages/imagenes/sena-bienestar.png";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 import { forwardRef } from "react";
 
 export default function Registro() {
+  const navegacion = useNavigate()
   const [info, setInfo] = useState({});
   const [errors, setErrors] = useState({});
   const [jsonData, setJsonData] = useState(null);
@@ -33,7 +34,7 @@ export default function Registro() {
   const [valueI, actualizarI] = useState([]);
   const [errorMensaje, setErrorMensaje] = useState(null);
   const [correoValido, setCorreoValido] = useState(true); 
-
+  const [correoInstitucional, setCorreoInstitucional] = useState(false);
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -86,36 +87,38 @@ export default function Registro() {
     return Object.keys(errores).length === 0;
   };
 
- 
-  const handleRegistroClick = async () => {
+  const realizarRegistro = async () => {
+    try {
+      const response = await post("/registro", info);
+      const idNewUser = await getParametre(`/registro/usuario/findByMail/`,correoInstitucional)
+      .then(id =>  navegacion(`/auth/${id._id}`))
+    } catch (error) {
+      console.log('No se encontro la informacion', error);
+    }
+  };
+
+  const handleRegistroClick = () => {
     const camposObligatoriosLlenos = validarCamposObligatorios();
     const InstitucionalEmailValid = valueI.map((item) => item.nombre);
     const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
-    const passwordPattern =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
-    
-    try {
-      if (
-        aceptoTerminos &&
-        camposObligatoriosLlenos &&
-        InstitucionalEmailValid.some((domain) =>
-          info["correo_inst"].endsWith(domain)
-        ) &&
-        telefonoRegex.test(info["telefono"]) &&
-        passwordPattern.test(info["contrasena"])
-      ) {
-        info["pps"] = true;
-  
-        await post("/registro", info);
-        setRegistroExitoso(true);
-        setCorreoValido(true); 
-        setErrorMensaje(null);
-      } else {
-        info["pps"] = false;
-        setOpen(true);
-        setCorreoValido(false); 
-      }
-    } catch (error) {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/
+    try{
+    if (aceptoTerminos && camposObligatoriosLlenos &&  
+      InstitucionalEmailValid.some(domain => info["correo_inst"].endsWith(domain)) && 
+      telefonoRegex.test(info["telefono"]) &&
+      passwordPattern.test(info["contrasena"])) {
+      info['pps'] = true;
+
+      realizarRegistro();
+      setRegistroExitoso(true);
+      setCorreoValido(true); 
+      setErrorMensaje(null);
+    } else {
+      info['pps'] = false;
+      setOpen(true);
+      setCorreoValido(false); 
+    }  
+  }catch (error) {
       if (error.message.includes('El correo electrónico ya está en uso.')) {
         setOpen(true);
         setErrorMensaje('El correo electrónico ya está en uso. Por favor, elija otro.');
@@ -127,8 +130,9 @@ export default function Registro() {
       }
       
     }
-  };
+
   
+
 
   useEffect(() => {
     if (fichas.length > 0 && eps.length > 0 && rol.length > 0) {
@@ -354,26 +358,25 @@ export default function Registro() {
                 />
               </div>
 
-              <div className="item">
-                <ComSelect
-                  nombre="Género"
-                  items={["Masculino", "Femenino", "Otro"]}
-                  onChange={(value) => handleChange("genero", value)}
-                  required
-                />
-              </div>
-            </div>
-          </li>
-          <li id="slide3">
-            <div className="contenedor tres">
-              <div className="item">
-                <InputCorreo
-                  label="Correo institucional"
-                  institutional
-                  onChange={(value) => handleChange("correo_inst", value)}
-                  required
-                />
-              </div>
+      <div className="item">
+        <ComSelect 
+        nombre= "Género" 
+        items={["Masculino","Femenino","Otro"]} 
+        onChange={(value) => handleChange('genero', value)}
+        required/>
+      </div>
+
+      </div>
+      </li>
+      <li id="slide3">
+      <div className="contenedor tres">
+      <div className="item">
+        <InputCorreo 
+        label='Correo institucional' 
+        institutional 
+        onChange={(value) => handleChange('correo_inst', value)}
+        required/>
+      </div>
 
               <div className="item">
                 <InputCorreo
@@ -382,21 +385,22 @@ export default function Registro() {
                 />
               </div>
 
-              <div className="item">
-                <ButtonContraseña
-                  nombre={"contraseña"}
-                  onChange={(value) => handleChange("contrasena", value)}
-                  required
-                />
-              </div>
-          <Stack>
+      <div className="item">
+        <ButtonContraseña 
+        nombre={"contraseña"} 
+        onChange={(value) => handleChange('contrasena', value)}
+        required/>
+      </div>
+
+      <Stack>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
               {errorMensaje || "Completa todos los campos obligatorios y de forma correcta!"}
               </Alert>
           </Snackbar>
         </Stack>  
-              <div className="item-TyC">
+
+        <div className="item-TyC">
                 <ModalTyC
                 //Utilizo la etiqueta p para los saltos de linea.
                   nombre="Términos y condiciones"
@@ -456,5 +460,5 @@ export default function Registro() {
         <Link to="/home">Home</Link>
       </div>
     </div>
-  );
-}
+  )
+ }}
