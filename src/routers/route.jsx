@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home'
 import Registro from '../pages/Registro'
 import Login from '../pages/Login';
+import Autenticacion from '../pages/Autenticacion';
 
 export function LasRutas() {
   return (
@@ -11,6 +12,7 @@ export function LasRutas() {
         <Route path="/home" element={<Home />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/auth/:userId" element={<Autenticacion />} />
       </Routes>
     </Router>
   );

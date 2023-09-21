@@ -4,12 +4,12 @@ import Textfield from "../components/Textfield/Textfield.jsx";
 import ModalTyC from "../components/ModalTyC/ModalTyC.jsx";
 import Buttons from "../components/Buttons/Buttons.jsx";
 import Date from "../components/Date/Date.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonContraseña from "../components/ButtonContraseña/ButtonContraseña.jsx";
 import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
 import "./registro.css";
 import { useState, useEffect } from "react";
-import get, { post } from "../UseFetch.js";
+import get, {getParametre, post } from "../UseFetch.js";
 import miimagen from "../pages/imagenes/sena-bienestar.png";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 import { forwardRef } from "react";
 
 export default function Registro() {
+  const navegacion = useNavigate()
   const [info, setInfo] = useState({});
   const [errors, setErrors] = useState({});
   const [jsonData, setJsonData] = useState(null);
@@ -31,6 +32,7 @@ export default function Registro() {
   const [open, setOpen] = useState(false);
   const [registroExitoso, setRegistroExitoso] = useState(false);
   const [valueI, actualizarI] = useState([]);
+  const [correoInstitucional, setCorreoInstitucional] = useState(false);
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -83,9 +85,14 @@ export default function Registro() {
     return Object.keys(errores).length === 0;
   };
 
-  const realizarRegistro = () => {
-    post("/registro", info);
-    console.log("Registro exitoso", info);
+  const realizarRegistro = async () => {
+    try {
+      const response = await post("/registro", info);
+      const idNewUser = await getParametre(`/registro/usuario/findByMail/`,correoInstitucional)
+      .then(id =>  navegacion(`/auth/${id._id}`))
+    } catch (error) {
+      console.log('No se encontro la informacion', error);
+    }
   };
 
   const handleRegistroClick = () => {
@@ -352,7 +359,10 @@ export default function Registro() {
                 <InputCorreo
                   label="Correo institucional"
                   institutional
-                  onChange={(value) => handleChange("correo_inst", value)}
+                  onChange={(value) => {
+                     handleChange('correo_inst', value); 
+                     setCorreoInstitucional(value); 
+                  }}
                   required
                 />
               </div>
