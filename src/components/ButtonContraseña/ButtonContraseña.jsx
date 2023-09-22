@@ -116,6 +116,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
+                  style={{position: 'relative', right: '-18px'}}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}

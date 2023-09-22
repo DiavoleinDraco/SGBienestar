@@ -9,26 +9,6 @@
   background: #f6f6f6;
   box-shadow: 0 0 1rem 0 rgba(8, 10, 76, 0.2); 
   border-radius: 30px;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
 }
 
 #imagenes {
@@ -43,12 +23,7 @@
   height: 500px !important;
   justify-content: center;
   align-content: space-evenly;
-
-  
-
-
 }
-
 
 .items {
   height: 50px;
@@ -63,15 +38,12 @@
 
 }
 
-
 .twos{
   position: absolute;
   top: 276px; 
   border-radius: 30px;
   height: 500px;
   width: 585px;
-  /* left: 42%;
-  top: 110px; */
   background: rgba(255, 255, 255, 0.500);
   z-index: -1;
 }
@@ -82,8 +54,6 @@
   border-radius: 30px;
   height: 400px;
   width: 655px;
-  /* left: 42%;
-  top: 110px; */
   background: rgba(255, 255, 255, 0.500);
   z-index: -1;
 }
@@ -98,15 +68,14 @@
   border-radius: 50px;
   width: 240px;
   background: #3c1263;
-outline: 1px solid  #3c1263;
+  outline: 1px solid  #3c1263;
 }
 .inicio-s:hover{
   border-radius: 50px;
   width: 240px;
-color: #3c1263 !important;
-background: #f6f6f6 !important;
+  color: #3c1263 !important;
+  background: #f6f6f6 !important;
 }
-
 
 .item-casa {
   width: 50px;
@@ -128,6 +97,7 @@ background: #f6f6f6 !important;
   color: #f6f6f6;
   border-radius: 80px;
 }
+
 .casaa{
   border-radius: 900px;
   display: flex;
@@ -137,16 +107,16 @@ background: #f6f6f6 !important;
   width: inherit;
 }
 
-
 .bi-house-door-fill {
   position: relative;
   top: 1px;
 }
-
-
-
 /*Acomodando los campos que se utilizan en el login*/
 
-
-
 /* cssssssss */
+
+/*Campo de contraseña*/
+.contraseña-item {
+  position: relative;
+  left: 30px !important;
+}

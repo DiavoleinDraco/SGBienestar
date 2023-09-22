@@ -89,7 +89,7 @@ export default function Login() {
         </div>
 
 
-        <div className='items'>
+        <div className='items contraseña-item'>
           <ContraseñaLogin
             onChange={(value) => handleChange('contrasena', value)}
             nombre='Contraseña'

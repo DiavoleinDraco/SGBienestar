@@ -23,16 +23,14 @@ body {
   background: #f6f6f6;
 }
 
-
-
-.item-casaa{
+.item-casaa {
   width: 50px;
   color: #f6f6f6;
   background: #3c1263;
   border-radius: 100% !important;
   height: 50px;
   justify-self: start !important;
-position: absolute;
+  position: absolute;
   box-sizing: border-box;
   align-self: flex-end;
 }
@@ -41,14 +39,15 @@ position: absolute;
   cursor: pointer;
 }
 
-.linkk{
+.linkk {
   height: inherit;
   width: inherit;
   padding: 15px;
   color: #f6f6f6;
   border-radius: 80px;
 }
-.casaaa{
+
+.casaaa {
   border-radius: 900px;
   display: flex;
   flex-wrap: wrap;
@@ -57,18 +56,15 @@ position: absolute;
   width: inherit;
 }
 
-
 .child {
   border-radius: 30px;
   position: absolute;
   height: 710px;
   width: 770px;
-  /* left: 58%;*/
   top: 320px;
   background: rgba(255, 255, 255, 0.5);
   z-index: -1;
 }
-
 
 #imagenes {
   position: absolute;
@@ -77,11 +73,13 @@ position: absolute;
   left: auto;
   height: 20em;
 }
+
 #imagenes img {
   object-fit: cover;
   height: auto;
   width: 100%;
 }
+
 .father {
   flex-wrap: wrap;
   display: flex;
@@ -89,7 +87,6 @@ position: absolute;
   width: 900px;
   justify-content: center;
   align-content: center;
-  /* outline: 1px solid black; */
 }
 
 .child-two {
@@ -98,8 +95,6 @@ position: absolute;
   border-radius: 30px;
   height: 850px;
   width: 685px;
-  /* left: 42%;
-  top: 110px; */
   background: rgba(255, 255, 255, 0.5);
   z-index: -1;
 }
@@ -125,13 +120,10 @@ ul.slider {
   width: 440px;
   height: 750px;
   margin: 0;
-  
+
 }
 
-
-
-
-#slide3{
+#slide3 {
   position: absolute;
   left: 0;
   top: 0;
@@ -143,25 +135,25 @@ ul.slider {
   border-radius: 30px;
 }
 
-#slide2{
-position: relative;
-opacity: 20;
-width: inherit;
-height: inherit;
-background: #f6f6f6;
-transition: opacity 0.4s;
-border-radius: 30px;
-}
-#slide1{                                                                               
-position: absolute;
-opacity: 1;
-background: #f6f6f6;
-width: inherit;
-height: inherit;
-transition: opacity 0.4s;
-border-radius: 30px;                                                    
+#slide2 {
+  position: relative;
+  opacity: 20;
+  width: inherit;
+  height: inherit;
+  background: #f6f6f6;
+  transition: opacity 0.4s;
+  border-radius: 30px;
 }
 
+#slide1 {
+  position: absolute;
+  opacity: 1;
+  background: #f6f6f6;
+  width: inherit;
+  height: inherit;
+  transition: opacity 0.4s;
+  border-radius: 30px;
+}
 
 ul.slider li:first-child {
   opacity: 1;
@@ -205,7 +197,6 @@ ul.slider li:target {
 
 .contenedor {
   border-radius: 29px;
-
   height: inherit;
   display: flex;
   align-items: center;
@@ -214,10 +205,25 @@ ul.slider li:target {
 
 }
 
+/*Estilos para los campos*/
+.item-nom,
+.item-ape,
+.item-TD,
+.item-documento,
+.item-rol {
+  position: relative !important;
+  left: 14px !important;
+}
+
+.item-fecha {
+  position: relative !important;
+  left: 0px !important;
+}
+
 .item-TyC {
   position: relative;
-  top: 56px;
-  right: -20px;
+  top: 54px;
+  right: -10px;
 }
 
 .botton1 {
@@ -235,11 +241,18 @@ ul.slider li:target {
   top: 40px;
 }
 
-.item-fecha,
 .item-ficha,
 .item-eps {
   position: relative;
-  right: 14px;
+  right: -4px;
+}
+
+.item-tel,
+.item-dir,
+.item-TS,
+.item-gen {
+  position: relative;
+  left: 16px;
 }
 
 .item-contraseña {
@@ -247,24 +260,27 @@ ul.slider li:target {
   bottom: 10px;
   left: 10px;
 }
+/*Hasta aqui el estilo para los campos*/
 
 /*Para que este bien acomodado el modal*/
 .titulo-TyC {
   text-align: center !important;
 }
+
 .titulo-TyC::first-line {
- font-size: 1em;
+  font-size: 1em;
 }
 
 
 .texto-derecha {
   text-align: left;
-  direction:ltr;
+  direction: ltr;
   font-size: 9px;
-  padding: 8px 20px ;
+  padding: 8px 20px;
 
 }
-.first-titulo{
+
+.first-titulo {
   font-size: 2.5em;
 }
 
@@ -276,54 +292,16 @@ element.style {
   margin: 0px;
   transform: translate3d(25px, 55px, 0px);
 }
-.css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper {
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 4px;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;
-  overflow: none !important;
-  height: 100px !important;
-}
-.css-gdh49b-MuiAutocomplete-listbox {
-  list-style: none;
-  margin: 0;
-  padding: 8px 0;
-  max-height: 40vh;
-  height: 100px;
-  overflow: none !important;
-  width: 100% !important;
-  position: relative !important;
-}
 
-.css-gdh49b-MuiAutocomplete-listbox .MuiAutocomplete-option {
-  min-height: 48px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: block;
-  overflow: hidden;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  padding-top: 6px;
-  box-sizing: border-box;
-  outline: 0;
-  -webkit-tap-highlight-color: transparent;
-  padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
+.registro-s{
+  border-radius: 50px;
+  width: 240px;
+  background: #3c1263;
+  outline: 1px solid  #3c1263;
+}
+.registro-s:hover{
+  border-radius: 50px;
+  width: 240px;
+  color: #3c1263 !important;
+  background: #f6f6f6 !important;
 }

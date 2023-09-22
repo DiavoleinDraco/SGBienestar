@@ -36,7 +36,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
     return (
 
         
-        <FormControl  className='conts' sx={{ m: 1, }} variant="standard">
+        <FormControl className='conts' sx={{ m: 1, }} variant="standard">
           <InputLabel className='contraseña' htmlFor="standard-adornment-password">{nombre}</InputLabel>
           <Input
             id="standard-adornment-password"
@@ -50,6 +50,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
+                  style={{position: 'relative', right: '40px'}}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
@@ -59,7 +60,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
               </InputAdornment>
             }
           />
-          {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio</p>)}
+          {(passwordError) && (<p style={{ color: 'red', position: 'relative', left: '-26px' }}>Este campo es obligatorio</p>)}
         </FormControl>
 
   

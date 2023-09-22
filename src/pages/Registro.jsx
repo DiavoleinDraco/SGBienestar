@@ -7,9 +7,9 @@ import Date from "../components/Date/Date.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonContraseña from "../components/ButtonContraseña/ButtonContraseña.jsx";
 import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
-import "./registro.css";
+import "./Registro.css";
 import { useState, useEffect } from "react";
-import get, {getParametre, post } from "../UseFetch.js";
+import get, { getParametre, post } from "../UseFetch.js";
 import miimagen from "../pages/imagenes/sena-bienestar.png";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -33,7 +33,7 @@ export default function Registro() {
   const [registroExitoso, setRegistroExitoso] = useState(false);
   const [valueI, actualizarI] = useState([]);
   const [errorMensaje, setErrorMensaje] = useState(null);
-  const [correoValido, setCorreoValido] = useState(true); 
+  const [correoValido, setCorreoValido] = useState(true);
   const [correoInstitucional, setCorreoInstitucional] = useState(false);
 
   const Alert = forwardRef(function Alert(props, ref) {
@@ -94,7 +94,7 @@ export default function Registro() {
     const InstitucionalEmailValid = valueI.map((item) => item.nombre);
     const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
-  
+
     try {
       if (
         aceptoTerminos &&
@@ -106,24 +106,24 @@ export default function Registro() {
         passwordPattern.test(info["contrasena"])
       ) {
         info['pps'] = true;
-  
-        
+
+
         await post("/registro", info);
-  
+
         const idNewUser = await getParametre(
           `/registro/usuario/findByMail/`,
           info["correo_inst"]
         );
-  
-        
+
+
         if (idNewUser && idNewUser._id) {
           navegacion(`/auth/${idNewUser._id}`);
         } else {
-         
+
           setOpen(true);
           setErrorMensaje("Error al obtener el ID del nuevo usuario.");
         }
-  
+
         setRegistroExitoso(true);
         setCorreoValido(true);
         setErrorMensaje(null);
@@ -146,7 +146,7 @@ export default function Registro() {
       }
     }
   };
-  
+
 
 
   useEffect(() => {
@@ -267,37 +267,26 @@ export default function Registro() {
       </div>
       <div className="child"></div>
       <div className="child-two"></div>
-
       <form className="form">
         <h1 className="tittle">REGISTRATE</h1>
-
-
-
-
-
         <ul className="slider">
-
-
-
           <li id="slide1">
             <div className="contenedor uno">
-              <div className="item">
+              <div className="item item-nom">
                 <Textfield
                   name="Nombres"
                   onChange={(value) => handleChange("nombres", value)}
                   required
                 />
               </div>
-
-              <div className="item">
+              <div className="item item-ape">
                 <Textfield
                   name="Apellidos"
                   onChange={(value) => handleChange("apellidos", value)}
                   required
                 />
               </div>
-
-              <div className="item">
+              <div className="item item-TD">
                 <ComSelect
                   nombre="Tipo de documento"
                   items={["C.C", "T.I", "P.A", "C.E"]}
@@ -305,23 +294,20 @@ export default function Registro() {
                   required
                 />
               </div>
-
-              <div className="item">
+              <div className="item item-documento">
                 <Textfield
                   name="Número de documento"
                   onChange={(value) => handleChange("n_doc", value)}
                   required
                 />
               </div>
-
               <div className="item item-fecha">
                 <Date
                   Descripcion="Fecha de Nacimiento"
                   onChange={(value) => handleChange("nacimiento", value)}
                 />
               </div>
-
-              <div className="item">
+              <div className="item item-rol">
                 <ComSelect
                   nombre="Rol"
                   items={rolOption.map((opcion) => opcion.label)}
@@ -333,14 +319,6 @@ export default function Registro() {
               </div>
             </div>
           </li>
-
-
-
-
-
-
-
-
           <li id="slide2">
             <div className="contenedor dos">
               <div className="item item-ficha">
@@ -352,14 +330,14 @@ export default function Registro() {
                   value={setSelectedFichaId}
                 />
               </div>
-              <div className="item">
+              <div className="item item-tel">
                 <Textfield
                   name="Teléfono"
                   onChange={(value) => handleChange("telefono", value)}
                   required
                 />
               </div>
-              <div className="item">
+              <div className="item item-dir">
                 <Textfield
                   name="Dirección"
                   onChange={(value) => handleChange("direccion", value)}
@@ -375,66 +353,56 @@ export default function Registro() {
                   value={setSelecteEpsId}
                 />
               </div>
-              <div className="item">
+              <div className="item item-TS">
                 <ComSelect
                   nombre="Tipo de Sangre"
                   items={["A+", "O+", "B+", "AB+", "A-", "O-", "B-", "AB-"]}
                   onChange={(value) => handleChange("rh", value)}
                 />
               </div>
-      <div className="item">
-        <ComSelect 
-        nombre= "Género" 
-        items={["Masculino","Femenino","Otro"]} 
-        onChange={(value) => handleChange('genero', value)}
-        required/>
-      </div>
-      </div>
-      </li>
-
-      
-
-
-
-
-      <li id="slide3">
-      <div className="contenedor tres">
-      <div className="item">
-        <InputCorreo 
-        label='Correo institucional' 
-        institutional 
-        onChange={(value) => {
-          handleChange('correo_inst', value); 
-          setCorreoInstitucional(value); 
-       }}
-        required/>
-      </div>
-
+              <div className="item item-gen">
+                <ComSelect
+                  nombre="Género"
+                  items={["Masculino", "Femenino", "Otro"]}
+                  onChange={(value) => handleChange('genero', value)}
+                  required />
+              </div>
+            </div>
+          </li>
+          <li id="slide3">
+            <div className="contenedor tres">
+              <div className="item">
+                <InputCorreo
+                  label='Correo institucional'
+                  institutional
+                  onChange={(value) => {
+                    handleChange('correo_inst', value);
+                    setCorreoInstitucional(value);
+                  }}
+                  required />
+              </div>
               <div className="item">
                 <InputCorreo
                   label="Correo personal"
                   onChange={(value) => handleChange("correo_pers", value)}
                 />
               </div>
-
-      <div className="item item-contraseña">
-        <ButtonContraseña 
-        nombre={"contraseña"} 
-        onChange={(value) => handleChange('contrasena', value)}
-        required/>
-      </div>
-
-      <Stack>
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-              {errorMensaje || "Completa todos los campos obligatorios y de forma correcta!"}
-              </Alert>
-          </Snackbar>
-        </Stack>  
-
-        <div className="item-TyC">
+              <div className="item item-contraseña">
+                <ButtonContraseña
+                  nombre={"contraseña"}
+                  onChange={(value) => handleChange('contrasena', value)}
+                  required />
+              </div>
+              <Stack>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+                    {errorMensaje || "Completa todos los campos obligatorios y de forma correcta!"}
+                  </Alert>
+                </Snackbar>
+              </Stack>
+              <div className="item-TyC">
                 <ModalTyC
-                //Utilizo la etiqueta p para los saltos de linea.
+                  //Utilizo la etiqueta p para los saltos de linea.
                   nombre="Términos y condiciones"
                   texto={
                     <div className="texto-derecha">
@@ -470,7 +438,7 @@ export default function Registro() {
                 />
               </div>
 
-              <div className="item">
+              <div className="item registro-s">
                 <Buttons
                   nombre="Registrarse"
                   onclick={handleRegistroClick}
@@ -479,10 +447,6 @@ export default function Registro() {
               </div>
             </div>
           </li>
-
-
-
-
         </ul>
         <ul className="menu">
           <li>
@@ -496,11 +460,11 @@ export default function Registro() {
         <div className='casaaa'>
           <Link to="/home" className='linkk'>
             <i class="bi bi-house-door-fill">
-              </i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+            </i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
               <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
             </svg></Link>
         </div>
       </div>
     </div>
   )
- }
+}

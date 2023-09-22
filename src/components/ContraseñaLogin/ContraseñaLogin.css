@@ -23,3 +23,9 @@
 #standard-adornment-password{
     background: rebeccapurple !important;
 }
+
+#msj-err {
+    position: relative !important;
+    left: 50px !important;
+    top: 20px !important;
+}
