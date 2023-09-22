@@ -16,11 +16,11 @@ body {
   justify-content: space-evenly;
   align-content: space-evenly !important;
   margin: 50px auto;
-  background: #f6f6f6;
   border-radius: 30px;
   border: 1px;
   margin-bottom: 90px;
   width: 600px;
+  background: #f6f6f6;
 }
 
 
@@ -125,26 +125,52 @@ ul.slider {
   width: 440px;
   height: 750px;
   margin: 0;
+  
 }
 
-ul.slider li {
+
+
+
+#slide3{
   position: absolute;
   left: 0;
   top: 0;
-  opacity: 0;
+  opacity: 5;
+  background: #f6f6f6;
   width: inherit;
   height: inherit;
   transition: opacity 0.4s;
+  border-radius: 30px;
 }
+
+#slide2{
+position: relative;
+opacity: 20;
+width: inherit;
+height: inherit;
+background: #f6f6f6;
+transition: opacity 0.4s;
+border-radius: 30px;
+}
+#slide1{                                                                               
+position: absolute;
+opacity: 1;
+background: #f6f6f6;
+width: inherit;
+height: inherit;
+transition: opacity 0.4s;
+border-radius: 30px;                                                    
+}
+
 
 ul.slider li:first-child {
   opacity: 1;
-  z-index: 1;
+  z-index: 10;
 }
 
 ul.slider li:target {
   opacity: 1;
-  z-index: 1;
+  z-index: 10;
 }
 
 .menu {
@@ -163,8 +189,6 @@ ul.slider li:target {
   display: inline-block;
   background: #3c1263;
   text-decoration: none;
-  background: f6f6f6;
-
   padding: 19px;
   color: #f6f6f6;
   font-weight: 900px;
@@ -187,7 +211,7 @@ ul.slider li:target {
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  background: #f6f6f6;
+
 }
 
 .item-TyC {
@@ -228,10 +252,20 @@ ul.slider li:target {
 .titulo-TyC {
   text-align: center !important;
 }
+.titulo-TyC::first-line {
+ font-size: 1em;
+}
+
 
 .texto-derecha {
   text-align: left;
-  direction: ltr;
+  direction:ltr;
+  font-size: 9px;
+  padding: 8px 20px ;
+
+}
+.first-titulo{
+  font-size: 2.5em;
 }
 
 /*Todo para arreglar lo de ficha y eps*/

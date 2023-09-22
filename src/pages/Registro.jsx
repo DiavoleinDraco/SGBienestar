@@ -271,7 +271,14 @@ export default function Registro() {
       <form className="form">
         <h1 className="tittle">REGISTRATE</h1>
 
+
+
+
+
         <ul className="slider">
+
+
+
           <li id="slide1">
             <div className="contenedor uno">
               <div className="item">
@@ -327,6 +334,13 @@ export default function Registro() {
             </div>
           </li>
 
+
+
+
+
+
+
+
           <li id="slide2">
             <div className="contenedor dos">
               <div className="item item-ficha">
@@ -338,7 +352,6 @@ export default function Registro() {
                   value={setSelectedFichaId}
                 />
               </div>
-
               <div className="item">
                 <Textfield
                   name="Teléfono"
@@ -346,7 +359,6 @@ export default function Registro() {
                   required
                 />
               </div>
-
               <div className="item">
                 <Textfield
                   name="Dirección"
@@ -354,7 +366,6 @@ export default function Registro() {
                   required
                 />
               </div>
-
               <div className="item item-eps">
                 <AutoComplete
                   nombre="EPS"
@@ -364,7 +375,6 @@ export default function Registro() {
                   value={setSelecteEpsId}
                 />
               </div>
-
               <div className="item">
                 <ComSelect
                   nombre="Tipo de Sangre"
@@ -372,7 +382,6 @@ export default function Registro() {
                   onChange={(value) => handleChange("rh", value)}
                 />
               </div>
-
       <div className="item">
         <ComSelect 
         nombre= "Género" 
@@ -380,9 +389,14 @@ export default function Registro() {
         onChange={(value) => handleChange('genero', value)}
         required/>
       </div>
-
       </div>
       </li>
+
+      
+
+
+
+
       <li id="slide3">
       <div className="contenedor tres">
       <div className="item">
@@ -424,7 +438,7 @@ export default function Registro() {
                   nombre="Términos y condiciones"
                   texto={
                     <div className="texto-derecha">
-                      <p className="titulo-TyC">1. Aceptación de los Términos y Condiciones</p>
+                      <p className="titulo-TyC first-titulo">Términos y Condiciones</p>
                       <p>1.1. Al utilizar la aplicación BiSport y los servicios relacionados, usted acepta cumplir y estar sujeto a los términos y condiciones establecidos en este Acuerdo.</p>
                       <p className="titulo-TyC">2. Servicios</p>
                       <p>2.1. BiSport permite a los usuarios administrar, prestar y solicitar implementos deportivos.</p>
@@ -465,6 +479,10 @@ export default function Registro() {
               </div>
             </div>
           </li>
+
+
+
+
         </ul>
         <ul className="menu">
           <li>

@@ -14,7 +14,7 @@ const modalStyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: 300,
   height: 600, // Aumenta la altura del modal
   bgcolor: '#f6f6f6',
   border: '2px solid black',
