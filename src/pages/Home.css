@@ -1,0 +1,37 @@
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  /* Estilos para el logo */
+  .logo h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  /* Estilos para los enlaces de navegación */
+  .nav-links {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  /* Estilos para el enlace activo */
+  .nav-links a.active {
+    font-weight: bold;
+  }
+  
