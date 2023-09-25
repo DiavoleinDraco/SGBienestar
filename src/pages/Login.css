@@ -28,12 +28,12 @@
 .items {
   height: 50px;
   width: 300px;
-  outline: 2px solid blueviolet;
+  /* outline: 2px solid blueviolet; */
 }
 
 .title {
   font-family: "Questrial", sans-serif;
-  outline: 2px solid blueviolet;
+
 }
 
 .twos {

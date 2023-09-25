@@ -5,16 +5,15 @@
 
 /* button contrasena */
 .contraseña {
-    font-size: 17.5px !important;
-    top: 5px !important;
-    left: 0px !important;
+    font-size: 17px !important;
+  
 
 }
 
 .botton1 {
-    width: inherit !important;
+    width: 100px !important;
     outline: 2px solid rgb(55, 16, 183);
-    height: 80px;
+    height: 20px !important;
     
   
 }
@@ -22,9 +21,9 @@
 
 .botton2{
 
-    outline: 2px solid rgb(255, 0, 0);
+    outline: 2px solid rgb(0, 255, 13);
     width: inherit !important;
-    height:90px;
+    height:50px !important;
 }
 
 

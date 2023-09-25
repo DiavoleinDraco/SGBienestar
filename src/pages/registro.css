@@ -21,7 +21,7 @@ body {
   margin-bottom: 90px;
   width: 600px;
   background: #f6f6f6;
-  outline: 1px solid green;
+  /* outline: 1px solid green; */
 }
 
 .item-casaa {
@@ -33,6 +33,9 @@ body {
   justify-self: start !important;
   position: absolute;
   box-sizing: border-box;
+  -webkit-box-shadow: 3px 1px 36px -14px rgba(245,245,245,1);
+  -moz-box-shadow: 3px 1px 36px -14px rgba(245,245,245,1);
+  box-shadow: 3px 1px 36px -14px rgba(245,245,245,1);
   align-self: flex-end;
 }
 
@@ -127,6 +130,7 @@ ul.slider {
 #slide3 {
   position: absolute;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-evenly !important;
   align-content: space-around !important;
@@ -138,7 +142,7 @@ ul.slider {
   height: inherit;
   transition: opacity 0.4s;
   border-radius: 30px;
-  outline:#3c1263 1px solid;
+  /* outline:#136312 2px solid; */
 }
 
 #slide2 {
@@ -194,18 +198,21 @@ ul.slider li:target {
   height: 20px;
   font-size: 20px;
   border-radius: 100%;
+  
 }
 
 .item {
   width: 250px;
   height: 60px;
-  outline: 2px solid rgb(8, 1, 15);
+  /* outline: 2px solid rgb(8, 1, 15); */
   
 
 }
 .item-contra {
   width: 250px;
-  height: 60px;
+  height: 220px !important;
+  background-color: red;
+
 
 
 
@@ -218,11 +225,15 @@ ul.slider li:target {
 
 .contenedor {
   border-radius: 29px;
+  width: inherit;
   height: inherit;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+flex-wrap:wrap;
+  flex-direction: column;
+  align-content: center !important;
   justify-content: space-evenly;
+  flex-direction: column;
+  /* outline: #3c1263 1px solid; */
 
 }
 

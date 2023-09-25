@@ -268,7 +268,7 @@ export default function Registro() {
       <div className="child"></div>
       <div className="child-two"></div>
       <form className="form">
-        <h1 className="tittle">REGISTRATE</h1>
+        <div className="title"><h1>REGISTRATE</h1></div>
         <ul className="slider">
           <li id="slide1">
             <div className="contenedor uno">
@@ -387,7 +387,7 @@ export default function Registro() {
                   onChange={(value) => handleChange("correo_pers", value)}
                 />
               </div>
-              <div className="item item-contra slr1">
+              <div className="item slr1 item-contra">
                 <ButtonContraseña
                   nombre={"contraseña"}
                   onChange={(value) => handleChange('contraseña', value)}

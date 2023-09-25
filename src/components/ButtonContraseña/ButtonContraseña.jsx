@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent:"space-evenly",
     height:"inherit",
     width:"inherit",
-    // outline: "10px solid black"
+  
  
  
   },
