@@ -15,8 +15,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    color: '#000',
-    width:" 250",
+    alignContent: "space-around",
+    justifyContent:"space-evenly",
+    height:"inherit",
+    width:"inherit",
+    // outline: "10px solid black"
+ 
+ 
   },
   margin: {
     margin: theme.spacing(1),
@@ -101,8 +106,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
       <div className='botton1'>
         <Tooltip title='La contraseña debe contener al menos 8 caracteres, incluyendo números, mayúsculas, minúsculas y caracteres especiales.'
         arrow
-        sx={{ fontSize: '26px' }}>
-        <FormControl sx={{ m: 1, width: '210px' }} variant="standard">
+        sx={{ fontSize: '290px' }}>
+        <FormControl sx={{ m: 1, width: '200px', }} variant="standard">
           <InputLabel className='contraseña' htmlFor="standard-adornment-password">{nombre}</InputLabel>
           <Input
             id="standard-adornment-password"
@@ -114,9 +119,9 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
             error={Boolean(passwordError)}
             helperText={passwordError}
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment position="start">
                 <IconButton
-                  style={{position: 'relative', right: '-18px'}}
+                  style={{}}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}

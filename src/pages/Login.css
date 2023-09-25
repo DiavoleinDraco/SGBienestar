@@ -28,12 +28,12 @@
 .items {
   height: 50px;
   width: 300px;
+  outline: 2px solid blueviolet;
 }
 
-.titulo {
-  color: #3c1263;
+.title {
   font-family: "Questrial", sans-serif;
-  font-size: 2.7em !important;
+  outline: 2px solid blueviolet;
 }
 
 .twos {
@@ -55,9 +55,11 @@
   background: rgba(255, 255, 255, 0.5);
   z-index: -1;
 }
+
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
   color: #f6f6f6 !important;
 }
+
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root:hover {
   color: #3c1263 !important;
 }
@@ -68,6 +70,7 @@
   background: #3c1263;
   outline: 1px solid #3c1263;
 }
+
 .inicio-s:hover {
   border-radius: 50px;
   width: 240px;
@@ -109,12 +112,19 @@
   position: relative;
   top: 1px;
 }
+
 /*Acomodando los campos que se utilizan en el login*/
 
 /* cssssssss */
 
 /*Campo de contraseña*/
-.contraseña-item {
-  position: relative;
-  left: 18px !important;
+
+h1 {
+  background-image: url(https://media.giphy.com/media/l0HlA7i5qTFedPFK0/giphy.gif);
+  background-size: cover;
+  color: transparent;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  font-size: 50px;
+  font-family: 'Questrial', sans-serif;
 }

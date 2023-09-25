@@ -21,6 +21,7 @@ body {
   margin-bottom: 90px;
   width: 600px;
   background: #f6f6f6;
+  outline: 1px solid green;
 }
 
 .item-casaa {
@@ -125,6 +126,10 @@ ul.slider {
 
 #slide3 {
   position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly !important;
+  align-content: space-around !important;
   left: 0;
   top: 0;
   opacity: 5;
@@ -133,6 +138,7 @@ ul.slider {
   height: inherit;
   transition: opacity 0.4s;
   border-radius: 30px;
+  outline:#3c1263 1px solid;
 }
 
 #slide2 {
@@ -193,7 +199,22 @@ ul.slider li:target {
 .item {
   width: 250px;
   height: 60px;
+  outline: 2px solid rgb(8, 1, 15);
+  
+
 }
+.item-contra {
+  width: 250px;
+  height: 60px;
+
+
+
+}
+.slr1{
+  width: 250px;
+  height: 60px;
+}
+
 
 .contenedor {
   border-radius: 29px;
@@ -205,61 +226,20 @@ ul.slider li:target {
 
 }
 
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  width: 250px;
+  height: 60px;
+}
 /*Estilos para los campos*/
-.item-nom,
-.item-ape,
-.item-TD,
-.item-documento,
-.item-rol {
-  position: relative !important;
-  left: 14px !important;
+
+.makeStyles-root-4{
+height: inherit !important;
+width: inherit !important;
+
 }
 
-.item-fecha {
-  position: relative !important;
-  left: 0px !important;
-}
 
-.item-TyC {
-  position: relative;
-  top: 54px;
-  right: -10px;
-}
 
-.botton1 {
-  width: 200px;
-  padding: 30px;
-  margin-top: -13% !important;
-}
-
-.item-correo {
-  margin: -14px;
-}
-
-.item-reg {
-  position: relative;
-  top: 40px;
-}
-
-.item-ficha,
-.item-eps {
-  position: relative;
-  right: -4px;
-}
-
-.item-tel,
-.item-dir,
-.item-TS,
-.item-gen {
-  position: relative;
-  left: 16px;
-}
-
-.item-contraseña {
-  position: relative;
-  bottom: 10px;
-  left: 10px;
-}
 /*Hasta aqui el estilo para los campos*/
 
 /*Para que este bien acomodado el modal*/
@@ -285,13 +265,7 @@ ul.slider li:target {
 }
 
 /*Todo para arreglar lo de ficha y eps*/
-element.style {
-  width: 300px;
-  position: absolute;
-  inset: 0px auto auto 0px;
-  margin: 0px;
-  transform: translate3d(25px, 55px, 0px);
-}
+
 
 .registro-s{
   border-radius: 50px;

@@ -8,28 +8,29 @@
     font-size: 17.5px !important;
     top: 5px !important;
     left: 0px !important;
-    text-align: start !important;
-}
 
-/*  buton comfirmar contrasena */
-.comf {
-    font-size: 17.5px !important;
-    text-align: start !important;
-    left: -15px !important;
-    top: 8px !important;
 }
 
 .botton1 {
-    position: relative;
-    top: -6px !important;
-    left: 20px !important;
+    width: inherit !important;
+    outline: 2px solid rgb(55, 16, 183);
+    height: 80px;
+    
+  
 }
 
-.botton2 {
-    position: relative;
-    top: 30px !important;
-    left: 40px !important;
+
+.botton2{
+
+    outline: 2px solid rgb(255, 0, 0);
+    width: inherit !important;
+    height:90px;
 }
+
+
+
+
+
 
 .MuiInput-underline.Mui-error:after {
     transform: scaleX(1);

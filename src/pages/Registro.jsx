@@ -371,7 +371,7 @@ export default function Registro() {
           </li>
           <li id="slide3">
             <div className="contenedor tres">
-              <div className="item">
+              <div className="item slr1">
                 <InputCorreo
                   label='Correo institucional'
                   institutional
@@ -381,16 +381,16 @@ export default function Registro() {
                   }}
                   required />
               </div>
-              <div className="item">
+              <div className="item slr1">
                 <InputCorreo
                   label="Correo personal"
                   onChange={(value) => handleChange("correo_pers", value)}
                 />
               </div>
-              <div className="item item-contraseña">
+              <div className="item item-contra slr1">
                 <ButtonContraseña
                   nombre={"contraseña"}
-                  onChange={(value) => handleChange('contrasena', value)}
+                  onChange={(value) => handleChange('contraseña', value)}
                   required />
               </div>
               <Stack>
@@ -400,7 +400,7 @@ export default function Registro() {
                   </Alert>
                 </Snackbar>
               </Stack>
-              <div className="item-TyC">
+              <div className="item-TyC slr1">
                 <ModalTyC
                   //Utilizo la etiqueta p para los saltos de linea.
                   nombre="Términos y condiciones"
@@ -438,7 +438,7 @@ export default function Registro() {
                 />
               </div>
 
-              <div className="item registro-s">
+              <div className="item registro-s slr1">
                 <Buttons
                   nombre="Registrarse"
                   onclick={handleRegistroClick}

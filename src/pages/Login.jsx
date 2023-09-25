@@ -75,10 +75,7 @@ export default function Login() {
       <div className='hijoo'>
         <div className='ones'></div>
         <div className='twos'></div>
-        <div className='items box'>
-          <h1 className='titulo' >BIENVENIDO</h1>
-        </div>
-
+        <div className='title'> <h1>BIENVENIDO</h1> </div>
 
         <div className='items item-correo'>
           <InputCorreo
