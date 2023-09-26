@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent:"space-evenly",
     height:"inherit",
     width:"inherit",
-  
- 
- 
   },
   margin: {
     margin: theme.spacing(1),
@@ -121,7 +118,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
             endAdornment={
               <InputAdornment position="start">
                 <IconButton
-                  style={{}}
+                  style={{position: 'relative', left: '116px'}}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
@@ -131,8 +128,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
               </InputAdornment>
             }
           />
-          {(passwordError) && (<p style={{ color: 'red' }}>Este campo es obligatorio.</p>) ||
-          (errorValido) && (<p style={{ color: 'red' }}>Contraseña inválida.</p>)}
+          {(passwordError) && (<p style={{ color: 'red', position: 'relative', left: '50px'  }}>Este campo es obligatorio.</p>) ||
+          (errorValido) && (<p style={{ color: 'red', position: 'relative', left: '50px' }}>Contraseña inválida.</p>)}
         </FormControl>
         </Tooltip>
       </div>

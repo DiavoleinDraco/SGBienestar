@@ -4,12 +4,12 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Stack } from '@mui/material';
 import './AutoComplete.css'
 
-
 export default function AutoComplete({ nombre, array, onChange }) {
   const [value, setValue] = React.useState(null); 
 
+
   return (
-    <Stack className='stack' spacing={1} sx={{ width: 300 }}>
+    <Stack spacing={1} sx={{ width: 250 }}>
     <Autocomplete
         disablePortal
         id="disable-close-on-select"

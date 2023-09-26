@@ -17,7 +17,7 @@ const modalStyle = {
   width: 300,
   height: 600, // Aumenta la altura del modal
   bgcolor: '#f6f6f6',
-  border: '2px solid black',
+  border: '1px solid black',
   boxShadow: 24,
   maxHeight: '80vh',
   overflow: 'auto',
@@ -28,7 +28,7 @@ const styles = makeStyles ({
   maiBtn: {
     padding: '50px',
     overflow: 'auto',
-    alignItems:'center'
+    alignItems:'center',
   }
 })
 

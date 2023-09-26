@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   errorText: {
     color: 'black', // Cambia el color del mensaje de error a rojo
   },
+  mainBtn: {
+    right: '26%',
+    position: 'absolute'
+  }
 }));
 
 export default function Date({ Descripcion, onChange }) {

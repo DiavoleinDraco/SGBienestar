@@ -211,7 +211,6 @@ ul.slider li:target {
 .item-contra {
   width: 250px;
   height: 220px !important;
-  background-color: red;
 
 
 
@@ -289,4 +288,8 @@ width: inherit !important;
   width: 240px;
   color: #3c1263 !important;
   background: #f6f6f6 !important;
+}
+
+.MuiTooltip-popper {
+  position: absolute !important;
 }

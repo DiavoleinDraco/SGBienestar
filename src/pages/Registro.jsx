@@ -394,7 +394,7 @@ export default function Registro() {
                   required />
               </div>
               <Stack>
-                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Snackbar className="Snackbar-contraseña" open={open} autoHideDuration={6000} onClose={handleClose}>
                   <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
                     {errorMensaje || "Completa todos los campos obligatorios y de forma correcta!"}
                   </Alert>

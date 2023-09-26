@@ -12,16 +12,16 @@
 
 .botton1 {
     width: 100px !important;
-    outline: 2px solid rgb(55, 16, 183);
-    height: 20px !important;
+    height: 50px !important;
+    position: relative;
+    right: 48px;
+    top: -6px !important;
     
   
 }
 
 
 .botton2{
-
-    outline: 2px solid rgb(0, 255, 13);
     width: inherit !important;
     height:50px !important;
 }
