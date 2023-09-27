@@ -1,4 +1,3 @@
-
 const UrlApi= "https://pruebas-l16n.onrender.com"
 
 export default async function get (pat){
@@ -26,9 +25,8 @@ export async function post(pat, data) {
     });
 
     if (!response.ok) {
-      
-      if (response.status === 'ERROR: El Usuario ya existe') {
-        
+      const responseData = await response.json();
+      if (responseData.message === 'ERROR: El Usuario ya existe') {
         throw new Error("El correo electrónico ya está en uso. Por favor, elija otro.");
       } else {
         throw new Error(`Error al realizar la solicitud: ${response.status}`);
@@ -42,6 +40,7 @@ export async function post(pat, data) {
     throw error;
   }
 }
+
 
 export  async function getParametre (pat,parametro){
   try{

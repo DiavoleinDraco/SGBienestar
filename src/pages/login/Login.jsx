@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import InputCorreo from "../components/ComantCorreo/ComantCorreo.jsx";
-import ContraseñaLogin from '../components/ContraseñaLogin/ContraseñaLogin.jsx';
-import Buttons from '../components/Buttons/Buttons.jsx';
+import InputCorreo from "../../components/ComantCorreo/ComantCorreo.jsx";
+import ContraseñaLogin from '../../components/ContraseñaLogin/ContraseñaLogin.jsx';
+import Buttons from '../../components/Buttons/Buttons.jsx';
 import { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Stack from '@mui/material/Stack';
 import { forwardRef } from "react";
 import './Login.css'
-import miimagen from '../pages/imagenes/sena-bienestar.png'
+import miimagen from '../../pages/imagenes/sena-bienestar.png'
 export default function Login() {
   const [info, setInfo] = useState({});
   const [errors, setErrors] = useState({});
@@ -93,7 +93,13 @@ export default function Login() {
             required />
         </div>
 
+        <div>
+          <Link to="/RecuperarContrasena">Recuperar contraseña</Link>
+        </div>
 
+        <div>
+          <Link to="/Registro">¿No tienes una cuenta? Registrate</Link>
+        </div>
 
         <div className='items inicio-s'>
           <Buttons

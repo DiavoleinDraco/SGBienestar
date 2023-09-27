@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home'
-import Registro from '../pages/Registro'
-import Login from '../pages/Login';
-import Autenticacion from '../pages/Autenticacion';
-import RecuperarContrasena from '../pages/RecuperarContrasena';
+import Home from '../pages/home/Home'
+import Registro from '../pages/registro/Registro'
+import Login from '../pages/login/Login';
+import Autenticacion from '../pages/autenticacion/Autenticacion';
+import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
 
 export function LasRutas() {
   return (
