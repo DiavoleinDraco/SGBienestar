@@ -8,7 +8,6 @@ import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { forwardRef } from 'react';
 import { post } from '../../UseFetch'
-
 import './RecuperarContrasena.css';
 
 export default function RecuperarContrasena() {
@@ -72,9 +71,15 @@ export default function RecuperarContrasena() {
   };
 
   return (
-    <div className="container-padre-rec-contraseña">
+    <div className="container-padre">
+      <div>   
       <h1 className="tittle">Recupera tu contraseña</h1>
-      <div className="item">
+      </div>
+      <ul id='sliderrr'>
+
+        <li className='sldrr1'>
+
+        <div className="son">
         <InputCorreo
           label="Correo institucional"
           institutional
@@ -83,8 +88,11 @@ export default function RecuperarContrasena() {
           error={errors.correo_inst}
         />
       </div>
+        </li>
 
-      <div className="item">
+        <li className='sldrr2'>
+
+        <div className="son">
         <Textfield
           name="Codigo"
           onChange={(value) => handleChange('codigo', value)}
@@ -92,8 +100,11 @@ export default function RecuperarContrasena() {
           error={errors.codigo}
         />
       </div>
+        </li>
 
-      <div className="item item-re-contraseña">
+
+        <li className='sldrr3'>
+        <div className="son">
         <ButtonContraseña
           nombre="Nueva contraseña"
           onChange={(value) => handleChange('contrasena', value)}
@@ -101,10 +112,25 @@ export default function RecuperarContrasena() {
           error={errors.contrasena}
         />
       </div>
-
       <div className="item">
         <button onClick={handleRecuperarContrasenaClick}>Recuperar Contraseña</button>
       </div>
+
+
+        </li>
+      </ul>
+
+      <ul className='menu-1'>
+        <li><a href="#sldrr1"></a>1</li>
+        <li><a href="#sldrr2"></a>2</li>
+        <li><a href="#sldrr3"></a>3</li>
+       
+     
+
+
+
+      </ul>
+
 
       <div className="item">
         <Link to="/login">Volver al inicio de sesión</Link>

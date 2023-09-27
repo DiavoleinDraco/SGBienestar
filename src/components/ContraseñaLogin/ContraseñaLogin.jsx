@@ -50,7 +50,7 @@ export default function ContraseñaLogin({ nombre, onChange, required }) {
         endAdornment={
           <InputAdornment position="end">
             <IconButton
-              style={{ position: "relative", right: "16px" }}
+              style={{ position: "relative", right: "-3px" }}
               aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}

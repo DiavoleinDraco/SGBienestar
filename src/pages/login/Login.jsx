@@ -69,13 +69,13 @@ export default function Login() {
   return (
 
     <div className='padree'>
-      <div id="imagenes" className='items'   >
+      <div id="imagenes">
         <img src={miimagen} alt="sena-imagen" />
       </div>
       <div className='hijoo'>
         <div className='ones'></div>
         <div className='twos'></div>
-        <div className='title'> <h1>BIENVENIDO</h1> </div>
+        <div className='title items'> <h1>BIENVENIDO</h1> </div>
 
         <div className='items item-correo'>
           <InputCorreo
@@ -93,11 +93,10 @@ export default function Login() {
             required />
         </div>
 
-        <div>
-          <Link to="/RecuperarContrasena">Recuperar contraseña</Link>
+        <div className='items recuperarcuenta'>
+          <Link to="/RecuperarContrasena">¿Olvidaste tu contraseña?</Link>
         </div>
-
-        <div>
+        <div className='items notcuenta'>
           <Link to="/Registro">¿No tienes una cuenta? Registrate</Link>
         </div>
 
@@ -106,6 +105,8 @@ export default function Login() {
             nombre='Iniciar sesión'
             onclick={handleRegistroClick} />
         </div>
+
+        
 
       </div>
       <div className='item-casa'>

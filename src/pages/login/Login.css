@@ -1,3 +1,4 @@
+
 .padree {
   display: flex;
   margin: 15em auto;
@@ -26,14 +27,28 @@
 }
 
 .items {
-  height: 50px;
+  height: 60px;
   width: 300px;
-  /* outline: 2px solid blueviolet; */
+
+
 }
 
 .title {
   font-family: "Questrial", sans-serif;
+  height:100px !important;
 
+  width: 350px;
+
+}
+.notcuenta{
+  padding: 19px;
+  box-sizing: border-box;
+  height: 40px;
+}
+.recuperarcuenta{
+  padding:25px;
+  height: 40px;
+  box-sizing: border-box;
 }
 
 .twos {
@@ -119,12 +134,18 @@
 
 /*Campo de contraseña*/
 
-h1 {
+h1{
   background-image: url(https://media.giphy.com/media/l0HlA7i5qTFedPFK0/giphy.gif);
   background-size: cover;
+
   color: transparent;
   -moz-background-clip: text;
   -webkit-background-clip: text;
   font-size: 50px;
   font-family: 'Questrial', sans-serif;
+  width: inherit !important;
+  height:inherit !important;
+  margin: 0;
+  padding:30px;
+  box-sizing: border-box;
 }
