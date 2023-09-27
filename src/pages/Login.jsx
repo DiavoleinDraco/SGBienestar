@@ -93,7 +93,13 @@ export default function Login() {
             required />
         </div>
 
+        <div>
+          <Link to="/RecuperarContrasena">Recuperar contraseña</Link>
+        </div>
 
+        <div>
+          <Link to="/Registro">¿no tienes una cuenta? registrate</Link>
+        </div>
 
         <div className='items inicio-s'>
           <Buttons

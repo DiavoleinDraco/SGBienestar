@@ -88,65 +88,51 @@ export default function Registro() {
   };
 
 
-
   const handleRegistroClick = async () => {
-    const camposObligatoriosLlenos = validarCamposObligatorios();
-    const InstitucionalEmailValid = valueI.map((item) => item.nombre);
-    const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
-
     try {
-      if (
-        aceptoTerminos &&
-        camposObligatoriosLlenos &&
-        InstitucionalEmailValid.some((domain) =>
-          info["correo_inst"].endsWith(domain)
-        ) &&
-        telefonoRegex.test(info["telefono"]) &&
-        passwordPattern.test(info["contrasena"])
-      ) {
-        info['pps'] = true;
-
-
-        await post("/registro", info);
-
-        const idNewUser = await getParametre(
-          `/registro/usuario/findByMail/`,
-          info["correo_inst"]
-        );
-
-
-        if (idNewUser && idNewUser._id) {
-          navegacion(`/auth/${idNewUser._id}`);
-        } else {
-
-          setOpen(true);
-          setErrorMensaje("Error al obtener el ID del nuevo usuario.");
-        }
-
-        setRegistroExitoso(true);
-        setCorreoValido(true);
-        setErrorMensaje(null);
-      } else {
-        info['pps'] = false;
-        setOpen(true);
-        setCorreoValido(false);
+      const camposObligatoriosLlenos = validarCamposObligatorios();
+  
+      if (!aceptoTerminos) {
+        throw new Error("Debes aceptar los términos y condiciones.");
       }
+  
+      if (!camposObligatoriosLlenos) {
+        throw new Error("Completa todos los campos obligatorios.");
+      }
+  
+      const InstitucionalEmailValid = valueI.map((item) => item.nombre);
+      const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
+  
+      if (!InstitucionalEmailValid.some((domain) => info["correo_inst"].endsWith(domain))) {
+        throw new Error("El correo electrónico institucional no es válido.");
+      }
+  
+      if (!telefonoRegex.test(info["telefono"])) {
+        throw new Error("El número de teléfono no es válido.");
+      }
+  
+      if (!passwordPattern.test(info["contrasena"])) {
+        throw new Error("La contraseña no cumple con los requisitos.");
+      }
+  
+      info['pps'] = true;
+      const response = await post("/registro", info);
+      const idNewUser = await getParametre(`/registro/usuario/findByMail/`, info["correo_inst"]);
+  
+      localStorage.setItem('token', idNewUser.token);
+      navegacion(`/auth/${idNewUser.token}`);
+      setRegistroExitoso(true);
+      setCorreoValido(true);
+      setErrorMensaje(null);
     } catch (error) {
-      if (error.message.includes('El correo electrónico ya está en uso.')) {
-        setOpen(true);
-        setErrorMensaje('Error en la solicitud');
-      } else {
-        info["pps"] = false;
-        setOpen(true);
-        setErrorMensaje(
-          'El correo electrónico ya está en uso. Por favor, elija otro.'
-        );
-        console.error('Error en la solicitud:', error);
-      }
+      setRegistroExitoso(false);
+      setCorreoValido(false);
+      setOpen(true);
+      setErrorMensaje(error.message);
     }
   };
-
+  
 
 
   useEffect(() => {
@@ -390,7 +376,7 @@ export default function Registro() {
               <div className="item slr1 item-contra">
                 <ButtonContraseña
                   nombre={"contraseña"}
-                  onChange={(value) => handleChange('contraseña', value)}
+                  onChange={(value) => handleChange('contrasena', value)}
                   required />
               </div>
               <Stack>
