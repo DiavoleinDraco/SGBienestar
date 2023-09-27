@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import InputCorreo from '../../components/ComantCorreo/ComantCorreo';
 import ButtonContraseña from '../../components/ButtonContraseña/ButtonContraseña';
@@ -7,7 +7,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { forwardRef } from 'react';
-import { post } from '../../UseFetch'
+import  get, {  post } from '../../UseFetch'
 import './RecuperarContrasena.css';
 
 export default function RecuperarContrasena() {
@@ -18,14 +18,18 @@ export default function RecuperarContrasena() {
   const [errors, setErrors] = useState({});
   const [open, setOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [valueI, actualizarI] = useState([]);
+  const [errorMensaje, setErrorMensaje] = useState('');
+  const [envioExitoso, setEnvioExitoso] = useState(false);
+  const [correoError, setCorreoError] = useState(false);
+  
+
 
   const nextSlide = () => {
     if (currentSlide < 2) {
       setCurrentSlide(currentSlide + 1);
     }
   };
-
-  // Llama a nextSlide en respuesta a algún evento, por ejemplo, un clic en un botón "Siguiente"
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -35,68 +39,93 @@ export default function RecuperarContrasena() {
     if (fieldName === 'correo') {
       setCorreo(fieldValue);
     } else if (fieldName === 'codigo') {
-      setCodigo(fieldValue);     
+      setCodigo(fieldValue);
     } else if (fieldName === 'newPassword') {
       setNewPassword(fieldValue);
     }
   };
 
-  const validarCamposObligatorios = () => {
-    const errores = {};
+  useEffect(() => {
+    get('/dominio-sena')
+      .then((data) => {
+        actualizarI(data);
+      })
+      .catch((error) => {
+        console.error('Error al encontrar resultado', error);
+      });
+  }, []);
 
-    if (step === 2) {
-      if (!codigo) {
-        errores.codigo = 'Este campo es obligatorio.';
-      }
-      if (!newPassword) {
-        errores.newPassword = 'Este campo es obligatorio.';
-      }
-    }
-
-    setErrors(errores);
-    return Object.keys(errores).length === 0;
-  };
-
+  
   const handleEnviarCorreo = async () => {
+    setErrorMensaje('');
+  
+    if (!correo) {
+      setCorreoError(true);
+      setOpen(true);
+      return;
+    }
+  
+    const InstitucionalEmailValid = valueI.map((item) => item.nombre);
+  
+    if (!InstitucionalEmailValid.some((domain) => correo.endsWith(domain))) {
+      setCorreoError(true);
+      setOpen(true);
+      return;
+    }
+  
+    try {
+      console.log(correo);
+      const response = await post('/registro/rest', { correo });
+      console.log('Respuesta del backend:', response);
+  
+      if (response && response.message === 'Correo enviado') {
+        setEnvioExitoso(true);
+      } else {
+        console.log('Envío del código exitoso.');
+        
+      }
+    } catch (error) {
+      console.error('Error en la solicitud POST:', error);
 
-    if (step === 1) {
-      try {
-        console.log(correo)
-        const response = await post('/registro/rest', { correo });
-        console.log('Respuesta del backend:', response);
-       
-        if (response && response.exito) {
-          setStep(3);
-        } else {
-          console.log('Error en el backend. Mostrar mensaje al usuario.');
-        }
-      } catch (error) {
-        console.error('Error en la solicitud POST:', error);
+      if (error.message === 'Usuario no encontrado. Por favor, regístrese.') {
+
+      } else {
+        setErrorMensaje('Error en la solicitud para enviar el correo. Usuario no encontrado. Por favor, regístrese o  verifique que ha incresado su correo correctamente');
       }
     }
   };
+
+  
 
   const handleCambiarContrasena = async () => {
-
-      console.log(correo,codigo,newPassword)
-      const data = (correo,codigo,newPassword)
-        try {
-          const response = await post('/registro/rest/password', {
-            correo,codigo,newPassword
-          });
-          console.log('Respuesta del backend para cambiar la contraseña:', response);
-
-          if (response && response.cambioExitoso) {
-            console.log('Contraseña cambiada exitosamente. Mostrar mensaje al usuario.');
-          } else {
-            console.log('Error al cambiar la contraseña. Mostrar mensaje al usuario.');
-          }
-        } catch (error) {
-          console.error('Error en la solicitud POST para cambiar la contraseña:', error);
-        }
-      
-    
+    if (!correo || !codigo || !newPassword) {
+      setErrorMensaje('Debes completar todos los campos antes de cambiar la contraseña.');
+      return;
+    }
+  
+    const data = { correo, codigo, newPassword };
+  
+    try {
+      const response = await post('/registro/rest/password', data);
+      console.log('respuesta', response);
+  
+      if (response && response.statusCode === 202 && response.message === 'Se ha actualizado la contraseña') {
+        console.log('Contraseña cambiada exitosamente');
+        
+      } else {
+        setErrorMensaje('Error al cambiar la contraseña');
+      }
+    } catch (error) {
+      console.error('Error en la solicitud POST para cambiar la contraseña:', error);
+      if (error.message === 'El correo institucional o la contraseña no coinciden') {
+        
+        setErrorMensaje('El correo institucional o la contraseñas no coinciden. Por favor, verifique sus credenciales.');
+      } else {
+        setErrorMensaje('Error en la solicitud para cambiar la contraseña.');
+      }
+    }
   };
+  
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -105,7 +134,8 @@ export default function RecuperarContrasena() {
     setOpen(false);
   };
 
-  //________________________________________________________________________________________________________________________________________________________________________________
+//_____________/////_____________
+
 
   return (
     <div className="padrecontenedor">
@@ -135,15 +165,18 @@ export default function RecuperarContrasena() {
               error={errors.correo_inst}
             />
             </div>
+    
           </div>
-          <button className='btn-env-correo' onClick={handleEnviarCorreo}>Enviar Correo</button>
+
+          <button className='btn-env-correo' onClick={handleEnviarCorreo}>Enviar Codigo</button>
+
         </li>
 
         <li className={currentSlide === 1 ? "active" : "inactive"} id="slidee2">
           <div className="son son-codigo">
             <Textfield
               className="son-codigo"
-              name="Codigo"
+              name="Ingrese el codigo"
               onChange={(value) => handleChange("codigo", value)}
               required
               error={errors.codigo}
@@ -174,16 +207,36 @@ export default function RecuperarContrasena() {
         </Link>
       </div>
 
-      <Stack spacing={2} sx={{ width: "100%" }}>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity="error"
-            sx={{ width: "100%", background: "" }}
-          >Completa todos los campos obligatorios y de forma correcta.
-          </Alert>
-        </Snackbar>
-      </Stack>
+      
+    <Stack spacing={2} sx={{ width: "100%" }}>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          sx={{ width: "100%", background: "" }}
+        >
+          {!correo ? 'El campo de correo es obligatorio.' : 'El correo electrónico no es válido. Debe ser un correo institucional.'}
+        </Alert>
+      </Snackbar>
+      {envioExitoso && (
+        <Alert
+         onClose={() => setEnvioExitoso(false)} 
+         severity="success"
+        sx={{ width: "100%", background: "" }}
+          >El código se ha enviado exitosamente, por favor revise su correo electrónico
+      </Alert>
+      )}
+      {errorMensaje && (
+     <Alert
+        onClose={() => setErrorMensaje('')}
+        severity="error"
+       sx={{ width: "100%", background: "" }}
+        >
+         { errorMensaje}
+        </Alert>
+        )}
+    </Stack>
+
     </div>
   );
 }

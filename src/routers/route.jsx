@@ -5,6 +5,15 @@ import Registro from '../pages/registro/Registro'
 import Login from '../pages/login/Login';
 import Autenticacion from '../pages/autenticacion/Autenticacion';
 import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
+import RecuperacionContraAviso from '../pages/recuperarC/RecuperarContraAviso';
+
+function requireAuth({ children }) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+  return children;
+}
 
 export function LasRutas() {
   return (
@@ -14,7 +23,11 @@ export function LasRutas() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth/:userId" element={<Autenticacion />} />
-        <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>}/>
+        <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
+        <Route path="/RecuperacionContraAviso" element={<RecuperacionContraAviso/>} />
+
+        <Route path="/auth/:userId" element={<Route element={requireAuth} />}
+        />
       </Routes>
     </Router>
   );
