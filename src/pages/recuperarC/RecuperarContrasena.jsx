@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import InputCorreo from '../components/ComantCorreo/ComantCorreo';
-import ButtonContraseña from '../components/ButtonContraseña/ButtonContraseña';
-import Textfield from '../components/Textfield/Textfield';
+import InputCorreo from '../../components/ComantCorreo/ComantCorreo';
+import ButtonContraseña from '../../components/ButtonContraseña/ButtonContraseña';
+import Textfield from '../../components/Textfield/Textfield';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { forwardRef } from 'react';
-import { post } from '../UseFetch'
+import { post } from '../../UseFetch'
 
 import './RecuperarContrasena.css';
 

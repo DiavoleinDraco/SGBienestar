@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import miimagen from "../pages/imagenes/sena-bienestar.png";
-import { getParametre } from "../UseFetch";
+import miimagen from "../../pages/imagenes/sena-bienestar.png";
+import { getParametre } from "../../UseFetch";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import Buttons from "../components/Buttons/Buttons";
+import Buttons from "../../components/Buttons/Buttons";
 import "./Autenticacion.css";
 
 export default function Autenticacion() {
