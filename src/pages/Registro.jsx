@@ -400,7 +400,7 @@ export default function Registro() {
                   </Alert>
                 </Snackbar>
               </Stack>
-              <div className="item-TyC slr1">
+              <div className="item-TyC slr1 item">
                 <ModalTyC
                   //Utilizo la etiqueta p para los saltos de linea.
                   nombre="Términos y condiciones"

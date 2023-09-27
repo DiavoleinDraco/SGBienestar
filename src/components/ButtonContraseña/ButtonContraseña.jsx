@@ -118,7 +118,7 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
             endAdornment={
               <InputAdornment position="start">
                 <IconButton
-                  style={{position: 'relative', left: '116px'}}
+                  style={{position: 'relative', left: '16px'}}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
@@ -128,8 +128,8 @@ export default function ButtonContraseña({ nombre, onChange, required }) {
               </InputAdornment>
             }
           />
-          {(passwordError) && (<p style={{ color: 'red', position: 'relative', left: '50px'  }}>Este campo es obligatorio.</p>) ||
-          (errorValido) && (<p style={{ color: 'red', position: 'relative', left: '50px' }}>Contraseña inválida.</p>)}
+          {(passwordError) && (<p style={{ color: 'red', position: 'relative', left: '5px',width: "190px"}}>Este campo es obligatorio.</p>) ||
+          (errorValido) && (<p style={{ color: 'red', position: 'relative', left: '30px', width: "140px" }}>Contraseña inválida.</p>)}
         </FormControl>
         </Tooltip>
       </div>

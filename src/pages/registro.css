@@ -204,7 +204,7 @@ ul.slider li:target {
 .item {
   width: 250px;
   height: 60px;
-  /* outline: 2px solid rgb(8, 1, 15); */
+  /* outline: 2px solid rgb(8, 1, 15);  */
   
 
 }
@@ -293,3 +293,23 @@ width: inherit !important;
 .MuiTooltip-popper {
   position: absolute !important;
 }
+
+.MuiTypography-root{
+
+  height: 60px !important;
+  width: inherit!important;
+}
+.MuiTypography-root{
+  /* outline: 1px solid  #a2cd2f !important; */
+  height: inherit !important;
+  padding: 11px 8px 5px 8px!important;
+  font-size: 12px !important;
+  width:300px !important;
+  box-sizing: border-box;
+
+}
+
+
+#transition-modal-descripcion{
+  outline: rebeccapurple  1px solid !important;
+} 

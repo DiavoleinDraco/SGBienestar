@@ -17,7 +17,7 @@ const modalStyle = {
   width: 300,
   height: 600, // Aumenta la altura del modal
   bgcolor: '#f6f6f6',
-  border: '1px solid black',
+outline: '1px solid black',
   boxShadow: 24,
   maxHeight: '80vh',
   overflow: 'auto',
@@ -60,6 +60,7 @@ export default function ModalTyC({ nombre, texto, onChange}) {
     <div>
       <Button onClick={handleOpen}> <Typography id="transition-modal-description" sx={contentStyle}>{nombre} <Checkbox {...label} checked={elementos} onChange={handleInputChange} /></Typography></Button>
       <Modal
+      
         className={classes.maiBtn}
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

@@ -35,3 +35,6 @@
     transform: scaleX(1);
     border-bottom-color: rgba(0, 0, 0, 0.668) !important;
 }
+.MuiFormControl-root{
+width: 200px;
+}
