@@ -71,15 +71,18 @@ export default function RecuperarContrasena() {
   };
 
   return (
-    <div className="container-padre">
+    <div className="padrecontenedor">
       <div>   
-      <h1 className="tittle">Recupera tu contraseña</h1>
+      <h1 className="tittlee">Recupera tu contraseña</h1>
       </div>
-      <ul id='sliderrr'>
+      <ul className='sldrr'>
 
-        <li className='sldrr1'>
-
+        <li  id='slidee1'>
         <div className="son">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+  <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+</svg>
+<i class="bi bi-envelope-fill"></i>
         <InputCorreo
           label="Correo institucional"
           institutional
@@ -90,8 +93,7 @@ export default function RecuperarContrasena() {
       </div>
         </li>
 
-        <li className='sldrr2'>
-
+        <li id='slidee2'>
         <div className="son">
         <Textfield
           name="Codigo"
@@ -103,7 +105,7 @@ export default function RecuperarContrasena() {
         </li>
 
 
-        <li className='sldrr3'>
+        <li id='slidee3' >
         <div className="son">
         <ButtonContraseña
           nombre="Nueva contraseña"
@@ -121,9 +123,9 @@ export default function RecuperarContrasena() {
       </ul>
 
       <ul className='menu-1'>
-        <li><a href="#sldrr1"></a>1</li>
-        <li><a href="#sldrr2"></a>2</li>
-        <li><a href="#sldrr3"></a>3</li>
+        <li className='li'><a className='a' href="#slidee1">1</a></li>
+        <li  className='li'><a className='a' href="#slidee2">2</a></li>
+        <li  className='li'><a className='a' href="#slidee3">3</a></li>
        
      
 
