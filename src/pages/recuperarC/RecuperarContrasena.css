@@ -104,6 +104,7 @@ li {
 .item-link {
   position: relative;
   left: 32%;
+  top: 8%;
 }
 
 /*Estilo del boton de recuperar contraseña*/
@@ -139,3 +140,59 @@ li {
     top: 20%;
     left: 8%;
 }
+
+
+/*Estilo para las condiciones de los slider*/
+.sldrr {
+    position: relative;
+    width: 350px;
+    height: 300px;
+    border-radius: 30px;
+    margin: 0 auto;
+    overflow: hidden; /* Oculta los elementos fuera de la vista */
+  }
+  
+  .sldrr li {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: inherit;
+    height: 300px;
+    background: #f6f6f6;
+    transition: opacity 0.4s;
+    border-radius: 30px;
+  }
+  
+  /* Clase para mostrar un slide */
+  .sldrr li.active {
+    opacity: 1;
+    z-index: 1;
+  }
+  
+  /* Clase para ocultar un slide */
+  .sldrr li.inactive {
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none; /* Desactiva los eventos del elemento oculto */
+  }
+
+  /*Estilo para el boton siguientre*/
+  .btn-siguiente {
+    border-radius: 50px;
+    width: 100px;
+    color: #fff;
+    background: #3c1263;
+    height: 40px;
+    border: 1px solid #000;
+    position: relative;
+    top: 5%;
+  }
+
+  .btn-siguiente:hover {
+    border-radius: 50px;
+    width: 100px;
+    color: #3c1263 !important;
+    background: #f6f6f6 !important;
+    cursor: pointer;
+  }
