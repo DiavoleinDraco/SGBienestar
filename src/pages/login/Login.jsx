@@ -9,11 +9,16 @@ import MuiAlert from "@mui/material/Alert";
 import Stack from '@mui/material/Stack';
 import { forwardRef } from "react";
 import './Login.css'
-import miimagen from '../../pages/imagenes/sena-bienestar.png'
+import miimagen from '../../pages/imagenes/sena-bienestar.png';
+import  get, { post } from "../../UseFetch.js";
+
+
 export default function Login() {
   const [info, setInfo] = useState({});
   const [errors, setErrors] = useState({});
   const [open, setOpen] = useState(false);
+  const [errorMensaje, setErrorMensaje] = useState(null);
+  const [valueI, actualizarI] = useState([]);
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -37,6 +42,16 @@ export default function Login() {
     });
   };
 
+  useEffect(() => {
+    get("/dominio-sena")
+      .then((data) => {
+        actualizarI(data);
+      })
+      .catch((error) => {
+        console.error("Error al encontrar resultado", error);
+      });
+  }, []);
+
   const validarCamposObligatorios = () => {
     const camposObligatorios = ['correo_inst', 'contrasena'];
     const errores = {};
@@ -55,13 +70,27 @@ export default function Login() {
     console.log('Inicio de sesion exitoso', info)
   };
 
-  const handleRegistroClick = () => {
-    const camposObligatoriosLlenos = validarCamposObligatorios();
-    if (camposObligatoriosLlenos) {
+  const handleLoginClick = async () => {
+    try{
+      const camposObligatoriosLlenos = validarCamposObligatorios();
+
+      if (!camposObligatoriosLlenos) {
+        throw new Error("Completa todos los campos obligatorios.");
+      }
+
+      const InstitucionalEmailValid = valueI.map((item) => item.nombre);
+      
+      if (!InstitucionalEmailValid.some((domain) => info["correo_inst"].endsWith(domain))) {
+        throw new Error("El correo electrónico institucional no es válido.");
+      }
+
+      const responde = await post('/login', info)
+      setErrorMensaje(null);
       realizarInicioSesion()
-    } else {
-      console.log('nada')
+
+    } catch (error) {
       setOpen(true);
+      setErrorMensaje(error.message);
     }
   };
 
@@ -103,7 +132,7 @@ export default function Login() {
         <div className='items inicio-s'>
           <Buttons
             nombre='Iniciar sesión'
-            onclick={handleRegistroClick} />
+            onclick={handleLoginClick} />
         </div>
 
         
@@ -122,8 +151,8 @@ export default function Login() {
 
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error" sx={{ width: '100%', background: "", }}>
-            Completa todos los campos obligatorios y de forma correcta!
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {errorMensaje || "Completa todos los campos obligatorios y de forma correcta!"}
           </Alert>
         </Snackbar>
       </Stack>

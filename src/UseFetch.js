@@ -26,15 +26,25 @@ export async function post(pat, data) {
 
     if (!response.ok) {
       const responseData = await response.json();
+
       if (responseData.message === 'ERROR: El Usuario ya existe') {
-        throw new Error("El correo electrónico ya está en uso. Por favor, elija otro.");
+        throw new Error("El correo electrónico ya está en uso. Por favor, elija otro.")
+
+      } else if(response.status === 404){
+        throw new Error("Usuario no encontrado. Por favor, registrese.");
+
+      } else if(response.status === 400){
+        throw new Error("Los campos no están completados correctamente");
+
       } else {
         throw new Error(`Error al realizar la solicitud: ${response.status}`);
-      }
-    }
+      };
+        
+    };
 
     const data1 = await response.json();
     return data1;
+    
   } catch (error) {
     console.error('Error al realizar la solicitud:', error);
     throw error;
@@ -53,5 +63,4 @@ export  async function getParametre (pat,parametro){
     console.log('No se encontro la informacion', error)
 
   }
-
-  }
+  };
