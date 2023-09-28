@@ -1,4 +1,4 @@
-const UrlApi= "https://pruebas-l16n.onrender.com"
+const UrlApi= "https://proyecto-backend-sgbienestar.onrender.com"
 
 export default async function get (pat){
 try{
@@ -14,6 +14,7 @@ try{
 
 }
  
+
 export async function post(pat, data) {
   try {
     const response = await fetch(UrlApi + pat, {
@@ -23,36 +24,31 @@ export async function post(pat, data) {
       },
       body: JSON.stringify(data),
     });
-
-    if (!response.ok) {
-      const responseData = await response.json();
-
-      if (responseData.message === 'ERROR: El Usuario ya existe') {
-        throw new Error("El correo electrónico ya está en uso. Por favor, elija otro.")
-
-      } else if(response.status === 404){
-        throw new Error("Usuario no encontrado. Por favor, registrese.");
-
-      } else if(response.status === 400){
-        throw new Error("Los campos no están completados correctamente");
-
-      } else if(response.status === 401){
-        throw new Error("El correo institucional o la contraseña no coinciden");
-
-      }else {
-        throw new Error(`Error al realizar la solicitud: ${response.status}`);
-      };
-        
-    };
-
-    const data1 = await response.json();
-    return data1;
     
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      const errorMessage = errorResponse?.message || 'Hubo un error en la solicitud.';
+
+      if (errorMessage === 'ERROR: El Usuario ya existe') {
+        throw new Error("El correo electrónico ya está en uso. Por favor, elija otro.");
+      } else if (errorMessage === 'ERROR: Codigo de restablecimiento no valido') {
+        throw new Error("El código proporcionado no es válido.");
+      } else if (errorMessage === 'ERROR: El Usuario NO existe') {
+        throw new Error("El usuario no existe. Verifique la información ingresada.");
+      } else if (errorMessage === 'ERROR: Token invalido') {
+        throw new Error("El codigo proporcionado no es valido, verifique e intente nuevamente");
+      } else {
+        throw new Error(errorMessage); 
+      }
+    }  
+
+    return response.json();
   } catch (error) {
     console.error('Error al realizar la solicitud:', error);
     throw error;
   }
 }
+
 
 
 export  async function getParametre (pat,parametro){
@@ -66,4 +62,5 @@ export  async function getParametre (pat,parametro){
     console.log('No se encontro la informacion', error)
 
   }
-  };
+
+  }

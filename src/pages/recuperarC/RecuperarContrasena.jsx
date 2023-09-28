@@ -3,27 +3,26 @@ import { Link } from 'react-router-dom';
 import InputCorreo from '../../components/ComantCorreo/ComantCorreo';
 import ButtonContraseña from '../../components/ButtonContraseña/ButtonContraseña';
 import Textfield from '../../components/Textfield/Textfield';
-import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { forwardRef } from 'react';
-import  get, {  post } from '../../UseFetch'
+import get, { post } from '../../UseFetch';
+import Dialogs from '../../components/Dialog/Dialog'
 import './RecuperarContrasena.css';
 
 export default function RecuperarContrasena() {
   const [correo, setCorreo] = useState('');
   const [codigo, setCodigo] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [open, setOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [valueI, actualizarI] = useState([]);
   const [errorMensaje, setErrorMensaje] = useState('');
   const [envioExitoso, setEnvioExitoso] = useState(false);
-  const [correoError, setCorreoError] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState('');
   
-
 
   const nextSlide = () => {
     if (currentSlide < 2) {
@@ -55,12 +54,9 @@ export default function RecuperarContrasena() {
       });
   }, []);
 
-  
-  const handleEnviarCorreo = async () => {
-    setErrorMensaje('');
-  
+  const handleEnviarCorreo = async () => {  
     if (!correo) {
-      setCorreoError(true);
+      setErrorMensaje('El campo de correo electronico es obligatorio.');
       setOpen(true);
       return;
     }
@@ -68,7 +64,7 @@ export default function RecuperarContrasena() {
     const InstitucionalEmailValid = valueI.map((item) => item.nombre);
   
     if (!InstitucionalEmailValid.some((domain) => correo.endsWith(domain))) {
-      setCorreoError(true);
+      setErrorMensaje('Correo no válido. Ingrese correctamente su correo institucional.');
       setOpen(true);
       return;
     }
@@ -82,57 +78,42 @@ export default function RecuperarContrasena() {
         setEnvioExitoso(true);
       } else {
         console.log('Envío del código exitoso.');
-        
       }
     } catch (error) {
       console.error('Error en la solicitud POST:', error);
-
-      if (error.message === 'Usuario no encontrado. Por favor, regístrese.') {
-
-      } else {
-        setErrorMensaje('Error en la solicitud para enviar el correo. Usuario no encontrado. Por favor, regístrese o  verifique que ha incresado su correo correctamente');
-      }
+      setErrorMensaje(error.message);
+      setOpen(true);
     }
   };
-
   
 
   const handleCambiarContrasena = async () => {
     if (!correo || !codigo || !newPassword) {
       setErrorMensaje('Debes completar todos los campos antes de cambiar la contraseña.');
+      setOpen(true); 
       return;
     }
-  
     const data = { correo, codigo, newPassword };
-  
     try {
       const response = await post('/registro/rest/password', data);
-      console.log('respuesta', response);
-  
-      if (response && response.statusCode === 202 && response.message === 'Se ha actualizado la contraseña') {
-        console.log('Contraseña cambiada exitosamente');
-        
-      } else {
-        setErrorMensaje('Error al cambiar la contraseña');
-      }
+      console.log('Contraseña cambiada exitosamente');
+      setDialogMessage('Estimado usuario, se ha realizado el cambio de su contraseña, ahora puede acceder nuevamente a su cuenta.');
+      setDialogOpen(true)
     } catch (error) {
-      console.error('Error en la solicitud POST para cambiar la contraseña:', error);
-      if (error.message === 'El correo institucional o la contraseña no coinciden') {
-        
-        setErrorMensaje('El correo institucional o la contraseñas no coinciden. Por favor, verifique sus credenciales.');
-      } else {
-        setErrorMensaje('Error en la solicitud para cambiar la contraseña.');
-      }
+      console.error('Error en la solicitud:', error);
+      setErrorMensaje(error.message);
+      setOpen(true); 
     }
   };
-  
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
   };
+
+  
 
 //_____________/////_____________
 
@@ -207,17 +188,16 @@ export default function RecuperarContrasena() {
         </Link>
       </div>
 
-      
+      <Dialogs
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        titulo="¡La contraseña se ha cambiado con éxito!"
+        contenido={dialogMessage}
+        onSave={() => setDialogOpen(false)}
+        redirectTo="/login" 
+      />
+
     <Stack spacing={2} sx={{ width: "100%" }}>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity="error"
-          sx={{ width: "100%", background: "" }}
-        >
-          {!correo ? 'El campo de correo es obligatorio.' : 'El correo electrónico no es válido. Debe ser un correo institucional.'}
-        </Alert>
-      </Snackbar>
       {envioExitoso && (
         <Alert
          onClose={() => setEnvioExitoso(false)} 
