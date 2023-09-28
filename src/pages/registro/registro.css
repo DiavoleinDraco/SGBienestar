@@ -188,15 +188,20 @@ ul.slider li:target {
 
 .menu li a {
   display: inline-block;
-  background: #3c1263;
+  background: #fff;
   text-decoration: none;
   padding: 19px;
-  color: #f6f6f6;
+  color: #3c1263;
   font-weight: 900px;
   width: 20px;
   height: 20px;
   font-size: 20px;
   border-radius: 100%;
+  border: 1px solid #3c1263;
+}
+
+.menu li a:hover {
+  transform: scale(1.1);
 }
 
 .item {
@@ -296,5 +301,7 @@ ul.slider li:target {
 
 /* Estilo para el número de menú activo */
 .menu a.active {
-  background-color: #5f13a5 !important; /* Cambia el color a tu preferencia */
+  background-color: #3c1263 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
 }
