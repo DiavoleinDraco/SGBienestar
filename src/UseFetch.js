@@ -36,7 +36,10 @@ export async function post(pat, data) {
       } else if(response.status === 400){
         throw new Error("Los campos no están completados correctamente");
 
-      } else {
+      } else if(response.status === 401){
+        throw new Error("El correo institucional o la contraseña no coinciden");
+
+      }else {
         throw new Error(`Error al realizar la solicitud: ${response.status}`);
       };
         

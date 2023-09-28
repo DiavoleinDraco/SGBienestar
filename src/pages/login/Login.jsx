@@ -123,11 +123,12 @@ export default function Login() {
         </div>
 
         <div className='items recuperarcuenta'>
-          <Link to="/RecuperarContrasena">¿Olvidaste tu contraseña?</Link>
+          <Link to="/RecuperarContrasena" className="custom-link">¿Olvidaste tu contraseña?</Link>
         </div>
         <div className='items notcuenta'>
-          <Link to="/Registro">¿No tienes una cuenta? Registrate</Link>
+          <Link to="/Registro" className="custom-link">¿No tienes una cuenta? Regístrate</Link>
         </div>
+
 
         <div className='items inicio-s'>
           <Buttons
@@ -135,7 +136,7 @@ export default function Login() {
             onclick={handleLoginClick} />
         </div>
 
-        
+
 
       </div>
       <div className='item-casa'>

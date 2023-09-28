@@ -137,7 +137,6 @@
 h1{
   background-image: url(https://media.giphy.com/media/l0HlA7i5qTFedPFK0/giphy.gif);
   background-size: cover;
-
   color: transparent;
   -moz-background-clip: text;
   -webkit-background-clip: text;
@@ -148,4 +147,24 @@ h1{
   margin: 0;
   padding:30px;
   box-sizing: border-box;
+}
+
+
+/* Estilo para los enlaces con la clase "custom-link" para que parezcan botones */
+.custom-link {
+  display: inline-block;
+  color: #3c1263;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-link:hover {
+  transform: scale(1.05); /* Cambiar el tamaño al pasar el mouse */
+}
+
+.contraseña-item {
+  position: relative;
+  left: 4px;
 }
