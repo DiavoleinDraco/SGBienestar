@@ -33,9 +33,9 @@ body {
   justify-self: start !important;
   position: absolute;
   box-sizing: border-box;
-  -webkit-box-shadow: 3px 1px 36px -14px rgba(245,245,245,1);
-  -moz-box-shadow: 3px 1px 36px -14px rgba(245,245,245,1);
-  box-shadow: 3px 1px 36px -14px rgba(245,245,245,1);
+  -webkit-box-shadow: 3px 1px 36px -14px rgba(245, 245, 245, 1);
+  -moz-box-shadow: 3px 1px 36px -14px rgba(245, 245, 245, 1);
+  box-shadow: 3px 1px 36px -14px rgba(245, 245, 245, 1);
   align-self: flex-end;
 }
 
@@ -124,7 +124,6 @@ ul.slider {
   width: 440px;
   height: 750px;
   margin: 0;
-
 }
 
 #slide3 {
@@ -198,22 +197,19 @@ ul.slider li:target {
   height: 20px;
   font-size: 20px;
   border-radius: 100%;
-  
 }
 
 .item {
   width: 250px;
   height: 60px;
   /* outline: 2px solid rgb(8, 1, 15);  */
-  
-
 }
 .item-contra {
   width: 250px;
   height: 220px !important;
 }
 
-.slr1{
+.slr1 {
   width: 250px;
   height: 60px;
 }
@@ -223,7 +219,7 @@ ul.slider li:target {
   width: inherit;
   height: inherit;
   display: flex;
-flex-wrap:wrap;
+  flex-wrap: wrap;
   flex-direction: column;
   align-content: center !important;
   justify-content: space-evenly;
@@ -237,13 +233,10 @@ flex-wrap:wrap;
 }
 /*Estilos para los campos*/
 
-.makeStyles-root-4{
-height: inherit !important;
-width: inherit !important;
-
+.makeStyles-root-4 {
+  height: inherit !important;
+  width: inherit !important;
 }
-
-
 
 /*Hasta aqui el estilo para los campos*/
 
@@ -256,26 +249,24 @@ width: inherit !important;
   font-size: 1em;
 }
 
-
 .texto-derecha {
   text-align: left;
   direction: ltr;
   font-size: 9px;
   padding: 8px 20px;
-
 }
 
 .first-titulo {
   font-size: 2.5em;
 }
 
-.registro-s{
+.registro-s {
   border-radius: 50px;
   width: 240px;
   background: #3c1263;
-  outline: 1px solid  #3c1263;
+  outline: 1px solid #3c1263;
 }
-.registro-s:hover{
+.registro-s:hover {
   border-radius: 50px;
   width: 240px;
   color: #3c1263 !important;
@@ -286,22 +277,24 @@ width: inherit !important;
   position: absolute !important;
 }
 
-.MuiTypography-root{
-
+.MuiTypography-root {
   height: 60px !important;
-  width: inherit!important;
+  width: inherit !important;
 }
-.MuiTypography-root{
+.MuiTypography-root {
   /* outline: 1px solid  #a2cd2f !important; */
   height: inherit !important;
-  padding: 11px 8px 5px 8px!important;
+  padding: 11px 8px 5px 8px !important;
   font-size: 12px !important;
-  width:300px !important;
+  width: 300px !important;
   box-sizing: border-box;
-
 }
 
+#transition-modal-descripcion {
+  outline: rebeccapurple 1px solid !important;
+}
 
-#transition-modal-descripcion{
-  outline: rebeccapurple  1px solid !important;
-} 
+/* Estilo para el número de menú activo */
+.menu a.active {
+  background-color: #5f13a5 !important; /* Cambia el color a tu preferencia */
+}

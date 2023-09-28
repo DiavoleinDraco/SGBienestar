@@ -99,6 +99,7 @@ li {
 
 .custom-link:hover {
   transform: scale(1.05); /* Cambiar el tamaño al pasar el mouse */
+  text-decoration: underline;
 }
 
 .item-link {
@@ -187,9 +188,31 @@ li {
     border: 1px solid #000;
     position: relative;
     top: 5%;
+    margin: 10px;
   }
 
   .btn-siguiente:hover {
+    border-radius: 50px;
+    width: 100px;
+    color: #3c1263 !important;
+    background: #f6f6f6 !important;
+    cursor: pointer;
+  }
+
+  /*Estilo para el boton enviar correo btn-env-correo*/
+  .btn-env-correo {
+    border-radius: 50px;
+    width: 100px;
+    color: #fff;
+    background: #3c1263;
+    height: 40px;
+    border: 1px solid #000;
+    position: relative;
+    top: 5%;
+    margin: 10px;
+  }
+
+  .btn-env-correo:hover {
     border-radius: 50px;
     width: 100px;
     color: #3c1263 !important;

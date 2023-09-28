@@ -1,17 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import InputCorreo from "../../components/ComantCorreo/ComantCorreo";
-import ButtonContraseña from "../../components/ButtonContraseña/ButtonContraseña";
-import Textfield from "../../components/Textfield/Textfield";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
-import { forwardRef } from "react";
-import { post } from "../../UseFetch";
-import "./RecuperarContrasena.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import InputCorreo from '../../components/ComantCorreo/ComantCorreo';
+import ButtonContraseña from '../../components/ButtonContraseña/ButtonContraseña';
+import Textfield from '../../components/Textfield/Textfield';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { forwardRef } from 'react';
+import { post } from '../../UseFetch'
+import './RecuperarContrasena.css';
 
 export default function RecuperarContrasena() {
-  const [info, setInfo] = useState({});
+  const [correo, setCorreo] = useState('');
+  const [codigo, setCodigo] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [open, setOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,48 +32,70 @@ export default function RecuperarContrasena() {
   });
 
   const handleChange = (fieldName, fieldValue) => {
-    setInfo((prevInfo) => ({
-      ...prevInfo,
-      [fieldName]: fieldValue,
-    }));
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [fieldName]: "",
-    }));
+    if (fieldName === 'correo') {
+      setCorreo(fieldValue);
+    } else if (fieldName === 'codigo') {
+      setCodigo(fieldValue);     
+    } else if (fieldName === 'newPassword') {
+      setNewPassword(fieldValue);
+    }
   };
 
   const validarCamposObligatorios = () => {
-    const camposObligatorios = ["correo_inst", "codigo", "contrasena"];
     const errores = {};
 
-    camposObligatorios.forEach((campo) => {
-      if (!info[campo] || info[campo] === false) {
-        errores[campo] = "Este campo es obligatorio.";
+    if (step === 2) {
+      if (!codigo) {
+        errores.codigo = 'Este campo es obligatorio.';
       }
-    });
+      if (!newPassword) {
+        errores.newPassword = 'Este campo es obligatorio.';
+      }
+    }
 
     setErrors(errores);
     return Object.keys(errores).length === 0;
   };
 
-  const handleRecuperarContrasenaClick = async () => {
-    const camposObligatoriosLlenos = validarCamposObligatorios();
-    if (camposObligatoriosLlenos) {
-      try {
-        const response = await post(
-          "la ruta asignada para enviar el codigo",
-          info
-        );
-        console.log("aqui ira la respuesta del backend", response);
+  const handleEnviarCorreo = async () => {
 
-        // nota1: manejar los errores y ver la respuesta del backend
+    if (step === 1) {
+      try {
+        console.log(correo)
+        const response = await post('/registro/rest', { correo });
+        console.log('Respuesta del backend:', response);
+       
+        if (response && response.exito) {
+          setStep(3);
+        } else {
+          console.log('Error en el backend. Mostrar mensaje al usuario.');
+        }
       } catch (error) {
-        console.error("Error en la solicitud POST:", error);
-        //nota2: Maneja el error 2, avisar al usuario
+        console.error('Error en la solicitud POST:', error);
       }
-    } else {
-      setOpen(true);
     }
+  };
+
+  const handleCambiarContrasena = async () => {
+
+      console.log(correo,codigo,newPassword)
+      const data = (correo,codigo,newPassword)
+        try {
+          const response = await post('/registro/rest/password', {
+            correo,codigo,newPassword
+          });
+          console.log('Respuesta del backend para cambiar la contraseña:', response);
+
+          if (response && response.cambioExitoso) {
+            console.log('Contraseña cambiada exitosamente. Mostrar mensaje al usuario.');
+          } else {
+            console.log('Error al cambiar la contraseña. Mostrar mensaje al usuario.');
+          }
+        } catch (error) {
+          console.error('Error en la solicitud POST para cambiar la contraseña:', error);
+        }
+      
+    
   };
 
   const handleClose = (event, reason) => {
@@ -79,6 +104,8 @@ export default function RecuperarContrasena() {
     }
     setOpen(false);
   };
+
+  //________________________________________________________________________________________________________________________________________________________________________________
 
   return (
     <div className="padrecontenedor">
@@ -98,17 +125,18 @@ export default function RecuperarContrasena() {
             >
               <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
             </svg>
-            <i className="bi bi-envelope-fill"></i>
-            <div className="son-correo">
-              <InputCorreo
-                label="Correo institucional"
-                institutional
-                onChange={(value) => handleChange("correo_inst", value)}
-                required
-                error={errors.correo_inst}
-              />
+            <i class="bi bi-envelope-fill"></i>
+            <div className='son-correo'>
+            <InputCorreo
+              label="Correo institucional"
+              institutional
+              onChange={(value) => handleChange('correo', value)}
+              required
+              error={errors.correo_inst}
+            />
             </div>
           </div>
+          <button className='btn-env-correo' onClick={handleEnviarCorreo}>Enviar Correo</button>
         </li>
 
         <li className={currentSlide === 1 ? "active" : "inactive"} id="slidee2">
@@ -126,23 +154,18 @@ export default function RecuperarContrasena() {
         <li className={currentSlide === 2 ? "active" : "inactive"} id="slidee3">
           <div className="son">
             <ButtonContraseña
-              nombre="Nueva contraseña"
-              onChange={(value) => handleChange("contrasena", value)}
+              nombre="nueva contraseña"
+              onChange={(value) => handleChange('newPassword', value)}
               required
               error={errors.contrasena}
             />
           </div>
           <div className="item btn-rcontra-one">
-            <button
-              className="btn-rcontra"
-              onClick={handleRecuperarContrasenaClick}
-            >
-              Recuperar Contraseña
-            </button>
+            <button className='btn-rcontra' onClick={handleCambiarContrasena}>Recuperar Contraseña</button>
           </div>
         </li>
       </ul>
-
+      <button className="btn-siguiente" disabled={currentSlide === 0} onClick={() => setCurrentSlide(currentSlide - 1)}>Anterior</button>
       <button className="btn-siguiente" onClick={nextSlide}>Siguiente</button>
       
       <div className="item item-link">
@@ -157,8 +180,7 @@ export default function RecuperarContrasena() {
             onClose={handleClose}
             severity="error"
             sx={{ width: "100%", background: "" }}
-          >
-            Completa todos los campos obligatorios y de forma correcta.
+          >Completa todos los campos obligatorios y de forma correcta.
           </Alert>
         </Snackbar>
       </Stack>

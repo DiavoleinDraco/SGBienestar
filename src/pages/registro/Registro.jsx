@@ -17,7 +17,7 @@ import Stack from "@mui/material/Stack";
 import { forwardRef } from "react";
 
 export default function Registro() {
-  const navegacion = useNavigate()
+  const navegacion = useNavigate();
   const [info, setInfo] = useState({});
   const [errors, setErrors] = useState({});
   const [jsonData, setJsonData] = useState(null);
@@ -35,6 +35,14 @@ export default function Registro() {
   const [errorMensaje, setErrorMensaje] = useState(null);
   const [correoValido, setCorreoValido] = useState(true);
   const [correoInstitucional, setCorreoInstitucional] = useState(false);
+  //Estilos para el slider en el cual se encuentra el usuario
+  const [activeSliderIndex, setActiveSliderIndex] = useState(0);
+  const [activeMenuIndex, setActiveMenuIndex] = useState(0);
+
+  const handleMenuClick = (index) => {
+    setActiveSliderIndex(index);
+    setActiveMenuIndex(index);
+  };
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -87,40 +95,47 @@ export default function Registro() {
     return Object.keys(errores).length === 0;
   };
 
-
   const handleRegistroClick = async () => {
     try {
       const camposObligatoriosLlenos = validarCamposObligatorios();
-  
+
       if (!aceptoTerminos) {
         throw new Error("Debes aceptar los términos y condiciones.");
       }
-  
+
       if (!camposObligatoriosLlenos) {
         throw new Error("Completa todos los campos obligatorios.");
       }
-  
+
       const InstitucionalEmailValid = valueI.map((item) => item.nombre);
       const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
-      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
-  
-      if (!InstitucionalEmailValid.some((domain) => info["correo_inst"].endsWith(domain))) {
+      const passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
+
+      if (
+        !InstitucionalEmailValid.some((domain) =>
+          info["correo_inst"].endsWith(domain)
+        )
+      ) {
         throw new Error("El correo electrónico institucional no es válido.");
       }
-  
+
       if (!telefonoRegex.test(info["telefono"])) {
         throw new Error("El número de teléfono no es válido.");
       }
-  
+
       if (!passwordPattern.test(info["contrasena"])) {
         throw new Error("La contraseña no cumple con los requisitos.");
       }
-  
-      info['pps'] = true;
+
+      info["pps"] = true;
       const response = await post("/registro", info);
-      const idNewUser = await getParametre(`/registro/usuario/findByMail/`, info["correo_inst"]);
-  
-      localStorage.setItem('token', idNewUser.token);
+      const idNewUser = await getParametre(
+        `/registro/usuario/findByMail/`,
+        info["correo_inst"]
+      );
+
+      localStorage.setItem("token", idNewUser.token);
       navegacion(`/auth/${idNewUser.token}`);
       setRegistroExitoso(true);
       setCorreoValido(true);
@@ -132,8 +147,6 @@ export default function Registro() {
       setErrorMensaje(error.message);
     }
   };
-  
-
 
   useEffect(() => {
     if (fichas.length > 0 && eps.length > 0 && rol.length > 0) {
@@ -254,7 +267,9 @@ export default function Registro() {
       <div className="child"></div>
       <div className="child-two"></div>
       <form className="form">
-        <div className="title"><h1>REGISTRATE</h1></div>
+        <div className="title">
+          <h1>REGISTRATE</h1>
+        </div>
         <ul className="slider">
           <li id="slide1">
             <div className="contenedor uno">
@@ -350,8 +365,9 @@ export default function Registro() {
                 <ComSelect
                   nombre="Género"
                   items={["Masculino", "Femenino", "Otro"]}
-                  onChange={(value) => handleChange('genero', value)}
-                  required />
+                  onChange={(value) => handleChange("genero", value)}
+                  required
+                />
               </div>
             </div>
           </li>
@@ -359,13 +375,14 @@ export default function Registro() {
             <div className="contenedor tres">
               <div className="item slr1">
                 <InputCorreo
-                  label='Correo institucional'
+                  label="Correo institucional"
                   institutional
                   onChange={(value) => {
-                    handleChange('correo_inst', value);
+                    handleChange("correo_inst", value);
                     setCorreoInstitucional(value);
                   }}
-                  required />
+                  required
+                />
               </div>
               <div className="item slr1">
                 <InputCorreo
@@ -376,13 +393,24 @@ export default function Registro() {
               <div className="item slr1 item-contra">
                 <ButtonContraseña
                   nombre={"contraseña"}
-                  onChange={(value) => handleChange('contrasena', value)}
-                  required />
+                  onChange={(value) => handleChange("contrasena", value)}
+                  required
+                />
               </div>
               <Stack>
-                <Snackbar className="Snackbar-contraseña" open={open} autoHideDuration={6000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-                    {errorMensaje || "Completa todos los campos obligatorios y de forma correcta!"}
+                <Snackbar
+                  className="Snackbar-contraseña"
+                  open={open}
+                  autoHideDuration={6000}
+                  onClose={handleClose}
+                >
+                  <Alert
+                    onClose={handleClose}
+                    severity="error"
+                    sx={{ width: "100%" }}
+                  >
+                    {errorMensaje ||
+                      "Completa todos los campos obligatorios y de forma correcta!"}
                   </Alert>
                 </Snackbar>
               </Stack>
@@ -392,32 +420,100 @@ export default function Registro() {
                   nombre="Términos y condiciones"
                   texto={
                     <div className="texto-derecha">
-                      <p className="titulo-TyC first-titulo">Términos y Condiciones</p>
-                      <p>1.1. Al utilizar la aplicación BiSport y los servicios relacionados, usted acepta cumplir y estar sujeto a los términos y condiciones establecidos en este Acuerdo.</p>
+                      <p className="titulo-TyC first-titulo">
+                        Términos y Condiciones
+                      </p>
+                      <p>
+                        1.1. Al utilizar la aplicación BiSport y los servicios
+                        relacionados, usted acepta cumplir y estar sujeto a los
+                        términos y condiciones establecidos en este Acuerdo.
+                      </p>
                       <p className="titulo-TyC">2. Servicios</p>
-                      <p>2.1. BiSport permite a los usuarios administrar, prestar y solicitar implementos deportivos.</p>
-                      <p>2.2. Usted reconoce y acepta que BiSport puede recopilar y almacenar información personal, incluyendo, pero no limitado a, nombre, dirección, número de teléfono, dirección de correo electrónico y otra información relevante para el servicio.</p>
+                      <p>
+                        2.1. BiSport permite a los usuarios administrar, prestar
+                        y solicitar implementos deportivos.
+                      </p>
+                      <p>
+                        2.2. Usted reconoce y acepta que BiSport puede recopilar
+                        y almacenar información personal, incluyendo, pero no
+                        limitado a, nombre, dirección, número de teléfono,
+                        dirección de correo electrónico y otra información
+                        relevante para el servicio.
+                      </p>
                       <p className="titulo-TyC">3. Uso Adecuado</p>
-                      <p>3.1. Usted se compromete a utilizar la aplicación BiSport y sus servicios de manera ética y legal.</p>
-                      <p>3.2. Usted no debe utilizar la aplicación BiSport para:</p>
+                      <p>
+                        3.1. Usted se compromete a utilizar la aplicación
+                        BiSport y sus servicios de manera ética y legal.
+                      </p>
+                      <p>
+                        3.2. Usted no debe utilizar la aplicación BiSport para:
+                      </p>
                       <p>a. Realizar actividades ilegales o fraudulentas.</p>
-                      <p>b. Difamar, acosar o violar los derechos de privacidad de otros usuarios.</p>
+                      <p>
+                        b. Difamar, acosar o violar los derechos de privacidad
+                        de otros usuarios.
+                      </p>
                       <p>c. Proporcionar información falsa o engañosa.</p>
                       <p className="titulo-TyC">4. Privacidad de los Datos</p>
-                      <p>4.1. La recopilación y el uso de sus datos personales están sujetos a nuestra Política de Privacidad. Esta política explica cómo se recopilan, almacenan y utilizan los datos personales de los usuarios, así como los derechos de los usuarios sobre sus datos.</p>
-                      <p>4.2. Al aceptar estos términos y condiciones, usted también acepta nuestra Política de Privacidad.</p>
-                      <p className="titulo-TyC">5. Opción de Aceptación de Términos y Condiciones</p>
-                      <p>5.1. Antes de utilizar la aplicación BiSport, los usuarios tendrán la opción de aceptar o rechazar estos Términos y Condiciones y la Política de Privacidad. El uso continuado de la aplicación después de la aceptación se considerará como un acuerdo a estos términos.</p>
+                      <p>
+                        4.1. La recopilación y el uso de sus datos personales
+                        están sujetos a nuestra Política de Privacidad. Esta
+                        política explica cómo se recopilan, almacenan y utilizan
+                        los datos personales de los usuarios, así como los
+                        derechos de los usuarios sobre sus datos.
+                      </p>
+                      <p>
+                        4.2. Al aceptar estos términos y condiciones, usted
+                        también acepta nuestra Política de Privacidad.
+                      </p>
+                      <p className="titulo-TyC">
+                        5. Opción de Aceptación de Términos y Condiciones
+                      </p>
+                      <p>
+                        5.1. Antes de utilizar la aplicación BiSport, los
+                        usuarios tendrán la opción de aceptar o rechazar estos
+                        Términos y Condiciones y la Política de Privacidad. El
+                        uso continuado de la aplicación después de la aceptación
+                        se considerará como un acuerdo a estos términos.
+                      </p>
                       <p className="titulo-TyC">6. Responsabilidad</p>
-                      <p>6.1. BiSport no asume responsabilidad por la pérdida, daño o robo de los implementos deportivos prestados o solicitados a través de la plataforma.</p>
-                      <p className="titulo-TyC">7. Modificaciones y Terminación</p>
-                      <p>7.1. BiSport se reserva el derecho de modificar, suspender o terminar la aplicación y sus servicios en cualquier momento, por cualquier motivo y sin previo aviso.</p>
-                      <p className="titulo-TyC">8. Ley Aplicable y Jurisdicción</p>
-                      <p>8.1. Este Acuerdo se rige por las leyes de Colombia. Cualquier disputa relacionada con este Acuerdo estará sujeta a la jurisdicción exclusiva de los tribunales de Montería.</p>
+                      <p>
+                        6.1. BiSport no asume responsabilidad por la pérdida,
+                        daño o robo de los implementos deportivos prestados o
+                        solicitados a través de la plataforma.
+                      </p>
+                      <p className="titulo-TyC">
+                        7. Modificaciones y Terminación
+                      </p>
+                      <p>
+                        7.1. BiSport se reserva el derecho de modificar,
+                        suspender o terminar la aplicación y sus servicios en
+                        cualquier momento, por cualquier motivo y sin previo
+                        aviso.
+                      </p>
+                      <p className="titulo-TyC">
+                        8. Ley Aplicable y Jurisdicción
+                      </p>
+                      <p>
+                        8.1. Este Acuerdo se rige por las leyes de Colombia.
+                        Cualquier disputa relacionada con este Acuerdo estará
+                        sujeta a la jurisdicción exclusiva de los tribunales de
+                        Montería.
+                      </p>
                       <p className="titulo-TyC">9. Contacto</p>
-                      <p>9.1.  Para ponerse en contacto con BiSport con respecto a este Acuerdo o cualquier otro asunto, utilice la siguiente información de contacto: [Correo Electrónico de Soporte] o [Número de Teléfono de Soporte de BiSport].</p>
+                      <p>
+                        9.1. Para ponerse en contacto con BiSport con respecto a
+                        este Acuerdo o cualquier otro asunto, utilice la
+                        siguiente información de contacto: [Correo Electrónico
+                        de Soporte] o [Número de Teléfono de Soporte de
+                        BiSport].
+                      </p>
                       <p className="titulo-TyC">10. Aceptación</p>
-                      <p>10.1. Al utilizar la aplicación BiSport, usted reconoce que ha leído, comprendido y aceptado los términos y condiciones de este Acuerdo y la Política de Privacidad.</p>
+                      <p>
+                        10.1. Al utilizar la aplicación BiSport, usted reconoce
+                        que ha leído, comprendido y aceptado los términos y
+                        condiciones de este Acuerdo y la Política de Privacidad.
+                      </p>
                     </div>
                   }
                   onChange={handleAceptoTerminosChange}
@@ -436,21 +532,47 @@ export default function Registro() {
         </ul>
         <ul className="menu">
           <li>
-            <a href="#slide1">1</a>
-            <a href="#slide2">2</a>
-            <a href="#slide3">3</a>
+            <a
+              href="#slide1"
+              className={activeMenuIndex === 0 ? "active" : ""}
+              onClick={() => handleMenuClick(0)}
+            >
+              1
+            </a>
+            <a
+              href="#slide2"
+              className={activeMenuIndex === 1 ? "active" : ""}
+              onClick={() => handleMenuClick(1)}
+            >
+              2
+            </a>
+            <a
+              href="#slide3"
+              className={activeMenuIndex === 2 ? "active" : ""}
+              onClick={() => handleMenuClick(2)}
+            >
+              3
+            </a>
           </li>
         </ul>
       </form>
-      <div className='item-casaa'>
-        <div className='casaaa'>
-          <Link to="/home" className='linkk'>
-            <i class="bi bi-house-door-fill">
-            </i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+      <div className="item-casaa">
+        <div className="casaaa">
+          <Link to="/home" className="linkk">
+            <i className="bi bi-house-door-fill"></i>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="17"
+              fill="currentColor"
+              className="bi bi-house-door-fill"
+              viewBox="0 0 16 16"
+            >
               <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
-            </svg></Link>
+            </svg>
+          </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }
