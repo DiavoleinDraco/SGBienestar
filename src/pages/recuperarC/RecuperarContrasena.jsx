@@ -61,7 +61,7 @@ export default function RecuperarContrasena() {
       setOpen(true);
     }
   };
-  
+
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -72,70 +72,65 @@ export default function RecuperarContrasena() {
 
   return (
     <div className="padrecontenedor">
-      <div>   
-      <h1 className="tittlee">Recupera tu contraseña</h1>
+      <div>
+        <h1 className="tittlee">Recupera tu contraseña</h1>
       </div>
       <ul className='sldrr'>
-
-        <li  id='slidee1'>
-        <div className="son">
-        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-  <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-</svg>
-<i class="bi bi-envelope-fill"></i>
-        <InputCorreo
-          label="Correo institucional"
-          institutional
-          onChange={(value) => handleChange('correo_inst', value)}
-          required
-          error={errors.correo_inst}
-        />
-      </div>
+        <li id='slidee1'>
+          <div className="son">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" fill="currentColor" class="carta bi-envelope-fill" viewBox="0 0 16 16">
+              <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+            </svg>
+            <i class="bi bi-envelope-fill"></i>
+            <div className='son-correo'>
+            <InputCorreo
+              label="Correo institucional"
+              institutional
+              onChange={(value) => handleChange('correo_inst', value)}
+              required
+              error={errors.correo_inst}
+            />
+            </div>
+          </div>
         </li>
 
         <li id='slidee2'>
-        <div className="son">
-        <Textfield
-          name="Codigo"
-          onChange={(value) => handleChange('codigo', value)}
-          required
-          error={errors.codigo}
-        />
-      </div>
+          <div className="son son-codigo">
+            <Textfield
+              className="son-codigo"
+              name="Codigo"
+              onChange={(value) => handleChange('codigo', value)}
+              required
+              error={errors.codigo}
+            />
+          </div>
         </li>
 
 
         <li id='slidee3' >
-        <div className="son">
-        <ButtonContraseña
-          nombre="Nueva contraseña"
-          onChange={(value) => handleChange('contrasena', value)}
-          required
-          error={errors.contrasena}
-        />
-      </div>
-      <div className="item">
-        <button onClick={handleRecuperarContrasenaClick}>Recuperar Contraseña</button>
-      </div>
-
-
+          <div className="son">
+            <ButtonContraseña
+              nombre="Nueva contraseña"
+              onChange={(value) => handleChange('contrasena', value)}
+              required
+              error={errors.contrasena}
+            />
+          </div>
+          <div className="item btn-rcontra-one">
+            <button className='btn-rcontra' onClick={handleRecuperarContrasenaClick}>Recuperar Contraseña</button>
+          </div>
         </li>
       </ul>
 
       <ul className='menu-1'>
         <li className='li'><a className='a' href="#slidee1">1</a></li>
-        <li  className='li'><a className='a' href="#slidee2">2</a></li>
-        <li  className='li'><a className='a' href="#slidee3">3</a></li>
-       
-     
-
-
-
+        <li className='li'><a className='a' href="#slidee2">2</a></li>
+        <li className='li'><a className='a' href="#slidee3">3</a></li>
       </ul>
 
 
-      <div className="item">
-        <Link to="/login">Volver al inicio de sesión</Link>
+      <div className="item item-link">
+        <Link className='custom-link ' to="/login">Volver al inicio de sesión</Link>
       </div>
 
       <Stack spacing={2} sx={{ width: '100%' }}>

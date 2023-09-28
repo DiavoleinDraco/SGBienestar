@@ -6,8 +6,6 @@
 /* button contrasena */
 .contraseña {
     font-size: 17px !important;
-  
-
 }
 
 .botton1 {
@@ -16,26 +14,22 @@
     position: relative;
     right: 48px;
     top: -6px !important;
-    
-  
 }
-
 
 .botton2{
     width: inherit !important;
     height:50px !important;
 }
-
-
-
-
-
-
-
 .MuiInput-underline.Mui-error:after {
     transform: scaleX(1);
     border-bottom-color: rgba(0, 0, 0, 0.668) !important;
 }
 .MuiFormControl-root{
 width: 200px;
+}
+
+.comf {
+    position: relative !important;
+    top: 20px !important;
+    left: -34px !important;
 }
