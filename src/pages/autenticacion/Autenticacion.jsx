@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import miimagen from "../../pages/imagenes/sena-bienestar.png";
-import { getParametre } from "../../UseFetch";
+import { getParametre, post } from "../../UseFetch";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import Buttons from "../../components/Buttons/Buttons";
 import "./Autenticacion.css";
 import { MuiOtpInput } from 'mui-one-time-password-input'
-
-// Importa el componente MyComponent aquí
-const MyComponent = () => {
-  const [otp, setOtp] = React.useState('');
-
-  const handleChange = (newValue) => {
-    setOtp(newValue);
-  };
-
-  return (
-    <MuiOtpInput className="MuiOtpInput-btn" value={otp} onChange={handleChange} length={6} />
-  );
-};
+import OtpInput from "../../components/OtpInput/otpInput";
 
 export default function Autenticacion() {
   const navegacion = useNavigate();
@@ -44,16 +32,21 @@ export default function Autenticacion() {
   useEffect(() => {
     verificarEstadoUsuario();
 
-    if (!activacionCompletada) {
-      const intervalId = setInterval(() => {
-        verificarEstadoUsuario();
-      }, 5000);
-
-      return () => {
-        clearInterval(intervalId);
-      };
-    }
   }, [userId, activacionCompletada]);
+
+  const handleOtpChange = (otp) => {
+    setUser(otp);
+  };
+  const handleRegistroClick = async () => {
+    try {
+      const response = await post("/registro/auth", { codigo: user });
+          window.location.reload();
+        
+      }
+     catch (error) {
+      console.error("Error en la solicitud POST:", error);
+    }
+  };
 
   return (
     <div>
@@ -91,12 +84,12 @@ export default function Autenticacion() {
 
                   <div className="botones-cod-confirmar">
                     <div className="small-buttons">
-                      <MyComponent />
+                      <OtpInput className="MuiOtpInput-btn" length={6} onChange={handleOtpChange}></OtpInput>
                     </div>
                     <div>
                       <br />
                       <a href="#">
-                        <button className="btn-1">Confirmar codigo</button>
+                        <button className="btn-1" onClick={handleRegistroClick}>Confirmar codigo</button>
                       </a>
                     </div>
                   </div>

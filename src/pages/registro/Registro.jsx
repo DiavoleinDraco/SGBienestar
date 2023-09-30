@@ -136,7 +136,7 @@ export default function Registro() {
       );
 
       localStorage.setItem("token", idNewUser.token);
-      navegacion(`/auth/${idNewUser.token}`);
+      navegacion(`/auth/${idNewUser._id}`);
       setRegistroExitoso(true);
       setCorreoValido(true);
       setErrorMensaje(null);
