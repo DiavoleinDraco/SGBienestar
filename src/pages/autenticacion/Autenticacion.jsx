@@ -6,6 +6,20 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import Buttons from "../../components/Buttons/Buttons";
 import "./Autenticacion.css";
+import { MuiOtpInput } from 'mui-one-time-password-input'
+
+// Importa el componente MyComponent aquí
+const MyComponent = () => {
+  const [otp, setOtp] = React.useState('');
+
+  const handleChange = (newValue) => {
+    setOtp(newValue);
+  };
+
+  return (
+    <MuiOtpInput className="MuiOtpInput-btn" value={otp} onChange={handleChange} length={6} />
+  );
+};
 
 export default function Autenticacion() {
   const navegacion = useNavigate();
@@ -43,11 +57,11 @@ export default function Autenticacion() {
 
   return (
     <div>
-      <figure>
-        <img className="foto" src={miimagen} alt="sena-imagen" />
-      </figure>
       <div className="father-conf">
-        <div>
+        <figure>
+          <img className="foto" src={miimagen} alt="sena-imagen" />
+        </figure>
+        <div className="father-conf-hijo">
           <h1>
             Revise su correo electrónico y confirme su dirección de correo
             electrónico
@@ -71,9 +85,21 @@ export default function Autenticacion() {
               ) : (
                 <>
                   <h3>
-                    Enviamos un correo electrónico de confirmación a su correo
+                    Enviamos un codigo de confirmación a su correo
                     electrónico:
                   </h3>
+
+                  <div className="botones-cod-confirmar">
+                    <div className="small-buttons">
+                      <MyComponent />
+                    </div>
+                    <div>
+                      <br />
+                      <a href="#">
+                        <button className="btn-1">Confirmar codigo</button>
+                      </a>
+                    </div>
+                  </div>
                   <p>{user.correo_inst}</p>
                   <h3>¿No puede encontrar el correo electrónico?</h3>
                   <p>
@@ -81,7 +107,7 @@ export default function Autenticacion() {
                     carpeta de correos no deseados.
                   </p>
                   <a href="#">
-                    <button>Reenviar correo electrónico</button>
+                    <button className="btn-2">Reenviar correo electrónico</button>
                   </a>
                 </>
               )}

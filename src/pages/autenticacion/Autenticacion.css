@@ -1,65 +1,73 @@
 .father-conf {
-  border: 3px solid black;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 20px;
-  padding: 20px; /* Añade relleno para separar el contenido del borde */
+  padding: 20px;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 1;
+  overflow: hidden;
+  width: 80%; /* Usar un porcentaje del ancho del contenedor padre */
+  max-width: 600px; /* Establecer un ancho máximo para mantener el diseño legible */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.father-conf-hijo {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .foto {
+  width: 90%;
+  height: 10%;
   position: relative;
-  bottom: 5em;
-  width: 800px;
-  height: 500px;
+  top: 50px;
 }
 
-/*Estilo del boton*/
-.css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    background-color: transparent;
-    outline: 0;
-    border: 0;
-    margin: 0;
-    border-radius: 0;
-    padding: 0;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    vertical-align: middle;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    color: inherit;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-weight: 500;
-    font-size: 0.875rem;
-    line-height: 1.75;
-    letter-spacing: 0.02857em;
-    text-transform: uppercase;
-    min-width: 64px;
-    padding: 5px 15px;
-    border-radius: 4px;
-    -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    border: 1px solid rgba(25, 118, 210, 0.5);
-    color: #1976d2;
-    display: block !important; /* Cambiar el botón a un elemento de bloque */
-    margin: 0 auto !important; /* Margen automático horizontal para centrar */
+.MuiOtpInput-btn {
+  justify-content: center;
 }
+
+.btn-1 {
+  color: #fff;
+  border-radius: 50px;
+  width: 140px;
+  height: 30px;
+  background: #3c1263;
+  outline: 1px solid #3c1263;
+  border-style: none !important;
+}
+
+.btn-1:hover {
+  border-radius: 50px;
+  width: 140px;
+  height: 30px;
+  color: #3c1263 !important;
+  background: #f6f6f6 !important;
+  cursor: pointer;
+  border-style: none !important;
+}
+
+.btn-2 {
+  color: #fff;
+  border-radius: 50px;
+  width: 180px;
+  height: 30px;
+  background: #3c1263;
+  outline: 1px solid #3c1263;
+  border-style: none !important;
+}
+
+.btn-2:hover {
+  border-radius: 50px;
+  width: 180px;
+  height: 30px;
+  color: #3c1263 !important;
+  background: #f6f6f6 !important;
+  cursor: pointer;
+  border-style: none !important;
+}
+
