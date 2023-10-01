@@ -2075,7 +2075,7 @@ ms@2.1.2:
 
 mui-one-time-password-input@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npmjs.org/mui-one-time-password-input/-/mui-one-time-password-input-2.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/mui-one-time-password-input/-/mui-one-time-password-input-2.0.0.tgz#a3d801ee266a2c5b84e25f221e68a002a49c8462"
   integrity sha512-5yWSJpmq2z86xqssrFOJ20aTqpsPkQEH6y9u1c4knJ68811zjmSVf7p32OhKfD+BKCiC+33vDzbIvg5IHkLzLA==
   dependencies:
     "@emotion/react" "^11.5.0"

@@ -19,6 +19,12 @@ export default function Login() {
   const [open, setOpen] = useState(false);
   const [errorMensaje, setErrorMensaje] = useState(null);
   const [valueI, actualizarI] = useState([]);
+  const [intentosFallidos, setIntentosFallidos] = useState(0);
+  const [loginDeshabilitado, setLoginDeshabilitado] = useState(false);
+  const [tiempoRestante, setTiempoRestante] = useState(0);
+  const [cuentaRegresivaActiva, setCuentaRegresivaActiva] = useState(false);
+
+
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -27,8 +33,15 @@ export default function Login() {
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
-    }
+    } else if(errorMensaje === "Has excedido el límite de intentos fallidos. Intenta nuevamente en 5 minutos." ){
+    return;
+    } 
+    
     setOpen(false);
+    setLoginDeshabilitado(false);
+    if (cuentaRegresivaActiva) {
+      setIntentosFallidos(0); 
+    }
   };
 
   let updatedInfo = null
@@ -84,14 +97,39 @@ export default function Login() {
         throw new Error("El correo electrónico institucional no es válido.");
       }
 
-      const responde = await post('/login', info)
+      const responde = await post('/registro/login', info)
       setErrorMensaje(null);
       realizarInicioSesion()
 
     } catch (error) {
       setOpen(true);
       setErrorMensaje(error.message);
-    }
+
+      if(error.message === "ERROR: Credenciales invalidas"){
+        setIntentosFallidos((prevIntentosFallidos) => prevIntentosFallidos + 1)
+
+        if(intentosFallidos >= 2){
+          setOpen(true)
+          setTiempoRestante(300); 
+          setErrorMensaje('Has excedido el límite de intentos fallidos. Intenta nuevamente en 5 minutos.')
+          setLoginDeshabilitado(true);
+          setCuentaRegresivaActiva(true);
+          
+
+          const contador = setInterval(() => {
+            setTiempoRestante((prevTiempoRestante) => prevTiempoRestante - 1);
+          }, 1000); 
+          
+          setTimeout(() => {
+            clearInterval(contador);
+            setCuentaRegresivaActiva(false);
+            setIntentosFallidos(0);
+            setOpen(false);
+            setLoginDeshabilitado(false)
+          }, 300000); 
+        };
+      };
+    };
   };
 
 
@@ -133,7 +171,8 @@ export default function Login() {
         <div className='items inicio-s'>
           <Buttons
             nombre='Iniciar sesión'
-            onclick={handleLoginClick} />
+            onclick={handleLoginClick}
+            Disabled={loginDeshabilitado}  />
         </div>
 
 
@@ -151,13 +190,15 @@ export default function Login() {
 
 
       <Stack spacing={2} sx={{ width: '100%' }}>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={300000}>
           <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-          {errorMensaje || "Completa todos los campos obligatorios y de forma correcta!"}
+            {errorMensaje === "Has excedido el límite de intentos fallidos. Intenta nuevamente en 5 minutos." ? (
+              tiempoRestante >= 60 ? (`Has excedido el límite de intentos fallidos. Inténtalo de nuevo en ${Math.floor(tiempoRestante / 60)}:${(tiempoRestante % 60).toString().padStart(2, '0')} minutos`
+              ) : (`Has excedido el límite de intentos fallidos. Inténtalo de nuevo en ${tiempoRestante} segundo${tiempoRestante !== 1 ? 's' : ''}`)
+              ) : (errorMensaje || "Completa todos los campos obligatorios y de forma correcta!")}
           </Alert>
         </Snackbar>
       </Stack>
     </div>
-
   );
 };
