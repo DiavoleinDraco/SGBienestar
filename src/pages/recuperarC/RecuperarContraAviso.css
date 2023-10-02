@@ -18,12 +18,6 @@
     font-size: 20px;
 }
 
-/* Media Query para pantallas de menos de 768px */
-@media (max-width: 768px) {
-    .contenedor-info-recontra {
-        height: 60%;
-    }
-}
 
 
 /*Estilo del link*/

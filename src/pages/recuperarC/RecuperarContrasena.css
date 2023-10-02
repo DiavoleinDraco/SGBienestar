@@ -1,10 +1,7 @@
 .padrecontenedor {
   margin: 50px auto;
-  background: rgba(255, 250, 250, 0.452);
-  backdrop-filter: blur(30px);
-  border: 2px solid rgba(240, 231, 231, 0.24);
-  box-shadow: 0 0 80px rgba(255, 254, 254, 0.342);
-  width: 700px;
+  background: rgba(255, 255, 255, 0.47);
+  width: 790px;
   border-radius: 30px;
   height: 550px;
   padding: 30px;
@@ -12,6 +9,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  
 }
 
 ul,
@@ -20,35 +22,41 @@ li {
 }
 
 .li {
-  margin: 0;
+  margin: 0;          
   padding: 0;
   list-style: none;
 }
 
-.sldrr {
+.sldrr{
   position: relative;
-  width: 350px;
-  height: 300px;
+  width: 700px;
+  height: 205px;
   border-radius: 30px;
   margin: 0 auto;
+  /* outline: 2px solid rgb(125, 0, 208); */
 }
 
-.sldrr li {
+.sldrr li{
   position: absolute;
   left: 0;
   top: 0;
   opacity: 0;
   width: inherit;
-  height: 300px;
-  background: #f6f6f6;
+  height:inherit;
+  background: #f6f6f683;
   transition: opacity 0.4s;
   border-radius: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .son {
-  margin: 50px auto;
+  
   width: 300px;
-  height: 100px;
+  height: 110px;
+  
 }
 
 .carta {
@@ -66,16 +74,14 @@ li {
   z-index: 1;
 }
 
-.menu-1 {
-  text-align: center;
-  margin: 10px;
-}
+
 
 .li {
   display: inline-block;
   text-align: center;
   /* outline: 1px solid green; */
   margin: 5px;
+
 }
 
 .a {
@@ -118,11 +124,7 @@ li {
   width: 200px;
   color: #fff;
   background: #3c1263;
-  height: 30px;
-  border: 1px solid #000;
-  position: relative;
-  left: 20%;
-  top: 50%;
+ 
 }
 
 .btn-rcontra:hover {
@@ -135,38 +137,20 @@ li {
 
 /*Estilo del codigo*/
 .son-codigo {
-  position: relative;
-  top: 18%;
-  left: 10%;
+  height: 100px;
+/* 
+  outline: 2px solid rgb(213, 0, 220); */
+  
+
 }
 
 .son-correo {
-  position: relative;
-  top: 20%;
-  left: 8%;
-}
-
-/*Estilo para las condiciones de los slider*/
-.sldrr {
-  position: relative;
-  width: 350px;
-  height: 300px;
-  border-radius: 30px;
-  margin: 0 auto;
-  overflow: hidden; /* Oculta los elementos fuera de la vista */
-}
-
-.sldrr li {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
+  height: inherit;
   width: inherit;
-  height: 300px;
-  background: #f6f6f6;
-  transition: opacity 0.4s;
-  border-radius: 30px;
+/* 
+  outline: 2px solid rgb(86, 244, 0); */
 }
+
 
 /* Clase para mostrar un slide */
 .sldrr li.active {
@@ -183,20 +167,21 @@ li {
 
 /*Estilo para el boton siguientre*/
 .btn-siguiente {
-  border-radius: 50px;
+  border-radius:80px;
   width: 100px;
   color: #fff;
   background: #3c1263;
   height: 40px;
-  border: 1px solid #000;
+  border: none;
   position: relative;
   top: 5%;
   margin: 10px;
 }
 
 .btn-siguiente:hover {
-  border-radius: 50px;
+  border-radius: 90px;
   width: 100px;
+  border: none;
   color: #3c1263 !important;
   background: #f6f6f6 !important;
   cursor: pointer;
@@ -205,14 +190,13 @@ li {
 /*Estilo para el boton enviar correo btn-env-correo*/
 .btn-env-correo {
   border-radius: 50px;
+  border: none;
   width: 100px;
   color: #fff;
   background: #3c1263;
   height: 40px;
-  border: 1px solid #000;
-  position: relative;
-  top: 5%;
-  margin: 10px;
+
+
 }
 
 .btn-env-correo:hover {

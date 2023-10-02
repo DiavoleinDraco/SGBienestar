@@ -121,24 +121,20 @@ export default function RecuperarContrasena() {
 
   return (
     <div className="padrecontenedor">
-      <div>
-        <h1 className="tittlee">Recupera tu contraseña</h1>
+      <div className="tittlee">
+        <h1 className="">Recupera tu contraseña</h1>
       </div>
+
+
+
+
       <ul className="sldrr">
-        <li className={currentSlide === 0 ? "active" : "inactive"} id="slidee1">
-          <div className="son">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="50"
-              height="30"
-              fill="currentColor"
-              className="carta bi-envelope-fill"
-              viewBox="0 0 16 16"
-            >
-              <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
-            </svg>
-            <i className="bi bi-envelope-fill"></i>
-            <div className="son-correo">
+
+
+        <li className={currentSlide === 0 ? "active" : "inactive"} id="slidee1 " >
+
+          <div className="son">  
+       
               <InputCorreo
                 label="Correo institucional"
                 institutional
@@ -146,15 +142,18 @@ export default function RecuperarContrasena() {
                 required
                 error={errors.correo_inst}
               />
-            </div>
+          
           </div>
 
-          <button className="btn-env-correo" onClick={handleEnviarCorreo}>
+          <button className="btn-env-correo son" onClick={handleEnviarCorreo}>
             Enviar Codigo
           </button>
         </li>
 
-        <li className={currentSlide === 1 ? "active" : "inactive"} id="slidee2">
+
+        
+
+        <li className={currentSlide === 1 ? "active" : "inactive"} id="slidee2 idd">
           <div className="son son-codigo">
             <Textfield
               className="son-codigo"
@@ -182,6 +181,7 @@ export default function RecuperarContrasena() {
           </div>
         </li>
       </ul>
+      <div className="next">
       <button
         className="btn-siguiente"
         disabled={currentSlide === 0}
@@ -199,6 +199,10 @@ export default function RecuperarContrasena() {
         </Link>
       </div>
 
+
+      </div>
+     
+
       <Dialogs
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
@@ -207,13 +211,13 @@ export default function RecuperarContrasena() {
         onSave={() => setDialogOpen(false)}
         redirectTo="login"
       />
-
-      <Stack spacing={2} sx={{ width: "100%" }}>
+  <div>
+  <Stack spacing={2} sx={{ }}>
         {envioExitoso && (
           <Alert
             onClose={() => setEnvioExitoso(false)}
             severity="success"
-            sx={{ width: "100%", background: "" }}
+            sx={{ }}
           >
             El código se ha enviado exitosamente, por favor revise su correo
             electrónico
@@ -223,12 +227,15 @@ export default function RecuperarContrasena() {
           <Alert
             onClose={() => setErrorMensaje("")}
             severity="error"
-            sx={{ width: "100%", background: "" }}
+            sx={{ }}
           >
             {errorMensaje}
           </Alert>
         )}
       </Stack>
+
+  </div>
+      
     </div>
   );
 }
