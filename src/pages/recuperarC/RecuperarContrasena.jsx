@@ -1,28 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import InputCorreo from '../../components/ComantCorreo/ComantCorreo';
-import ButtonContraseña from '../../components/ButtonContraseña/ButtonContraseña';
-import Textfield from '../../components/Textfield/Textfield';
-import MuiAlert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
-import { forwardRef } from 'react';
-import get, { post } from '../../UseFetch';
-import Dialogs from '../../components/Dialog/Dialog'
-import './RecuperarContrasena.css';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import InputCorreo from "../../components/ComantCorreo/ComantCorreo";
+import ButtonContraseña from "../../components/ButtonContraseña/ButtonContraseña";
+import Textfield from "../../components/Textfield/Textfield";
+import MuiAlert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import { forwardRef } from "react";
+import get, { post } from "../../UseFetch";
+import Dialogs from "../../components/Dialog/Dialog";
+import "./RecuperarContrasena.css";
 
 export default function RecuperarContrasena() {
-  const [correo, setCorreo] = useState('');
-  const [codigo, setCodigo] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [correo, setCorreo] = useState("");
+  const [codigo, setCodigo] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [open, setOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [valueI, actualizarI] = useState([]);
-  const [errorMensaje, setErrorMensaje] = useState('');
+  const [errorMensaje, setErrorMensaje] = useState("");
   const [envioExitoso, setEnvioExitoso] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogMessage, setDialogMessage] = useState('');
-  
+  const [dialogMessage, setDialogMessage] = useState("");
 
   const nextSlide = () => {
     if (currentSlide < 2) {
@@ -35,88 +34,90 @@ export default function RecuperarContrasena() {
   });
 
   const handleChange = (fieldName, fieldValue) => {
-    if (fieldName === 'correo') {
+    if (fieldName === "correo") {
       setCorreo(fieldValue);
-    } else if (fieldName === 'codigo') {
+    } else if (fieldName === "codigo") {
       setCodigo(fieldValue);
-    } else if (fieldName === 'newPassword') {
+    } else if (fieldName === "newPassword") {
       setNewPassword(fieldValue);
     }
   };
 
   useEffect(() => {
-    get('/dominio-sena')
+    get("/dominio-sena")
       .then((data) => {
         actualizarI(data);
       })
       .catch((error) => {
-        console.error('Error al encontrar resultado', error);
+        console.error("Error al encontrar resultado", error);
       });
   }, []);
 
-  const handleEnviarCorreo = async () => {  
+  const handleEnviarCorreo = async () => {
     if (!correo) {
-      setErrorMensaje('El campo de correo electronico es obligatorio.');
+      setErrorMensaje("El campo de correo electronico es obligatorio.");
       setOpen(true);
       return;
     }
-  
+
     const InstitucionalEmailValid = valueI.map((item) => item.nombre);
-  
+
     if (!InstitucionalEmailValid.some((domain) => correo.endsWith(domain))) {
-      setErrorMensaje('Correo no válido. Ingrese correctamente su correo institucional.');
+      setErrorMensaje(
+        "Correo no válido. Ingrese correctamente su correo institucional."
+      );
       setOpen(true);
       return;
     }
-  
+
     try {
       console.log(correo);
-      const response = await post('/registro/rest', { correo });
-      console.log('Respuesta del backend:', response);
-  
-      if (response && response.message === 'Correo enviado') {
+      const response = await post("/registro/rest", { correo });
+      console.log("Respuesta del backend:", response);
+
+      if (response && response.message === "Correo enviado") {
         setEnvioExitoso(true);
       } else {
-        console.log('Envío del código exitoso.');
+        console.log("Envío del código exitoso.");
       }
     } catch (error) {
-      console.error('Error en la solicitud POST:', error);
+      console.error("Error en la solicitud POST:", error);
       setErrorMensaje(error.message);
       setOpen(true);
     }
   };
-  
 
   const handleCambiarContrasena = async () => {
     if (!correo || !codigo || !newPassword) {
-      setErrorMensaje('Debes completar todos los campos antes de cambiar la contraseña.');
-      setOpen(true); 
+      setErrorMensaje(
+        "Debes completar todos los campos antes de cambiar la contraseña."
+      );
+      setOpen(true);
       return;
     }
     const data = { correo, codigo, newPassword };
     try {
-      const response = await post('/registro/rest/password', data);
-      console.log('Contraseña cambiada exitosamente');
-      setDialogMessage('Estimado usuario, se ha realizado el cambio de su contraseña, ahora puede acceder nuevamente a su cuenta.');
-      setDialogOpen(true)
+      const response = await post("/registro/rest/password", data);
+      console.log("Contraseña cambiada exitosamente");
+      setDialogMessage(
+        "Estimado usuario, se ha realizado el cambio de su contraseña, ahora puede acceder nuevamente a su cuenta."
+      );
+      setDialogOpen(true);
     } catch (error) {
-      console.error('Error en la solicitud:', error);
+      console.error("Error en la solicitud:", error);
       setErrorMensaje(error.message);
-      setOpen(true); 
+      setOpen(true);
     }
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
   };
 
-  
-
-//_____________/////_____________
-
+  //_____________/////_____________
 
   return (
     <div className="padrecontenedor">
@@ -136,21 +137,21 @@ export default function RecuperarContrasena() {
             >
               <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
             </svg>
-            <i class="bi bi-envelope-fill"></i>
-            <div className='son-correo'>
-            <InputCorreo
-              label="Correo institucional"
-              institutional
-              onChange={(value) => handleChange('correo', value)}
-              required
-              error={errors.correo_inst}
-            />
+            <i className="bi bi-envelope-fill"></i>
+            <div className="son-correo">
+              <InputCorreo
+                label="Correo institucional"
+                institutional
+                onChange={(value) => handleChange("correo", value)}
+                required
+                error={errors.correo_inst}
+              />
             </div>
-    
           </div>
 
-          <button className='btn-env-correo' onClick={handleEnviarCorreo}>Enviar Codigo</button>
-
+          <button className="btn-env-correo" onClick={handleEnviarCorreo}>
+            Enviar Codigo
+          </button>
         </li>
 
         <li className={currentSlide === 1 ? "active" : "inactive"} id="slidee2">
@@ -169,19 +170,29 @@ export default function RecuperarContrasena() {
           <div className="son">
             <ButtonContraseña
               nombre="nueva contraseña"
-              onChange={(value) => handleChange('newPassword', value)}
+              onChange={(value) => handleChange("newPassword", value)}
               required
               error={errors.contrasena}
             />
           </div>
           <div className="item btn-rcontra-one">
-            <button className='btn-rcontra' onClick={handleCambiarContrasena}>Recuperar Contraseña</button>
+            <button className="btn-rcontra" onClick={handleCambiarContrasena}>
+              Recuperar Contraseña
+            </button>
           </div>
         </li>
       </ul>
-      <button className="btn-siguiente" disabled={currentSlide === 0} onClick={() => setCurrentSlide(currentSlide - 1)}>Anterior</button>
-      <button className="btn-siguiente" onClick={nextSlide}>Siguiente</button>
-      
+      <button
+        className="btn-siguiente"
+        disabled={currentSlide === 0}
+        onClick={() => setCurrentSlide(currentSlide - 1)}
+      >
+        Anterior
+      </button>
+      <button className="btn-siguiente" onClick={nextSlide}>
+        Siguiente
+      </button>
+
       <div className="item item-link">
         <Link className="custom-link " to="/login">
           Volver al inicio de sesión
@@ -194,29 +205,30 @@ export default function RecuperarContrasena() {
         titulo="¡La contraseña se ha cambiado con éxito!"
         contenido={dialogMessage}
         onSave={() => setDialogOpen(false)}
-        redirectTo="/login" 
+        redirectTo="login"
       />
 
-    <Stack spacing={2} sx={{ width: "100%" }}>
-      {envioExitoso && (
-        <Alert
-         onClose={() => setEnvioExitoso(false)} 
-         severity="success"
-        sx={{ width: "100%", background: "" }}
-          >El código se ha enviado exitosamente, por favor revise su correo electrónico
-      </Alert>
-      )}
-      {errorMensaje && (
-     <Alert
-        onClose={() => setErrorMensaje('')}
-        severity="error"
-       sx={{ width: "100%", background: "" }}
-        >
-         { errorMensaje}
-        </Alert>
+      <Stack spacing={2} sx={{ width: "100%" }}>
+        {envioExitoso && (
+          <Alert
+            onClose={() => setEnvioExitoso(false)}
+            severity="success"
+            sx={{ width: "100%", background: "" }}
+          >
+            El código se ha enviado exitosamente, por favor revise su correo
+            electrónico
+          </Alert>
         )}
-    </Stack>
-
+        {errorMensaje && (
+          <Alert
+            onClose={() => setErrorMensaje("")}
+            severity="error"
+            sx={{ width: "100%", background: "" }}
+          >
+            {errorMensaje}
+          </Alert>
+        )}
+      </Stack>
     </div>
   );
 }

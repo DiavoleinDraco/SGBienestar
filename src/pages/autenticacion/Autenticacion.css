@@ -1,3 +1,7 @@
+body {
+  background-image: url(/fondo/Background\ original.png);
+}
+
 .father-conf {
   padding: 20px;
   margin: 20px;
@@ -18,13 +22,13 @@
   background: rgba(255, 255, 255, 0.7);
   padding: 20px;
   border-radius: 10px;
+  position: relative;
+  bottom: 70px;
 }
 
 .foto {
   width: 90%;
   height: 10%;
-  position: relative;
-  top: 50px;
 }
 
 .MuiOtpInput-btn {
@@ -71,3 +75,24 @@
   border-style: none !important;
 }
 
+.btn-conf-co {
+  color: #fff !important;
+  border-radius: 50px !important;
+  width: 180px !important;
+  height: 30px !important;
+  background: #3c1263 !important;
+  outline: 1px solid #3c1263 !important;
+  border-style: none !important;
+  position: relative;
+  left: 10px;
+}
+
+.btn-conf-co:hover {
+  border-radius: 50px;
+  width: 180px;
+  height: 30px;
+  color: #3c1263 !important;
+  background: #f6f6f6 !important;
+  cursor: pointer;
+  border-style: none !important;
+}

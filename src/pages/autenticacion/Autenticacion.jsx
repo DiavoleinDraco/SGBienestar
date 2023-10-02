@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import Buttons from "../../components/Buttons/Buttons";
 import "./Autenticacion.css";
-import { MuiOtpInput } from 'mui-one-time-password-input'
+import { MuiOtpInput } from "mui-one-time-password-input";
 import OtpInput from "../../components/OtpInput/otpInput";
 
 export default function Autenticacion() {
@@ -31,7 +31,6 @@ export default function Autenticacion() {
 
   useEffect(() => {
     verificarEstadoUsuario();
-
   }, [userId, activacionCompletada]);
 
   const handleOtpChange = (otp) => {
@@ -40,10 +39,8 @@ export default function Autenticacion() {
   const handleRegistroClick = async () => {
     try {
       const response = await post("/registro/auth", { codigo: user });
-          window.location.reload();
-        
-      }
-     catch (error) {
+      window.location.reload();
+    } catch (error) {
       console.error("Error en la solicitud POST:", error);
     }
   };
@@ -56,8 +53,7 @@ export default function Autenticacion() {
         </figure>
         <div className="father-conf-hijo">
           <h1>
-            Revise su correo electrónico y confirme su dirección de correo
-            electrónico
+            Revise su correo y confirme su registro
           </h1>
           {user ? (
             <>
@@ -69,27 +65,33 @@ export default function Autenticacion() {
                     Ya puedes iniciar sesion con tu correo institucional y
                     contraseña
                   </h3>
-                  <Buttons
-                    className="boton-login"
-                    nombre={"Login"}
-                    onclick={() => navegacion("/Login")}
-                  />
+                  <button
+                    className="btn-conf-co"
+                    onClick={() => navegacion("/Login")}
+                  >
+                    Login
+                  </button>
                 </>
               ) : (
                 <>
                   <h3>
-                    Enviamos un codigo de confirmación a su correo
-                    electrónico:
+                    Enviamos un codigo de confirmación a su correo electrónico:
                   </h3>
 
                   <div className="botones-cod-confirmar">
                     <div className="small-buttons">
-                      <OtpInput className="MuiOtpInput-btn" length={6} onChange={handleOtpChange}></OtpInput>
+                      <OtpInput
+                        className="MuiOtpInput-btn"
+                        length={6}
+                        onChange={handleOtpChange}
+                      ></OtpInput>
                     </div>
                     <div>
                       <br />
                       <a href="#">
-                        <button className="btn-1" onClick={handleRegistroClick}>Confirmar codigo</button>
+                        <button className="btn-1" onClick={handleRegistroClick}>
+                          Confirmar codigo
+                        </button>
                       </a>
                     </div>
                   </div>
@@ -100,7 +102,9 @@ export default function Autenticacion() {
                     carpeta de correos no deseados.
                   </p>
                   <a href="#">
-                    <button className="btn-2">Reenviar correo electrónico</button>
+                    <button className="btn-2">
+                      Reenviar correo electrónico
+                    </button>
                   </a>
                 </>
               )}
