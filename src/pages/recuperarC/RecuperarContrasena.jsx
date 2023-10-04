@@ -194,7 +194,7 @@ export default function RecuperarContrasena() {
       </button>
 
       <div className="item item-link">
-        <Link className="custom-link " to="/login">
+        <Link className="custom-link" to="/login">
           Volver al inicio de sesión
         </Link>
       </div>
