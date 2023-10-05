@@ -7,6 +7,8 @@ import Autenticacion from '../pages/autenticacion/Autenticacion';
 import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
 import RecuperacionContraAviso from '../pages/recuperarC/RecuperarContraAviso';
 import Dashboard from '../pages/Dashboard/Dashboard';
+import NavTabs from '../pages/NavTabs/NavTabs';
+import Sanciones from '../pages/Sanciones/Sanciones';
 
 function requireAuth({ children }) {
   const token = localStorage.getItem('token');
@@ -26,7 +28,10 @@ export function LasRutas() {
         <Route path="/auth/:userId" element={<Autenticacion />} />
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
         <Route path="/RecuperacionContraAviso" element={<RecuperacionContraAviso/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/admin" element={<Dashboard/>} />
+        <Route path="/tabla" element={<NavTabs/>} />
+        <Route path="/sanciones" element={<Sanciones/>} />
+
 
         <Route path="/auth/:userId" element={<Route element={requireAuth} />}
         />
