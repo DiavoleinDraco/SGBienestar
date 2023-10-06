@@ -24,7 +24,7 @@ export function LasRutas() {
         <Route path="/home" element={<Home />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/auth/:userId" element={<Autenticacion />} />
+        <Route path="/auth" element={<Autenticacion />} />
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
         <Route path="/admin" element={<Dashboard/>} />
         <Route path="/usuarios" element={<Usuarios/>} />

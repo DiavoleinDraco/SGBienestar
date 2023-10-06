@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import { forwardRef } from "react";
 import './Login.css'
 import miimagen from '../../pages/imagenes/sena-bienestar.png';
-import  get, { post } from "../../UseFetch.js";
+import  get, { getParametre, post } from "../../UseFetch.js";
 
 
 export default function Login() {
@@ -80,14 +80,14 @@ export default function Login() {
       if (!camposObligatoriosLlenos) {
         throw new Error("Completa todos los campos obligatorios.");
       }
-
-      const InstitucionalEmailValid = valueI.map((item) => item.nombre);
       
-      if (!InstitucionalEmailValid.some((domain) => info["correo_inst"].endsWith(domain))) {
-        throw new Error("El correo electrónico institucional no es válido.");
-      }
+      
 
       const responde = await post('/registro/login', info)
+      console.log(info["correo_inst"])
+      const findNewToken = await getParametre('/registro/usuario/findByMail/',info["correo_inst"])
+      
+      localStorage.setItem("token", findNewToken.token);
       setErrorMensaje(null);
       realizarInicioSesion()
 

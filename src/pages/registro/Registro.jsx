@@ -112,13 +112,7 @@ export default function Registro() {
       const passwordPattern =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
 
-      if (
-        !InstitucionalEmailValid.some((domain) =>
-          info["correo_inst"].endsWith(domain)
-        )
-      ) {
-        throw new Error("El correo electrónico institucional no es válido.");
-      }
+      
 
       if (!telefonoRegex.test(info["telefono"])) {
         throw new Error("El número de teléfono no es válido.");
@@ -136,7 +130,7 @@ export default function Registro() {
       );
 
       localStorage.setItem("token", idNewUser.token);
-      navegacion(`/auth/${idNewUser._id}`);
+      navegacion(`/auth`);
       setRegistroExitoso(true);
       setCorreoValido(true);
       setErrorMensaje(null);
