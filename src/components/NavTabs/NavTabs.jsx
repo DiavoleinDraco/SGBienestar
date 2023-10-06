@@ -19,7 +19,7 @@ export default function NavTabs() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider',position:"relative", left:"310px",width: '500px',outline:"1px solid black"}}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="Usuarios" value="1" />
-            <Tab label="Sanciones" value="2" />
+            <Tab label="Historial de sanciones" value="2" />
             <Tab label="No sé" value="3" />
           </TabList>
         </Box>

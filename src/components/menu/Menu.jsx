@@ -25,8 +25,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import { alpha } from '@mui/material/styles';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import NavTabs from '../../pages/NavTabs/NavTabs';
 import { useNavigate } from 'react-router-dom';
+import SettingsIcon from '@mui/icons-material/Settings';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 
 
 const drawerWidth = 240;
@@ -138,7 +141,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function Menu() {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -311,12 +314,12 @@ export default function Menu() {
         </DrawerHeader>
         <Divider />
         <List>
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/tabla')}}>
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/usuarios')}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  px: 6.5,
                 }}
               >
                 <ListItemIcon
@@ -326,17 +329,17 @@ export default function Menu() {
                     justifyContent: 'center',
                   }}
                 >
-                  <InboxIcon />
+                  <PeopleAltIcon />
                 </ListItemIcon>
-                <ListItemText primary='Principal' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Usuarios' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/sanciones')}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  px: 6.5,
                 }}
               >
                 <ListItemIcon
@@ -346,17 +349,17 @@ export default function Menu() {
                     justifyContent: 'center',
                   }}
                 >
-                  <InboxIcon />
+                  <WarningAmberIcon />
                 </ListItemIcon>
                 <ListItemText primary='Sanciones' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{ display: 'block' }} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  px: 6.5,
                 }}
               >
                 <ListItemIcon
@@ -378,7 +381,28 @@ export default function Menu() {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  px: 6.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary='Ajustes' sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/admin')}}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 6.5,
                 }}
               >
                 <ListItemIcon
@@ -390,13 +414,12 @@ export default function Menu() {
                 >
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary='Ajustes' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Volver' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{  position: 'relative', width: '200px'}}>
         <DrawerHeader />
-        <NavTabs />
       </Box>
     </Box>
   );
