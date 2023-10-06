@@ -1,6 +1,6 @@
 .padrecontenedor {
   margin: 50px auto;
-  background: rgba(255, 255, 255, 0.47);
+  background: rgb(255, 255, 255);
   width: 790px;
   border-radius: 30px;
   height: 550px;
@@ -43,7 +43,7 @@ li {
   opacity: 0;
   width: inherit;
   height:inherit;
-  background: #f6f6f683;
+  background: #dbdbdb46;
   transition: opacity 0.4s;
   border-radius: 30px;
   display: flex;
@@ -235,4 +235,97 @@ left: 30px;
   -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
+}
+
+/*Diseño responsivo*/
+@media screen and (max-width: 870px) {
+  
+  .padrecontenedor {
+    width: 600px;
+  }
+
+  .sldrr li {
+    width: 600px;
+  }
+
+  .link-inicio {
+    position: relative;
+    right: 30px;
+  }
+
+}
+
+@media screen and (max-width: 670px) {
+  
+  .padrecontenedor {
+    width: 400px;
+  }
+
+  .sldrr li {
+    width: 400px;
+  }
+
+  .link-inicio {
+    position: relative;
+    right: 60px;
+  }
+
+}
+
+@media screen and (max-width: 470px) {
+  
+  .padrecontenedor {
+    width: 300px;
+  }
+
+  .sldrr li {
+    width: 300px;
+  }
+
+  .link-inicio {
+    position: relative;
+    right: 80px;
+  }
+
+}
+
+@media screen and (max-width: 370px) {
+  
+  .padrecontenedor {
+    width: 240px;
+  }
+
+  .sldrr li {
+    width: 240px;
+  }
+
+  .link-inicio {
+    position: relative;
+    right: 80px;
+  }
+
+}
+
+
+@media screen and (max-height: 640px) {
+
+  .titulo-rec {
+    font-size: 30px;
+    position: relative;
+    bottom: 30px;
+  }
+  
+  .padrecontenedor {
+    height: 400px;
+  }
+
+  .sldrr li {
+    height: 150px;
+  }
+
+  .link-inicio {
+    position: relative;
+    right: 80px;
+  }
+
 }

@@ -122,7 +122,7 @@ export default function RecuperarContrasena() {
   return (
     <div className="padrecontenedor">
       <div className="tittlee">
-        <h1 className="">Recupera tu contraseña</h1>
+        <h1 className="titulo-rec">Recupera tu contraseña</h1>
       </div>
 
 
@@ -194,7 +194,7 @@ export default function RecuperarContrasena() {
       </button>
 
       <div className="item item-link">
-        <Link className="custom-link" to="/login">
+        <Link className="custom-link link-inicio" to="/login">
           Volver al inicio de sesión
         </Link>
       </div>
