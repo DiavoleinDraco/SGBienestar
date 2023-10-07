@@ -351,7 +351,7 @@ export default function Menu() {
                 >
                   <WarningAmberIcon />
                 </ListItemIcon>
-                <ListItemText primary='Sanciones' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Sancionar' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ display: 'block' }} >
@@ -372,6 +372,26 @@ export default function Menu() {
                   <InboxIcon />
                 </ListItemIcon>
                 <ListItemText primary='Mensajes' sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/informes')}} >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 6.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary='Informes' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
         </List>
