@@ -3,3 +3,10 @@
     padding: 20px; /* Espaciado interno */
     margin-bottom: 20px; /* Margen inferior para separar del contenido debajo */
   }
+
+  .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+    color: #000000 !important;
+    background-color: white !important;
+    position: relative;
+    left: 80px;
+}
