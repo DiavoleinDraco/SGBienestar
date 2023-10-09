@@ -1,5 +1,5 @@
 body {
-    background-color: beige !important;
+    background-image: url(./fondo/Background\ original.png);
     /*background-image: url(./fondo/Background\ original.png);*/
     background-size: 100% 100%;
     /* Hace que el fondo cubra toda la pantalla sin recortar */
