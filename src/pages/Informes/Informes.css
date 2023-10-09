@@ -1,5 +1,5 @@
-.container-Informes{
-    width: 80%;
-    position: relative;
-    left: 10%;
-}
+.container-Informes {
+    border: 1px solid #ccc; /* Borde del cuadro */
+    padding: 20px; /* Espaciado interno */
+    margin-bottom: 20px; /* Margen inferior para separar del contenido debajo */
+  }

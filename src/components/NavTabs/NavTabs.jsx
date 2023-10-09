@@ -6,29 +6,29 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import TablaUsarios from '../TablaUsuarios/TablaUsuarios';
 
-export default function NavTabs() {
-  const [value, setValue] = React.useState('1');
+export default function NavTabs({ tabs }) {
+  const [value, setValue] = React.useState(tabs[0].value);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1', position:"relative", left:"40px"}}>
+    <Box sx={{ width: '100%', typography: 'body1', position: 'relative', left: '40px' }}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider',position:"relative", left:"310px",width: '500px',outline:"1px solid black"}}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', position: 'relative', left: '310px', width: '500px'}}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="Usuarios" value="1" />
-            <Tab label="Historial de sanciones" value="2" />
-            <Tab label="No sé" value="3" />
+            {tabs.map((tab) => (
+              <Tab key={tab.value} label={tab.label} value={tab.value} />
+            ))}
           </TabList>
         </Box>
-        <TabPanel value="1">
-          <TablaUsarios />
-        </TabPanel>
-        <TabPanel value="2">Aquí van las sanciones</TabPanel>
-        <TabPanel value="3">Aquí no sé</TabPanel>
+        {tabs.map((tab) => (
+          <TabPanel key={tab.value} value={tab.value}>
+            {tab.content}
+          </TabPanel>
+        ))}
       </TabContext>
     </Box>
   );
-}
+};
