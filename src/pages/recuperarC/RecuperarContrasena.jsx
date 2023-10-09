@@ -117,43 +117,35 @@ export default function RecuperarContrasena() {
     setOpen(false);
   };
 
-  //_____________/////_____________
+  //____/////____
 
   return (
     <div className="padrecontenedor">
       <div className="tittlee">
         <h1 className="titulo-rec">Recupera tu contraseña</h1>
       </div>
-
-
-
-
       <ul className="sldrr">
-
-
-        <li className={currentSlide === 0 ? "active" : "inactive"} id="slidee1 " >
-
-          <div className="son">  
-       
-              <InputCorreo
-                label="Correo institucional"
-                institutional
-                onChange={(value) => handleChange("correo", value)}
-                required
-                error={errors.correo_inst}
-              />
-          
+        <li
+          className={currentSlide === 0 ? "active" : "inactive"}
+          id="slidee1 "
+        >
+          <div className="son">
+            <InputCorreo
+              label="Correo institucional"
+              institutional
+              onChange={(value) => handleChange("correo", value)}
+              required
+              error={errors.correo_inst}
+            />
           </div>
-
           <button className="btn-env-correo son" onClick={handleEnviarCorreo}>
             Enviar Codigo
           </button>
         </li>
-
-
-        
-
-        <li className={currentSlide === 1 ? "active" : "inactive"} id="slidee2 idd">
+        <li
+          className={currentSlide === 1 ? "active" : "inactive"}
+          id="slidee2 idd"
+        >
           <div className="son son-codigo">
             <Textfield
               className="son-codigo"
@@ -164,7 +156,6 @@ export default function RecuperarContrasena() {
             />
           </div>
         </li>
-
         <li className={currentSlide === 2 ? "active" : "inactive"} id="slidee3">
           <div className="son">
             <ButtonContraseña
@@ -182,27 +173,29 @@ export default function RecuperarContrasena() {
         </li>
       </ul>
       <div className="next">
-      <button
-        className="btn-siguiente"
-        disabled={currentSlide === 0}
-        onClick={() => setCurrentSlide(currentSlide - 1)}
-      >
-        Anterior
-      </button>
-      <button className="btn-siguiente" onClick={nextSlide}>
-        Siguiente
-      </button>
+        {/* Funcionalidad para los botones Siguiente y Anterior */}
+        {currentSlide !== 0 && (
+          <button
+            className="btn-siguiente"
+            onClick={() => setCurrentSlide(currentSlide - 1)}
+          >
+            Anterior
+          </button>
+        )}
 
-      <div className="item item-link">
-        <Link className="custom-link link-inicio" to="/login">
-          Volver al inicio de sesión
-        </Link>
+        {currentSlide !== 2 && (
+          <button className="btn-siguiente" onClick={nextSlide}>
+            Siguiente
+          </button>
+        )}
+        {/* Hasta aqui */}
+
+        <div className="item item-link">
+          <Link className="custom-link link-inicio" to="/login">
+            Volver al inicio de sesión
+          </Link>
+        </div>
       </div>
-
-
-      </div>
-     
-
       <Dialogs
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
@@ -211,31 +204,25 @@ export default function RecuperarContrasena() {
         onSave={() => setDialogOpen(false)}
         redirectTo="login"
       />
-  <div>
-  <Stack spacing={2} sx={{ }}>
-        {envioExitoso && (
-          <Alert
-            onClose={() => setEnvioExitoso(false)}
-            severity="success"
-            sx={{ }}
-          >
-            El código se ha enviado exitosamente, por favor revise su correo
-            electrónico
-          </Alert>
-        )}
-        {errorMensaje && (
-          <Alert
-            onClose={() => setErrorMensaje("")}
-            severity="error"
-            sx={{ }}
-          >
-            {errorMensaje}
-          </Alert>
-        )}
-      </Stack>
-
-  </div>
-      
+      <div>
+        <Stack spacing={2} sx={{}}>
+          {envioExitoso && (
+            <Alert
+              onClose={() => setEnvioExitoso(false)}
+              severity="success"
+              sx={{}}
+            >
+              El código se ha enviado exitosamente, por favor revise su correo
+              electrónico
+            </Alert>
+          )}
+          {errorMensaje && (
+            <Alert onClose={() => setErrorMensaje("")} severity="error" sx={{}}>
+              {errorMensaje}
+            </Alert>
+          )}
+        </Stack>
+      </div>
     </div>
   );
 }

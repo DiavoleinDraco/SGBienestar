@@ -12,8 +12,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
-  
 }
 
 ul,
@@ -22,12 +20,12 @@ li {
 }
 
 .li {
-  margin: 0;          
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.sldrr{
+.sldrr {
   position: relative;
   width: 700px;
   height: 205px;
@@ -36,13 +34,13 @@ li {
   /* outline: 2px solid rgb(125, 0, 208); */
 }
 
-.sldrr li{
+.sldrr li {
   position: absolute;
   left: 0;
   top: 0;
   opacity: 0;
   width: inherit;
-  height:inherit;
+  height: inherit;
   background: #dbdbdb46;
   transition: opacity 0.4s;
   border-radius: 30px;
@@ -53,10 +51,8 @@ li {
 }
 
 .son {
-  
   width: 300px;
   height: 110px;
-  
 }
 
 .carta {
@@ -74,14 +70,11 @@ li {
   z-index: 1;
 }
 
-
-
 .li {
   display: inline-block;
   text-align: center;
   /* outline: 1px solid green; */
   margin: 5px;
-
 }
 
 .a {
@@ -122,10 +115,12 @@ li {
 .btn-rcontra {
   border-radius: 50px;
   width: 200px;
+  height: 30px;
   color: #fff;
   background: #3c1263;
   position: relative;
-  top: 50px;
+  top: 44px;
+  border: none;
 }
 
 .btn-rcontra:hover {
@@ -134,25 +129,25 @@ li {
   color: #3c1263 !important;
   background: #f6f6f6 !important;
   cursor: pointer;
+  border: solid 1px #3c1263;
 }
 
 /*Estilo del codigo*/
 .son-codigo {
   height: 100px;
-/* 
+  /* 
   outline: 2px solid rgb(213, 0, 220); */
-  
-position: relative;
-left: 30px;
+
+  position: relative;
+  left: 30px;
 }
 
 .son-correo {
   height: inherit;
   width: inherit;
-/* 
+  /* 
   outline: 2px solid rgb(86, 244, 0); */
 }
-
 
 /* Clase para mostrar un slide */
 .sldrr li.active {
@@ -167,9 +162,9 @@ left: 30px;
   pointer-events: none; /* Desactiva los eventos del elemento oculto */
 }
 
-/*Estilo para el boton siguientre*/
+/*Estilo para el boton siguiente*/
 .btn-siguiente {
-  border-radius:80px;
+  border-radius: 80px;
   width: 100px;
   color: #fff;
   background: #3c1263;
@@ -187,6 +182,7 @@ left: 30px;
   color: #3c1263 !important;
   background: #f6f6f6 !important;
   cursor: pointer;
+  border: solid 1px #3c1263;
 }
 
 /*Estilo para el boton enviar correo btn-env-correo*/
@@ -197,8 +193,6 @@ left: 30px;
   color: #fff;
   background: #3c1263;
   height: 40px;
-
-
 }
 
 .btn-env-correo:hover {
@@ -207,6 +201,7 @@ left: 30px;
   color: #3c1263 !important;
   background: #f6f6f6 !important;
   cursor: pointer;
+  border: solid 1px #3c1263;
 }
 
 /*Ventana de dialogo*/
@@ -239,7 +234,6 @@ left: 30px;
 
 /*Diseño responsivo*/
 @media screen and (max-width: 870px) {
-  
   .padrecontenedor {
     width: 600px;
   }
@@ -252,11 +246,9 @@ left: 30px;
     position: relative;
     right: 30px;
   }
-
 }
 
 @media screen and (max-width: 670px) {
-  
   .padrecontenedor {
     width: 400px;
   }
@@ -269,11 +261,9 @@ left: 30px;
     position: relative;
     right: 60px;
   }
-
 }
 
 @media screen and (max-width: 470px) {
-  
   .padrecontenedor {
     width: 300px;
   }
@@ -286,11 +276,13 @@ left: 30px;
     position: relative;
     right: 80px;
   }
-
 }
 
 @media screen and (max-width: 370px) {
-  
+  .titulo-rec {
+    font-size: 30px;
+  }
+
   .padrecontenedor {
     width: 240px;
   }
@@ -303,18 +295,15 @@ left: 30px;
     position: relative;
     right: 80px;
   }
-
 }
 
-
 @media screen and (max-height: 640px) {
-
   .titulo-rec {
     font-size: 30px;
     position: relative;
     bottom: 30px;
   }
-  
+
   .padrecontenedor {
     height: 400px;
   }
@@ -327,5 +316,4 @@ left: 30px;
     position: relative;
     right: 80px;
   }
-
 }
