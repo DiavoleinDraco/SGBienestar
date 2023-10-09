@@ -264,8 +264,6 @@ export default function Registro() {
       <div id="imagenes">
         <img src={miimagen} alt="sena-imagen" />
       </div>
-      <div className="child"></div>
-      <div className="child-two"></div>
       <form className="form">
         <div className="title">
           <h1>REGISTRATE</h1>

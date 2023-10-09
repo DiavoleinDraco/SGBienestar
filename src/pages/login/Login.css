@@ -1,4 +1,3 @@
-
 .padree {
   display: flex;
   margin: 15em auto;
@@ -29,24 +28,21 @@
 .items {
   height: 60px;
   width: 300px;
-
-
 }
 
 .title {
   font-family: "Questrial", sans-serif;
-  height:100px !important;
+  height: 100px !important;
 
   width: 350px;
-
 }
-.notcuenta{
+.notcuenta {
   padding: 19px;
   box-sizing: border-box;
   height: 40px;
 }
-.recuperarcuenta{
-  padding:25px;
+.recuperarcuenta {
+  padding: 25px;
   height: 40px;
   box-sizing: border-box;
 }
@@ -128,26 +124,30 @@
   top: 1px;
 }
 
-/*Acomodando los campos que se utilizan en el login*/
-
-/* cssssssss */
-
-/*Campo de contraseña*/
-
-h1{
-  background-image: url(https://media.giphy.com/media/l0HlA7i5qTFedPFK0/giphy.gif);
-  background-size: cover;
-  color: transparent;
-  -moz-background-clip: text;
-  -webkit-background-clip: text;
-  font-size: 50px;
-  font-family: 'Questrial', sans-serif;
-  width: inherit !important;
-  height:inherit !important;
-  margin: 0;
-  padding:30px;
-  box-sizing: border-box;
+.title {
+  position: relative;
+  overflow: hidden;
 }
+
+.title h1 {
+  font-size: 48px;
+  color: transparent;
+  background: linear-gradient(180deg, #3c1263, #7036ab);
+  background-size: 100% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: animateBubbles 5s infinite;
+}
+
+@keyframes animateBubbles {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -200%;
+  }
+}
+
 
 
 /* Estilo para los enlaces con la clase "custom-link" para que parezcan botones */

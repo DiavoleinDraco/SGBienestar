@@ -21,7 +21,29 @@ body {
   margin-bottom: 90px;
   width: 600px;
   background: #f6f6f6;
+
   /* outline: 1px solid green; */
+}
+
+.form:after {
+  content: "";
+  height: 845px;
+  width: 705px;
+  position: absolute;
+  background: rgba(237, 230, 230, 0.582);
+  z-index: -200;
+  top: 220px;
+  border-radius: 30px;
+}
+.form::before {
+  content: "";
+  height: 730px;
+  width: 795px;
+  position: absolute;
+  background: rgba(237, 230, 230, 0.582);
+  z-index: -201;
+  top: 280px;
+  border-radius: 30px;
 }
 
 .item-casaa {
@@ -60,52 +82,35 @@ body {
   width: inherit;
 }
 
-.child {
-  border-radius: 30px;
-  position: absolute;
-  height: 710px;
-  width: 770px;
-  top: 320px;
-  background: rgba(255, 255, 255, 0.5);
-  z-index: -1;
-}
-
 #imagenes {
+  width: 400px !important;
+
+  align-self: center;
+
+  height: 140px !important;
   position: absolute;
-  width: 490px;
-  top: -9px;
-  left: auto;
-  height: 20em;
+  top: 0px;
 }
 
 #imagenes img {
   object-fit: cover;
-  height: auto;
+  height: 100%;
   width: 100%;
 }
 
 .father {
   flex-wrap: wrap;
   display: flex;
-  margin: 150px auto;
+  margin: 120px auto;
   width: 900px;
   justify-content: center;
-  align-content: center;
+  align-content: space-evenly;
+  /* outline: 2px solid rgb(159, 45, 45); */
 }
 
-.child-two {
-  position: absolute;
-  top: 250px;
-  border-radius: 30px;
-  height: 850px;
-  width: 685px;
-  background: rgba(255, 255, 255, 0.5);
-  z-index: -1;
-}
-
-.tittle {
+.title h1 {
   flex-grow: 1;
-  font-size: 3em;
+  font-size: 55px !important;
   color: #3c1263;
   font-family: "Questrial", sans-serif;
   position: relative;
@@ -304,4 +309,321 @@ ul.slider li:target {
   background-color: #3c1263 !important;
   color: #fff !important;
   border: 1px solid #fff !important;
+}
+
+/*Aqui el primer ancho*/
+
+@media screen and (max-width: 900px) {
+  body {
+    margin: 0;
+    background-image: url(./fondo/Background\ original.png);
+    background-size: 100% 100%;
+    /* Hace que el fondo cubra toda la pantalla sin recortar */
+    background-attachment: fixed;
+    /* Evita que el fondo se mueva con el contenido */
+    background-repeat: no-repeat;
+    /* Evita la repetición del fondo */
+  }
+
+  /* form es el padre de la clase padre */
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-evenly !important;
+    margin: 50px auto;
+    border-radius: 30px;
+    border: 1px;
+    margin-bottom: 90px;
+    width: 530px;
+    background: #f6f6f6;
+
+    /* outline: 1px solid green; */
+  }
+
+  .form:after {
+    content: "";
+    height: 810px;
+    width: 635px;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: -200;
+    top: 205px;
+    border-radius: 30px;
+  }
+  .form::before {
+    content: "";
+    height: 720px;
+    width: 725px;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: -201;
+    top: 250px;
+    border-radius: 30px;
+  }
+
+  .item-casaa {
+    width: 50px;
+    color: #f6f6f6;
+    background: #3c1263;
+    border-radius: 100% !important;
+    height: 50px;
+    justify-self: start !important;
+    position: absolute;
+    box-sizing: border-box;
+    -webkit-box-shadow: 3px 1px 36px -14px rgba(245, 245, 245, 1);
+    -moz-box-shadow: 3px 1px 36px -14px rgba(245, 245, 245, 1);
+    box-shadow: 3px 1px 36px -14px rgba(245, 245, 245, 1);
+    align-self: flex-end;
+  }
+
+  .item-casaa:hover {
+    cursor: pointer;
+  }
+
+  .linkk {
+    height: inherit;
+    width: inherit;
+    padding: 15px;
+    color: #f6f6f6;
+    border-radius: 80px;
+  }
+
+  .casaaa {
+    border-radius: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: inherit;
+    width: inherit;
+  }
+
+  #imagenes {
+    width: 400px !important;
+
+    align-self: center;
+
+    height: 140px !important;
+    position: absolute;
+    top: 0px;
+  }
+
+  #imagenes img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+
+  .father {
+    flex-wrap: wrap;
+    display: flex;
+    margin: 110px auto;
+    width: 800px;
+    justify-content: center;
+    align-content: space-around;
+  }
+
+  .title h1 {
+    flex-grow: 1;
+    font-size: 45px !important;
+    color: #3c1263;
+    font-family: "Questrial", sans-serif;
+    position: relative;
+    top: 16px;
+  }
+
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  ul.slider {
+    position: relative;
+    width: 400px;
+    height: 700px;
+    margin: 0;
+    /* outline: 2px solid rgb(243, 26, 26); */
+  }
+
+  #slide3 {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly !important;
+    align-content: space-around !important;
+    left: 0;
+    top: 0;
+    opacity: 5;
+    background: #f6f6f6;
+    width: inherit;
+    height: inherit;
+    transition: opacity 0.4s;
+    border-radius: 30px;
+    /* outline:#136312 2px solid; */
+  }
+
+  #slide2 {
+    position: relative;
+    opacity: 20;
+    width: inherit;
+    height: inherit;
+    background: #f6f6f6;
+    transition: opacity 0.4s;
+    border-radius: 30px;
+  }
+
+  #slide1 {
+    position: absolute;
+    opacity: 1;
+    background: #f6f6f6;
+    width: inherit;
+    height: inherit;
+    transition: opacity 0.4s;
+    border-radius: 30px;
+  }
+
+  ul.slider li:first-child {
+    opacity: 1;
+    z-index: 10;
+  }
+
+  ul.slider li:target {
+    opacity: 1;
+    z-index: 10;
+  }
+
+  .menu {
+    text-align: center;
+    margin: 20px;
+  }
+
+  .menu li {
+    text-align: center;
+    display: flex;
+    width: 300px;
+    justify-content: space-evenly;
+  }
+
+  .menu li a {
+    display: inline-block;
+    background: #fff;
+    text-decoration: none;
+    padding: 19px;
+    color: #3c1263;
+    font-weight: 900px;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    border-radius: 100%;
+    border: 1px solid #3c1263;
+  }
+
+  .menu li a:hover {
+    transform: scale(1.1);
+  }
+
+  .item {
+    width: 250px;
+    height: 60px;
+    /* outline: 2px solid black; */
+  }
+  .item-contra {
+    width: 250px;
+    height: 220px !important;
+  }
+
+  .slr1 {
+    width: 250px;
+    height: 60px;
+  }
+
+  .contenedor {
+    border-radius: 29px;
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center !important;
+    justify-content: space-evenly;
+    flex-direction: column;
+    /* outline: #3c1263 1px solid; */
+  }
+
+  .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    width: 250px;
+    height: 60px;
+  }
+  /*Estilos para los campos*/
+
+  .makeStyles-root-4 {
+    height: inherit !important;
+    width: inherit !important;
+  }
+
+  /*Hasta aqui el estilo para los campos*/
+
+  /*Para que este bien acomodado el modal*/
+  .titulo-TyC {
+    text-align: center !important;
+  }
+
+  .titulo-TyC::first-line {
+    font-size: 1em;
+  }
+
+  .texto-derecha {
+    text-align: left;
+    direction: ltr;
+    font-size: 9px;
+    padding: 8px 20px;
+  }
+
+  .first-titulo {
+    font-size: 2.5em;
+  }
+
+  .registro-s {
+    border-radius: 50px;
+    width: 240px;
+    background: #3c1263;
+    outline: 1px solid #3c1263;
+  }
+  .registro-s:hover {
+    border-radius: 50px;
+    width: 240px;
+    color: #3c1263 !important;
+    background: #f6f6f6 !important;
+  }
+
+  .MuiTooltip-popper {
+    position: absolute !important;
+  }
+
+  .MuiTypography-root {
+    height: 60px !important;
+    width: inherit !important;
+  }
+  .MuiTypography-root {
+    /* outline: 1px solid  #a2cd2f !important; */
+    height: inherit !important;
+    padding: 11px 8px 5px 8px !important;
+    font-size: 12px !important;
+    width: 300px !important;
+    box-sizing: border-box;
+  }
+
+  #transition-modal-descripcion {
+    outline: rebeccapurple 1px solid !important;
+  }
+
+  /* Estilo para el número de menú activo */
+  .menu a.active {
+    background-color: #3c1263 !important;
+    color: #fff !important;
+    border: 1px solid #fff !important;
+  }
 }
