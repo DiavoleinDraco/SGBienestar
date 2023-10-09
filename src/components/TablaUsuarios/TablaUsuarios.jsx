@@ -43,7 +43,7 @@ export default function TablaUsarios() {
 
   //mostrar datos
   useEffect(() => {
-    get("/registro/usuario/651eab488811502b56d0e53e")
+    get("/registro/usuario/65118214d762dd614ce54cd9")
       .then((usuarioData) => {
         if (usuarioData.ficha && usuarioData.n_doc) {
           // Obtener el objeto de ficha
@@ -51,6 +51,7 @@ export default function TablaUsarios() {
             .then((fichaData) => {
               if (fichaData.programa) {
                 // Obtener el objeto de programa
+              
                 get(`/programa/programa/${fichaData.programa}`)
                   .then((programaData) => {
                     const finalData = {
@@ -64,14 +65,14 @@ export default function TablaUsarios() {
                     console.error("Error al cargar el programa", programaError);
                   });
               } else {
-                console.error("El objeto de ficha no tiene una propiedad 'programa'.");
+                console.error("El objeto de ficha no tiene una propiedad 'programa'.",  console.log(usuarioData));
               }
             })
             .catch((fichaError) => {
               console.error("Error al cargar la ficha", fichaError);
             });
         } else {
-          console.error("El objeto de usuario no tiene una propiedad 'ficha'.");
+          console.error("El objeto de usuario no tiene una propiedad 'ficha'.",console.log(usuarioData));
         }
       })
       .catch((usuarioError) => {

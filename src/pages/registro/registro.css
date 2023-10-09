@@ -1,14 +1,3 @@
-body {
-  margin: 0;
-  background-image: url(./fondo/Background\ original.png);
-  background-size: 100% 100%;
-  /* Hace que el fondo cubra toda la pantalla sin recortar */
-  background-attachment: fixed;
-  /* Evita que el fondo se mueva con el contenido */
-  background-repeat: no-repeat;
-  /* Evita la repetición del fondo */
-}
-
 /* form es el padre de la clase padre */
 .form {
   display: flex;

@@ -6,7 +6,7 @@ import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import { DataGrid, GridColumnMenu } from '@mui/x-data-grid';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-
+import Buttons from '../Buttons/Buttons.jsx';
 import * as XLSX from 'xlsx';
 import get from "../../UseFetch.js";
 
@@ -22,34 +22,33 @@ export default function TablaInventario() {
   ];
 
   // Función para combinar los datos del encabezado con los datos principales
-function combineDataWithHeader(data, headerData) {
-  // Crea una nueva matriz que contiene los datos del encabezado seguidos de los datos principales
-  const combinedData = [headerData, ...data.map(item => [item.nombre, item.categoriaNombre, item.cantidad, item.marcaNombre, item.descripcion])];
-  return combinedData;
-}
+// function combineDataWithHeader(data, headerData) {
+//   // Crea una nueva matriz que contiene los datos del encabezado seguidos de los datos principales
+//   const combinedData = [headerData, ...data.map(item => [item.nombre, item.categoriaNombre, item.cantidad, item.marcaNombre, item.descripcion])];
+//   return combinedData;
+// }
 
-  function generatePdf(data, headerData){
-    const combinedData = combineDataWithHeader(data, headerData);
-    const doc = new jsPDF();
+function generatePdf(data){
+  const doc = new jsPDF();
   doc.autoTable({
-    body: combinedData,
+    head: [['Nombre', 'Categoría', 'Cantidad', 'Marca', 'Descripción']],
+    body: data.map(item => [item.nombre, item.categoriaNombre, item.cantidad, item.marcaNombre, item.descripcion])
   });
-  doc.save('informe.pdf');
-}
+  doc.save('informe.pdf')
+};
 
-  function generateExcel(data, headerData){
-    // Combina los datos con el encabezado
-  const combinedData = combineDataWithHeader(data.map(item => [item.nombre, item.categoriaNombre, item.cantidad, item.marcaNombre, item.descripcion]), headerData);
-    const worksheet  = XLSX.utils.json_to_sheet(combinedData);
-    const workbook  = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Informe');
-    XLSX.writeFile(workbook, 'informe.xlsx')
-  }
+function generateExcel(data){
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Informe');
+  XLSX.writeFile(wb, 'informe.xlsx')
+}
 
   useEffect(() => {
     get('/implementos')
       .then((implementosdata) => {
         // Mapear los datos y cambiar '_id' a 'id'
+        console.log(implementosdata)
         const transformedData = implementosdata.map((item) => ({
           ...item,
           id: item._id,
@@ -129,9 +128,10 @@ function combineDataWithHeader(data, headerData) {
   }
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '100%', background: 'white' }}>
       <DataGrid rows={implementos} columns={columns} slots={{ columnMenu: CustomColumnMenu }} />
-     
+      <Buttons className='btn-informes' onclick={() => generatePdf(implementos)} nombre={'Descargar PDF'}/>
+        <Buttons className='btn-informes' onclick={() => generateExcel(implementos)} nombre={'Descargar EXCEL'}/>
     </div>
   );
 };
