@@ -232,6 +232,25 @@ li {
   width: 100%;
 }
 
+h1 {
+  font-size: 48px;
+  color: transparent;
+  background: linear-gradient(180deg, #3c1263, #7036ab);
+  background-size: 100% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: animateBubbles 5s infinite;
+}
+
+@keyframes animateBubbles {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -200%;
+  }
+}
+
 /*Diseño responsivo*/
 @media screen and (max-width: 870px) {
   .padrecontenedor {

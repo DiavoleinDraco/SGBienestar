@@ -9,6 +9,7 @@
   background: #f6f6f6;
   box-shadow: 0 0 1rem 0 rgba(8, 10, 76, 0.2);
   border-radius: 30px;
+;
 }
 
 #imagenes {
@@ -167,4 +168,43 @@
 .contraseña-item {
   position: relative;
   left: 4px;
+}
+
+/*Dieño responsivo*/
+@media screen and (max-width: 720px) {
+  
+  .padree {
+    width: 360px !important
+  }
+
+
+  .twos {
+    width: 400px !important
+  }
+
+  .ones {
+    width: 450px !important;
+    
+  }
+
+  @media screen and (max-width: 400px) {
+    .padrecontenedor {
+      width: 250px;
+
+
+    }
+    
+    .twos {
+  display: none;
+ }
+
+ .ones {
+  display: none;
+ }
+  
+  }
+ #imagenes{
+    width: 50px;
+  }
+
 }

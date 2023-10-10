@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <nav className="navbar">
       <div className="logo">
-        <h1>Home</h1>
+        <h1 className='home-title'>Home</h1>
       </div>
       <div className="menu-icon" onClick={toggleMenu}>
         ☰ {/* Ícono de hamburguesa */}

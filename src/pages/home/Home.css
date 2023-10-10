@@ -1,75 +1,80 @@
 /* Estilos para la barra de navegación */
 .navbar {
-    background-color:#3c1263df;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-  }
-  
-  /* Estilos para el logo */
-  .logo h1 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-  
-  /* Estilos para los enlaces de navegación */
-  .nav-links {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-  }
-  
-  .nav-links li {
-    margin-right: 20px;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #fff;
-  }
-  
-  /* Estilos para el enlace activo */
-  .nav-links a.active {
-    font-weight: bold;
-  }
+  background-color:#3c1263df;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
 
- /* Estilos para el ícono de hamburguesa */
+/* Estilos para el logo */
+.logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/*Estilo para home titulo*/
+.home-title {
+  color: white !important;
+}
+
+/* Estilos para los enlaces de navegación */
+.nav-links {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Estilos para el enlace activo */
+.nav-links a.active {
+  font-weight: bold;
+}
+
+/* Estilos para el ícono de hamburguesa */
 .menu-icon {
-  display: none; /* Oculta el ícono en pantallas grandes */
-  cursor: pointer;
-  font-size: 40px;
-  height: 70px;
-  width: 24px;
+display: none; /* Oculta el ícono en pantallas grandes */
+cursor: pointer;
+font-size: 40px;
+height: 70px;
+width: 24px;
 }
 
 /* Estilos para el menú desplegable en pantallas pequeñas */
 @media screen and (max-width: 500px) {
-  .menu-icon {
-    display: block; /* Muestra el ícono en pantallas pequeñas */
-  }
+.menu-icon {
+  display: block; /* Muestra el ícono en pantallas pequeñas */
+}
 
-  .nav-links {
-    display: none; /* Oculta los enlaces de navegación */
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    right: 10px;
-    background-color: #3c1263df;
-    padding: 1rem;
-    z-index: 1;
-  }
+.nav-links {
+  display: none; /* Oculta los enlaces de navegación */
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background-color: #3c1263df;
+  padding: 1rem;
+  z-index: 1;
+}
 
-  .nav-links.active {
-    display: flex; /* Muestra los enlaces cuando el menú está activo */
-  }
+.nav-links.active {
+  display: flex; /* Muestra los enlaces cuando el menú está activo */
+}
 
-  .nav-links li {
-    margin-bottom: 10px;
-  }
+.nav-links li {
+  margin-bottom: 10px;
+}
 
-  .nav-links li:hover {
-    background-color: #6a4090df;
-  }
+.nav-links li:hover {
+  background-color: #6a4090df;
+}
 }
