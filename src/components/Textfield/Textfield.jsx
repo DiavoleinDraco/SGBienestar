@@ -13,8 +13,10 @@ export default function Textfield({ name, required, onChange }) {
 
   const handleInputChange = (e) => {
     const fieldValue = e.target.value;
-    onChange(fieldValue)
-    setData(fieldValue)
+    setData(fieldValue);
+    if (typeof onChange === 'function') {
+      onChange(fieldValue);
+    }
   };
 
   const handleBlur = () => {

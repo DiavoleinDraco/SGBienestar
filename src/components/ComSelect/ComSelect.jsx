@@ -12,7 +12,9 @@ export default function ComSelect({ descrip, items, nombre, required, onChange  
   const handleInputChange = (e) => {
     const fieldValue = e.target.value;
     setElementos(fieldValue);
-    onChange(fieldValue);
+    if (typeof onChange === 'function') {
+      onChange(fieldValue);
+    }
   };
 
   const handleBlur = () => {

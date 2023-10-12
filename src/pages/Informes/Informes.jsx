@@ -28,7 +28,13 @@ export default function Informes () {
       implementos: '',
       descripcion: '',
       cantidad: '',
-      infoAdicional: ['nombreImple', 'unidades', 'caracteristicas'],
+      infoAdicional: [
+        {
+          nombreImple: '',
+          unidades: '',
+          caracteristicas: '',
+        },
+      ],
      
 
     });
@@ -149,55 +155,47 @@ export default function Informes () {
             <Textfield name="" onChange={(value) => handleInformeDataChange("cantidad", value)}/>
           </div>
     
-          <BasicAccordion  
-      titulo="Informacion Adicional"
-      contenido={
-        <>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <p>Nombre del Implemento</p> 
-            <ComSelect
-            key={'nombreImple'}
-              nombre=""
-              items={opcionesComSelect}
-            />
-            <p>Unidades</p>
-            <Textfield name=""  key={'unidades'}/>
-            <p>Caracteristicas</p>
-            <Textfield name="" key={'caracteristicas'} />
-          </div>
-    
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            
-            <ComSelect
-              nombre=""
-              key={'nombreImple'}
-              items={opcionesComSelect}
-            />
-            <Textfield name=""  key={'unidades'}/>
-            <Textfield name=""  key={'caracteristicas'}/>
-          </div>
-    
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            
-            <ComSelect
-              nombre=""
-              key={'nombreImple'}
-              items={opcionesComSelect}
-            />
-            <Textfield name=""  key={'unidades'}/>
-            <Textfield name="" key={'caracteristicas'} />
-          </div>
-    
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            
-            <ComSelect
-              nombre=""
-              key={'nombreImple'}
-              items={opcionesComSelect}
-            />
-            <Textfield name=""  key={'unidades'}/>
-            <Textfield name=""  key={'caracteristicas'}/>
-          </div>
+          <BasicAccordion
+  titulo="Informacion Adicional"
+  contenido={
+    <>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <p>Nombre del Implemento</p>
+        <ComSelect
+          nombre="nombreImple"
+          items={opcionesComSelect}
+          onChange={(value) => handleInformeDataChange("infoAdicional", value, 0,"nombreImple")}
+        />
+        <p>Unidades</p>
+        <Textfield
+          name="unidades"
+          onChange={(value) => handleInformeDataChange("infoAdicional", value, 0, "unidades")}
+        />
+        <p>Caracteristicas</p>
+        <Textfield
+          name="caracteristicas"
+          onChange={(value) => handleInformeDataChange("infoAdicional", value, 0, "caracteristicas")}
+        />
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <ComSelect
+          nombre="nombreImple"
+          key={'nombreImple'}
+          items={opcionesComSelect}
+          onChange={(value) => handleInformeDataChange("infoAdicional", value, 1,"nombreImple")}
+        />
+        <Textfield
+          name="unidades"
+          key={'unidades'}
+          onChange={(value) => handleInformeDataChange("infoAdicional", value, 1, "unidades")}
+        />
+        <Textfield
+          name="caracteristicas"
+          key={'caracteristicas'}
+          onChange={(value) => handleInformeDataChange("infoAdicional", value, 1, "caracteristicas")}
+        />
+      </div>
     
           
         </>
@@ -208,30 +206,41 @@ export default function Informes () {
     
     </div>
   );
-  const handleInformeDataChange = (fieldName, value, index) => {
-    console.log('antes')
+  const handleInformeDataChange = (fieldName, value, index, subfield) => {
     if (fieldName === "infoAdicional") {
+      // Clona el array existente
       const updatedInfoAdicional = [...informeData.infoAdicional];
-      
+  
       if (!updatedInfoAdicional[index]) {
         updatedInfoAdicional[index] = {}; // Inicializa el objeto si es nuevo
       }
-      updatedInfoAdicional[index] = {
-        ...updatedInfoAdicional[index],
-        [value.name]: value.value,
-      };
+  
+      if (subfield) {
+        // Solo agrega el campo si se proporciona un subfield (nombreImple, unidades, caracteristicas)
+        updatedInfoAdicional[index] = {
+          ...updatedInfoAdicional[index],
+          [subfield]: value,
+        };
+      }
+  
+      // Actualiza el estado con el nuevo array clonado
       setInformeData({
         ...informeData,
         infoAdicional: updatedInfoAdicional,
       });
     } else {
+      // Lógica para otros campos
       setInformeData({
         ...informeData,
         [fieldName]: value,
       });
     }
   };
-
+  
+  
+  
+  
+  
   function generatePdfInformeImplemento() {
     const doc = new jsPDF();
     let y = 10; // Coordenada vertical inicial
@@ -261,38 +270,49 @@ export default function Informes () {
       "Implementos": "implementos",
       "Descripción": "descripcion",
       "Cantidad": "cantidad",
-      'Información adicional' : 'infoAdicional'
     };
   
     campos.forEach((campo) => {
       const campoKey = campoKeyMapping[campo]; // Buscar la clave en informeData
-      if (campoKey) {
-        doc.text(`${campo}: ${informeData[campoKey]}`, 10, y);
+      const valor = informeData[campoKey];
+      if (campoKey && valor !== undefined) {
+        doc.text(`${campo}: ${valor}`, 10, y);
       } else {
-        doc.text(`${campo}:`, 10, y); // Si no se encuentra, imprimir solo el nombre del campo
+        doc.text(`${campo}:`, 10, y); // Si no se encuentra o es "undefined", imprimir solo el nombre del campo
       }
       y += 10;
     });
   
     if (informeData.infoAdicional.length > 0) {
-      doc.text("Informacion Adicional:", 10, y);
-      y += 10;}
+      doc.text("Información Adicional:", 10, y);
+      y += 10;
+    }
   
     // Campos de Informacion Adicional
     informeData.infoAdicional.forEach((conjunto, index) => {
-      doc.text(`Conjunto ${index + 1}:`, 20, y);
-      y += 10;
+      const nombreImple = conjunto.nombreImple;
+      const unidades = conjunto.unidades;
+      const caracteristicas = conjunto.caracteristicas;
   
-      const camposInfoAdicional = [
-        "Nombre del Implemento",
-        'unidades',
-        'caracteristicas',
-      ];
-  
-      camposInfoAdicional.forEach((campo) => {
-        doc.text(`${campo}: ${conjunto[campo]}`, 20, y);
+      if (nombreImple || unidades || caracteristicas) {
+        doc.text(`Conjunto ${index + 1}:`, 20, y);
         y += 10;
-      });
+  
+        if (nombreImple !== undefined) {
+          doc.text(`Nombre del Implemento: ${nombreImple}`, 20, y);
+          y += 10;
+        }
+  
+        if (unidades !== undefined) {
+          doc.text(`Unidades: ${unidades}`, 20, y);
+          y += 10;
+        }
+  
+        if (caracteristicas !== undefined) {
+          doc.text(`Caracteristicas: ${caracteristicas}`, 20, y);
+          y += 10;
+        }
+      }
     });
   
     doc.save('informe_implementos.pdf');
