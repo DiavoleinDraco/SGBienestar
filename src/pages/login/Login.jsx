@@ -11,17 +11,17 @@ import { forwardRef } from "react";
 import './Login.css'
 import miimagen from '../../pages/imagenes/sena-bienestar.png';
 import  get, { getParametre, post } from "../../UseFetch.js";
-
-
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [info, setInfo] = useState({});
   const [errors, setErrors] = useState({});
   const [open, setOpen] = useState(false);
   const [errorMensaje, setErrorMensaje] = useState(null);
   const [valueI, actualizarI] = useState([]);
-
-
-
+  const userToken = localStorage.getItem("token")
+  const decodeToken = jwt_decode(userToken)
+  const navegacion = useNavigate();
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -70,7 +70,12 @@ export default function Login() {
   };
 
   const realizarInicioSesion = () => {
-    console.log('Inicio de sesion exitoso', info)
+    if(decodeToken.privilegio >= 3){
+      navegacion("/admin")
+    }else{
+      console.log('Nivel de acceso invalido')
+    }
+
   };
 
   const handleLoginClick = async () => {

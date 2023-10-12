@@ -290,6 +290,7 @@ export default function Menu() {
             >
               <AccountCircle />
             </IconButton>
+            
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -354,7 +355,7 @@ export default function Menu() {
                 <ListItemText primary='Sanciones' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} >
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/Mensajes')}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,

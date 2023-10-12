@@ -1,4 +1,4 @@
-const UrlApi= "http://localhost:3000"
+const UrlApi= "https://proyecto-backend-sgbienestar.onrender.com"
 
 export default async function get (pat){
 try{

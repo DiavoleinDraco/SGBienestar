@@ -8,6 +8,10 @@ import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Sanciones from '../pages/sanciones/sanciones';
 import Usuarios from '../pages/Usuarios/Usuarios';
+import jwtDecode from 'jwt-decode';
+import Mensajes from '../pages/mensajes/mensajes';
+const token = localStorage.getItem('token');
+const info = jwtDecode(token)
 
 function requireAuth({ children }) {
   const token = localStorage.getItem('token');
@@ -29,7 +33,8 @@ export function LasRutas() {
         <Route path="/admin" element={<Dashboard/>} />
         <Route path="/usuarios" element={<Usuarios/>} />
         <Route path="/sanciones" element={<Sanciones/>} />
-
+        <Route path="/mensajes" element={<Mensajes />} />
+  
         <Route path="/auth/:userId" element={<Route element={requireAuth} />}
         />
       </Routes>
