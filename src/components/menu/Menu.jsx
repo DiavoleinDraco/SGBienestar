@@ -319,7 +319,7 @@ export default function Menu() {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 6.5,
+                  px: 3.5,
                 }}
               >
                 <ListItemIcon
@@ -339,7 +339,7 @@ export default function Menu() {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 6.5,
+                  px: 3.5,
                 }}
               >
                 <ListItemIcon
@@ -359,7 +359,7 @@ export default function Menu() {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 6.5,
+                  px: 3.5,
                 }}
               >
                 <ListItemIcon
@@ -379,7 +379,7 @@ export default function Menu() {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 6.5,
+                  px: 3.5,
                 }}
               >
                 <ListItemIcon
@@ -401,7 +401,7 @@ export default function Menu() {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 6.5,
+                  px: 3.5,
                 }}
               >
                 <ListItemIcon
@@ -422,7 +422,7 @@ export default function Menu() {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 6.5,
+                  px: 3.5,
                 }}
               >
                 <ListItemIcon
