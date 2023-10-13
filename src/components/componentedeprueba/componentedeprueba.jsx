@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import './as.css';
 import get, { getParametre, post } from "../../UseFetch.js";
+import { Menu } from '@mui/material';
 
-export default function ComposeBar() {
+export default function ComposeBar({ onClose }) { // Define onClose como una prop
   const [message, setMessage] = useState('');
   const [recipient, setRecipient] = useState('');
+  const [subject, setSubject] = useState('');
+  const [isComposeOpen, setIsComposeOpen] = useState(true);
 
   const handleMessageChange = (e) => {
     const { name, value } = e.target;
@@ -12,20 +15,44 @@ export default function ComposeBar() {
       setRecipient(value);
     } else if (name === 'message') {
       setMessage(value);
+    } else if (name === 'subject') {
+      setSubject(value);
     }
   }
-  
+
+  const handleDescartar = () => {
+    setRecipient('');
+    setMessage('');
+    setSubject('');
+    setIsComposeOpen(false);
+    if (onClose) {
+      onClose(); // Llama a la función onClose para cerrar la ventana en el componente Mensajes
+    }
+  }
+
+  const handleGuardarComoBorrador = () => {
+    // Realiza la lógica para guardar como borrador si es necesario
+    setRecipient('');
+    setMessage('');
+    setSubject('');
+    setIsComposeOpen(false);
+    if (onClose) {
+      onClose(); // Llama a la función onClose para cerrar la ventana en el componente Mensajes
+    }
+  }
 
   const handleSendMessage = () => {
-    post('/mail',{mensaje:message, correo: recipient})
-    console.log(message,recipient)
+    post('/mail/admin', { mensaje: message, correo: recipient, asunto: subject });
+    console.log(message, recipient, subject);
     alert('Mensaje enviado a ' + recipient + ': ' + message);
     setRecipient('');
     setMessage('');
+    setSubject('');
+    setIsComposeOpen(false);
   }
 
   return (
-    <div className="compose-bar">
+    <div className={`compose-bar ${isComposeOpen ? 'open' : 'closed'}`}>
       <div className="compose-controls">
         <input
           type="email"
@@ -35,9 +62,17 @@ export default function ComposeBar() {
           onChange={handleMessageChange}
           className="compose-input"
         />
+        <input
+          type="text"
+          name="subject"
+          placeholder="Asunto"
+          value={subject}
+          onChange={handleMessageChange}
+          className="compose-input"
+        />
         <button className="compose-button" onClick={handleSendMessage}>Enviar</button>
-        <button className="compose-button">Guardar como borrador</button>
-        <button className="compose-button">Descartar</button>
+        <button className="compose-button" onClick={handleGuardarComoBorrador}>Guardar como borrador</button>
+        <button className="compose-button" onClick={handleDescartar}>Descartar</button>
       </div>
       <textarea
         name="message"
