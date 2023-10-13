@@ -102,12 +102,12 @@ export default function Login() {
 
     <div className='padree'>
       <div id="imagenes">
-        <img src={miimagen} alt="sena-imagen" />
+        <img id='logo-login' src={miimagen} alt="sena-imagen" />
       </div>
       <div className='hijoo'>
         <div className='ones'></div>
         <div className='twos'></div>
-        <div className='title items'> <h1>BIENVENIDO</h1> </div>
+        <div className='items'> <h1 className='title-bienvenido'>BIENVENIDO</h1> </div>
 
         <div className='items item-correo'>
           <InputCorreo
