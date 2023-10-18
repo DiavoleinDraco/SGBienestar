@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Menu from '../../components/menu/Menu';
 import NavTabs from '../../components/NavTabs/NavTabs';
-import { Button } from '@react-email/button';
-import { Container } from '@react-email/container';
 import  './mensajes.css'
 import ComposeMessage from '../../components/componentedeprueba/componentedeprueba';
 import Buttons from '../../components/Buttons/Buttons';
+import DataGridProDemo from '../../components/Tablacorreos/Tablacorreos';
 
 export default function Mensajes(){
   const [isComposeOpen, setIsComposeOpen] = useState(false);
@@ -34,8 +33,8 @@ export default function Mensajes(){
 
     return (
         <Box sx={{ display: 'block', position: 'relative', left: '200px'}}>
-           
-            <Container>
+           <DataGridProDemo></DataGridProDemo>
+        
            
           <button onClick={handleComposeClick}>
           <ion-icon name="pencil"></ion-icon>Compose
@@ -49,7 +48,7 @@ export default function Mensajes(){
 )}
 
            
-    </Container>
+   
         </Box>
         
     )
