@@ -1,0 +1,29 @@
+/* En tu archivo "mensajes.css" */
+.mensajes-detalle-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .mensajes-detalle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .icon {
+    cursor: pointer;
+    font-size: 24px; /* Tamaño del icono */
+    margin: 0 16px; /* Espaciado entre los iconos */
+  }
+  
+  .mensajes-detalle-content {
+    flex: 1;
+    padding: 16px;
+    background-color: #fff; /* Fondo blanco */
+  }
+  

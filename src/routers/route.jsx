@@ -10,6 +10,7 @@ import Sanciones from '../pages/sanciones/sanciones';
 import Usuarios from '../pages/Usuarios/Usuarios';
 import jwtDecode from 'jwt-decode';
 import Mensajes from '../pages/mensajes/mensajes';
+import MensajeDetalle from '../pages/mensajes_detalles/mensajes_detalles';
 const token = localStorage.getItem('token');
 const info = jwtDecode(token)
 
@@ -34,7 +35,7 @@ export function LasRutas() {
         <Route path="/usuarios" element={<Usuarios/>} />
         <Route path="/sanciones" element={<Sanciones/>} />
         <Route path="/mensajes" element={<Mensajes />} />
-  
+        <Route path="/mensajes/:messageId" element={<MensajeDetalle />} />
         <Route path="/auth/:userId" element={<Route element={requireAuth} />}
         />
       </Routes>

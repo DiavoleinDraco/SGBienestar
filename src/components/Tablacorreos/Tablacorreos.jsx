@@ -14,15 +14,39 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-import get from '../../UseFetch';
+import get, { eliminar } from '../../UseFetch';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export default function DataGridProDemo() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [data, setData] = useState([]);
   const [rows, setRows] = useState([]);
-  const navigate = useNavigate(); // Usamos useNavigate para la navegación
+  const [highlightedRow, setHighlightedRow] = useState(null);
 
+  const navigate = useNavigate(); // Usamos useNavigate para la navegación
+  const tableCellStyle = {
+    fontSize: '14px', // Ajusta el tamaño del texto según tus necesidades
+  };
+  const tableContainerStyle = {
+    width: '80%', // Ajusta el ancho de la tabla según tus necesidades
+  };
+  
+  const tableRowStyle = {
+    height: '40px', // Ajusta la altura de las filas según tus necesidades
+  };
+  const handleDeleteClick = async (_id) => {
+    try {
+      // Realiza la eliminación
+      await eliminar('/mail/mail/', _id);
+      
+      // Eliminación exitosa, actualiza la lista de mensajes
+      const updatedRows = rows.filter(row => row._id !== _id);
+      setRows(updatedRows);
+    } catch (error) {
+      console.error("Error al eliminar", error);
+    }
+  };
   useEffect(() => {
     get("/mail")
       .then((data) => {
@@ -46,19 +70,27 @@ export default function DataGridProDemo() {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  const handleRowMouseEnter = (index) => {
+    setHighlightedRow(index);
+  };
+  
+  const handleRowMouseLeave = () => {
+    setHighlightedRow(null);
+  };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const handleRowClick = (_id) => {
-    // Usamos navigate para redirigir
-    navigate(`/detalle/${_id}`);
+  const handleCellClick = (_id) => {
+
+      navigate(`/mensajes/${_id}`);
+    
   };
 
   return (
-    <TableContainer component={Paper}>
+<TableContainer component={Paper} style={tableContainerStyle}>
       <Table aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0
@@ -66,19 +98,32 @@ export default function DataGridProDemo() {
             : rows
           ).map((row, index) => (
             <TableRow
-              key={index}
-              onClick={() => handleRowClick(row._id)}
-              style={{ cursor: 'pointer' }}
-            >
-              <TableCell component="th" scope="row">
+  key={index}
+  style={{ cursor: 'pointer', ...tableRowStyle }}
+  onMouseEnter={() => handleRowMouseEnter(index)}
+  onMouseLeave={handleRowMouseLeave}
+>
+              <TableCell component="th" scope="row" style={tableCellStyle} onClick={() => handleCellClick(row._id)}>
                 {row.correo}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="right"     onClick={() => handleCellClick(row._id)}
+>
                 {row.asunto}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="right"     onClick={() => handleCellClick(row._id)}
+>
                 {row.mensaje}
               </TableCell>
+              <TableCell>
+              <DeleteIcon
+  className="delete-icon"
+  onClick={() => handleDeleteClick(row._id)}
+  style={{
+    cursor: 'pointer',
+    display: highlightedRow === index ? 'block' : 'none'
+  }}
+/>
+            </TableCell>
             </TableRow>
           ))}
 

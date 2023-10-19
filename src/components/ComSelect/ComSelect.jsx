@@ -51,4 +51,6 @@ export default function ComSelect({ descrip, items, nombre, required, onChange  
       </FormControl>
     </div>
   );
+
+  
 }
