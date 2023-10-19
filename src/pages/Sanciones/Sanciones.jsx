@@ -3,6 +3,7 @@ import Textfield from '../../components/Textfield/Textfield';
 import { useState, useEffect } from "react";
 import Menu from '../../components/menu/Menu';
 import './Sanciones.css'
+import HistorialSanciones from '../../components/HistorialSanciones/HistorialSanciones';
 
 
 export default function Sanciones () {
@@ -66,21 +67,10 @@ return (
       name="Nueva Sancion"
     />
 
-
+    <HistorialSanciones />
 
   </div>
 );
-
-
-
-
-
-
-
-
-
-
-
-}
+};
 
 

@@ -10,47 +10,38 @@ import TablaInventario from '../../components/TablaInventario/TablaInventario';
 import Buttons from '../../components/Buttons/Buttons';
 import BasicAccordion from '../../components/BasicAccordion/BasicAccordion';
 import get from "../../UseFetch";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 
 export default function Informes () {
     const [opcionesComSelect, setOpcionesComSelect] = useState([]);
+    const [informeData, setInformeData] = useState({
+      tipoInforme: '',
+      fecha: '',
+      numeroInforme: '',
+      nombreFuncionario: '',
+      docIdentidad: '',
+      dependencia: '',
+      detalleInforme: '',
+      implementos: '',
+      descripcion: '',
+      cantidad: '',
+      infoAdicional: ['nombreImple', 'unidades', 'caracteristicas'],
+     
 
-    const headerData = [
-        [
-          'Tipo de informe',
-          'Fecha',
-          'Numero de Informe',
-          'Nombre del funcionario',
-          'Documento de Identidad',
-          'Dependencia u oficina',
-          'Solicitud',
-          'Implementos',
-          'Descripcion',
-        ],
-      ];
-    
-      function handleGeneratePdf() {
-        generatePdf(implementos, headerData);
-      }
-      
-      function handleGenerateExcel() {
-        generateExcel(implementos, headerData);
-      }
+    });
 
     useEffect(() => {
         get("/implementos")
           .then((data) => {
             console.log("Datos de la API:", data);
-      
-            
             if (Array.isArray(data)) {
-              
               const nombres = data.map((item) => item.nombre);
               setOpcionesComSelect(nombres);
             } else {
-             
               console.warn("Los datos de la API encontrado");
-              
             }
           })
           .catch((error) => {
@@ -73,47 +64,43 @@ export default function Informes () {
     </div>
   );
 
-  
-
-  const encabezadoContent = encabezadoInventario();
-
-    const tabs = [
-        {
-          label: 'Informes de implementos',
-          value: '1',
-          content: <div className='container-Informes'>
-          <ComSelect
-              nombre="Tipo de informe"
-              items={[
-                "Informe del estado de los implementos",
-                "Informe de implementos en mantenimiento",
-                "Informe de petición de nuevos implementos",
-              ]}
-            />
-    
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <p>Fecha</p> 
-                <Date Descripcion="" />
-                </div>
+  const encabezadoImplemento = () => (
+    <div className='container-Informes'>
+      <ComSelect
+        nombre="Tipo de informe"
+        items={[
+          "Informe del estado de los implementos",
+          "Informe de implementos en mantenimiento",
+          "Informe de petición de nuevos implementos",
+        ]}
+        onChange={(value) => handleInformeDataChange("tipoInforme", value)}
+      />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <p>Fecha</p> 
+        <Date 
+          Descripcion="" 
+          onChange={(value) => handleInformeDataChange("fecha", value)}
+        />
+      </div>
              
              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <p>Numero de Informe</p> 
-                <Textfield name="" />
+                <Textfield name="" onChange={(value) => handleInformeDataChange("numeroInforme", value)}/>
                 </div>
     
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <p>Nombre del Funcionario</p> 
-                <Textfield name="" />
+                <Textfield name="" onChange={(value) => handleInformeDataChange("nombreFuncionario", value)}/>
                 </div>
     
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <p>Documento de Identidad</p> 
-                <Textfield name="" />
+                <Textfield name="" onChange={(value) => handleInformeDataChange("docIdentidad", value)}/>
                 </div>
     
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <p>Dependencia u oficina</p> 
-                <Textfield name="" />
+                <Textfield name="" onChange={(value) => handleInformeDataChange("dependencia", value)}/>
                 </div>
     
             
@@ -127,6 +114,7 @@ export default function Informes () {
                 "Implementos Disponibles",
                 "Implemento Solicitados",
               ]}
+              onChange={(value) => handleInformeDataChange("detalleInforme", value)}
             />
             </div>
         
@@ -139,6 +127,7 @@ export default function Informes () {
                 "Deportivos",
                 "del Gimnasio y Deportivos",
               ]}
+              onChange={(value) => handleInformeDataChange("implementos", value)}
             />
             </div>
     
@@ -151,65 +140,197 @@ export default function Informes () {
                 "En préstamo", 
                 "En mantenimiento"
               ]}
+              onChange={(value) => handleInformeDataChange("descripcion", value)}
             />
             </div>
     
             <div style={{ display: 'flex', alignItems: 'center' }}>
              <p>Cantidad</p> 
-            <Textfield name="" />
+            <Textfield name="" onChange={(value) => handleInformeDataChange("cantidad", value)}/>
           </div>
     
           <BasicAccordion  
       titulo="Informacion Adicional"
+      onChange={(value, index) => handleInformeDataChange("infoAdicional", value, index)}
       contenido={
         <>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <p>Nombre del Implemento</p> 
             <ComSelect
+            key={'nombreImple'}
               nombre=""
               items={opcionesComSelect}
             />
             <p>Unidades</p>
-            <Textfield name="" />
+            <Textfield name=""  key={'unidades'}/>
             <p>Caracteristicas</p>
-            <Textfield name="" />
+            <Textfield name="" key={'caracteristicas'} />
           </div>
     
           <div style={{ display: 'flex', alignItems: 'center' }}>
             
             <ComSelect
               nombre=""
+              key={'nombreImple'}
               items={opcionesComSelect}
             />
-            <Textfield name="" />
-            <Textfield name="" />
+            <Textfield name=""  key={'unidades'}/>
+            <Textfield name=""  key={'caracteristicas'}/>
           </div>
     
           <div style={{ display: 'flex', alignItems: 'center' }}>
             
             <ComSelect
               nombre=""
+              key={'nombreImple'}
               items={opcionesComSelect}
             />
-            <Textfield name="" />
-            <Textfield name="" />
+            <Textfield name=""  key={'unidades'}/>
+            <Textfield name="" key={'caracteristicas'} />
           </div>
     
           <div style={{ display: 'flex', alignItems: 'center' }}>
             
             <ComSelect
               nombre=""
+              key={'nombreImple'}
               items={opcionesComSelect}
             />
-            <Textfield name="" />
-            <Textfield name="" />
+            <Textfield name=""  key={'unidades'}/>
+            <Textfield name=""  key={'caracteristicas'}/>
           </div>
     
           
         </>
       }
     /> 
+    <Buttons nombre={'DESCARGAR PDF'} onclick={generatePdfInformeImplemento} />
+        <Buttons nombre={'DESCARGAR EXCEL'} onclick={generateExcelInformeImplemento} />
+    
     </div>
+  );
+
+  const handleInformeDataChange = (fieldName, value, index) => {
+    if (fieldName === "infoAdicional") {
+      const updatedInfoAdicional = [...informeData.infoAdicional];
+      if (!updatedInfoAdicional[index]) {
+        updatedInfoAdicional[index] = {}; // Inicializa el objeto si es nuevo
+      }
+      updatedInfoAdicional[index] = {
+        ...updatedInfoAdicional[index],
+        [value.name]: value.value,
+      };
+      setInformeData({
+        ...informeData,
+        infoAdicional: updatedInfoAdicional,
+      });
+    } else {
+      setInformeData({
+        ...informeData,
+        [fieldName]: value,
+      });
+    }
+  };
+
+  function generatePdfInformeImplemento() {
+    const doc = new jsPDF();
+    let y = 10; // Coordenada vertical inicial
+  
+    const campos = [
+      "Tipo de informe",
+      "Fecha",
+      "Numero de Informe",
+      "Nombre del Funcionario",
+      "Documento de Identidad",
+      "Dependencia u oficina",
+      "Detalles de Informe",
+      "Implementos",
+      "Descripción",
+      "Cantidad",
+    ];
+  
+    // Objeto que mapea nombres de campos en blanco a claves en informeData
+    const campoKeyMapping = {
+      "Tipo de informe": "tipoInforme",
+      "Fecha": "fecha",
+      "Numero de Informe": "numeroInforme",
+      "Nombre del Funcionario": "nombreFuncionario",
+      "Documento de Identidad": "docIdentidad",
+      "Dependencia u oficina": "dependencia",
+      "Detalles de Informe": "detalleInforme",
+      "Implementos": "implementos",
+      "Descripción": "descripcion",
+      "Cantidad": "cantidad",
+      'Información adicional' : 'infoAdicional'
+    };
+  
+    campos.forEach((campo) => {
+      const campoKey = campoKeyMapping[campo]; // Buscar la clave en informeData
+      if (campoKey) {
+        doc.text(`${campo}: ${informeData[campoKey]}`, 10, y);
+      } else {
+        doc.text(`${campo}:`, 10, y); // Si no se encuentra, imprimir solo el nombre del campo
+      }
+      y += 10;
+    });
+  
+    if (informeData.infoAdicional.length > 0) {
+      doc.text("Informacion Adicional:", 10, y);
+      y += 10;}
+  
+    // Campos de Informacion Adicional
+    informeData.infoAdicional.forEach((conjunto, index) => {
+      doc.text(`Conjunto ${index + 1}:`, 20, y);
+      y += 10;
+  
+      const camposInfoAdicional = [
+        "Nombre del Implemento",
+        'unidades',
+        'caracteristicas',
+      ];
+  
+      camposInfoAdicional.forEach((campo) => {
+        doc.text(`${campo}: ${conjunto[campo]}`, 20, y);
+        y += 10;
+      });
+    });
+  
+    doc.save('informe_implementos.pdf');
+  }
+  
+  
+  
+
+  function generateExcelInformeImplemento() {
+    const ws = XLSX.utils.json_to_sheet([
+      {
+        "Tipo de informe": informeData.tipoInforme,
+        "Fecha": informeData.fecha,
+        "Numero de Informe": informeData.numeroInforme,
+        "Nombre de Funcionario": informeData.nombreFuncionario,
+        "Documento de Identidad": informeData.docIdentidad,
+        "Detalles": informeData.dependencia,
+        "Detalles de Informe": informeData.detalleInforme,
+        "Implementos": informeData.implementos,
+        "Descripción": informeData.descripcion,
+        "Cantidad": informeData.cantidad,
+        "Informacion adicional": informeData.infoAdicional,
+      }
+    ]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Informe_Implementos');
+    XLSX.writeFile(wb, 'informe_implementos.xlsx');
+  }
+  
+
+  const encabezadoContent = encabezadoInventario();
+  const encabezadoContentImplemento = encabezadoImplemento();
+
+    const tabs = [
+        {
+          label: 'Informes de implementos',
+          value: '1',
+          content: encabezadoContentImplemento,
         },
         {
           label: 'Informes de inventario',
@@ -228,8 +349,6 @@ export default function Informes () {
         <Menu />
         <h1>Apartado de informes</h1>
         <NavTabs tabs={tabs}/>
-
-
       </Box>
     );
 };
