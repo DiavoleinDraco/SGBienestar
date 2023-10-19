@@ -10,7 +10,7 @@ import InputCorreo from "../../components/ComantCorreo/ComantCorreo.jsx";
 import "./Registro.css";
 import { useState, useEffect } from "react";
 import get, { getParametre, post } from "../../UseFetch.js";
-import miimagen from "../../pages/imagenes/sena-bienestar.png";
+import miimagen from "../imagenes/sena-bienestar.png";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
@@ -265,9 +265,9 @@ export default function Registro() {
         <img src={miimagen} alt="sena-imagen" />
       </div>
       <form className="form">
-        <div className="title">
-          <h1>REGISTRATE</h1>
-        </div>
+       
+          <h1 id="title-registro">REGISTRATE</h1>
+       
         <ul className="slider">
           <li id="slide1">
             <div className="contenedor uno">

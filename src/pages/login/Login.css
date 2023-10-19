@@ -9,7 +9,11 @@
   background: #f6f6f6;
   box-shadow: 0 0 1rem 0 rgba(8, 10, 76, 0.2);
   border-radius: 30px;
-;
+  ;
+}
+
+.title-bienvenido{
+  font-family: "Questrial", sans-serif;
 }
 
 #imagenes {
@@ -37,11 +41,13 @@
 
   width: 350px;
 }
+
 .notcuenta {
   padding: 19px;
   box-sizing: border-box;
   height: 40px;
 }
+
 .recuperarcuenta {
   padding: 25px;
   height: 40px;
@@ -144,6 +150,7 @@
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 0 -200%;
   }
@@ -162,7 +169,8 @@
 }
 
 .custom-link:hover {
-  transform: scale(1.05); /* Cambiar el tamaño al pasar el mouse */
+  transform: scale(1.05);
+  /* Cambiar el tamaño al pasar el mouse */
 }
 
 .contraseña-item {
@@ -170,41 +178,114 @@
   left: 4px;
 }
 
-/*Dieño responsivo*/
+
 @media screen and (max-width: 720px) {
-  
+
   .padree {
-    width: 360px !important
+    width: 460px !important
+    
   }
 
-
   .twos {
-    width: 400px !important
+    width: 530px !important
   }
 
   .ones {
-    width: 450px !important;
+    width: 600px !important;
+
+  }
+}
+
+@media screen and (max-width: 610px) {
+
+  .padree {
+    width: 400px !important
     
   }
 
-  @media screen and (max-width: 400px) {
-    .padrecontenedor {
-      width: 250px;
+  .twos {
+    width: 480px !important
+  }
 
+  .ones {
+    width: 550px !important;
 
-    }
-    
-    .twos {
-  display: none;
- }
+  }
 
- .ones {
-  display: none;
- }
+}
+
+@media screen and (max-width: 560px) {
+
+  .padree {
+    width: 340px !important
+  }
+
+  .twos {
+    width: 420px !important
+  }
+
+  .ones {
+    width: 490px !important;
+
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+
+  .padree {
+    width: 310px !important
+  }
+
+  .twos {
+    width: 390px !important
+  }
+
+  .ones {
+    width: 460px !important;
+
+  }
+
+}
+
+@media (max-width: 460px) {
+
+  body {
+    background: #fff;
+  }
+
+  .padree {
+    width: 100% !important;
+    background-color: #fff;
+    box-shadow: none !important;
+    margin-top: 180px;
+  }
+
+  .twos {
+    display: none;
+  }
+
+  .ones {
+    display: none;
+  }
+
+  #logo-login {
+    width: 300px !important;
+    border-radius:  20px; 
+  }
+
+  #imagenes {
+    background:#3c1263;
+    margin-top: 2px;
+   height: 150px !important;
+   width: 460px !important;
+  }
+
+  .title-bienvenido{
+    position: relative;
+    top: -20px;
+    font-size: 40px;
+  }
+
   
-  }
- #imagenes{
-    width: 50px;
-  }
-
 }

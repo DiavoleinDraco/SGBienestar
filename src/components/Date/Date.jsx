@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
   mainBtn: {
     right: '26%',
-    position: 'absolute'
   }
 }));
 
