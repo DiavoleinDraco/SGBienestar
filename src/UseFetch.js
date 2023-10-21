@@ -64,3 +64,22 @@ export  async function getParametre (pat,parametro){
   }
 
   }
+
+  export async function eliminar (pat,parametro){
+    try{
+
+      const response= await fetch(UrlApi+pat+parametro,  {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      
+      })
+      const data= await response.json()
+      return data
+  
+    } catch(error){
+      console.log('No se encontro la informacion', error)
+  
+    }
+  }

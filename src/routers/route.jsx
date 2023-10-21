@@ -11,16 +11,9 @@ import Usuarios from '../pages/Usuarios/Usuarios';
 import Informes from '../pages/Informes/Informes';
 import jwtDecode from 'jwt-decode';
 import Mensajes from '../pages/mensajes/mensajes';
-const token = localStorage.getItem('token');
-const info = jwtDecode(token)
+import MensajeDetalle from '../pages/mensajes_detalles/mensajes_detalles';
 
-function requireAuth({ children }) {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-  return children;
-}
+
 
 export function LasRutas() {
   return (
@@ -36,8 +29,8 @@ export function LasRutas() {
         <Route path="/sanciones" element={<Sanciones/>} />
         <Route path="/informes" element={<Informes/>} />
         <Route path="/mensajes" element={<Mensajes />} />
-  
-        <Route path="/auth/:userId" element={<Route element={requireAuth} />}
+        <Route path="/mensajes/:messageId" element={<MensajeDetalle />} />
+        <Route path="/auth/:userId" element={<Route />}
         />
       </Routes>
     </Router>
