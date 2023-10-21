@@ -1,53 +1,111 @@
 import React, { useEffect, useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
-import { DataGrid, GridColumnMenu } from '@mui/x-data-grid';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Buttons from '../Buttons/Buttons.jsx';
+import { TableVirtuoso } from 'react-virtuoso';
+import { Popover } from '@mui/material';
+import Switch from '@mui/material/Switch';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import Buttons from '../Buttons/Buttons.jsx';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import * as XLSX from 'xlsx';
 import get from "../../UseFetch.js";
 
 export default function TablaInventario() {
     const [implementos, setImplementos] = useState([]);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [columnVisibility, setColumnVisibility] = useState({
+      nombre: true,
+      categoria: true,
+      cantidad: true,
+      marca: true,
+      peso: true,
+      estado: true,
+      color: true,
+      detalles: true,
+      descripcion: true,
+    });
+
+    function handleColumnVisibilityChange(columnKey) {
+      setColumnVisibility((prevVisibility) => ({
+        ...prevVisibility,
+        [columnKey]: !prevVisibility[columnKey],
+      }));
+    }
+
+    const ColumnVisibilityControls = () => {
+      return (
+        <div>
+          {columns.map((column) => (
+            <label key={column.dataKey}>
+              <Switch
+                checked={columnVisibility[column.dataKey]}
+                onChange={() => handleColumnVisibilityChange(column.dataKey)}
+              />
+              {column.label}
+            </label>
+          ))}
+        </div>
+      );
+    };
 
   const columns = [
-    { field: 'nombre', headerName: 'Nombre', flex: 1 },
-    { field: 'categoria', headerName: 'Categoría', flex: 1 },
-    { field: 'cantidad', headerName: 'Cantidad', flex: 1 },
-    { field: 'marca', headerName: 'Marca', flex: 1 },
-    { field: 'peso', headerName: 'Peso', flex: 1 },
-    { field: 'estado', headerName: 'Estado', flex: 1 },
-    { field: 'color', headerName: 'Color', flex: 1 },
-    { field: 'detalles', headerName: 'Detalles', flex: 1 },
-    //en la descripcion va el material y el color y el tamano
-    { field: 'descripcion', headerName: 'Descripción', flex: 1 },
+    {
+      label: 'Nombre',
+      dataKey: 'nombre',
+    },
+    {
+      label: 'Categoría',
+      dataKey: 'categoria',
+    },
+    {
+      label: 'Cantidad',
+      dataKey: 'cantidad',
+    },
+    {
+      label: 'Marca',
+      dataKey: 'marca',
+    },
+    {
+      label: 'Peso',
+      dataKey: 'peso',
+    },
+    {
+      label: 'Estado',
+      dataKey: 'estado',
+    },
+    {
+      label: 'Color',
+      dataKey: 'color',
+    },
+    {
+      label: 'Detalles',
+      dataKey: 'detalles',
+    },
+    {
+      label: 'Descripción',
+      dataKey: 'descripcion',
+    },
   ];
 
-//   // Función para combinar los datos del encabezado con los datos principales
-//   function combineDataWithHeader(data, headerData) {
-// // //   // Crea una nueva matriz que contiene los datos del encabezado seguidos de los datos principales
-//    const combinedData = [headerData, ...data.map(item => [item.nombre, item.categoriaNombre, item.cantidad, item.marcaNombre, item.peso, item.estado, item.color, item.detalles,item.descripcion])];
-//    return combinedData;
-//   }
-
-function generatePdf(data, headerData) {
-  const doc = new jsPDF();
-  doc.autoTable({
-    head: [['Nombre', 'Categoría', 'Cantidad', 'Marca','Peso', 'Estado', 'Color', 'Detalles', 'Descripción']],
-    body: data.map(item => [item.nombre, item.categoria, item.cantidad, item.marca, item.peso, item.estado, item.color, item.detalles,item.descripcion])
-  });
-  doc.save('informe.pdf')
-};
-
-function generateExcel(data){
-  const ws = XLSX.utils.json_to_sheet(data);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Informe');
-  XLSX.writeFile(wb, 'informe.xlsx')
-}
+  const VirtuosoTableComponents = {
+    Scroller: React.forwardRef((props, ref) => (
+      <TableContainer component={Paper} {...props} ref={ref} />
+    )),
+    Table: (props) => (
+      <Table {...props} sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }} />
+    ),
+    TableHead,
+    TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
+    TableBody: React.forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
+  };
 
   useEffect(() => {
     get('/implementos')
@@ -80,46 +138,100 @@ function generateExcel(data){
         console.error('Error al cargar los implementos', error);
       });
   }, []);
+
   
 
-  function CustomUserItem(props) {
-    const { myCustomHandler, myCustomValue } = props;
+function generatePdf(data, headerData) {
+  const doc = new jsPDF();
+  doc.autoTable({
+    head: [['Nombre', 'Categoría', 'Cantidad', 'Marca','Peso', 'Estado', 'Color', 'Detalles', 'Descripción']],
+    body: data.map(item => [item.nombre, item.categoria, item.cantidad, item.marca, item.peso, item.estado, item.color, item.detalles,item.descripcion])
+  });
+  doc.save('informe.pdf')
+};
+
+function generateExcel(data){
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Informe');
+  XLSX.writeFile(wb, 'informe.xlsx')
+}
+  
+  function encabezado() {
     return (
-      <MenuItem onClick={myCustomHandler}>
-        <ListItemIcon>
-          <SettingsApplicationsIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>{myCustomValue}</ListItemText>
-      </MenuItem>
+      <TableRow className=''>
+        {columns.map((column) => {
+          if (columnVisibility[column.dataKey]) {
+            return (
+              <TableCell
+                key={column.dataKey}
+                variant="head"
+                sx={{
+                  backgroundColor: 'background.paper',
+                }}
+              >
+                {column.label}
+              </TableCell>
+            );
+          }
+          return null;
+        })}
+      </TableRow>
     );
   }
-
-  function CustomColumnMenu(props) {
+  function rowContent(_index, row) {
     return (
-      <GridColumnMenu
-        {...props}
-        slots={{
-          // Agregar nuevo ítem
-          columnMenuUserItem: CustomUserItem,
-        }}
-        slotProps={{
-          columnMenuUserItem: {
-            // Establecer el orden de visualización para el nuevo ítem
-            displayOrder: 15,
-            // Pasar propiedades adicionales
-            myCustomValue: 'Do custom action',
-            myCustomHandler: () => alert('Custom handler fired'),
-          },
-        }}
-      />
+      <React.Fragment>
+        {columns.map((column) => {
+          if (columnVisibility[column.dataKey]) {
+            return (
+              <TableCell key={column.dataKey}>
+                {row[column.dataKey]}
+              </TableCell>
+            );
+          }
+          return null;
+        })}
+      </React.Fragment>
     );
   }
 
   return (
-    <div style={{ height: 400, width: '130%', background: 'white' }}>
-      <DataGrid rows={implementos} columns={columns} slots={{ columnMenu: CustomColumnMenu }} />
+    <Paper style={{ height: 600, width: '1030px', position:"relative", left:"90px"}}>
+      <Popover
+  anchorEl={anchorEl}
+  open={Boolean(anchorEl)}
+  onClose={() => setAnchorEl(null)}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'left',
+  }}
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'left',
+  }}
+>
+  <div style={{ padding: 16 }}>
+    <ColumnVisibilityControls />
+  </div>
+  Elija la Informacion que desea en su informe.
+</Popover>
+      
+      <Tooltip title="Filtrar Tabla">
+      <IconButton
+        onClick={(event) => setAnchorEl(event.currentTarget)}
+      >
+        <FilterListIcon />
+      </IconButton>
+        </Tooltip>
+      <TableVirtuoso
+        data={implementos}
+        components={VirtuosoTableComponents}
+        fixedHeaderContent={encabezado}
+        itemContent={rowContent}
+      />
       <Buttons className='btn-informes' onclick={() => generatePdf(implementos)} nombre={'Descargar PDF'}/>
         <Buttons className='btn-informes' onclick={() => generateExcel(implementos)} nombre={'Descargar EXCEL'} />
-    </div>
+    </Paper>
   );
 };

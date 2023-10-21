@@ -9,10 +9,13 @@ import Paper from '@mui/material/Paper';
 import { TableVirtuoso } from 'react-virtuoso';
 import { useState, useEffect } from "react";
 import get from "../../UseFetch.js";
+import Buttons from '../Buttons/Buttons.jsx';
+import { handleBreakpoints } from '@mui/system';
 
 export default function TablaUsarios() {
 
   const [data, setData] = useState([]);
+  const [selectedUserData, setSelectedUserData] = useState(null);
   
   const columns = [
     {
@@ -45,13 +48,15 @@ export default function TablaUsarios() {
   useEffect(() => {
     get("/registro/info")
       .then((usuarioData) => {
-        console.log(usuarioData)
+        console.log('Hola', usuarioData);
         const dataTabla = usuarioData.map((user) => ({
+          id: user._id,
           numDoc: user.n_doc,
           nombrePrograma: user.ficha && user.ficha.programa.nombre,
           correo_inst: user.correo_inst,
         }));
-        setData(dataTabla)
+        setData(dataTabla);
+        console.log('datatabla',dataTabla);
       })
       .catch((usuarioError) => {
         console.error("Error al cargar el usuario", usuarioError);
@@ -72,9 +77,22 @@ export default function TablaUsarios() {
             {column.label}
           </TableCell>
         ))}
+        <TableCell
+          variant="head"
+          sx={{
+            backgroundColor: 'background.paper',
+          }}
+        >
+          sancionar
+        </TableCell>
       </TableRow>
     );
   };
+
+  function handleSancionarClick(userData) {
+    setSelectedUserData(userData);
+    console.log('user:', data[userData]);
+  }
   
   function rowContent(_index, row) {
     return (
@@ -86,6 +104,12 @@ export default function TablaUsarios() {
             {row[column.dataKey]}
           </TableCell>
         ))}
+       <TableCell>
+          <Buttons
+            nombre='sancionar' 
+            onclick={() => handleSancionarClick(_index) }
+          />
+        </TableCell>
       </React.Fragment>
     );
   };
