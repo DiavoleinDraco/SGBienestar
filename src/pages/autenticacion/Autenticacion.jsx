@@ -8,15 +8,16 @@ import Buttons from "../../components/Buttons/Buttons";
 import "./Autenticacion.css";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import OtpInput from "../../components/OtpInput/otpInput";
+import jwt_decode from "jwt-decode";
 
 export default function Autenticacion() {
   const navegacion = useNavigate();
-  const { userId } = useParams();
   const [user, setUser] = useState(null);
   const [activacionCompletada, setActivacionCompletada] = useState(false);
-
+  const userToken = localStorage.getItem("token")
+  const decodeToken = jwt_decode(userToken)
   const verificarEstadoUsuario = () => {
-    getParametre("/registro/usuario/", userId)
+    getParametre("/registro/usuario/findByMail/", decodeToken.correo_inst)
       .then((userData) => {
         setUser(userData);
         console.log(userData.activacion);
@@ -31,14 +32,17 @@ export default function Autenticacion() {
 
   useEffect(() => {
     verificarEstadoUsuario();
-  }, [userId, activacionCompletada]);
+  }, [activacionCompletada]);
 
   const handleOtpChange = (otp) => {
-    setUser(otp);
+    if (otp.trim() !== "") {
+      setUser(otp);
+    }
   };
   const handleRegistroClick = async () => {
     try {
-      const response = await post("/registro/auth", { codigo: user });
+      console.log(decodeToken.codigo)
+      const response = await post("/registro/auth", {codigo: user } );
       window.location.reload();
     } catch (error) {
       console.error("Error en la solicitud POST:", error);

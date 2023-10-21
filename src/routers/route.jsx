@@ -9,6 +9,10 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import Sanciones from '../pages/sanciones/sanciones';
 import Usuarios from '../pages/Usuarios/Usuarios';
 import Informes from '../pages/Informes/Informes';
+import jwtDecode from 'jwt-decode';
+import Mensajes from '../pages/mensajes/mensajes';
+const token = localStorage.getItem('token');
+const info = jwtDecode(token)
 
 function requireAuth({ children }) {
   const token = localStorage.getItem('token');
@@ -25,13 +29,14 @@ export function LasRutas() {
         <Route path="/home" element={<Home />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/auth/:userId" element={<Autenticacion />} />
+        <Route path="/auth" element={<Autenticacion />} />
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
         <Route path="/admin" element={<Dashboard/>} />
         <Route path="/usuarios" element={<Usuarios/>} />
         <Route path="/sanciones" element={<Sanciones/>} />
         <Route path="/informes" element={<Informes/>} />
-
+        <Route path="/mensajes" element={<Mensajes />} />
+  
         <Route path="/auth/:userId" element={<Route element={requireAuth} />}
         />
       </Routes>
