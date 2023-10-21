@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './as.css';
+import './Redactar_mensaje.css';
 import get, { getParametre, post } from "../../UseFetch.js";
 import { Menu } from '@mui/material';
 
@@ -106,7 +106,6 @@ export default function ComposeBar({ onClose }) { // Define onClose como una pro
         value={message}
         onChange={handleMessageChange}
       ></textarea>
-      <button className="compose-close-button" onClick={closeComposeBar}>Cerrar</button>
     </div>
   );
 }
