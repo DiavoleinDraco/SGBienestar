@@ -130,6 +130,7 @@ export default function RecuperarContrasena() {
           id="slidee1 "
         >
           <div className="son">
+          <p>Podemos enviarte un código de <b> recuperación </b>al<b> Correo Institucional</b>:</p>
             <InputCorreo
               label="Correo institucional"
               institutional
@@ -147,6 +148,9 @@ export default function RecuperarContrasena() {
           id="slidee2 idd"
         >
           <div className="son son-codigo">
+            <p className="son-codigo-rec">Se envió un código por correo, puede tardar. 
+            Revise la bandeja de spam o correos importantes. 
+            Si no llega, solicite otro código.</p>
             <Textfield
               className="son-codigo"
               name="Ingrese el codigo"
@@ -158,6 +162,7 @@ export default function RecuperarContrasena() {
         </li>
         <li className={currentSlide === 2 ? "active" : "inactive"} id="slidee3">
           <div className="son">
+            <p>Escribe y confirma tu nueva <b> contraseña</b>:</p>
             <ButtonContraseña
               nombre="nueva contraseña"
               onChange={(value) => handleChange("newPassword", value)}

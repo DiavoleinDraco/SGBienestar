@@ -57,11 +57,11 @@ export default function Sanciones() {
   //______ Paraconvertir los datos a un objeto JavaScript_____
   let datosObjeto = JSON.parse(datosAlmacenados);
   if (datosAlmacenados) {
-  
-  
-  //_______ Convierte los datos a un objeto si están presentes en el sessionStorage
+
+
+    //_______ Convierte los datos a un objeto si están presentes en el sessionStorage
     datosObjeto = JSON.parse(datosAlmacenados);
-  }else{
+  } else {
     datosObjeto = ""
   }
 
@@ -125,7 +125,7 @@ export default function Sanciones() {
       combinedDescription = combinedDescription ? combinedDescription + ', ' + selectedSanciones : selectedSanciones;
     }
 
-    if ( !combinedDescription || !estadoS || !tiempoEnHoras || isNaN(tiempoEnHoras)) {
+    if (!combinedDescription || !estadoS || !tiempoEnHoras || isNaN(tiempoEnHoras)) {
       setErrorMensaje("Debes completar los campos requeridos antes de aplicar la sanción");
       setOpen(true);
     } else {
@@ -158,21 +158,34 @@ export default function Sanciones() {
   return (
     <div className='container-sanciones'>
       <Menu></Menu>
-      <p>Sanciones</p>
+      <p style={{ fontSize: "30px", margin: "0", color: "#fff" }}>Sanciones</p>
       <HistorialSanciones />
 
 
-      <Fab color="secondary" variant="outlined" onClick={handleClickOpenCrear} aria-label="add" sx={{ position: 'relative', top: '440px', left: '590px' }}>
-        <AddIcon />
-      </Fab>
+      <div className="container-botones">
+        <Fab color="secondary" variant="outlined" onClick={handleClickOpenCrear} aria-label="add" className="fab-button">
+          <AddIcon />
+        </Fab>
+      </div>
+
       <BootstrapDialog
         onClose={handleCloseCrear}
         aria-labelledby="customized-dialog-title"
         open={openDialogoCrear}
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+        <DialogTitle
+          sx={{
+            m: 0,
+            p: 2,
+            position: 'absolute',
+            left: '54%',
+            transform: 'translateX(-50%)',
+          }}
+          id="customized-dialog-title"
+        >
           Aplicar Nueva Sanción
         </DialogTitle>
+
         <IconButton
           aria-label="close"
           onClick={handleCloseCrear}
@@ -185,96 +198,107 @@ export default function Sanciones() {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Selecione la sancion deseada para este usuario. 
-          </Typography>
-       
-
-
-         
-         <div style={{ display: 'flex', alignItems: 'center' }}>
-              <p>Nuemero de Documento</p>
-
-              <input
-                type="text"
-                className="inputt"
-                value={datosObjeto.numDoc !== undefined ? datosObjeto.numDoc : ''}
-                onChange={(e) => {
-                  userData({ ...userData, numDoc: e.target.value });
-                }}
-              />
+        <DialogContent dividers style={{ overflowX: "hidden" }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <div className="dialog-text-container">
+              <Typography className="dialog-text" gutterBottom>
+                Seleccione la sanción deseada para este usuario.
+              </Typography>
             </div>
-
-
-
-
-
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <p>Correo Electronico</p>
-
-              <input
-                type="text"
-                className="inputt"
-                value={datosObjeto.correo_inst!== undefined ? datosObjeto.correo_inst : ''}
-                onChange={(e) => {
-                  userData({ ...userData, correo_inst: e.target.value });
-                }}
-              />
-            </div>
-
-
-
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <p>Sancion</p>
-            <MultipleSelect
-              options={selectOptions}
-              selectedOptions={selectedOptions}
-              onChange={handleChange}
-              handleSanciones={(value) => handleSanciones("description", value)}
-            />
           </div>
 
 
 
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <p>Nueva sancion</p>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+              <p>Número de Documento</p>
+            </div>
+            <input
+              type="text"
+              className="inputt"
+              value={datosObjeto.numDoc !== undefined ? datosObjeto.numDoc : ''}
+              onChange={(e) => {
+                userData({ ...userData, numDoc: e.target.value });
+              }}
+            />
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+              <p>Correo Electrónico</p>
+            </div>
+            <input
+              type="text"
+              className="inputt"
+              value={datosObjeto.correo_inst !== undefined ? datosObjeto.correo_inst : ''}
+              onChange={(e) => {
+                userData({ ...userData, correo_inst: e.target.value });
+              }}
+            />
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+            <div style={{ flex: 1, marginLeft: '10px' }}>
+              <p>Sanción</p>
+              <MultipleSelect
+                options={selectOptions}
+                selectedOptions={selectedOptions}
+                onChange={handleChange}
+                handleSanciones={(value) => handleSanciones("description", value)}
+                // Establece el ancho deseado aquí (por ejemplo, '100%')
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
+
+
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <p>Nueva sanción</p>
+            </div>
             <Textfield
               className="son-codigo"
               name=""
               onChange={(value) => handleSanciones("description", value)}
             />
           </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-
-            
 
 
-            <p>Tiempo de la sancion</p>
-            <Textfield
-              className="son-codigo"
-              name=""
-              onChange={(value) => handleSanciones("duracion", value)}
-            />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+              <p>Tiempo de la sanción</p>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', marginLeft:"-30px" }}>
+                <Textfield
+                  className="son-codigo"
+                  name=""
+                  onChange={(value) => handleSanciones("duracion", value)}
+                />
+                <div style={{ marginBottom:"14px", marginLeft:"-10px"}}>
+                <ComSelect
+                  nombre=""
+                  items={["Horas", "Días", "Meses"]}
+                  onChange={(value) => setUnidadTiempo(value)}
+                />
+              </div>
+              </div>
+            </div>
 
 
-              
-            <ComSelect
-              nombre=""
-              items={["Horas", "Dias", "Meses"]}
-              onChange={(value) => setUnidadTiempo(value)}
-            />
-            <div className='alert-sanciones'>
+
+            <div className='alert-sanciones' style={{ marginTop: '10px' }}>
               {errorMensaje && (
                 <Alert onClose={() => setErrorMensaje("")} severity="error" sx={{}}>
                   {errorMensaje}
                 </Alert>
               )}
             </div>
-            <div className="item item-link">
+
+            <div className="item item-link" style={{ marginTop: '10px' }}>
               <Link className="custom-link link-inicio" to={window.location.reload}></Link>
             </div>
           </div>
+
+
           <Dialogs
             open={dialogOpen}
             onClose={() => setDialogOpen(false)}
@@ -283,7 +307,7 @@ export default function Sanciones() {
             onSave={() => setDialogOpen(false)}
             redirectTo="Sanciones"
           />
-          <div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div className='btn-sanciones'>
               <Stack direction="row" spacing={2}>
                 <Button onClick={handleEnviarSanciones} variant="contained" endIcon={<SendIcon />}>

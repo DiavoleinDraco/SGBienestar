@@ -1,7 +1,7 @@
 .padrecontenedor {
   margin: 50px auto;
   background: rgb(255, 255, 255);
-  width: 790px;
+  width: 600px !important;
   border-radius: 30px;
   height: 550px;
   padding: 30px;
@@ -12,6 +12,30 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.padrecontenedor::after {
+  content: "";
+  height: 500px;
+  width: 760px;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.582);
+  top: 60px;
+  border-radius: 30px;
+  margin-left: -80px;
+  z-index: -100 !important;
+}
+
+.padrecontenedor::before {
+  content: "";
+  height: 400px;
+  width: 850px;
+  position: absolute;
+  background: #ffffff94;
+  top: 110px;
+  border-radius: 30px;
+  margin-left: -125px;
+  z-index: -200 !important;
 }
 
 ul,
@@ -39,7 +63,7 @@ li {
   left: 0;
   top: 0;
   opacity: 0;
-  width: inherit;
+  width: 600px !important;
   height: inherit;
   background: #dbdbdb46;
   transition: opacity 0.4s;
@@ -48,6 +72,7 @@ li {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  z-index: 200;
 }
 
 .son {
@@ -97,6 +122,7 @@ li {
   text-decoration: none;
   border-radius: 5px;
   text-align: center;
+  margin-left: -50px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -135,11 +161,15 @@ li {
 /*Estilo del codigo*/
 .son-codigo {
   height: 100px;
-  /* 
-  outline: 2px solid rgb(213, 0, 220); */
-
   position: relative;
-  left: 30px;
+  top: -30px;
+  left: 60px;
+  width: 380px;
+}
+
+.son-codigo-rec {
+  position: relative !important;
+  left: -60px !important;
 }
 
 .son-correo {
@@ -153,6 +183,7 @@ li {
 .sldrr li.active {
   opacity: 1;
   z-index: 1;
+  height: 240px;
 }
 
 /* Clase para ocultar un slide */
@@ -193,6 +224,7 @@ li {
   color: #fff;
   background: #3c1263;
   height: 40px;
+  margin-top: 30px;
 }
 
 .btn-env-correo:hover {
@@ -251,88 +283,89 @@ h1 {
   }
 }
 
+/* Arreglo de los campos Nueva y confirmacion de contraseña */
+.botton2 {
+  width: inherit !important;
+  height: 110px !important;
+  margin-top: -40px;
+}
+
 /*Diseño responsivo*/
-@media screen and (max-width: 870px) {
+@media screen and (max-width: 860px) {
   .padrecontenedor {
-    width: 600px;
+    width: 500px !important;
   }
 
   .sldrr li {
-    width: 600px;
+    width: 500px !important;
+    height: 230px !important;
   }
 
   .link-inicio {
     position: relative;
-    right: 30px;
+    right: 20px;
   }
+
+  .padrecontenedor::after {
+    width: 670px !important;
+  }
+
+  .padrecontenedor::before {
+    width: 760px !important;
+  }
+
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 775px) {
   .padrecontenedor {
-    width: 400px;
+    width: 400px !important;
   }
 
   .sldrr li {
-    width: 400px;
+    width: 400px !important;
+    height: 230px !important;
   }
 
   .link-inicio {
     position: relative;
-    right: 60px;
+    right: 35px;
   }
+
+  .padrecontenedor::after {
+    width: 560px !important;
+  }
+
+  .padrecontenedor::before {
+    width: 650px !important;
+  }
+
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 655px) {
   .padrecontenedor {
-    width: 300px;
+    width: 380px !important;
   }
 
   .sldrr li {
-    width: 300px;
+    width: 380px !important;
+    height: 230px !important;
+    font-size: 15px;
+
   }
 
   .link-inicio {
     position: relative;
-    right: 80px;
-  }
-}
-
-@media screen and (max-width: 370px) {
-  .titulo-rec {
-    font-size: 30px;
+    right: 35px;
   }
 
-  .padrecontenedor {
-    width: 240px;
+  .padrecontenedor::after {
+    width: 500px !important;
+    left: 50px;
   }
 
-  .sldrr li {
-    width: 240px;
+  .padrecontenedor::before {
+    width: 550px !important;
+    left: 70px;
   }
 
-  .link-inicio {
-    position: relative;
-    right: 80px;
-  }
-}
-
-@media screen and (max-height: 640px) {
-  .titulo-rec {
-    font-size: 30px;
-    position: relative;
-    bottom: 30px;
-  }
-
-  .padrecontenedor {
-    height: 400px;
-  }
-
-  .sldrr li {
-    height: 150px;
-  }
-
-  .link-inicio {
-    position: relative;
-    right: 80px;
-  }
 }

@@ -1,5 +1,36 @@
-.container-sanciones{
-    width: 80%;
-    position: relative;
-    left: 10%;
+.container-sanciones {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Esto asegura que el contenedor ocupe toda la altura de la ventana */
+}
+
+/* Titulo del Modal */
+#customized-dialog-title {
+    margin-left: -30px !important;
+}
+
+/* Estilo para el boton */
+.container-botones {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+    /* Puedes ajustar el margen según sea necesario */
+}
+
+/* Estilo para lo que esta dentro del boton */
+
+.dialog-text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.inputt {
+    position: relative !important;
+    top: -20px;
 }

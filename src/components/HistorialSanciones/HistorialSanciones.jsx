@@ -98,8 +98,8 @@ export default function HistorialSanciones() {
       <div>
         {selected.length > 0 && (
           <div>
-            <span>{selected.length} fila(s) seleccionada(s)</span>
-            <IconButton onClick={handleDelete}>
+            <span style={{color:"white"}}>{selected.length} Fila(s) seleccionada(s)</span>
+            <IconButton style={{color:"white"}} onClick={handleDelete}>
               <DeleteIcon />
             </IconButton>
           </div>
