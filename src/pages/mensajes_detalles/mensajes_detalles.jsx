@@ -6,11 +6,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './mensajes_detallas.css';
 import { useParams } from 'react-router-dom';
-import { getParametre } from "../../UseFetch";
+import { getParametre, eliminar } from "../../UseFetch"; // Asegúrate de importar eliminar
+import { useNavigate } from "react-router-dom";
 
 export default function MensajesDetalle() {
   const { messageId } = useParams();
   const [user, setUser] = useState(null);
+  const redireccionar = useNavigate();  // Inicializa history
 
   const infoCorreo = () => {
     getParametre("/mail/mail/", messageId)
@@ -23,6 +25,16 @@ export default function MensajesDetalle() {
       });
   };
 
+  const handleDeleteClick = async (_id) => {
+    try {
+      // Realiza la eliminación
+      await eliminar('/mail/mail/', _id);
+      redireccionar("/mensajes"); // Redirecciona a la página de mensajes después de eliminar
+    } catch (error) {
+      console.error("Error al eliminar", error);
+    }
+  };
+
   useEffect(() => {
     infoCorreo();
   }, []);
@@ -32,14 +44,13 @@ export default function MensajesDetalle() {
       <Menu />
       <div className="mensajes-detalle-container">
         <div className="mensajes-detalle-header">
-          <IconButton onClick={() => {}}>
+        <IconButton onClick={() => redireccionar("/mensajes")}> {/* Redirige a la página de mensajes */}
             <ArrowBackIcon />
           </IconButton>
-          <IconButton onClick={() => {}}>
+          <IconButton onClick={() => handleDeleteClick(messageId)}> {/* Llama a handleDeleteClick con el messageId */}
             <DeleteIcon />
           </IconButton>
         </div>
-        
         <div className="mensajes-detalle-content">
           <div className="mensaje-header">
             <div className="mensaje-info">

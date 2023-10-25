@@ -10,7 +10,7 @@ import InputCorreo from "../../components/ComantCorreo/ComantCorreo.jsx";
 import "./Registro.css";
 import { useState, useEffect } from "react";
 import get, { getParametre, post } from "../../UseFetch.js";
-import miimagen from "../imagenes/sena-bienestar.png";
+import miimagen from "../../pages/imagenes/sena-bienestar.png";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
@@ -38,6 +38,7 @@ export default function Registro() {
   //Estilos para el slider en el cual se encuentra el usuario
   const [activeSliderIndex, setActiveSliderIndex] = useState(0);
   const [activeMenuIndex, setActiveMenuIndex] = useState(0);
+  const [isFichaRequired, setIsFichaRequired] = useState(false);
 
   const handleMenuClick = (index) => {
     setActiveSliderIndex(index);
@@ -95,6 +96,19 @@ export default function Registro() {
     return Object.keys(errores).length === 0;
   };
 
+  const validateEmail = (email, roleId) => {
+    const isAprendiz = roleId === "65373e296c11b0f186ccef0b";
+
+    if (!isAprendiz && email.endsWith("soy.sena.edu.co")) {
+      return "El correo electrónico institucional no es válido para el rol seleccionado.";
+    }
+
+    return null;
+  };
+
+
+
+
   const handleRegistroClick = async () => {
     try {
       const camposObligatoriosLlenos = validarCamposObligatorios();
@@ -107,36 +121,30 @@ export default function Registro() {
         throw new Error("Completa todos los campos obligatorios.");
       }
 
-      const InstitucionalEmailValid = valueI.map((item) => item.nombre);
-      const telefonoRegex = /^\+?(?:\d{1,3}[-\s])?\d{10,14}$/;
-      const passwordPattern =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&+.])[A-Za-z\d$@$!%*?&+.]{8,20}$/;
-
-      if (
-        !InstitucionalEmailValid.some((domain) =>
-          info["correo_inst"].endsWith(domain)
-        )
-      ) {
-        throw new Error("El correo electrónico institucional no es válido.");
+      if (isFichaRequired && !selectedFichaId) {
+        throw new Error("Debes seleccionar una ficha.");
       }
 
-      if (!telefonoRegex.test(info["telefono"])) {
-        throw new Error("El número de teléfono no es válido.");
+      console.log(info.rol)
+
+      if (!info.correo_inst) {
+        throw new Error("El correo electrónico institucional es obligatorio.");
       }
 
-      if (!passwordPattern.test(info["contrasena"])) {
-        throw new Error("La contraseña no cumple con los requisitos.");
+
+      const emailValidationMessage = validateEmail(info.correo_inst, info.rol);
+      if (emailValidationMessage) {
+        throw new Error(emailValidationMessage);
       }
+
+
 
       info["pps"] = true;
       const response = await post("/registro", info);
-      const idNewUser = await getParametre(
-        `/registro/usuario/findByMail/`,
-        info["correo_inst"]
-      );
+      const idNewUser = await getParametre(`/registro/usuario/findByMail/`, info["correo_inst"]);
 
       localStorage.setItem("token", idNewUser.token);
-      navegacion(`/auth/${idNewUser._id}`);
+      navegacion(`/auth`);
       setRegistroExitoso(true);
       setCorreoValido(true);
       setErrorMensaje(null);
@@ -182,12 +190,17 @@ export default function Registro() {
     const selectRolOption = rolOption.find(
       (option) => option.label === selectRolvalue
     );
+
     if (selectRolOption) {
       const selectRolId = selectRolOption.value;
       const updatedInfo = { ...info, rol: selectRolId };
       setInfo(updatedInfo);
+
+      // Determinar si la ficha es requerida para el rol seleccionado
+      setIsFichaRequired(selectRolvalue === "Aprendiz");
     }
   };
+
 
   const rolOption = rol.map((rol) => ({
     label: rol.nombre,
@@ -265,9 +278,9 @@ export default function Registro() {
         <img src={miimagen} alt="sena-imagen" />
       </div>
       <form className="form">
-       
-          <h1 id="title-registro">REGISTRATE</h1>
-       
+        <div className="title">
+          <h1>REGISTRATE</h1>
+        </div>
         <ul className="slider">
           <li id="slide1">
             <div className="contenedor uno">
@@ -313,7 +326,10 @@ export default function Registro() {
                   onChange={(value) => handleRolFormSubmit(value)}
                   getOptionLabel={(option) => option.label}
                   value={setSelectRolId}
+
                   required
+
+
                 />
               </div>
             </div>
@@ -558,6 +574,7 @@ export default function Registro() {
         <div className="casaaa">
           <Link to="/home" className="linkk">
             <i className="bi bi-house-door-fill"></i>
+
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"

@@ -11,11 +11,13 @@ import { useState, useEffect } from "react";
 import get from "../../UseFetch.js";
 import Buttons from '../Buttons/Buttons.jsx';
 import { handleBreakpoints } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 export default function TablaUsarios() {
 
   const [data, setData] = useState([]);
   const [selectedUserData, setSelectedUserData] = useState(null);
+  const navigate = useNavigate()
   
   const columns = [
     {
@@ -57,6 +59,7 @@ export default function TablaUsarios() {
         }));
         setData(dataTabla);
         console.log('datatabla',dataTabla);
+        
       })
       .catch((usuarioError) => {
         console.error("Error al cargar el usuario", usuarioError);
@@ -89,10 +92,20 @@ export default function TablaUsarios() {
     );
   };
 
+  //_______Botton de enviar la informacion de la sancion//
+
   function handleSancionarClick(userData) {
+ 
     setSelectedUserData(userData);
+    console.log(userData)
+    sessionStorage.setItem("as",JSON.stringify(data[userData]))
+    console.log(sessionStorage.getItem("as"))
     console.log('user:', data[userData]);
+  
+    navigate('/sanciones', { state: { userData } });
   }
+
+  //______________________________________________________
   
   function rowContent(_index, row) {
     return (

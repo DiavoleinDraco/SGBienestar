@@ -9,15 +9,15 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete'; 
 import IconButton from '@mui/material/IconButton';
-import get from "../../UseFetch.js";
+import get, { eliminar } from "../../UseFetch.js";
 import { useState, useEffect } from "react";
 
 export default function HistorialSanciones() {
   const [selected, setSelected] = useState([]); 
   const [sancionesData, setSancionesData] = useState([]);
 
-  function createData(id, nombre, programa, sancion, tiempo, fecha) {
-    return { id, nombre, programa, sancion, tiempo, fecha};
+  function createData( id, nombre, programa, sancion, tiempo, fecha,index,) {
+    return { id, nombre, programa, sancion, tiempo, fecha,index,};
   }
 
   function formatFecha(fecha) {
@@ -30,21 +30,19 @@ export default function HistorialSanciones() {
     const dias = Math.floor(horas / 24)
     return `${dias} días`;
   }
-  
-  const rows = sancionesData.map((sancion, index) => createData(sancion.id, sancion.nombre, sancion.programa, sancion.sancion, sancion.tiempo, sancion.fecha, index));
-
 
   useEffect(() => {
     get('/sanciones')
       .then((data) => {
         console.log('data', data);
         const contenidoData = data.map((sancion, index) => ({
-          id: index, // Asigna un ID único para cada fila
+          id: sancion._id, // Asigna el ID real
           nombre: sancion.usuario ? sancion.usuario.nombres : 'null',
           programa: sancion.usuario && sancion.usuario.ficha ? sancion.usuario.ficha.programa.nombre : 'null',
           sancion: sancion.description,
           tiempo: formatTiempo(sancion.duracion),
-          fecha: formatFecha(sancion.createdAt)
+          fecha: formatFecha(sancion.createdAt),
+          index: index , // Asigna el índice (1 en adelante)
         }));
         const sortedData = [...contenidoData].sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
         setSancionesData(sortedData);
@@ -55,14 +53,16 @@ export default function HistorialSanciones() {
       });
   }, []);
 
-  const handleRowClick = (id) => {
+  const rows = sancionesData;
+
+  const handleRowClick = (index) => {
     // Comprueba si la fila ya está seleccionada
-    const selectedIndex = selected.indexOf(id);
+    const selectedIndex = selected.indexOf(index);
     let newSelected = [...selected];
 
     if (selectedIndex === -1) {
       // Si no está seleccionada, agrégala
-      newSelected.push(id);
+      newSelected.push(index);
     } else {
       // Si ya está seleccionada, quítala
       newSelected.splice(selectedIndex, 1);
@@ -71,14 +71,27 @@ export default function HistorialSanciones() {
     setSelected(newSelected);
   };
 
-  const isSelected = (id) => selected.indexOf(id) !== -1;
+  const isSelected = (index) => selected.indexOf(index) !== -1;
 
-  const handleDelete = () => {
-    // Implementa la lógica para eliminar las filas seleccionadas
-    console.log('Filas seleccionadas:', selected);
-    // Puedes llamar a una función aquí para eliminar las filas
-    // Por ejemplo: eliminarFilasSeleccionadas(selected)
-  };
+  const handleDelete = async () => {
+    // Obtén los índices de las filas seleccionadas
+    const selectedIndices = selected;
+    const selectedIds = selectedIndices.map((index) => rows[index].id);
+    console.log(selectedIndices.map((index) => rows[index]))
+  
+    // Realiza una petición para eliminar las sanciones seleccionadas
+    const deletionPromises = selectedIds.map(async (id) => {
+      try {
+        await eliminar('/sanciones/', id);
+        // Recarga la página si la eliminación se realizó con éxito
+        window.location.reload();
+      } catch (error) {
+        console.error("Error al eliminar", error);
+      }
+    });
+  }
+  
+  
 
   return (
     <div>
@@ -104,7 +117,7 @@ export default function HistorialSanciones() {
                     if (selected.length === rows.length) {
                       setSelected([]);
                     } else {
-                      setSelected(rows.map((row) => row.id));
+                      setSelected(rows.map((row) => row.index));
                     }
                   }}
                 />
@@ -120,16 +133,16 @@ export default function HistorialSanciones() {
           <TableBody>
             {rows.map((row) => (
               <TableRow
-                key={row.id}
-                selected={isSelected(row.id)}
-                onClick={() => handleRowClick(row.id)}
+                key={row.index}
+                selected={isSelected(row.index)}
+                onClick={() => handleRowClick(row.index)}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell padding="checkbox">
-                  <Checkbox checked={isSelected(row.id)} />
+                  <Checkbox checked={isSelected(row.index)} />
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {row.id}
+                  {row.index}
                 </TableCell>
                 <TableCell align="right">{row.nombre}</TableCell>
                 <TableCell align="right">{row.programa}</TableCell>
@@ -143,4 +156,4 @@ export default function HistorialSanciones() {
       </TableContainer>
     </div>
   );
-};
+}

@@ -23,6 +23,8 @@ import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import './Sanciones.css';
 import HistorialSanciones from '../../components/HistorialSanciones/HistorialSanciones';
+import { useLocation } from 'react-router-dom';
+
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -46,6 +48,25 @@ export default function Sanciones() {
   const [unidadTiempo, setUnidadTiempo] = useState("Horas");
   const [dialogCrearSancion, setDialogCrearSancion] = useState(false);
   const [openDialogoCrear, setOpenDialogoCrear] = useState(false);
+  const location = useLocation();
+  const userData = location.state?.userData || null;
+  let datosAlmacenados = sessionStorage.getItem("as");
+
+
+
+  //______ Paraconvertir los datos a un objeto JavaScript_____
+  let datosObjeto = JSON.parse(datosAlmacenados);
+  if (datosAlmacenados) {
+  
+  
+  //_______ Convierte los datos a un objeto si están presentes en el sessionStorage
+    datosObjeto = JSON.parse(datosAlmacenados);
+  }else{
+    datosObjeto = ""
+  }
+
+  //_______________________
+
 
   const handleClickOpenCrear = () => {
     setOpenDialogoCrear(true);
@@ -69,7 +90,7 @@ export default function Sanciones() {
   const handleChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
   };
-  
+
 
   const handleSanciones = (fieldName, value) => {
     if (fieldName === "usuario") {
@@ -89,58 +110,59 @@ export default function Sanciones() {
   };
 
   const handleEnviarSanciones = async () => {
-   
+    console.log(datosObjeto.id)
     let tiempoEnHoras = parseFloat(tiempoS);
-  
+
     if (unidadTiempo === "Dias") {
       tiempoEnHoras *= 24;
     } else if (unidadTiempo === "Meses") {
       tiempoEnHoras *= 730;
     }
-  
+
     let combinedDescription = sancionesAplicadas;
     if (selectedOptions.length > 0) {
       const selectedSanciones = selectedOptions.map(option => option.label).join(', ');
       combinedDescription = combinedDescription ? combinedDescription + ', ' + selectedSanciones : selectedSanciones;
     }
-  
-    if (!idUsuario || !combinedDescription || !estadoS || !tiempoEnHoras || isNaN(tiempoEnHoras)) {
+
+    if ( !combinedDescription || !estadoS || !tiempoEnHoras || isNaN(tiempoEnHoras)) {
       setErrorMensaje("Debes completar los campos requeridos antes de aplicar la sanción");
       setOpen(true);
     } else {
       setErrorMensaje("");
       setOpen(false);
-  
+
       const data = {
-        usuario: idUsuario,
+        usuario: datosObjeto.id,
         description: combinedDescription,
         estado: estadoS,
         duracion: Math.round(tiempoEnHoras),
       };
-  
+
       console.log(data);
-  
+
       try {
         const response = await post("/sanciones", data);
         setDialogMessage("Se le ha aplicado la sanción a este aprendiz");
         setDialogOpen(true);
+        sessionStorage.removeItem("as");
         console.log("Se ha creado la sanción con éxito");
       } catch (error) {
         console.error("Error en la solicitud:", error);
       }
     }
   };
-  
-  
+
+
 
   return (
     <div className='container-sanciones'>
       <Menu></Menu>
       <p>Sanciones</p>
       <HistorialSanciones />
-      
-      
-      <Fab color="secondary" variant="outlined" onClick={handleClickOpenCrear} aria-label="add" sx={{position: 'relative', top: '440px', left: '590px'}}>
+
+
+      <Fab color="secondary" variant="outlined" onClick={handleClickOpenCrear} aria-label="add" sx={{ position: 'relative', top: '440px', left: '590px' }}>
         <AddIcon />
       </Fab>
       <BootstrapDialog
@@ -165,72 +187,111 @@ export default function Sanciones() {
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ea autem maxime beatae incidunt distinctio deserunt nulla soluta ipsum. Nulla dolore architecto corporis inventore possimus expedita officia provident voluptatibus sint.
+            Selecione la sancion deseada para este usuario. 
           </Typography>
+       
+
+
+         
+         <div style={{ display: 'flex', alignItems: 'center' }}>
+              <p>Nuemero de Documento</p>
+
+              <input
+                type="text"
+                className="inputt"
+                value={datosObjeto.numDoc !== undefined ? datosObjeto.numDoc : ''}
+                onChange={(e) => {
+                  userData({ ...userData, numDoc: e.target.value });
+                }}
+              />
+            </div>
+
+
+
+
+
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <p>Correo Electronico</p>
+
+              <input
+                type="text"
+                className="inputt"
+                value={datosObjeto.correo_inst!== undefined ? datosObjeto.correo_inst : ''}
+                onChange={(e) => {
+                  userData({ ...userData, correo_inst: e.target.value });
+                }}
+              />
+            </div>
+
+
+
           <div style={{ display: 'flex', alignItems: 'center' }}>
-        <p>Ingresar ID</p>
-        <Textfield
-          name=""
-          onChange={(value) => handleSanciones("usuario", value)}
-        />
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <p>Sancion</p>
-        <MultipleSelect
-          options={selectOptions}
-          selectedOptions={selectedOptions}
-          onChange={handleChange}
-          handleSanciones={(value) => handleSanciones("description", value)}
-        />
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <p>Nueva sancion</p>
-        <Textfield
-          className="son-codigo"
-          name=""
-          onChange={(value) => handleSanciones("description", value)}
-        />
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <p>Tiempo de la sancion</p>
-        <Textfield
-          className="son-codigo"
-          name=""
-          onChange={(value) => handleSanciones("duracion", value)}
-        />
-        <ComSelect
-          nombre=""
-          items={["Horas", "Dias", "Meses"]}
-          onChange={(value) => setUnidadTiempo(value)}
-        />
-        <div className='alert-sanciones'>
-          {errorMensaje && (
-            <Alert onClose={() => setErrorMensaje("")} severity="error" sx={{}}>
-              {errorMensaje}
-            </Alert>
-          )}
-        </div>
-        <div className="item item-link">
-          <Link className="custom-link link-inicio" to="/sanciones"></Link>
-        </div>
-      </div>
-      <Dialogs
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        titulo=""
-        contenido={dialogMessage}
-        onSave={() => setDialogOpen(false)}
-        redirectTo="aceptar"
-      />
-      <div>
-        <div className='btn-sanciones'>
-        <Stack direction="row" spacing={2}>
-      <Button onClick={handleEnviarSanciones} variant="contained" endIcon={<SendIcon />}>
-        Send
-      </Button>
-    </Stack>
-        </div>
-      </div>
+            <p>Sancion</p>
+            <MultipleSelect
+              options={selectOptions}
+              selectedOptions={selectedOptions}
+              onChange={handleChange}
+              handleSanciones={(value) => handleSanciones("description", value)}
+            />
+          </div>
+
+
+
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <p>Nueva sancion</p>
+            <Textfield
+              className="son-codigo"
+              name=""
+              onChange={(value) => handleSanciones("description", value)}
+            />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+
+            
+
+
+            <p>Tiempo de la sancion</p>
+            <Textfield
+              className="son-codigo"
+              name=""
+              onChange={(value) => handleSanciones("duracion", value)}
+            />
+
+
+              
+            <ComSelect
+              nombre=""
+              items={["Horas", "Dias", "Meses"]}
+              onChange={(value) => setUnidadTiempo(value)}
+            />
+            <div className='alert-sanciones'>
+              {errorMensaje && (
+                <Alert onClose={() => setErrorMensaje("")} severity="error" sx={{}}>
+                  {errorMensaje}
+                </Alert>
+              )}
+            </div>
+            <div className="item item-link">
+              <Link className="custom-link link-inicio" to={window.location.reload}></Link>
+            </div>
+          </div>
+          <Dialogs
+            open={dialogOpen}
+            onClose={() => setDialogOpen(false)}
+            titulo=""
+            contenido={dialogMessage}
+            onSave={() => setDialogOpen(false)}
+            redirectTo="Sanciones"
+          />
+          <div>
+            <div className='btn-sanciones'>
+              <Stack direction="row" spacing={2}>
+                <Button onClick={handleEnviarSanciones} variant="contained" endIcon={<SendIcon />}>
+                  Sancionar
+                </Button>
+              </Stack>
+            </div>
+          </div>
         </DialogContent>
       </BootstrapDialog>
     </div>

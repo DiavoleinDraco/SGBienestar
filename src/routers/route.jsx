@@ -6,7 +6,7 @@ import Login from '../pages/login/Login';
 import Autenticacion from '../pages/autenticacion/Autenticacion';
 import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
 import Dashboard from '../pages/Dashboard/Dashboard';
-import Sanciones from '../pages/sanciones/sanciones';
+import Sanciones from '../pages/Sanciones/Sanciones';
 import Usuarios from '../pages/Usuarios/Usuarios';
 import Informes from '../pages/Informes/Informes';
 import jwtDecode from 'jwt-decode';
@@ -29,8 +29,7 @@ export function LasRutas() {
         <Route path="/sanciones" element={<Sanciones/>} />
         <Route path="/informes" element={<Informes/>} />
         <Route path="/mensajes" element={<Mensajes />} />
-        <Route path="/mensajes/:messageId" element={<MensajeDetalle />} />
-        <Route path="/auth/:userId" element={<Route />}
+        <Route path="/mensajes/:messageId" element={<MensajeDetalle />} 
         />
       </Routes>
     </Router>
