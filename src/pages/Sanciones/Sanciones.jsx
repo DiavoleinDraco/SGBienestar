@@ -8,7 +8,6 @@ import ComSelect from "../../components/ComSelect/ComSelect"
 import MuiAlert from "@mui/material/Alert";
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import Dialogs from "../../components/Dialog/Dialog";
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
@@ -24,7 +23,7 @@ import Stack from '@mui/material/Stack';
 import './Sanciones.css';
 import HistorialSanciones from '../../components/HistorialSanciones/HistorialSanciones';
 import { useLocation } from 'react-router-dom';
-
+import React, { useEffect } from "react";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -50,20 +49,63 @@ export default function Sanciones() {
   const [openDialogoCrear, setOpenDialogoCrear] = useState(false);
   const location = useLocation();
   const userData = location.state?.userData || null;
-  let datosAlmacenados = sessionStorage.getItem("as");
+  const datosAlmacenados = sessionStorage.getItem("as");
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+
+  let datosObjeto = null;
 
 
+  //_________
 
-  //______ Paraconvertir los datos a un objeto JavaScript_____
-  let datosObjeto = JSON.parse(datosAlmacenados);
-  if (datosAlmacenados) {
+  const openConfirmDialog = () => {
+    setConfirmDialogOpen(true);
+  };
+
+  const handleConfirmAction = async () => {
+    // Realiza la acción deseada, por ejemplo, enviar la sanción
+    await handleEnviarSanciones();
+  
+    // Cierra el cuadro de diálogo de confirmación
+    setConfirmDialogOpen(false);
+  
+    // Recarga la página
+    window.location.reload();
+  };
+  
+  const handleCancelAction = () => {
+    // Cancela la acción, borra los datos de sessionStorage, si es necesario
+    sessionStorage.removeItem("as");
+  
+    // Cierra el cuadro de diálogo de confirmación
+    setConfirmDialogOpen(false);
+  
+    // Recarga la página
+    window.location.reload();
+  };
+  
 
 
-    //_______ Convierte los datos a un objeto si están presentes en el sessionStorage
-    datosObjeto = JSON.parse(datosAlmacenados);
-  } else {
-    datosObjeto = ""
-  }
+  //___________________________________________
+
+  useEffect(() => {
+    // Comprueba si hay datos en el sessionStorage y conviértelos a un objeto
+    const datosAlmacenados = sessionStorage.getItem("as");
+    let datosObjeto = null;
+
+    if (datosAlmacenados) {
+      datosObjeto = JSON.parse(datosAlmacenados);
+      // Comprueba si datosObjeto es diferente de null y tiene la propiedad id
+      if (datosObjeto.id) {
+        // Si hay datos, abre el diálogo de creación de sanciones
+        setOpenDialogoCrear(true);
+      }
+    }
+  }, []);
+
+
+  //_______ Convierte los datos a un objeto si están presentes en el sessionStorage
+  datosObjeto = JSON.parse(datosAlmacenados);
+
 
   //_______________________
 
@@ -113,7 +155,7 @@ export default function Sanciones() {
     console.log(datosObjeto.id)
     let tiempoEnHoras = parseFloat(tiempoS);
 
-    if (unidadTiempo === "Dias") {
+    if (unidadTiempo === "Días") {
       tiempoEnHoras *= 24;
     } else if (unidadTiempo === "Meses") {
       tiempoEnHoras *= 730;
@@ -163,7 +205,7 @@ export default function Sanciones() {
 
 
       <div className="container-botones">
-        <Fab color="secondary" variant="outlined" onClick={handleClickOpenCrear} aria-label="add" className="fab-button">
+        <Fab style={{display:"none"}} color="secondary" variant="outlined" onClick={handleClickOpenCrear} aria-label="add" className="fab-button">
           <AddIcon />
         </Fab>
       </div>
@@ -216,11 +258,14 @@ export default function Sanciones() {
             <input
               type="text"
               className="inputt"
-              value={datosObjeto.numDoc !== undefined ? datosObjeto.numDoc : ''}
+              value={datosObjeto && datosObjeto.numDoc !== undefined ? datosObjeto.numDoc : ''}
               onChange={(e) => {
-                userData({ ...userData, numDoc: e.target.value });
+                if (datosObjeto) {
+                  userData({ ...userData, numDoc: e.target.value });
+                }
               }}
             />
+
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
@@ -230,9 +275,11 @@ export default function Sanciones() {
             <input
               type="text"
               className="inputt"
-              value={datosObjeto.correo_inst !== undefined ? datosObjeto.correo_inst : ''}
+              value={datosObjeto && datosObjeto.correo_inst !== undefined ? datosObjeto.correo_inst : ''}
               onChange={(e) => {
-                userData({ ...userData, correo_inst: e.target.value });
+                if (datosObjeto) {
+                  userData({ ...userData, correo_inst: e.target.value });
+                }
               }}
             />
           </div>
@@ -267,19 +314,19 @@ export default function Sanciones() {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
               <p>Tiempo de la sanción</p>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', marginLeft:"-30px" }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', marginLeft: "-30px" }}>
                 <Textfield
                   className="son-codigo"
                   name=""
                   onChange={(value) => handleSanciones("duracion", value)}
                 />
-                <div style={{ marginBottom:"14px", marginLeft:"-10px"}}>
-                <ComSelect
-                  nombre=""
-                  items={["Horas", "Días", "Meses"]}
-                  onChange={(value) => setUnidadTiempo(value)}
-                />
-              </div>
+                <div style={{ marginBottom: "14px", marginLeft: "-10px" }}>
+                  <ComSelect
+                    nombre=""
+                    items={["Horas", "Días", "Meses"]}
+                    onChange={(value) => setUnidadTiempo(value)}
+                  />
+                </div>
               </div>
             </div>
 
@@ -298,21 +345,37 @@ export default function Sanciones() {
             </div>
           </div>
 
+          <Dialog
+            open={confirmDialogOpen}
+            onClose={() => setConfirmDialogOpen(false)}
+            aria-labelledby="confirm-dialog-title"
+            aria-describedby="confirm-dialog-description"
+          >
+            <DialogTitle id="confirm-dialog-title">Confirmación</DialogTitle>
+            <DialogContent>
+              <Typography id="confirm-dialog-description">
+                ¿Está seguro de que desea aplicar esta sanción?
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCancelAction} color="primary">
+                Cancelar
+              </Button>
+              <Button onClick={handleConfirmAction} color="primary">
+                Aceptar
+              </Button>
+            </DialogActions>
+          </Dialog>
 
-          <Dialogs
-            open={dialogOpen}
-            onClose={() => setDialogOpen(false)}
-            titulo=""
-            contenido={dialogMessage}
-            onSave={() => setDialogOpen(false)}
-            redirectTo="Sanciones"
-          />
+
+
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div className='btn-sanciones'>
               <Stack direction="row" spacing={2}>
-                <Button onClick={handleEnviarSanciones} variant="contained" endIcon={<SendIcon />}>
+                <Button onClick={openConfirmDialog} variant="contained" endIcon={<SendIcon />}>
                   Sancionar
                 </Button>
+
               </Stack>
             </div>
           </div>

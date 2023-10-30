@@ -83,3 +83,24 @@ export  async function getParametre (pat,parametro){
   
     }
   }
+
+  export async function actualizar (pat,parametro,json){
+    try{
+
+      const response= await fetch(UrlApi+pat+parametro,  {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(json)
+      
+      })
+      const data= await response.json() 
+      console.log(JSON.stringify(json))
+      return data
+  
+    } catch(error){
+      console.log('No se encontro la informacion', error)
+  
+    }
+  }
