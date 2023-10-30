@@ -1,80 +1,157 @@
-/* Estilos para la barra de navegación */
-.navbar {
-  background-color:#3c1263df;
-  color: #fff;
+body{
+ background-image: url(imagen-home.jpg) !important;
+    /*background-image: url(./fondo/Background\ original.png);*/
+    background-size: 100% 100%;
+    /* Hace que el fondo cubra toda la pantalla sin recortar */
+    background-attachment: fixed;
+    /* Evita que el fondo se mueva con el contenido */
+    background-repeat: no-repeat;
+    /* Evita la repetición del fondo */
+
+}
+.nav-home {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.9px);
+  -webkit-backdrop-filter: blur(2.9px);
+  color: #f2f2f2;
+  height: 40px;
+  flex-grow: 200;
+  width: 100%;
+
 }
 
-/* Estilos para el logo */
-.logo h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-/*Estilo para home titulo*/
-.home-title {
-  color: white !important;
-}
-
-/* Estilos para los enlaces de navegación */
-.nav-links {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-}
-
-.nav-links li {
-  margin-right: 20px;
-}
-
-.nav-links a {
+.nav-home a {
+  margin-left: 30px;
   text-decoration: none;
-  color: #fff;
+  color: #ffffff;
+  font-family: questrial;
 }
 
-/* Estilos para el enlace activo */
-.nav-links a.active {
+.nav-home a:hover{
+  margin-left: 30px;
+  text-decoration: none;
+  color: #016198;
+  font-family: questrial;
+}
+
+
+.nav-home .home {
+  margin-right: auto;
   font-weight: bold;
+  font-family: questrial;
 }
 
-/* Estilos para el ícono de hamburguesa */
-.menu-icon {
-display: none; /* Oculta el ícono en pantallas grandes */
-cursor: pointer;
-font-size: 40px;
-height: 70px;
-width: 24px;
+
+.cont-textos{
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(2.9px);
+-webkit-backdrop-filter: blur(2.9px);
+border: 1px solid rgba(255, 255, 255, 0.15);
+height: 820px;
+width: 989px;
+justify-content: center;
+align-content: center;
+flex-wrap: wrap;
+align-self: center;
 }
 
-/* Estilos para el menú desplegable en pantallas pequeñas */
-@media screen and (max-width: 500px) {
-.menu-icon {
-  display: block; /* Muestra el ícono en pantallas pequeñas */
+.titulo-home{
+  font-size: 160px;
+  margin-top: 35px;
+  margin-bottom: 20px;
+  font-family: questrial;
+  color: #f2f2f2;
+  /* outline: 1PX SOLID black; */
+  width:920px;
+}
+.texto-homee b{
+  font-size:90px;
+  font-family: questrial;
+  color: #ffffff;
+  font-weight:560px;
 }
 
-.nav-links {
-  display: none; /* Oculta los enlaces de navegación */
-  flex-direction: column;
-  position: absolute;
-  top: 60px;
-  right: 10px;
-  background-color: #3c1263df;
-  padding: 1rem;
-  z-index: 1;
+
+.texto-homee{
+  font-size:50px;
+  font-family: questrial;
+  color: #ffffff;
+  /* outline: 1PX SOLID rgb(134, 200, 28); */
+  width: 748PX;
 }
 
-.nav-links.active {
-  display: flex; /* Muestra los enlaces cuando el menú está activo */
+.texto-home{
+  font-size:50px;
+  font-family: questrial;
+  color: #ffffff;
+  /* outline: 1PX SOLID rgb(123, 22, 22); */
+  width: 500PX;
+  margin-bottom: 40px;
 }
 
-.nav-links li {
-  margin-bottom: 10px;
+.parrafo-home{
+  font-size:45px;
+  font-family: questrial;
+  color: #ffffff;
+  text-align: center;
+  /* outline: 1PX SOLID black; */
+
+}
+.cont-home{
+  height: 100vh !important;
+  width: 100vw !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
 }
 
-.nav-links li:hover {
-  background-color: #6a4090df;
+.cont-ball{
+
+width: 900px;
+
+
+
+
 }
+.ball1{
+  /* outline: 1PX SOLID rgb(0, 0, 0); */
+  transform: rotate(-3deg);
+  width: 700px;
+
+
+
 }
+.ball2{
+  /* outline: 1PX SOLID rgb(0, 0, 0); */
+  width: 700px;
+  transform: translate(200px, -90px);
+
+
+
+}
+.ball3{
+  /* outline: 1PX SOLID rgb(0, 0, 0); */
+  transform: translateY(-80px);
+  
+
+}
+.ballon{
+  transform: rotate(-3deg);
+}
+
+.ballon3{
+  transform: rotate(170deg);
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
