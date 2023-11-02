@@ -1,0 +1,27 @@
+.css-34nofg-MuiTableRow-root.Mui-selected {
+  background-color: rgb(25 118 210 / 50%) !important;
+}
+
+.contenedor-table-sanciones {
+  position: relative;
+  top: 50px;
+}
+
+/* Estilos del boton */
+.filtro-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 50px;
+}
+
+.active {
+  color: #3c1263 !important;
+  background: #f6f6f6 !important;
+}
+
+.inactive {
+  color: #3c1263 !important;
+  background: #f6f6f6 !important;
+}
