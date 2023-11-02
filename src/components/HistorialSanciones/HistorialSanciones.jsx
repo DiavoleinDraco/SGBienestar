@@ -159,10 +159,10 @@ export default function HistorialSanciones() {
 
   return (
     <div>
-      <div>
+      <div className="mensaje-de-filas">
         {selected.length > 0 && (
           <div>
-            <span style={{ color: "white" }}>
+            <span style={{ color: "white", margin:"0", padding:"0" }}>
               {selected.length} Fila(s) seleccionada(s)
             </span>
             <IconButton style={{ color: "white" }} onClick={handleDelete}>
