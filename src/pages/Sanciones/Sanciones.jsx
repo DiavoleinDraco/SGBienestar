@@ -1,35 +1,35 @@
-import MultipleSelect from '../../components/MultipleSelect/MultipleSelect';
-import Textfield from '../../components/Textfield/Textfield';
+import MultipleSelect from "../../components/MultipleSelect/MultipleSelect";
+import Textfield from "../../components/Textfield/Textfield";
 import { useState } from "react";
-import Menu from '../../components/menu/Menu';
+import Menu from "../../components/menu/Menu";
 import { post } from "../../UseFetch";
 import { forwardRef } from "react";
-import ComSelect from "../../components/ComSelect/ComSelect"
+import ComSelect from "../../components/ComSelect/ComSelect";
 import MuiAlert from "@mui/material/Alert";
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import SendIcon from '@mui/icons-material/Send';
-import Stack from '@mui/material/Stack';
-import './Sanciones.css';
-import HistorialSanciones from '../../components/HistorialSanciones/HistorialSanciones';
-import { useLocation } from 'react-router-dom';
+import SendIcon from "@mui/icons-material/Send";
+import Stack from "@mui/material/Stack";
+import "./Sanciones.css";
+import HistorialSanciones from "../../components/HistorialSanciones/HistorialSanciones";
+import { useLocation } from "react-router-dom";
 import React, { useEffect } from "react";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
+  "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
-  '& .MuiDialogActions-root': {
+  "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
 }));
@@ -54,7 +54,6 @@ export default function Sanciones() {
 
   let datosObjeto = null;
 
-
   //_________
 
   const openConfirmDialog = () => {
@@ -64,26 +63,24 @@ export default function Sanciones() {
   const handleConfirmAction = async () => {
     // Realiza la acción deseada, por ejemplo, enviar la sanción
     await handleEnviarSanciones();
-  
+
     // Cierra el cuadro de diálogo de confirmación
     setConfirmDialogOpen(false);
-  
+
     // Recarga la página
     window.location.reload();
   };
-  
+
   const handleCancelAction = () => {
     // Cancela la acción, borra los datos de sessionStorage, si es necesario
     sessionStorage.removeItem("as");
-  
+
     // Cierra el cuadro de diálogo de confirmación
     setConfirmDialogOpen(false);
-  
+
     // Recarga la página
     window.location.reload();
   };
-  
-
 
   //___________________________________________
 
@@ -102,13 +99,10 @@ export default function Sanciones() {
     }
   }, []);
 
-
   //_______ Convierte los datos a un objeto si están presentes en el sessionStorage
   datosObjeto = JSON.parse(datosAlmacenados);
 
-
   //_______________________
-
 
   const handleClickOpenCrear = () => {
     setOpenDialogoCrear(true);
@@ -122,17 +116,19 @@ export default function Sanciones() {
   });
 
   const selectOptions = [
-    { value: 'opcion1', label: 'Incumplimiento de la entrega del implemento' },
-    { value: 'opcion2', label: 'Daño del implemento deportivo' },
-    { value: 'opcion3', label: 'Faltas recurrentes por la entrega tardía del implemento' },
-    { value: 'opcion4', label: 'Uso indebido de la plataforma de préstamos' },
-    { value: 'opcion5', label: 'Faltas reiterativas de las normas de uso' },
+    { value: "opcion1", label: "Incumplimiento de la entrega del implemento" },
+    { value: "opcion2", label: "Daño del implemento deportivo" },
+    {
+      value: "opcion3",
+      label: "Faltas recurrentes por la entrega tardía del implemento",
+    },
+    { value: "opcion4", label: "Uso indebido de la plataforma de préstamos" },
+    { value: "opcion5", label: "Faltas reiterativas de las normas de uso" },
   ];
 
   const handleChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
   };
-
 
   const handleSanciones = (fieldName, value) => {
     if (fieldName === "usuario") {
@@ -141,7 +137,9 @@ export default function Sanciones() {
       if (selectedOptions.length > 0) {
         setSancionesAplicadas(value);
       } else {
-        setSancionesAplicadas(prevSanciones => prevSanciones ? prevSanciones + ", " + value : value);
+        setSancionesAplicadas((prevSanciones) =>
+          prevSanciones ? prevSanciones + ", " + value : value
+        );
       }
     } else if (fieldName === "estado") {
       setEstadoS(value);
@@ -152,7 +150,7 @@ export default function Sanciones() {
   };
 
   const handleEnviarSanciones = async () => {
-    console.log(datosObjeto.id)
+    console.log(datosObjeto.id);
     let tiempoEnHoras = parseFloat(tiempoS);
 
     if (unidadTiempo === "Días") {
@@ -163,12 +161,23 @@ export default function Sanciones() {
 
     let combinedDescription = sancionesAplicadas;
     if (selectedOptions.length > 0) {
-      const selectedSanciones = selectedOptions.map(option => option.label).join(', ');
-      combinedDescription = combinedDescription ? combinedDescription + ', ' + selectedSanciones : selectedSanciones;
+      const selectedSanciones = selectedOptions
+        .map((option) => option.label)
+        .join(", ");
+      combinedDescription = combinedDescription
+        ? combinedDescription + ", " + selectedSanciones
+        : selectedSanciones;
     }
 
-    if (!combinedDescription || !estadoS || !tiempoEnHoras || isNaN(tiempoEnHoras)) {
-      setErrorMensaje("Debes completar los campos requeridos antes de aplicar la sanción");
+    if (
+      !combinedDescription ||
+      !estadoS ||
+      !tiempoEnHoras ||
+      isNaN(tiempoEnHoras)
+    ) {
+      setErrorMensaje(
+        "Debes completar los campos requeridos antes de aplicar la sanción"
+      );
       setOpen(true);
     } else {
       setErrorMensaje("");
@@ -195,17 +204,33 @@ export default function Sanciones() {
     }
   };
 
-
-
   return (
-    <div className='container-sanciones'>
+    <div className="container-sanciones">
       <Menu></Menu>
       <p style={{ fontSize: "30px", margin: "0", color: "#fff" }}>Sanciones</p>
-      <HistorialSanciones />
 
+      <div
+        style={{
+          border: "1px solid black",
+          borderRadius: "10px",
+          height: "80%",
+          background: "rgba(255, 255, 255, 0.5)",
+          padding: "10px",
+        }}
+      >
+        {" "}
+        <HistorialSanciones />
+      </div>
 
       <div className="container-botones">
-        <Fab style={{display:"none"}} color="secondary" variant="outlined" onClick={handleClickOpenCrear} aria-label="add" className="fab-button">
+        <Fab
+          style={{ display: "none" }}
+          color="secondary"
+          variant="outlined"
+          onClick={handleClickOpenCrear}
+          aria-label="add"
+          className="fab-button"
+        >
           <AddIcon />
         </Fab>
       </div>
@@ -219,9 +244,9 @@ export default function Sanciones() {
           sx={{
             m: 0,
             p: 2,
-            position: 'absolute',
-            left: '54%',
-            transform: 'translateX(-50%)',
+            position: "absolute",
+            left: "54%",
+            transform: "translateX(-50%)",
           }}
           id="customized-dialog-title"
         >
@@ -232,7 +257,7 @@ export default function Sanciones() {
           aria-label="close"
           onClick={handleCloseCrear}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -241,7 +266,14 @@ export default function Sanciones() {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers style={{ overflowX: "hidden" }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
             <div className="dialog-text-container">
               <Typography className="dialog-text" gutterBottom>
                 Seleccione la sanción deseada para este usuario.
@@ -249,33 +281,64 @@ export default function Sanciones() {
             </div>
           </div>
 
-
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
+            >
               <p>Número de Documento</p>
             </div>
             <input
               type="text"
               className="inputt"
-              value={datosObjeto && datosObjeto.numDoc !== undefined ? datosObjeto.numDoc : ''}
+              value={
+                datosObjeto && datosObjeto.numDoc !== undefined
+                  ? datosObjeto.numDoc
+                  : ""
+              }
               onChange={(e) => {
                 if (datosObjeto) {
                   userData({ ...userData, numDoc: e.target.value });
                 }
               }}
             />
-
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
+            >
               <p>Correo Electrónico</p>
             </div>
             <input
               type="text"
               className="inputt"
-              value={datosObjeto && datosObjeto.correo_inst !== undefined ? datosObjeto.correo_inst : ''}
+              value={
+                datosObjeto && datosObjeto.correo_inst !== undefined
+                  ? datosObjeto.correo_inst
+                  : ""
+              }
               onChange={(e) => {
                 if (datosObjeto) {
                   userData({ ...userData, correo_inst: e.target.value });
@@ -284,23 +347,37 @@ export default function Sanciones() {
             />
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-            <div style={{ flex: 1, marginLeft: '10px' }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <div style={{ flex: 1, marginLeft: "10px" }}>
               <p>Sanción</p>
               <MultipleSelect
                 options={selectOptions}
                 selectedOptions={selectedOptions}
                 onChange={handleChange}
-                handleSanciones={(value) => handleSanciones("description", value)}
+                handleSanciones={(value) =>
+                  handleSanciones("description", value)
+                }
                 // Establece el ancho deseado aquí (por ejemplo, '100%')
                 style={{ width: "100%" }}
               />
             </div>
           </div>
 
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center" }}>
               <p>Nueva sanción</p>
             </div>
             <Textfield
@@ -310,11 +387,31 @@ export default function Sanciones() {
             />
           </div>
 
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
+            >
               <p>Tiempo de la sanción</p>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', marginLeft: "-30px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                  marginLeft: "-30px",
+                }}
+              >
                 <Textfield
                   className="son-codigo"
                   name=""
@@ -330,18 +427,23 @@ export default function Sanciones() {
               </div>
             </div>
 
-
-
-            <div className='alert-sanciones' style={{ marginTop: '10px' }}>
+            <div className="alert-sanciones" style={{ marginTop: "10px" }}>
               {errorMensaje && (
-                <Alert onClose={() => setErrorMensaje("")} severity="error" sx={{}}>
+                <Alert
+                  onClose={() => setErrorMensaje("")}
+                  severity="error"
+                  sx={{}}
+                >
                   {errorMensaje}
                 </Alert>
               )}
             </div>
 
-            <div className="item item-link" style={{ marginTop: '10px' }}>
-              <Link className="custom-link link-inicio" to={window.location.reload}></Link>
+            <div className="item item-link" style={{ marginTop: "10px" }}>
+              <Link
+                className="custom-link link-inicio"
+                to={window.location.reload}
+              ></Link>
             </div>
           </div>
 
@@ -367,15 +469,22 @@ export default function Sanciones() {
             </DialogActions>
           </Dialog>
 
-
-
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div className='btn-sanciones'>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div className="btn-sanciones">
               <Stack direction="row" spacing={2}>
-                <Button onClick={openConfirmDialog} variant="contained" endIcon={<SendIcon />}>
+                <Button
+                  onClick={openConfirmDialog}
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                >
                   Sancionar
                 </Button>
-
               </Stack>
             </div>
           </div>
