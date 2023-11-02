@@ -29,7 +29,15 @@ import { useNavigate } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
+import Slide from '@mui/material/Slide';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 const drawerWidth = 240;
@@ -142,7 +150,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Menu() {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
+  const [openDialogo, setOpenDialogo] = useState(false);
   const navigate = useNavigate();
+
+  const handleClickOpen = () => {
+    setOpenDialogo(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialogo(false);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -199,22 +216,28 @@ export default function Menu() {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
-    <div>
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
       <MenuItem>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="show new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -232,10 +255,8 @@ export default function Menu() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <menu />
-    </div>
+    </Menu>
   );
-
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -259,26 +280,55 @@ export default function Menu() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Buscar…"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+          <Button vsize="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleClickOpen}
+              color="inherit">
+          <NotificationsIcon />
+      </Button>
+      <Dialog
+        fullScreen
+        open={openDialogo}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
             <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
+              edge="start"
               color="inherit"
+              onClick={handleClose}
+              aria-label="close"
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
+              <CloseIcon />
             </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+             Notificaciones
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <List>
+          <ListItem >
+            <ListItemText primary="Phone ringtone" secondary="Titania" />
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemText
+              primary="Default notification ringtone"
+              secondary="Tethys"
+            />
+          </ListItem>
+        </List>
+      </Dialog>
             <IconButton
               size="large"
               edge="end"
@@ -293,16 +343,16 @@ export default function Menu() {
             
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            color="inherit"
+          >
+            <MoreIcon />
+          </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
@@ -353,6 +403,26 @@ export default function Menu() {
                   <WarningAmberIcon />
                 </ListItemIcon>
                 <ListItemText primary='Sanciones' sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/inventario')}}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 3.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <WarningAmberIcon />
+                </ListItemIcon>
+                <ListItemText primary='Inventario' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/Mensajes')}}>

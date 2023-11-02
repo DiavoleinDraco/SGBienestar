@@ -12,13 +12,65 @@ import get from "../../UseFetch.js";
 import Buttons from '../Buttons/Buttons.jsx';
 import { handleBreakpoints } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import Toolbar from '@mui/material/Toolbar';
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
+
+
+export function enviarData(datos) {
+  console.log('enviar:', data)
+  
+}
 
 export default function TablaUsarios() {
 
   const [data, setData] = useState([]);
   const [selectedUserData, setSelectedUserData] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate()
-  
   const columns = [
     {
       label: 'Ndoc',
@@ -59,7 +111,6 @@ export default function TablaUsarios() {
         }));
         setData(dataTabla);
         console.log('datatabla',dataTabla);
-        
       })
       .catch((usuarioError) => {
         console.error("Error al cargar el usuario", usuarioError);
@@ -91,11 +142,9 @@ export default function TablaUsarios() {
       </TableRow>
     );
   };
-
   //_______Botton de enviar la informacion de la sancion//
-
   function handleSancionarClick(userData) {
- 
+    setSelectedUserData(userData);
     setSelectedUserData(userData);
     console.log(userData)
     sessionStorage.setItem("as",JSON.stringify(data[userData]))
@@ -104,10 +153,16 @@ export default function TablaUsarios() {
   
     navigate('/sanciones', { state: { userData } });
   }
-
-  //______________________________________________________
   
   function rowContent(_index, row) {
+
+    if (searchTerm.length > 0) {
+      const searchRegex = new RegExp(searchTerm, 'i'); // 'i' para hacerlo insensible a mayúsculas/minúsculas
+      const searchData = Object.values(row).join(' '); // Concatena todos los valores de la fila en una sola cadena
+      if (!searchData.match(searchRegex)) {
+        return null; // No muestra la fila si no coincide con el término de búsqueda
+      }
+    }
     return (
       <React.Fragment>
         {columns.map((column) => (
@@ -127,8 +182,24 @@ export default function TablaUsarios() {
     );
   };
 
+  console.log('dataaaa:' , data)
+
   return (
     <Paper style={{ height: 400, width: '890px', position:"relative", left:"90px"}}>
+      <Toolbar>
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase 
+            placeholder="Buscar usuarios"
+            inputProps={{ 'aria-label': 'search' }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            />
+        </Search>
+      </Toolbar>
+
       <TableVirtuoso
         data={data}
         components={VirtuosoTableComponents}
