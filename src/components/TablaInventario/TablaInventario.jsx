@@ -144,20 +144,6 @@ export default function TablaInventario() {
       descripcion: true,
     });
 
-    
-  const handleClickOpenDialogEditer = () => {
-    if (selectedRowData) {
-      setNewImplemento(selectedRowData);
-      console.log(selectedRowData)
-      }
-      setOpenEditer(true);
-  };
-
-  const handleCloseDialogEditer = () => {
-    setSelectedRowData(null); // Restablece los datos de la fila seleccionada
-    setOpenEditer(false);
-  };
-
     function handleColumnVisibilityChange(columnKey) {
       setColumnVisibility((prevVisibility) => ({
         ...prevVisibility,
@@ -505,15 +491,19 @@ const handleCreateImplementoSubmit = async () => {
       </TableRow>
     );
   };
+  
+  const handleClickOpenDialogEditer = () => {
+    setOpenEditer(true);
+  };
+
+  const handleCloseDialogEditer = () => {
+    setOpenEditer(false);
+  };
 
   async function actualizarImplemento(imple) {
     setSelectedImplementoData(imple)
-    console.log('este es este',implementos[imple])
-    handleClickOpenDialogEditer()
-    setOpenEditer(true);
-
-    console.log('probando: ', imple.escripcion.material)
-
+    console.log('este es este', imple)
+    
     setNewImplemento({
       codigo: imple.codigo || '',
       nombre: imple.nombre || '',
@@ -536,6 +526,8 @@ const handleCreateImplementoSubmit = async () => {
         },
       ],
     });
+    handleClickOpenDialogEditer()
+    setOpenEditer(true);
   };
 
  function rowContent(_index, row) {
@@ -644,11 +636,6 @@ const handleCreateImplementoSubmit = async () => {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </Typography>
           <form>
             <TextField
               label="Codigo"
@@ -787,163 +774,7 @@ const handleCreateImplementoSubmit = async () => {
         </DialogActions>
       </BootstrapDialog>
     </React.Fragment>
-    <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{"¿DE VERDAD DESEA ELIMINAR ESTE IMPLEMENTO?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description"> 
-            Recuerde que si elimina este implemento no hay forma alguna de recuperarlo... cabe recalcar que si desea puede crear un  nuevo implemento sin necesidad de eliminar uno en especifico.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleAgreeClick} autoFocus>
-            Eliminar
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={crearImplemento} onClose={handleCreateImplementoClose}>
-        <DialogTitle>Crear Nuevo Implemento</DialogTitle>
-        <DialogContent>
-          <form>
-            El implemento que va a crear a continuacion debe especificar la cantidad de implementos en dicho estado, si el implemento tiene mas de un estado, tendrá que crear otra vez el implemento pero especificando el otro estado faltante.
-          <TextField
-              label="Codigo"
-              type="text"
-              name="codigo"
-              value={newImplemento.codigo || ''}
-              onChange={(e) => setNewImplemento({ ...newImplemento, codigo: e.target.value })}
-            />
-            <TextField
-              label="Nombre"
-              type="text"
-              name="nombre"
-              value={newImplemento.nombre || ''}
-              onChange={(e) => setNewImplemento({ ...newImplemento, nombre: e.target.value })}
-            />
-            <ComSelect 
-            nombre='Categoria'
-            items={selectedIdCat.map((opcion) => opcion.label)}
-            onChange={(value) => handleCategoriaFormSubmit(value)}
-            getOptionLabel={(option) => option.label}
-            value={setSelectedCategory}
-            />
-            <TextField
-            label="Cantidad"
-            type="number"
-            name="cantidad"
-            value={newImplemento.cantidad}
-            onChange={handleGeneralCantidadChange}
-           />
-           <TextField
-            label="Cantidad Estado"
-            type="number"
-            name="cantidad"
-            value={newImplemento.estado[0].cantidad}
-            onChange={handleCantidadChange}
-           />
-            <ComSelect 
-            nombre='Marca'
-            items={selectedMarcaInfor.map((opcion) => opcion.label)}
-            onChange={(value) => handleMarcaFormit(value)}
-            getOptionLabel={(option) => option.label}
-            value={setSelectedMarca}
-            />
-            <ComSelect 
-            nombre='Estado'
-            items={selectedEstadoInfoo.map((opcion) => opcion.label)}
-            onChange={(value) => handleEstadoFormit(value)}
-            getOptionLabel={(option) => option.label}
-            value={setSelectedEstado}
-            />
-             <FormControl>
-            <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={aptoValue ? true : false}
-              onChange={handleChangeRadio}
-            >
-              <FormControlLabel value={true} control={<Radio />} label="SI" />
-              <FormControlLabel value={false} control={<Radio />} label="NO" />
-            </RadioGroup>
-          </FormControl>
-
-            <TextField
-              label="Peso"
-              type="text"
-              name="peso"
-              value={newImplemento.descripcion.peso || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  peso: e.target.value,
-                },
-              })}
-            />
-            <TextField
-              label="Color"
-              type="text"
-              name="color"
-              value={newImplemento.descripcion.color || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  color: e.target.value,
-                },
-              })}
-            />
-
-            <TextField
-              label="Material"
-              type="text"
-              name="material"
-              value={newImplemento.descripcion.material || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  material: e.target.value,
-                },
-              })}
-            />
-            <TextField
-              label="Detalles"
-              type="text"
-              name="detalles"
-              value={newImplemento.descripcion.detalles || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  detalles: e.target.value,
-                },
-              })}
-            />
-            <TextField
-              label="Tamano"
-              type="text"
-              name="tamano"
-              value={newImplemento.descripcion.tamano || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  tamano: e.target.value,
-                },
-              })}
-            />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCreateImplementoClose}>Cancelar</Button>
-          <Button onClick={handleCreateImplementoSubmit} color="primary">
-            Enviar
-          </Button>
-        </DialogActions>
-      </Dialog>
+    
       <Box sx={{ '& > :not(style)': { m: 1 } }}>
       <Fab color="secondary" aria-label="add" onClick={handleCreateImplementoClick}>
         <AddIcon />

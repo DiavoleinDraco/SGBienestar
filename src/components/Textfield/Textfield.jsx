@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import "./Textfield.css";
 import { useState } from "react";
 
-export default function Textfield({ name, required, onChange }) {
+export default function Textfield({ name, required, onChange, inicial}) {
   const [error, setError] = useState('');
   const [data, setData] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
@@ -49,6 +49,7 @@ export default function Textfield({ name, required, onChange }) {
           <TextField
             id="standard-basic"
             label={name}
+            defaultValue={inicial}
             variant="standard"
             onChange={handleInputChange}
             error={Boolean(error || errorTelefono)}

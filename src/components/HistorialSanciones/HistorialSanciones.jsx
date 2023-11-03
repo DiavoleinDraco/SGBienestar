@@ -12,9 +12,57 @@ import IconButton from "@mui/material/IconButton";
 import get, { actualizar, eliminar } from "../../UseFetch.js";
 import { useState, useEffect } from "react";
 import "./HistorialSanciones.css";
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import Toolbar from '@mui/material/Toolbar';
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
 
 export default function HistorialSanciones() {
   const [selected, setSelected] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
   const [sancionesData, setSancionesData] = useState([]);
   const [mostrarSancionesActivas, setMostrarSancionesActivas] = useState(true);
 
@@ -157,6 +205,29 @@ export default function HistorialSanciones() {
       });
   };
 
+  const handleSearchChange = (event) => {
+    const searchValue = event.target.value;
+    setSearchTerm(searchValue);
+  
+    const filteredSanciones = sancionesData.filter((sancion) => {
+      const nombre = sancion.nombre.toLowerCase();
+      const programa = sancion.programa.toLowerCase();
+      const sancionTexto = sancion.sancion.toLowerCase();
+      const sancionTiempo = sancion.tiempo.toLowerCase();
+      const fechaSancion = sancion.fecha.toLowerCase()
+  
+      return (
+        nombre.includes(searchValue.toLowerCase()) ||
+        programa.includes(searchValue.toLowerCase()) ||
+        sancionTexto.includes(searchValue.toLowerCase()) ||
+        sancionTiempo.includes(searchValue.toLowerCase()) ||
+        fechaSancion.includes(searchValue.toLowerCase())
+      );
+    });
+  
+    setFilteredData(filteredSanciones);
+  };
+
   return (
     <div>
       <div>
@@ -179,10 +250,24 @@ export default function HistorialSanciones() {
           }`}
           onClick={handleToggleFiltro}
         >
-          Sanciones {mostrarSancionesActivas ? "Activas" : "Inactivas"}
+          Sanciones 
+          {mostrarSancionesActivas ? "Activas" : "Inactivas"}
         </button>
 
         <TableContainer component={Paper}>
+        <Toolbar>
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase 
+            placeholder="Buscar..."
+            inputProps={{ 'aria-label': 'search' }}
+            value={searchTerm}
+            onChange={handleSearchChange}
+            />
+        </Search>
+      </Toolbar>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -211,30 +296,56 @@ export default function HistorialSanciones() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  selected={isSelected(row.id)} // Use the sancion ID for selection
-                  onClick={() => handleRowClick(row.id)} // Pass the sancion ID to handleRowClick
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox checked={isSelected(row.index)} />
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.index}
-                  </TableCell>
-                  <TableCell align="right">{row.nombre}</TableCell>
-                  <TableCell align="right">{row.programa}</TableCell>
-                  <TableCell align="right">{row.sancion}</TableCell>
-                  <TableCell align="right">{row.tiempo}</TableCell>
-                  <TableCell align="right">{row.fecha}</TableCell>
-                  <TableCell align="right">
-                    {row.activa ? "Activa" : "Inactiva"}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+  {searchTerm ? (
+    filteredData.map((row) => (
+      <TableRow
+        key={row.id}
+        selected={isSelected(row.id)}
+        onClick={() => handleRowClick(row.id)}
+        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      >
+        <TableCell padding="checkbox">
+          <Checkbox checked={isSelected(row.index)} />
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {row.index}
+        </TableCell>
+        <TableCell align="right">{row.nombre}</TableCell>
+        <TableCell align="right">{row.programa}</TableCell>
+        <TableCell align="right">{row.sancion}</TableCell>
+        <TableCell align="right">{row.tiempo}</TableCell>
+        <TableCell align="right">{row.fecha}</TableCell>
+        <TableCell align="right">
+          {row.activa ? "Activa" : "Inactiva"}
+        </TableCell>
+      </TableRow>
+    ))
+  ) : (
+    rows.map((row) => (
+      <TableRow
+        key={row.id}
+        selected={isSelected(row.id)}
+        onClick={() => handleRowClick(row.id)}
+        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      >
+        <TableCell padding="checkbox">
+          <Checkbox checked={isSelected(row.index)} />
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {row.index}
+        </TableCell>
+        <TableCell align="right">{row.nombre}</TableCell>
+        <TableCell align="right">{row.programa}</TableCell>
+        <TableCell align="right">{row.sancion}</TableCell>
+        <TableCell align="right">{row.tiempo}</TableCell>
+        <TableCell align="right">{row.fecha}</TableCell>
+        <TableCell align="right">
+          {row.activa ? "Activa" : "Inactiva"}
+        </TableCell>
+      </TableRow>
+    ))
+  )}
+</TableBody>
           </Table>
         </TableContainer>
       </div>
