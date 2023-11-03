@@ -1,10 +1,10 @@
-import MultipleSelect from "../../components/MultipleSelect/MultipleSelect";
-import Textfield from "../../components/Textfield/Textfield";
+import MultipleSelect from "../../../components/MultipleSelect/MultipleSelect";
+import Textfield from "../../../components/Textfield/Textfield";
 import { useState } from "react";
-import Menu from "../../components/menu/Menu";
-import { post } from "../../UseFetch";
+import Menu from "../../../components/menu/Menu";
+import { post } from "../../../UseFetch";
 import { forwardRef } from "react";
-import ComSelect from "../../components/ComSelect/ComSelect";
+import ComSelect from "../../../components/ComSelect/ComSelect";
 import MuiAlert from "@mui/material/Alert";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import "./Sanciones.css";
-import HistorialSanciones from "../../components/HistorialSanciones/HistorialSanciones";
+import HistorialSanciones from "../../../components/HistorialSanciones/HistorialSanciones";
 import { useLocation } from "react-router-dom";
 import React, { useEffect } from "react";
 
@@ -59,41 +59,35 @@ export default function Sanciones() {
   const openConfirmDialog = () => {
     setConfirmDialogOpen(true);
   };
-
   const handleConfirmAction = async () => {
-    // Realiza la acción deseada, por ejemplo, enviar la sanción
     await handleEnviarSanciones();
 
-    // Cierra el cuadro de diálogo de confirmación
     setConfirmDialogOpen(false);
 
-    // Recarga la página
-    window.location.reload();
   };
 
+
+
+
   const handleCancelAction = () => {
-    // Cancela la acción, borra los datos de sessionStorage, si es necesario
+
     sessionStorage.removeItem("as");
-
-    // Cierra el cuadro de diálogo de confirmación
     setConfirmDialogOpen(false);
-
-    // Recarga la página
-    window.location.reload();
+    
   };
 
   //___________________________________________
 
   useEffect(() => {
-    // Comprueba si hay datos en el sessionStorage y conviértelos a un objeto
+
     const datosAlmacenados = sessionStorage.getItem("as");
     let datosObjeto = null;
 
     if (datosAlmacenados) {
       datosObjeto = JSON.parse(datosAlmacenados);
-      // Comprueba si datosObjeto es diferente de null y tiene la propiedad id
+
       if (datosObjeto.id) {
-        // Si hay datos, abre el diálogo de creación de sanciones
+
         setOpenDialogoCrear(true);
       }
     }
@@ -104,11 +98,16 @@ export default function Sanciones() {
 
   //_______________________
 
+
+
+
+
   const handleClickOpenCrear = () => {
     setOpenDialogoCrear(true);
   };
   const handleCloseCrear = () => {
     setOpenDialogoCrear(false);
+    sessionStorage.removeItem('as')
   };
 
   const Alert = forwardRef(function Alert(props, ref) {
@@ -134,7 +133,7 @@ export default function Sanciones() {
     if (fieldName === "usuario") {
       setIdUsuario(value);
     } else if (fieldName === "description") {
-      if (selectedOptions.length > 0) {
+      if (selectedOptions.length != undefined) {
         setSancionesAplicadas(value);
       } else {
         setSancionesAplicadas((prevSanciones) =>
@@ -204,6 +203,11 @@ export default function Sanciones() {
     }
   };
 
+
+
+
+
+
   return (
     <div className="container-sanciones">
       <Menu></Menu>
@@ -217,9 +221,9 @@ export default function Sanciones() {
           height: "80%",
           background: "rgba(255, 255, 255, 0.5)",
           padding: "10px",
-          width:"70%",
-          top:"10px",
-          position:"relative"
+          width: "70%",
+          top: "10px",
+          position: "relative"
         }}
       >
         {" "}
@@ -298,11 +302,15 @@ export default function Sanciones() {
                 display: "flex",
                 alignItems: "center",
                 marginBottom: "10px",
+                float: "left",
+                marginRight: "10px"
               }}
             >
-              <p>Número de Documento</p>
+
+              <p style={{ marginLeft: "-166px" }}>Número de Documento</p>
             </div>
             <input
+              style={{ width: "80%", height: "30px", fontSize: "15px" }}
               type="text"
               className="inputt"
               value={
@@ -317,6 +325,7 @@ export default function Sanciones() {
               }}
             />
           </div>
+
 
           <div
             style={{
@@ -333,9 +342,11 @@ export default function Sanciones() {
                 marginBottom: "10px",
               }}
             >
-              <p>Correo Electrónico</p>
+
+              <p style={{ marginLeft: "-172px" }}>Correo Electrónico</p>
             </div>
             <input
+              style={{ width: "80%", height: "30px", fontSize: "15px" }}
               type="text"
               className="inputt"
               value={
@@ -351,6 +362,7 @@ export default function Sanciones() {
             />
           </div>
 
+
           <div
             style={{
               display: "flex",
@@ -358,8 +370,9 @@ export default function Sanciones() {
               marginBottom: "10px",
             }}
           >
-            <div style={{ flex: 1, marginLeft: "10px" }}>
-              <p>Sanción</p>
+
+            <div style={{ flex: 1, marginLeft: "44px", marginRight: "44px" }}>
+              <p style={{ marginLeft: "-280px" }}>Sanción</p>
               <MultipleSelect
                 options={selectOptions}
                 selectedOptions={selectedOptions}
@@ -367,11 +380,11 @@ export default function Sanciones() {
                 handleSanciones={(value) =>
                   handleSanciones("description", value)
                 }
-                // Establece el ancho deseado aquí (por ejemplo, '100%')
-                style={{ width: "100%" }}
+                className="custom-multiple-select"
               />
             </div>
           </div>
+
 
           <div
             style={{
@@ -379,10 +392,12 @@ export default function Sanciones() {
               flexDirection: "column",
               alignItems: "center",
               marginBottom: "10px",
+              width: "100%"
             }}
           >
+
             <div style={{ display: "flex", alignItems: "center" }}>
-              <p>Nueva sanción</p>
+              <p style={{ marginLeft: "-166px" }}>Nueva sanción</p>
             </div>
             <Textfield
               className="son-codigo"
@@ -390,6 +405,7 @@ export default function Sanciones() {
               onChange={(value) => handleSanciones("description", value)}
             />
           </div>
+
 
           <div
             style={{
@@ -431,7 +447,7 @@ export default function Sanciones() {
               </div>
             </div>
 
-            <div className="alert-sanciones" style={{ marginTop: "10px" }}>
+            <div className="alert-sanciones" style={{ marginTop: "10px", maxWidth:"350px" }}>
               {errorMensaje && (
                 <Alert
                   onClose={() => setErrorMensaje("")}
@@ -458,8 +474,8 @@ export default function Sanciones() {
             aria-describedby="confirm-dialog-description"
           >
             <DialogTitle id="confirm-dialog-title">Confirmación</DialogTitle>
-            <DialogContent>
-              <Typography id="confirm-dialog-description">
+            <DialogContent className="contenedor">
+              <Typography className="pregunta" id="confirm-dialog-description">
                 ¿Está seguro de que desea aplicar esta sanción?
               </Typography>
             </DialogContent>

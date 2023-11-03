@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Menu from '../../components/menu/Menu';
-import ComposeMessage from '../../components/componentedeprueba/Redactar_mensaje';
-import DataGridProDemo from '../../components/Tablacorreos/Tablacorreos';
+import Menu from '../../../components/menu/Menu';
+import ComposeMessage from '../../../components/componentedeprueba/Redactar_mensaje';
+import DataGridProDemo from '../../../components/Tablacorreos/Tablacorreos';
 import './mensajes.css';
 
 export default function Mensajes() {

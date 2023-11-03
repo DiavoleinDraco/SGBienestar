@@ -19,7 +19,8 @@ export default function Textfield({ name, required, onChange, inicial}) {
     }
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e) => {
+    e.preventDefault()
     if (required && data === '') {
       setError(true);
     } else {

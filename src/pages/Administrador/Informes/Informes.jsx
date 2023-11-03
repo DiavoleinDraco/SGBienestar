@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Menu from '../../components/menu/Menu';
+import Menu from '../../../components/menu/Menu';
 import Box from '@mui/material/Box';
-import Textfield from '../../components/Textfield/Textfield';
-import ComSelect from '../../components/ComSelect/ComSelect';
+import Textfield from '../../../components/Textfield/Textfield';
+import ComSelect from '../../../components/ComSelect/ComSelect';
 import './Informes.css'
-import Date from '../../components/Date/Date';
-import NavTabs from '../../components/NavTabs/NavTabs';
-import Buttons from '../../components/Buttons/Buttons';
-import BasicAccordion from '../../components/BasicAccordion/BasicAccordion';
-import get from "../../UseFetch";
+import Date from '../../../components/Date/Date';
+import NavTabs from '../../../components/NavTabs/NavTabs';
+import Buttons from '../../../components/Buttons/Buttons';
+import BasicAccordion from '../../../components/BasicAccordion/BasicAccordion';
+import get from "../../../UseFetch";
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

@@ -16,8 +16,16 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Toolbar from '@mui/material/Toolbar';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import Button from "@mui/material/Button";
+
 
 const Search = styled('div')(({ theme }) => ({
+
+
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -46,7 +54,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -65,12 +72,49 @@ export default function HistorialSanciones() {
   const [filteredData, setFilteredData] = useState([]);
   const [sancionesData, setSancionesData] = useState([]);
   const [mostrarSancionesActivas, setMostrarSancionesActivas] = useState(true);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+
+
+
+  //_____________ Dialog confirmacion de eliminacion de sancion (por arreglar)
+
+  const handleOpenDeleteDialog = (sancion) => {
+    setSancionToDelete(sancion);
+
+    setOpenDeleteDialog(true);
+  };
+
+  const handleCloseDeleteDialog = (confirmed) => {
+    setOpenDeleteDialog(false);
+    if (confirmed) {
+      const sancion = sancionToDelete;
+      if (sancion) {
+        eliminar("/sanciones/", sancion.id)
+          .then(() => {
+            const updatedSancionesData = sancionesData.filter(
+              (s) => s.id !== sancion.id
+            );
+            setSancionesData(updatedSancionesData);
+            setSelected(selected.filter((id) => id !== sancion.id));
+          })
+          .catch((error) => {
+            console.error("Error al eliminar", error);
+          });
+      }
+    }
+  };
+
+
+
+
+  //_____________Filtro de sanciones activas/inactivas_____Depurar_______________
 
   const handleToggleFiltro = () => {
     setMostrarSancionesActivas((prevMostrar) => !prevMostrar);
   };
 
-  // Filtra las sanciones según el estado actual del filtro
+
   const sancionesFiltradas = mostrarSancionesActivas
     ? sancionesData.filter((sancion) => sancion.activa)
     : sancionesData;
@@ -78,6 +122,14 @@ export default function HistorialSanciones() {
   function createData(id, nombre, programa, sancion, tiempo, fecha, index) {
     return { id, nombre, programa, sancion, tiempo, fecha, index };
   }
+
+
+
+
+  //______ Manejo de formatos de timpo y fecha______
+
+
+
 
   function formatFecha(fecha) {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
@@ -92,10 +144,15 @@ export default function HistorialSanciones() {
       const dias = Math.floor(horas / 24);
       return `${dias} días`;
     } else {
-      const meses = Math.floor(horas / 720); // 30 días * 24 horas
+      const meses = Math.floor(horas / 720);
       return `${meses} meses`;
     }
   }
+
+
+
+  //______ PATH actiliazar el estado de la sancion 
+
   async function actualizarSancion(sancion) {
     try {
       await actualizar("/sanciones/", sancion._id, { estado: false });
@@ -104,6 +161,11 @@ export default function HistorialSanciones() {
       console.log(`Error al actualizar la sanción ${sancion._id}: ${error}`);
     }
   }
+
+
+  //___ verificacion de actividad ______ 
+
+
   async function isSancionActiva(sancion) {
     const fechaCreacion = new Date(sancion.createdAt);
     fechaCreacion.setHours(fechaCreacion.getHours() + 5);
@@ -112,7 +174,7 @@ export default function HistorialSanciones() {
     console.log("fecha creacion:", fechaCreacion);
     console.log("fecha actual:", fechaActual);
 
-    // Convierte la duración de horas a milisegundos
+
     const tiempoEnMilisegundos = sancion.duracion * 3600000;
 
     const fechaFinalizacion = new Date(
@@ -127,6 +189,9 @@ export default function HistorialSanciones() {
       return true;
     }
   }
+
+
+  //  UseEffect__________ //__________
 
   useEffect(() => {
     get("/sanciones")
@@ -160,28 +225,32 @@ export default function HistorialSanciones() {
       });
   }, []);
 
-  // Filtra las sanciones según el estado actual del filtro
+
+  // Mostrar las sanciones segun su actividad
+
+
   const rows = mostrarSancionesActivas
     ? sancionesData.filter((sancion) => sancion.activa).reverse()
     : sancionesData.filter((sancion) => !sancion.activa).reverse();
 
   const handleRowClick = (id) => {
     if (selected.includes(id)) {
-      // If the sancion is already selected, remove it
+
       setSelected(selected.filter((selectedId) => selectedId !== id));
     } else {
-      // If it's not selected, add it
+
       setSelected([...selected, id]);
     }
   };
 
   const isSelected = (id) => selected.includes(id);
 
+
+  //______  Eliminacion de la sanciion ____
+
   const handleDelete = async () => {
-    // Obtén los IDs de las sanciones seleccionadas
     const selectedIds = selected;
 
-    // Realiza una petición para eliminar las sanciones seleccionadas
     const deletionPromises = selectedIds.map(async (id) => {
       try {
         await eliminar("/sanciones/", id);
@@ -190,32 +259,46 @@ export default function HistorialSanciones() {
       }
     });
 
-    // After successful deletion, update the UI
+
+    try {
+      await Promise.all(deletionPromises);
+      setOpenDeleteDialog(false);
+    } catch (error) {
+      console.error("Error al eliminar sanciones", error);
+
+    }
+
+
+    //__________ 
+
     Promise.all(deletionPromises)
       .then(() => {
-        // Filter out the deleted sanciones from the data
+
         const updatedSancionesData = sancionesData.filter(
           (sancion) => !selectedIds.includes(sancion.id)
         );
         setSancionesData(updatedSancionesData);
-        setSelected([]); // Clear the selected items after deletion
+        setSelected([]);
       })
       .catch((error) => {
         console.error("Error al eliminar", error);
       });
   };
 
+
+  //_____ Search de tabla, filttro de busqueda ______
+
   const handleSearchChange = (event) => {
     const searchValue = event.target.value;
     setSearchTerm(searchValue);
-  
+
     const filteredSanciones = sancionesData.filter((sancion) => {
       const nombre = sancion.nombre.toLowerCase();
       const programa = sancion.programa.toLowerCase();
       const sancionTexto = sancion.sancion.toLowerCase();
       const sancionTiempo = sancion.tiempo.toLowerCase();
       const fechaSancion = sancion.fecha.toLowerCase()
-  
+
       return (
         nombre.includes(searchValue.toLowerCase()) ||
         programa.includes(searchValue.toLowerCase()) ||
@@ -224,16 +307,52 @@ export default function HistorialSanciones() {
         fechaSancion.includes(searchValue.toLowerCase())
       );
     });
-  
+
     setFilteredData(filteredSanciones);
   };
 
+
+
+
+
+  //__________ RETURN______________________
+
+
+
+
   return (
     <div>
+
+      <Dialog
+        open={openDeleteDialog}
+        onClose={() => handleCloseDeleteDialog(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            ¿Estás seguro de que deseas eliminar la sanción seleccionada?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleCloseDeleteDialog(false)} color="primary">
+            Cancelar
+          </Button>
+          <Button
+            onClick={() => handleCloseDeleteDialog(true)} // Confirma la eliminación
+            color="primary"
+            autoFocus
+          >
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
       <div className="mensaje-de-filas">
         {selected.length > 0 && (
           <div>
-            <span style={{ color: "white", margin:"0", padding:"0" }}>
+            <span style={{ color: "white", margin: "0", padding: "0" }}>
               {selected.length} Fila(s) seleccionada(s)
             </span>
             <IconButton style={{ color: "white" }} onClick={handleDelete}>
@@ -245,29 +364,28 @@ export default function HistorialSanciones() {
       <div className="contenedor-table-sanciones">
         <button
           style={{ margin: "10px" }}
-          className={`filtro-button ${
-            mostrarSancionesActivas ? "active" : "inactive"
-          }`}
+          className={`filtro-button ${mostrarSancionesActivas ? "active" : "inactive"
+            }`}
           onClick={handleToggleFiltro}
         >
-          Sanciones 
+          Sanciones
           {mostrarSancionesActivas ? "Activas" : "Inactivas"}
         </button>
 
         <TableContainer component={Paper}>
-        <Toolbar>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase 
-            placeholder="Buscar..."
-            inputProps={{ 'aria-label': 'search' }}
-            value={searchTerm}
-            onChange={handleSearchChange}
-            />
-        </Search>
-      </Toolbar>
+          <Toolbar>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Buscar..."
+                inputProps={{ 'aria-label': 'search' }}
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+            </Search>
+          </Toolbar>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -296,56 +414,56 @@ export default function HistorialSanciones() {
               </TableRow>
             </TableHead>
             <TableBody>
-  {searchTerm ? (
-    filteredData.map((row) => (
-      <TableRow
-        key={row.id}
-        selected={isSelected(row.id)}
-        onClick={() => handleRowClick(row.id)}
-        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-      >
-        <TableCell padding="checkbox">
-          <Checkbox checked={isSelected(row.index)} />
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {row.index}
-        </TableCell>
-        <TableCell align="right">{row.nombre}</TableCell>
-        <TableCell align="right">{row.programa}</TableCell>
-        <TableCell align="right">{row.sancion}</TableCell>
-        <TableCell align="right">{row.tiempo}</TableCell>
-        <TableCell align="right">{row.fecha}</TableCell>
-        <TableCell align="right">
-          {row.activa ? "Activa" : "Inactiva"}
-        </TableCell>
-      </TableRow>
-    ))
-  ) : (
-    rows.map((row) => (
-      <TableRow
-        key={row.id}
-        selected={isSelected(row.id)}
-        onClick={() => handleRowClick(row.id)}
-        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-      >
-        <TableCell padding="checkbox">
-          <Checkbox checked={isSelected(row.index)} />
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {row.index}
-        </TableCell>
-        <TableCell align="right">{row.nombre}</TableCell>
-        <TableCell align="right">{row.programa}</TableCell>
-        <TableCell align="right">{row.sancion}</TableCell>
-        <TableCell align="right">{row.tiempo}</TableCell>
-        <TableCell align="right">{row.fecha}</TableCell>
-        <TableCell align="right">
-          {row.activa ? "Activa" : "Inactiva"}
-        </TableCell>
-      </TableRow>
-    ))
-  )}
-</TableBody>
+              {searchTerm ? (
+                filteredData.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    selected={isSelected(row.id)}
+                    onClick={() => handleRowClick(row.id)}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox checked={isSelected(row.index)} />
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      {row.index}
+                    </TableCell>
+                    <TableCell align="right">{row.nombre}</TableCell>
+                    <TableCell align="right">{row.programa}</TableCell>
+                    <TableCell align="right">{row.sancion}</TableCell>
+                    <TableCell align="right">{row.tiempo}</TableCell>
+                    <TableCell align="right">{row.fecha}</TableCell>
+                    <TableCell align="right">
+                      {row.activa ? "Activa" : "Inactiva"}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    selected={isSelected(row.id)}
+                    onClick={() => handleRowClick(row.id)}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox checked={isSelected(row.index)} />
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+
+                    </TableCell>
+                    <TableCell align="right">{row.nombre}</TableCell>
+                    <TableCell align="right">{row.programa}</TableCell>
+                    <TableCell align="right">{row.sancion}</TableCell>
+                    <TableCell align="right">{row.tiempo}</TableCell>
+                    <TableCell align="right">{row.fecha}</TableCell>
+                    <TableCell align="right">
+                      {row.activa ? "Activa" : "Inactiva"}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
           </Table>
         </TableContainer>
       </div>

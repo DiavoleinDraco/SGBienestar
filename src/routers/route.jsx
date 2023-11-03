@@ -5,14 +5,14 @@ import Registro from '../pages/registro/Registro'
 import Login from '../pages/login/Login';
 import Autenticacion from '../pages/autenticacion/Autenticacion';
 import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
-import Dashboard from '../pages/Dashboard/Dashboard';
-import Sanciones from '../pages/Sanciones/Sanciones';
-import Usuarios from '../pages/Usuarios/Usuarios';
-import Informes from '../pages/Informes/Informes';
+import Dashboard from '../pages/Administrador/Dashboard/Dashboard';
+import Sanciones from '../pages/Administrador/Sanciones/Sanciones';
+import Usuarios from '../pages/Administrador/Usuarios/Usuarios';
+import Informes from '../pages/Administrador/Informes/Informes'
 import jwtDecode from 'jwt-decode';
-import Mensajes from '../pages/mensajes/mensajes';
+import Mensajes from '../pages/Administrador/mensajes/mensajes';
 import MensajeDetalle from '../pages/mensajes_detalles/mensajes_detalles';
-import Inventario from '../pages/Inventario/Inventario';
+import Inventario from '../pages/Administrador/Inventario/Inventario';
 
 
 

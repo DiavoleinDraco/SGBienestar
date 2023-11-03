@@ -1,0 +1,106 @@
+.container-sanciones {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Esto asegura que el contenedor ocupe toda la altura de la ventana */
+}
+
+/* Titulo del Modal */
+#customized-dialog-title {
+    margin-left: -30px !important;
+}
+
+/* Estilo para el boton */
+.container-botones {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+    /* Puedes ajustar el margen según sea necesario */
+}
+
+/* Estilo para lo que esta dentro del boton */
+
+.dialog-text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.inputt {
+    position: relative !important;
+    top: -20px;
+}
+
+.contenedor-tabla-sanciones {
+    /* Establece la altura máxima y habilita el desplazamiento vertical si es necesario */
+    max-height: 80vh;
+    overflow-y: auto;
+    /* Puedes usar 'scroll' en lugar de 'auto' si siempre quieres mostrar la barra de desplazamiento */
+    /* Otros estilos para el contenedor si es necesario */
+}
+
+/* Estio del dialogo */
+.dialog-text {
+    font-size: 15px !important;
+    padding-bottom: 40px !important;
+}
+
+.css-13cymwt-control {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: default;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    min-height: 38px;
+    outline: 0!important;
+    position: relative;
+    -webkit-transition: all 100ms;
+    transition: all 100ms;
+    background-color: hsl(0, 0%, 100%);
+    border-color: hsl(0, 0%, 80%);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    max-width: 340px;
+}
+
+.css-1nmdiq5-menu {
+    top: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
+    margin-bottom: 8px;
+    margin-top: 8px;
+    box-sizing: border-box;
+    max-width: 340px;
+}
+
+.css-t3ipsp-control {
+    max-width: 340px !important;
+}
+
+.pregunta {
+    font-size: 15px !important;
+    margin-top: 15px !important;
+}
+
+/* Estilo de los imputs de nueva sancion y tiempo de sancion */
