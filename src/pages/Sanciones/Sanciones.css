@@ -34,3 +34,11 @@
     position: relative !important;
     top: -20px;
 }
+
+.contenedor-tabla-sanciones {
+    /* Establece la altura máxima y habilita el desplazamiento vertical si es necesario */
+    max-height: 80vh;
+    overflow-y: auto;
+    /* Puedes usar 'scroll' en lugar de 'auto' si siempre quieres mostrar la barra de desplazamiento */
+    /* Otros estilos para el contenedor si es necesario */
+}

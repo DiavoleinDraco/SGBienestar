@@ -210,12 +210,16 @@ export default function Sanciones() {
       <p style={{ fontSize: "30px", margin: "0", color: "#fff" }}>Sanciones</p>
 
       <div
+        className="contenedor-tabla-sanciones"
         style={{
           border: "1px solid black",
           borderRadius: "10px",
           height: "80%",
           background: "rgba(255, 255, 255, 0.5)",
           padding: "10px",
+          width:"70%",
+          top:"10px",
+          position:"relative"
         }}
       >
         {" "}
