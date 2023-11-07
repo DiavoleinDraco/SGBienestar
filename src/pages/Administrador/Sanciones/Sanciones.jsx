@@ -244,6 +244,7 @@ export default function Sanciones() {
       </div>
 
       <BootstrapDialog
+        style={{background: 'rgba(0,0,0,0.2)'}}
         onClose={handleCloseCrear}
         aria-labelledby="customized-dialog-title"
         open={openDialogoCrear}
@@ -307,7 +308,7 @@ export default function Sanciones() {
               }}
             >
 
-              <p style={{ marginLeft: "-166px" }}>Número de Documento</p>
+              <p style={{ marginLeft: "-100px" }}>Número de Documento</p>
             </div>
             <input
               style={{ width: "80%", height: "30px", fontSize: "15px" }}
@@ -386,21 +387,10 @@ export default function Sanciones() {
           </div>
 
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginBottom: "10px",
-              width: "100%"
-            }}
-          >
-
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <p style={{ marginLeft: "-166px" }}>Nueva sanción</p>
-            </div>
-            <Textfield
-              className="son-codigo"
+          <div style={{ marginBottom: "10px", width: "100%" }}>
+            <p style={{ marginRight: "230px" }}>Nueva sanción</p>
+            <input
+             
               name=""
               onChange={(value) => handleSanciones("description", value)}
             />
@@ -432,8 +422,8 @@ export default function Sanciones() {
                   marginLeft: "-30px",
                 }}
               >
-                <Textfield
-                  className="son-codigo"
+                <input
+                 
                   name=""
                   onChange={(value) => handleSanciones("duracion", value)}
                 />

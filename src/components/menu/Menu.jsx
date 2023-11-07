@@ -385,6 +385,26 @@ export default function Menu() {
                 <ListItemText primary='Usuarios' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/solicitudes')}}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 3.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <PeopleAltIcon />
+                </ListItemIcon>
+                <ListItemText primary='Solicitudes' sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/sanciones')}}>
               <ListItemButton
                 sx={{
