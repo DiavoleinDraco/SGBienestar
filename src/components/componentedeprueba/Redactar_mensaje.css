@@ -1,55 +1,36 @@
-/* ComposeBar.css */
-
-.compose-bar {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 400px;
-    border: 1px solid #ccc;
-    padding: 10px;
+/* Estilos para la Redacción de Correo */
+.compose-bar.redaccion-correo {
     background-color: #fff;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
     border-radius: 5px;
-    margin: 0;
+    padding: 15px;
+  }
+  
+  .compose-bar.redaccion-correo .compose-controls {
     display: flex;
     flex-direction: column;
-}
-
-.compose-controls {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-}
-
-.compose-button {
-    background-color: #007bff;
-    color: #fff;
+  }
+  
+  .compose-bar.redaccion-correo .compose-input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+  }
+  
+  .compose-bar.redaccion-correo .compose-button {
+    background-color: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 3px;
-    padding: 5px 10px;
-    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-}
-
-.compose-button:hover {
-    background-color: #0056b3;
-}
-
-.compose-textarea {
-    border: 1px solid #ccc;
+  }
+  
+  .compose-bar.redaccion-correo .compose-textarea {
+    width: 100%;
     padding: 10px;
-    border-radius: 3px;
-    font-size: 16px;
-    resize: none;
-    min-height: 100px;
-    flex-grow: 1;
-    margin-bottom: 10px;
-}
-
-.compose-input {
+    margin: 10px 0;
     border: 1px solid #ccc;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 16px;
-    max-width: 100%; /* Limita el ancho máximo al 100% del cuadro */
-}
+    border-radius: 5px;
+  }
+  

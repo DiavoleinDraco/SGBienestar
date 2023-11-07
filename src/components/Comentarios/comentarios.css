@@ -1,0 +1,78 @@
+/* Estilos para el Chat Widget */
+.compose-bar.chat-widget {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .compose-bar.chat-widget .compose-controls {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .compose-bar.chat-widget .compose-input {
+    width: 70%;
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  .compose-bar.chat-widget .compose-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .compose-bar.chat-widget .compose-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+/* Estilos para el contenedor principal dentro del Popper */
+.popper-content-container {
+    width: 300px; /* Ajusta el ancho según tus necesidades */
+    background-color: #fff; /* Color de fondo blanco */
+    border-radius: 10px; /* Esquinas redondeadas */
+    padding: 20px; /* Ajusta el padding según tus necesidades */
+    position: relative;
+  }
+  
+  /* Estilos para el botón de cerrar (X) */
+  .close-button {
+    position: absolute;
+    top: 10px; /* Ajusta la posición superior según tus necesidades */
+    right: 10px; /* Ajusta la posición derecha según tus necesidades */
+    cursor: pointer;
+  }
+  
+  /* Estilos para el área morada en la parte superior */
+  .purple-area {
+    background-color: #7E57C2; /* Color morado */
+    height: 40px; /* Ajusta la altura según tus necesidades */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: relative;
+  }
+  
+  /* Estilos para el área de ComposeBar */
+  .compose-bar-area {
+    height: 300px; /* Ajusta la altura según tus necesidades */
+    padding: 10px; /* Ajusta el padding según tus necesidades */
+  }
+  
+  /* Estilos para el cuadro de comentarios */
+  .comment-box {
+    background-color: #F3F3F3; /* Color de fondo para el cuadro de comentarios */
+    padding: 10px; /* Ajusta el padding según tus necesidades */
+    position: absolute;
+    bottom: 10px; /* Ajusta la posición inferior según tus necesidades */
+    left: 10px; /* Ajusta la posición izquierda según tus necesidades */
+    width: calc(100% - 20px); /* Ajusta el ancho según tus necesidades */
+  }
+  

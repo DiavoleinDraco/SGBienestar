@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Redactar_mensaje.css';
 import get, { getParametre, post } from "../../UseFetch.js";
-import { Menu } from '@mui/material';
+import { Autocomplete } from '@mui/material';
 
-export default function ComposeBar({ onClose }) { // Define onClose como una prop
+
+
+export default function ComposeBar({
+  onClose,
+  style = 'redaccion-correo',
+  showRecipientInput = false,
+  showAsunto = false, // Nueva prop para controlar la visibilidad del campo "Asunto"
+  recipient: initialRecipient = '',
+  endpoint = '/mail/admin'
+}) {
   const [message, setMessage] = useState('');
-  const [recipient, setRecipient] = useState('');
+  const [recipient, setRecipient] = useState(initialRecipient);
   const [subject, setSubject] = useState('');
   const [isComposeOpen, setIsComposeOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isMessageSent, setIsMessageSent] = useState(false);
+
+  
+
+
   const handleMessageChange = (e) => {
     const { name, value } = e.target;
     if (name === 'recipient') {
@@ -21,33 +34,25 @@ export default function ComposeBar({ onClose }) { // Define onClose como una pro
     }
   }
 
-  const handleDescartar = () => {
-    setRecipient('');
-    setMessage('');
-    setSubject('');
-    setIsComposeOpen(false);
-    if (onClose) {
-      onClose(); // Llama a la función onClose para cerrar la ventana en el componente Mensajes
-    }
-  }
 
-  const handleGuardarComoBorrador = () => {
-    // Realiza la lógica para guardar como borrador si es necesario
-    setRecipient('');
-    setMessage('');
-    setSubject('');
-    setIsComposeOpen(false);
-    if (onClose) {
-      onClose(); // Llama a la función onClose para cerrar la ventana en el componente Mensajes
-    }
-  }
+  const handleDescartar = async () => {
 
+    if (onClose) {
+      onClose();
+    } 
+    setIsComposeOpen(false);
+  }
 
   const handleSendMessage = () => {
+    // Verificar si alguno de los campos está vacío
+    if (!recipient || !message || !subject) {
+      alert('Por favor, completa todos los campos antes de enviar el mensaje.');
+      return;
+    }
+  
     setIsLoading(true);
-    post('/mail/admin', { mensaje: message, correo: recipient, asunto: subject })
+    post(endpoint, { mensaje: message, correo: recipient, asunto: subject })
       .then((response) => {
-        console.log(message, recipient, subject);
         alert('Mensaje enviado a ' + recipient + ': ' + message);
         setIsMessageSent(true);
         closeComposeBar();
@@ -59,43 +64,51 @@ export default function ComposeBar({ onClose }) { // Define onClose como una pro
         setIsLoading(false);
       });
   }
-
+  const handleUsuario = (value) => {
+    console.log(value)
+  }
   const closeComposeBar = () => {
     setIsComposeOpen(false);
     if (onClose) {
       onClose();
     }
-    window.location.reload(); // Actualizar la página al cerrar la ventana emergente
+    window.location.reload();
   }
 
+
   return (
-    <div className={`compose-bar ${isComposeOpen ? 'open' : 'closed'}`}>
+
+    <div className={`compose-bar ${style} ${isComposeOpen ? 'open' : 'closed'}`}>
+
       <div className="compose-controls">
-        <input
-          type="email"
-          name="recipient"
-          placeholder="Correo del destinatario"
-          value={recipient}
-          onChange={handleMessageChange}
-          className="compose-input"
-        />
-        <input
-          type="text"
-          name="subject"
-          placeholder="Asunto"
-          value={subject}
-          onChange={handleMessageChange}
-          className="compose-input"
-        />
+        {showRecipientInput && (
+          <input
+            type="email"
+            name="recipient"
+            placeholder="Correo del destinatario"
+            value={recipient}
+            onChange={handleMessageChange}
+            className="compose-input"
+          />
+        )}
+        {showAsunto && (
+          <input
+            type="text"
+            name="subject"
+            placeholder="Asunto"
+            value={subject}
+            onChange={handleMessageChange}
+            className="compose-input"
+          />
+        )}
         <button className="compose-button" onClick={handleSendMessage} disabled={isLoading || isMessageSent}>
           Enviar
         </button>
-        <button className="compose-button" onClick={handleGuardarComoBorrador} disabled={isLoading || isMessageSent}>
-          Guardar como borrador
-        </button>
-        <button className="compose-button" onClick={handleDescartar} disabled={isLoading || isMessageSent}>
-          Descartar
-        </button>
+        {onClose && ( // Solo muestra el botón "Descartar" si se proporciona la función "onClose"
+          <button className="compose-button" onClick={handleDescartar} disabled={isLoading || isMessageSent}>
+            Descartar
+          </button>
+        )}
       </div>
       {isLoading && <p>Enviando mensaje...</p>}
       {isMessageSent && <p>Mensaje enviado con éxito.</p>}
