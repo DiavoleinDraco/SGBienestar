@@ -108,7 +108,7 @@ body {
 }
 
 
- h1{
+.titulo-registro{
   flex-grow: 1;
   color: #3c1263;
   font-size: 50px !important;
@@ -431,7 +431,7 @@ ul.slider li:target {
 
   
 }
- h1{
+ .titulo-registro{
   flex-grow: 1;
   color: #3c1263;
   font-size: 40px !important;

@@ -259,7 +259,7 @@ export default function Menu() {
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex',}}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -275,15 +275,6 @@ export default function Menu() {
           >
             <MenuIcon />
           </IconButton>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Buscar…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Button vsize="large"
@@ -378,6 +369,7 @@ export default function Menu() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
+                    color:"#fff",
                   }}
                 >
                   <PeopleAltIcon />
@@ -398,6 +390,7 @@ export default function Menu() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
+                    color:"#fff",
                   }}
                 >
                   <WarningAmberIcon />
@@ -418,6 +411,7 @@ export default function Menu() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
+                    color:"#fff",
                   }}
                 >
                   <WarningAmberIcon />
@@ -438,6 +432,7 @@ export default function Menu() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
+                    color:"#fff",
                   }}
                 >
                   <InboxIcon />
@@ -458,6 +453,7 @@ export default function Menu() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
+                    color:"#fff",
                   }}
                 >
                   <InboxIcon />
@@ -480,6 +476,7 @@ export default function Menu() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
+                    color:"#fff",
                   }}
                 >
                   <SettingsIcon />
@@ -501,6 +498,7 @@ export default function Menu() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
+                    color:"#fff",
                   }}
                 >
                   <InboxIcon />
@@ -509,7 +507,7 @@ export default function Menu() {
               </ListItemButton>
             </ListItem>
       </Drawer>
-      <Box component="main" sx={{  position: 'relative', width: '200px'}}>
+      <Box component="main" sx={{  position: 'relative', width: '200px',}}>
         <DrawerHeader />
       </Box>
     </Box>

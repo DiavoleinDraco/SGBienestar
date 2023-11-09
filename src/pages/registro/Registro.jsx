@@ -279,7 +279,7 @@ export default function Registro() {
       </div>
       <form className="form">
         <div className="title">
-          <h1>REGISTRATE</h1>
+          <h1 className="titulo-registro">REGISTRATE</h1>
         </div>
         <ul className="slider">
           <li id="slide1">

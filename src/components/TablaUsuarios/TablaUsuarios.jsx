@@ -16,6 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Toolbar from '@mui/material/Toolbar';
+import './TablaUsuarios.css'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -29,6 +30,8 @@ const Search = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
     width: 'auto',
+
+    
   },
 }));
 
@@ -40,6 +43,8 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  width:"50px",
+  background:"red",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -119,7 +124,7 @@ export default function TablaUsarios() {
   
   function encabezado() {
     return (
-      <TableRow className=''>
+      <TableRow className='cont-table'>
         {columns.map((column) => (
           <TableCell
             key={column.dataKey}
@@ -135,9 +140,10 @@ export default function TablaUsarios() {
           variant="head"
           sx={{
             backgroundColor: 'background.paper',
+            
           }}
         >
-          sancionar
+          
         </TableCell>
       </TableRow>
     );
@@ -185,10 +191,10 @@ export default function TablaUsarios() {
   console.log('dataaaa:' , data)
 
   return (
-    <Paper style={{ height: 400, width: '890px', position:"relative", left:"90px"}}>
-      <Toolbar>
-        <Search>
-          <SearchIconWrapper>
+    <Paper style={{ height: 920, width: '100%', background:"red", outline:"1px solid black",display:"flex",flexDirection:"column"}}>
+      <Toolbar className='cont-busc'>
+        <Search className='buscador'>
+          <SearchIconWrapper className='searc'>
             <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase 
