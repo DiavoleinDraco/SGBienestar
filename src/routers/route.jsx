@@ -13,7 +13,7 @@ import jwtDecode from 'jwt-decode';
 import Mensajes from '../pages/Administrador/mensajes/mensajes';
 import MensajeDetalle from '../pages/mensajes_detalles/mensajes_detalles';
 import Inventario from '../pages/Administrador/Inventario/Inventario';
-
+import Solicitudes from '../pages/Administrador/Solicitudes/Solicitudes';
 
 
 export function LasRutas() {
@@ -31,8 +31,9 @@ export function LasRutas() {
         <Route path="/informes" element={<Informes/>} />
         <Route path="/mensajes" element={<Mensajes />} />
         <Route path="/inventario" element={<Inventario />} />
-        <Route path="/mensajes/:messageId" element={<MensajeDetalle />} 
-        />
+        <Route path="/mensajes/:messageId" element={<MensajeDetalle />} />
+        <Route path="/solicitudes" element={<Solicitudes />} />
+      
       </Routes>
     </Router>
   );

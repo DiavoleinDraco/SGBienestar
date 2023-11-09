@@ -2,6 +2,7 @@
     border: 1px solid #ccc; /* Borde del cuadro */
     padding: 20px; /* Espaciado interno */
     margin-bottom: 20px; /* Margen inferior para separar del contenido debajo */
+    height: 400px;
   }
 
   .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
@@ -9,4 +10,8 @@
     background-color: white !important;
     position: relative;
    
+}
+
+.contenedorsito {
+  margin-right: 800px;
 }

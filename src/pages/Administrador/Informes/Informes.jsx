@@ -25,7 +25,7 @@ import MuiAlert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import { forwardRef } from "react";
 import Snackbar from "@mui/material/Snackbar";
-
+import jwtDecode from "jwt-decode";
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -62,7 +62,12 @@ export default function Informes () {
      
 
     });
-    
+    const token = localStorage.getItem("token")
+    const almacenar= jwtDecode(token)
+    console.log(almacenar)
+
+    const nombrecompleto= almacenar.nombre + " " + almacenar.apellidos
+
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -126,12 +131,24 @@ export default function Informes () {
     }))
   
 
+//__________________USUARIO_______________________________
+
   const encabezadoImplemento = () => (
     <div className='container-Informes'>
-      <Textfield 
-      name="Nombre del Funcionario" 
+
+
+
+      <div className="contenedorsito">
+      <p style={{ marginLeft: "-172px" }}>Nombre del Funcionario:</p>
+      <div style={{position:'relative', top: '-40px', left : '90px'}}>
+      <input
+      
+      name="" 
+      value= {nombrecompleto} 
       onChange={(value) => handleInformeDataChange("nombreFuncionario", value)}
       />
+      </div>
+      </div>
       <Textfield 
       inicial='Bienestar'
       name="Dependencia" 
@@ -143,6 +160,17 @@ export default function Informes () {
         </div>
     </div>
   );
+
+/*
+
+
+
+
+
+
+*/
+
+
 
   
   const handleInformeDataChange = (fieldName, value, index, subfield) => {
@@ -299,6 +327,7 @@ export default function Informes () {
               />
             </>
           );
+
         case 'Informe de Usuario':
           return (
             <>
@@ -306,12 +335,18 @@ export default function Informes () {
               {encabezadoContentImplemento}
             </>
           );
+
+
+//______________ SANCIONES_______
+
+
         case 'Informe de Sanciones':
           return (
             <>
               <h2>hola san</h2>
               {encabezadoContentImplemento}
-              <ComSelect nombre="Estado" items={['Activo', 'Inactivo', 'Todos']} />
+              <ComSelect nombre="Estado" 
+              items={['Activo', 'Inactivo', 'Todos']} />
             </>
           );
         default:
@@ -322,6 +357,8 @@ export default function Informes () {
   };
 
 
+
+//____________________________________________
 
     return (
       <Box sx={{ display: 'block', position: 'relative', left: '200px'}}>
