@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../pages/home/Home'
 import Registro from '../pages/registro/Registro'
@@ -14,6 +13,7 @@ import Mensajes from '../pages/Administrador/mensajes/mensajes';
 import MensajeDetalle from '../pages/mensajes_detalles/mensajes_detalles';
 import Inventario from '../pages/Administrador/Inventario/Inventario';
 import Solicitudes from '../pages/Administrador/Solicitudes/Solicitudes';
+import Prestamos from '../pages/Aprendiz/prestamos/prestamos';
 
 
 export function LasRutas() {
@@ -33,10 +33,8 @@ export function LasRutas() {
         <Route path="/inventario" element={<Inventario />} />
         <Route path="/mensajes/:messageId" element={<MensajeDetalle />} />
         <Route path="/solicitudes" element={<Solicitudes />} />
-      
+        <Route path="/prestamos" element={<Prestamos />} />
       </Routes>
     </Router>
   );
 }
-
-

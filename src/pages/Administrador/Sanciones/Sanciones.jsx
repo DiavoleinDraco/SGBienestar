@@ -24,6 +24,7 @@ import "./Sanciones.css";
 import HistorialSanciones from "../../../components/HistorialSanciones/HistorialSanciones";
 import { useLocation } from "react-router-dom";
 import React, { useEffect } from "react";
+import { style } from "@mui/system";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -63,23 +64,16 @@ export default function Sanciones() {
     await handleEnviarSanciones();
 
     setConfirmDialogOpen(false);
-
   };
 
-
-
-
   const handleCancelAction = () => {
-
     sessionStorage.removeItem("as");
     setConfirmDialogOpen(false);
-    
   };
 
   //___________________________________________
 
   useEffect(() => {
-
     const datosAlmacenados = sessionStorage.getItem("as");
     let datosObjeto = null;
 
@@ -87,7 +81,6 @@ export default function Sanciones() {
       datosObjeto = JSON.parse(datosAlmacenados);
 
       if (datosObjeto.id) {
-
         setOpenDialogoCrear(true);
       }
     }
@@ -98,16 +91,12 @@ export default function Sanciones() {
 
   //_______________________
 
-
-
-
-
   const handleClickOpenCrear = () => {
     setOpenDialogoCrear(true);
   };
   const handleCloseCrear = () => {
     setOpenDialogoCrear(false);
-    sessionStorage.removeItem('as')
+    sessionStorage.removeItem("as");
   };
 
   const Alert = forwardRef(function Alert(props, ref) {
@@ -130,6 +119,8 @@ export default function Sanciones() {
   };
 
   const handleSanciones = (fieldName, value) => {
+    const num = value.target.value
+    console.log(value)
     if (fieldName === "usuario") {
       setIdUsuario(value);
     } else if (fieldName === "description") {
@@ -143,15 +134,17 @@ export default function Sanciones() {
     } else if (fieldName === "estado") {
       setEstadoS(value);
     } else if (fieldName === "duracion") {
-      const parsedValue = parseFloat(value);
+      const parsedValue = parseFloat(num);
       setTiempoS(parsedValue);
     }
   };
 
   const handleEnviarSanciones = async () => {
     console.log(datosObjeto.id);
-    let tiempoEnHoras = parseFloat(tiempoS);
 
+
+    let tiempoEnHoras = parseFloat(tiempoS);
+    console.log(tiempoEnHoras)
     if (unidadTiempo === "Días") {
       tiempoEnHoras *= 24;
     } else if (unidadTiempo === "Meses") {
@@ -167,7 +160,12 @@ export default function Sanciones() {
         ? combinedDescription + ", " + selectedSanciones
         : selectedSanciones;
     }
-
+    console.log({
+      usuario: datosObjeto.id,
+      description: combinedDescription,
+      estado: estadoS,
+      duracion: Math.round(tiempoEnHoras),
+    })
     if (
       !combinedDescription ||
       !estadoS ||
@@ -189,7 +187,6 @@ export default function Sanciones() {
         duracion: Math.round(tiempoEnHoras),
       };
 
-      console.log(data);
 
       try {
         const response = await post("/sanciones", data);
@@ -197,21 +194,43 @@ export default function Sanciones() {
         setDialogOpen(true);
         sessionStorage.removeItem("as");
         console.log("Se ha creado la sanción con éxito");
+        setOpenDialogoCrear(false);
+
       } catch (error) {
         console.error("Error en la solicitud:", error);
       }
     }
-  };
-
-
-
-
+  }
 
 
   return (
     <div className="container-sanciones">
       <Menu></Menu>
-      <p style={{ fontSize: "30px", margin: "0", color: "#fff" }}>Sanciones</p>
+
+      <div className="sanciones-div">
+        <p
+          style={{
+            fontSize: "30px",
+            margin: "0",
+            color: "#000",
+            marginTop: "5px",
+          }}
+        >
+          APARTADO DE SANCIONES <i className="bi bi-person-exclamation"></i>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="34"
+            height="40"
+            fill="currentColor"
+            className="bi bi-person-exclamation"
+            viewBox="0 0 16 16"
+            marginTop="10px"
+          >
+            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5Zm0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z" />
+          </svg>
+        </p>
+      </div>
 
       <div
         className="contenedor-tabla-sanciones"
@@ -223,7 +242,7 @@ export default function Sanciones() {
           padding: "10px",
           width: "70%",
           top: "10px",
-          position: "relative"
+          position: "relative",
         }}
       >
         {" "}
@@ -244,7 +263,7 @@ export default function Sanciones() {
       </div>
 
       <BootstrapDialog
-        style={{background: 'rgba(0,0,0,0.2)'}}
+        style={{ background: "rgba(0,0,0,0.2)" }}
         onClose={handleCloseCrear}
         aria-labelledby="customized-dialog-title"
         open={openDialogoCrear}
@@ -304,14 +323,13 @@ export default function Sanciones() {
                 alignItems: "center",
                 marginBottom: "10px",
                 float: "left",
-                marginRight: "10px"
+                marginRight: "10px",
               }}
             >
-
               <p style={{ marginLeft: "-100px" }}>Número de Documento</p>
             </div>
             <input
-              style={{ width: "80%", height: "30px", fontSize: "15px" }}
+              style={{ width: "90%", height: "30px", fontSize: "15px" }}
               type="text"
               className="inputt"
               value={
@@ -326,7 +344,6 @@ export default function Sanciones() {
               }}
             />
           </div>
-
 
           <div
             style={{
@@ -343,11 +360,10 @@ export default function Sanciones() {
                 marginBottom: "10px",
               }}
             >
-
-              <p style={{ marginLeft: "-172px" }}>Correo Electrónico</p>
+              <p style={{ marginLeft: "-136px" }}>Correo Electrónico</p>
             </div>
             <input
-              style={{ width: "80%", height: "30px", fontSize: "15px" }}
+              style={{ width: "90%", height: "30px", fontSize: "15px" }}
               type="text"
               className="inputt"
               value={
@@ -363,7 +379,6 @@ export default function Sanciones() {
             />
           </div>
 
-
           <div
             style={{
               display: "flex",
@@ -371,9 +386,8 @@ export default function Sanciones() {
               marginBottom: "10px",
             }}
           >
-
             <div style={{ flex: 1, marginLeft: "44px", marginRight: "44px" }}>
-              <p style={{ marginLeft: "-280px" }}>Sanción</p>
+              <p style={{ marginLeft: "-210px" }}>Sanción</p>
               <MultipleSelect
                 options={selectOptions}
                 selectedOptions={selectedOptions}
@@ -386,16 +400,14 @@ export default function Sanciones() {
             </div>
           </div>
 
-
           <div style={{ marginBottom: "10px", width: "100%" }}>
-            <p style={{ marginRight: "230px" }}>Nueva sanción</p>
+            <p style={{ marginRight: "160px" }}>Nueva sanción</p>
             <input
-             
+              style={{ width: "264px", height: "30px" }}
               name=""
               onChange={(value) => handleSanciones("description", value)}
             />
           </div>
-
 
           <div
             style={{
@@ -413,7 +425,7 @@ export default function Sanciones() {
                 marginBottom: "10px",
               }}
             >
-              <p>Tiempo de la sanción</p>
+              <p style={{ marginRight: "110px" }}>Tiempo de la sanción</p>
               <div
                 style={{
                   display: "flex",
@@ -423,11 +435,16 @@ export default function Sanciones() {
                 }}
               >
                 <input
-                 
+                  style={{
+                    width: "50px",
+                    height: "30px",
+                    position: "relative",
+                    left: "28px",
+                  }}
                   name=""
                   onChange={(value) => handleSanciones("duracion", value)}
                 />
-                <div style={{ marginBottom: "14px", marginLeft: "-10px" }}>
+                <div style={{ marginBottom: "14px", marginLeft: "40px" }}>
                   <ComSelect
                     nombre=""
                     items={["Horas", "Días", "Meses"]}
@@ -437,10 +454,13 @@ export default function Sanciones() {
               </div>
             </div>
 
-            <div className="alert-sanciones" style={{ marginTop: "10px", maxWidth:"350px" }}>
+            <div
+              className="alert-sanciones"
+              style={{ marginTop: "10px", maxWidth: "350px" }}
+            >
               {errorMensaje && (
                 <Alert
-                  onClose={() => setErrorMensaje("")}
+                  onClose={() => setErrSorMensaje("")}
                   severity="error"
                   sx={{}}
                 >
