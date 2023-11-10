@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import './ComSelect.css';
 
-export default function ComSelect({ descrip, items, nombre, required, onChange  }) {
+export default function ComSelect({ descrip, items, nombre, required, onChange, inicial  }) {
   const [elementos, setElementos] = React.useState("");
   const [error, setError] = React.useState(false);
 
@@ -33,11 +33,12 @@ export default function ComSelect({ descrip, items, nombre, required, onChange  
           className="comselect"
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={elementos}
+          value={inicial}
           label={nombre}
           onBlur={handleBlur}
           error={error}
           onChange={handleInputChange}
+          defaultValue={''}
         >
           <MenuItem value=""
           className="esto">

@@ -28,16 +28,19 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import ComSelect from '../ComSelect/ComSelect';
 import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Toolbar from '@mui/material/Toolbar';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
+import MuiAlert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import { forwardRef } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import Options from '../Options/Options';
+import BasicAccordion from '../BasicAccordion/BasicAccordion';
+import Dialogos from '../Dialogos/Dialogos';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -90,14 +93,35 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+
 export default function TablaInventario() {
+
     const [implementos, setImplementos] = useState([]);
-    const [editImplemento, setEditImplemento] = useState(null);
+    const [eliminarCat, setEliminarCat] = useState(false);
+    const [eliminarEstado, setEliminarEstado] = useState(false);
+    const [eliminarMarca, setEliminaMarca] = useState(false);
+    const [crearCat, setCrearCat] = useState(false);
+    const [crearEstado, setCrearEstado] = useState(false)
+    const [crearMarca, setCrearMarca] = useState(false)
     const [selectedRowData, setSelectedRowData] = useState(null);
+    const [extraerId, setExtraerId] = useState(null);
+    const [extraerCategory, setExtraerCategory] = useState(null);
+    const [extraerMaterial, setExtraerMaterial] = useState(null);
+    const [extraerTamano, setExtraerTamano] = useState(null);
+    const [extraerMarca, setExtraerMarca] = useState(null);
+    const [extraerEstado, setExtraerEstado] = useState(null);
+    const [extraerCantidadEstado, setExtraerCantidadEstado] = useState(null);
+    const [extraerApto, setExtraerApto] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [deleteImplementos, setDeleteImplementos] = useState(null);
     const [deleteValues, setDeleteValues] = useState({});
     const [open, setOpen] = useState(false);
+    const [openSnack, setOpenSanck] = useState(false);
     const [openEditer, setOpenEditer] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [categoria, setCategoria] = useState([])
@@ -106,9 +130,10 @@ export default function TablaInventario() {
     const [selectedMarca, setSelectedMarca] = useState(null)
     const [estado, setEstado] = useState([])
     const [selectedEstado, setSelectedEstado] = useState(null)
-    const [aptoValue, setAptoValue] = useState(false)
+    const [aptoValue, setAptoValue] = useState('')
     const [selectedImplementoData, setSelectedImplementoData] = useState(null);
     const [crearImplemento, setCrearImplemento] = useState(false);
+    const [implementoEditado, setImplementoEditado] = useState(null);
     const [newImplemento, setNewImplemento] = useState({
       codigo: '',
       nombre: '',
@@ -149,8 +174,7 @@ export default function TablaInventario() {
         ...prevVisibility,
         [columnKey]: !prevVisibility[columnKey],
       }));
-    }
-
+    };
     const ColumnVisibilityControls = () => {
       return (
         <div>
@@ -191,15 +215,103 @@ export default function TablaInventario() {
     TableBody: React.forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
   };
 
-  const handleCreateImplementoClick = () => {
-    setCrearImplemento(true);
+  const createCategoriaClick = () => {
+    setCrearCat(true)
+  };
+  const [NewCategoria, setNewCategoria] = useState({nombre: '', img: 'null'})
+  const handleCreateCategoriaSubmit = async () => {
+    try {
+      const response  = await post('/categoria', NewCategoria);
+      console.log('Se ha creado una nueva Categoría con éxito', response)
+      setNewCategoria({ nombre: '', img: null });
+      createClose();
+    } catch (error) {
+      console.error('Error en la solicitud: ', error)
+    };
   };
 
-  const handleCreateImplementoClose = () => {
-    setCrearImplemento(false);
+  const createEstadoClick = () => {
+    setCrearEstado(true)
+  }
+  const [newEstado, setNewEstado] = useState({estado: ''})
+  const handleCreateEstadoSubmit = async () => {
+    try{
+      const response = await post('/estado-implemento', newEstado)
+      console.log('se ha creado un nuevo estado: ', response)
+      setNewEstado({ estado: ''})
+      createClose()
+    } catch (error) {
+      console.error('Error en la solicitud: ', error)
+    }
   };
 
-//-----------------------categoria-----------------------//
+  const createMarcaClick = () => {
+    setCrearMarca(true)
+  };
+  const eliminarCatClick = () => {
+    setEliminarCat(true)
+  }
+  const eliminarEstadoClick = () => {
+    setEliminarEstado(true)
+  }
+  const eliminarMarcaClick = () => {
+    setEliminaMarca(true)
+  }
+
+  const createClose = () => {
+    setCrearMarca(false)
+    setCrearCat(false)
+    setCrearEstado(false)
+    setEliminaMarca(false)
+    setEliminarCat(false)
+    setEliminarEstado(false)
+  };
+
+  const handleEliminarCat = async (_id) => {
+    try {
+      await eliminar('/categoria/', _id);
+    } catch (error) {
+      console.error('error al eliminar', error)
+    }
+  }
+
+  const [newMarca, setNewMarca] = useState({nombre: ''})
+  const handleCreateMarcaSubmit = async () => {
+    try {
+      const response = await post('/marca', newMarca)
+      console.log('Se ha creado una nueva Marca: ', response)
+      setNewMarca({nombre: ''})
+      createClose()
+    } catch (error) {
+      console.log('Error en la solicitud: ', error)
+    }
+  };
+
+    const menuItems = [
+     { label: <div>
+      <BasicAccordion 
+      titulo={'Crear'}
+      contenido={
+        <div>
+          <button onClick={createCategoriaClick}>Categoría</button>
+          <button onClick={createEstadoClick}>Estado</button>
+          <button onClick={createMarcaClick}>Marca</button>
+        </div>
+      }/>
+     </div>},
+     { label: <div>
+      <BasicAccordion 
+      titulo={'Eliminar'}
+      contenido={
+        <div>
+          <button onClick={eliminarCatClick}>Categoría</button>
+          <button onClick={eliminarEstadoClick}>Estado</button>
+          <button onClick={eliminarMarcaClick}>Marca</button>
+        </div>
+      }/>
+     </div>}
+    ]
+
   useEffect(() => {
     get("/categoria")
       .then((data) => {
@@ -213,12 +325,13 @@ export default function TablaInventario() {
   const handleCategoriaFormSubmit = (selectedCategoria) => {
     const selectedCategoriaOption = selectedIdCat.find(
       (option) => option.label === selectedCategoria
-    );
+    ); 
+
     if (selectedCategoriaOption){
       const selectedInfoCat = selectedCategoriaOption.value;
       const updateInfo = {...newImplemento, categoria: selectedInfoCat};
       setNewImplemento(updateInfo)
-      
+      console.log('hola',selectedInfoCat)
     }
   }
 
@@ -227,9 +340,7 @@ export default function TablaInventario() {
     value: cat['_id']
   }));
 
-  //-----------------------fin Categoria------------------------------//
-
-  //--------------------------------marca----------------------------------//
+  console.log(selectedIdCat)
 
   useEffect(() => {
     get("/marca")
@@ -258,12 +369,8 @@ export default function TablaInventario() {
     value: marca["_id"]
   }))
 
-  //------------------------------fin Marca---------------------------------//
-
   const handleCantidadChange = (event) => {
     const newCantidad = parseInt(event.target.value)
-    console.log('se supone que esta es la cantidad', newCantidad)
-  
     // Verificar si la cadena es un número válido
     if (!isNaN(newCantidad) && newCantidad !== '') {
       setNewImplemento((prevImplemento) => ({
@@ -276,11 +383,10 @@ export default function TablaInventario() {
         ],
       }));
     } else {
-      // Aquí puedes manejar la entrada no válida, por ejemplo, mostrando un mensaje de error
       console.error('La cantidad no es un número válido o está vacía.');
     }
   };
-
+  
   const handleGeneralCantidadChange = (event) => {
     const newCantidad = parseInt(event.target.value, 10);
   
@@ -295,19 +401,15 @@ export default function TablaInventario() {
       console.error('La cantidad debajo de la categoría no es un número válido.');
     }
   };
-  
 
   const handleChangeRadio = (event) => {
     setAptoValue(event.target.value === 'true');
   };
 
-  //--------------------------Estado--------------------------//
-
   useEffect(() => {
     get("/estado-implemento")
       .then((data) => {
         setEstado(data);
-        console.log('Estados: ', data)
       })
       .catch((error) => {
         console.error("Error al encontrart el resultado", error);
@@ -319,7 +421,7 @@ export default function TablaInventario() {
       (option) => option.label === selectedEstado
     );
   
-    if(selectedEstadoOption){ 
+    if (selectedEstadoOption) {
       const selectedInfoEstado = selectedEstadoOption.value;
       setNewImplemento((prevNewImplemento) => ({
         ...prevNewImplemento,
@@ -332,26 +434,36 @@ export default function TablaInventario() {
         ],
       }));
     }
-  }
-
+  };
+  
   const selectedEstadoInfoo = estado.map((data) => ({
     label: data.estado,
     value: data['_id']
   }))
 
-  //------------------------fin Estado--------------------------------//
-
 //----------------------------------------------------------------------------Crear el implemento----//
+const handleCreateImplementoClick = () => {
+  setCrearImplemento(true);
+};
 
+const handleCreateImplementoClose = () => {
+  setCrearImplemento(false);
+};
+
+const handleCloseSnackBar = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      setOpenSanck(false);
+    };
 
 const handleCreateImplementoSubmit = async () => {
     const cantidad = parseInt(newImplemento.estado[0].cantidad);
     if (isNaN(cantidad) || cantidad === '' || cantidad <= 0) {
       console.error('La cantidad no es un número válido o está vacía o es menor o igual a cero');
+      setOpenSanck(true)
       return;
     }
-    
-  // Convierte los campos 'marca' y 'categoria' en cadenas JSON
 
   const data = {
     codigo: newImplemento.codigo,
@@ -362,29 +474,22 @@ const handleCreateImplementoSubmit = async () => {
     cantidad: newImplemento.cantidad,
     img: newImplemento.img,
     estado: newImplemento.estado,
-
-  }
-
+  };
     console.log('INFO DE NUEVOS IMPLEMENTOS', data)
 
     try {
       const response = await post('/implementos', data);
       console.log('Se ha creado un implemento con éxito', response);
-    
       // Actualiza la lista de implementos en el estado local
       const newImplemento = response; // Reemplaza con la estructura real de la respuesta del servidor
       const updatedImplementos = [...implementos, newImplemento]; // Agrega el nuevo implemento a la lista existente
       setImplementos(updatedImplementos);
-    
       // Cierra el diálogo de creación de implemento
       handleCreateImplementoClose();
     } catch (error) {
       console.error('Error en la solicitud: ', error);
-    }
-    window.location.reload();
-    
+    };
   };
-
   //-------------------------- Traer los implementos-------------------------//
   useEffect(() => {
     get('/implementos')
@@ -392,25 +497,28 @@ const handleCreateImplementoSubmit = async () => {
         // Mapear los datos y cambiar '_id' a 'id'
         console.log('Info de impplementos: ', implementosdata)
         const transformedData = implementosdata.map((item) => {
-          const material = item.descripcion.material || 'No especificado';
-        const tamano = item.descripcion.tamano || 'No especificado';
-        const descripcion = `Material: ${material}, Tamaño: ${tamano}`;
-        const estado = item.estado ? item.estado[0].estado : [];
+          const material = item.descripcion.material || null;
+          const tamano = item.descripcion.tamano || null;
+          const descripcion = `Material: ${material}, Tamaño: ${tamano}`;
+          const estado = item.estado ? item.estado[0].estado : null;
+          const cantidadEstado = item.estado[0].cantidad || null;
+          const valueAP = item.estado[0].apto || false
         
-        return {
-          ...item, 
-          id: item._id, 
-          nombre: item.nombre, 
-          categoria: item.categoria[0] ? item.categoria[0].nombre : '',
-          marca: item.marca.nombre,
-          peso: item.descripcion.peso,
-          estado: estado.length > 0 ? estado[0].estado : '',
-          color: item.descripcion.color,
-          detalles: item.descripcion.detalles,
-          descripcion: descripcion
-        }
-      });
-
+          return {
+            ...item, 
+            id: item._id, 
+            nombre: item.nombre, 
+            categoria: item.categoria[0] ? item.categoria[0].nombre : null,
+            marca: item.marca.nombre,
+            peso: item.descripcion.peso,
+            estado: estado.length > 0 ? estado[0].estado : null,
+            cantidadEstado: cantidadEstado,
+            apto: valueAP,
+            color: item.descripcion.color,
+            detalles: item.descripcion.detalles,
+            descripcion: descripcion
+          }
+        });
         setImplementos(transformedData);
       })
       .catch((error) => {
@@ -444,14 +552,12 @@ const handleCreateImplementoSubmit = async () => {
   };
 
   const handleAgreeClick = () => {
-    handleClose(); // Cierra el diálogo al hacer clic en "Agree"
+    handleClose();
     // Agregar aquí la lógica para eliminar el elemento después de confirmar "Agree"
     handleEliminarSancionClick(deleteImplementos);
     console.log('Eliminar implemento con ID: ', deleteImplementos);
   };
 
-
-  
   function encabezado() {
     return (
       <TableRow className=''>
@@ -471,13 +577,13 @@ const handleCreateImplementoSubmit = async () => {
           }
           return null;
         })}
+
          <TableCell
           variant="head"
           sx={{
             backgroundColor: 'background.paper',
           }}
         >
-          Modificar
         </TableCell>
 
         <TableCell
@@ -486,7 +592,6 @@ const handleCreateImplementoSubmit = async () => {
             backgroundColor: 'background.paper',
           }}
         >
-          Eliminar
         </TableCell>
       </TableRow>
     );
@@ -495,39 +600,57 @@ const handleCreateImplementoSubmit = async () => {
   const handleClickOpenDialogEditer = () => {
     setOpenEditer(true);
   };
-
   const handleCloseDialogEditer = () => {
     setOpenEditer(false);
   };
 
   async function actualizarImplemento(imple) {
-    setSelectedImplementoData(imple)
+    setSelectedRowData(imple);
+    setSelectedImplementoData(imple);
+    setExtraerId(imple._id)
+    setExtraerCategory(imple.categoria);
+    setExtraerEstado(imple.estado);
+    setExtraerMarca(imple.marca);
+    setExtraerCantidadEstado(imple.cantidadEstado)
+    setExtraerApto(imple.apto)
     console.log('este es este', imple)
     
-    setNewImplemento({
-      codigo: imple.codigo || '',
-      nombre: imple.nombre || '',
-      marca: imple.marca || [],
-      descripcion: {
-        peso: imple.peso || '',
-        color: imple.color || '',
-        material: imple.descripcion.material || '',
-        detalles: imple.detalles || '',
-        tamano: imple.descripcion.tamano || '',
-      },
-      categoria: imple.categoria || [],
-      cantidad: imple.cantidad || 0,
-      img: imple.img || null,
-      estado: [
-        {
-          estado: imple.estado || '',
-          cantidad: imple.cantidadEstado || 0,
-          apto: imple.apto,
-        },
-      ],
-    });
+    const descri = imple.descripcion;
+    const materialMatch = descri.match(/Material: (.*?),/)
+    const tamanoMatch = descri.match(/Tamaño: (.*?)(?:,|$)/);
+
+    if(materialMatch && materialMatch[1] && tamanoMatch && tamanoMatch[1]){
+    const mate = materialMatch[1].trim();
+    const taman = tamanoMatch[1].trim();
+    setExtraerTamano(taman)
+    setExtraerMaterial(mate)
+    };
     handleClickOpenDialogEditer()
-    setOpenEditer(true);
+  };
+  console.log('apto extraido: ', extraerApto)
+  console.log('ID extraido: ', extraerId)
+
+  async function actualizarPatch(imple) {
+
+    const data = {
+      codigo: newImplemento.codigo,
+      nombre: newImplemento.nombre,
+      marca: newImplemento.marca.toString(),
+      descripcion: newImplemento.descripcion,
+      categoria: newImplemento.categoria,
+      cantidad: newImplemento.cantidad,
+      img: newImplemento.img,
+      estado: newImplemento.estado,
+    }
+    console.log('data de implementos modificados: ', data)
+
+    try {
+      const response = await actualizar('/implementos/', extraerId, data);
+      console.log(`Implemento actualizado con éxito:  ${response}`);
+    } catch (error) {
+      console.error('Error al actualizar el implemento', error);
+    }
+    handleCloseDialogEditer()
   };
 
  function rowContent(_index, row) {
@@ -536,8 +659,8 @@ const handleCreateImplementoSubmit = async () => {
     const searchData = Object.values(row).join(' '); // Concatena todos los valores de la fila en una sola cadena
     if (!searchData.match(searchRegex)) {
       return null; // No muestra la fila si no coincide con el término de búsqueda
-    }
-  }
+    };
+  };
 
   return (
     <React.Fragment>
@@ -551,13 +674,11 @@ const handleCreateImplementoSubmit = async () => {
         }
         return null;
       })}
-
       <TableCell>
         <IconButton onClick={() => actualizarImplemento(row)}>
           <DriveFileRenameOutlineIcon />
         </IconButton>
       </TableCell>
-
       <TableCell>
         <IconButton onClick={() => handleEliminarClick(row.id)}>
           <DeleteIcon />
@@ -582,31 +703,27 @@ const handleCreateImplementoSubmit = async () => {
             />
           </Search>
       </Toolbar>
-      
-      <Popover
+
+      <Options 
+      nombre='Más'
+      menuItems={menuItems}
+      filter={<div>
+         <Popover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}}
+        transformOrigin={{ vertical: 'top', horizontal: 'left'}}>
+
         <div style={{ padding: 16 }}>
           <ColumnVisibilityControls />
         </div>
         Elija la información que desea en su informe.
       </Popover>
-
-      <Tooltip title="Filtrar Tabla">
         <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
-          <FilterListIcon />
+          <FilterListIcon /> Filtrar
         </IconButton>
-      </Tooltip>
+      </div>}/>
       
       <TableVirtuoso
         data={implementos}
@@ -614,24 +731,102 @@ const handleCreateImplementoSubmit = async () => {
         fixedHeaderContent={encabezado}
         itemContent={rowContent}
       />
-       <React.Fragment>
-      <BootstrapDialog
-        onClose={handleCloseDialogEditer}
-        aria-labelledby="customized-dialog-title"
-        open={openEditer}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        Modificar implemento
-        </DialogTitle>
+
+      <Dialogos 
+      opener={open}
+      closer={handleClose}
+      titulo="¿DE VERDAD DESEA ELIMINAR ESTE IMPLEMENTO?"
+      texto='Recuerde que si elimina este implemento no hay forma alguna de recuperarlo... cabe recalcar que si desea puede crear un  nuevo implemento sin necesidad de eliminar uno en especifico.'
+        handle={handleAgreeClick}
+        hacer='Eliminar'
+      />
+      <Dialogos 
+      opener={eliminarCat}
+      closer={createClose}
+      contenido={ <ComSelect 
+        nombre='Categoria'
+        items={selectedIdCat.map((opcion) => opcion.label)}
+        onChange={(value) => handleCategoriaFormSubmit(value)}
+        getOptionLabel={(option) => option.label}
+        value={setSelectedCategory}
+        />}
+        handle={handleCreateCategoriaSubmit}
+        hacer='Eliminar'
+      />
+      <Dialogos 
+      opener={eliminarEstado}
+      closer={createClose}
+      contenido={
+        <ComSelect 
+        nombre='Estado'
+        items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+        onChange={(value) => handleEstadoFormit(value)}
+        getOptionLabel={(option) => option.label}
+        value={setSelectedEstado}
+        />}
+        handle={handleCreateCategoriaSubmit}
+        hacer='Eliminar'
+      />
+      <Dialogos 
+      opener={eliminarMarca}
+      closer={createClose}
+      contenido={
+        <ComSelect 
+          nombre='Marca'
+          items={selectedMarcaInfor.map((opcion) => opcion.label)}
+          onChange={(value) => handleMarcaFormit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectedMarca}
+          />}
+        handle={handleCreateCategoriaSubmit}
+        hacer='Eliminar'
+      />
+
+      <Dialogos 
+      opener={crearCat}
+      closer={createClose}
+      contenido={ <TextField 
+        label='Nombre nueva categoría'
+        type='text'
+        value={NewCategoria.nombre}
+        onChange={(e) => setNewCategoria({ ...NewCategoria, nombre: e.target.value })}
+        />}
+        handle={handleCreateCategoriaSubmit}
+        hacer='Crear'
+      />
+
+      <Dialogos 
+      opener={crearEstado}
+      closer={createClose}
+      contenido={ <TextField 
+        label='Nombre nuevo estado'
+        type='text'
+        value={newEstado.estado}
+        onChange={(e) => setNewEstado({ ...newEstado, estado: e.target.value })}
+        />}
+        handle={handleCreateEstadoSubmit}
+        hacer='Crear'
+      />
+
+      <Dialogos 
+      opener={crearMarca}
+      closer={createClose}
+      contenido={ <TextField 
+        label='Nombre nueva Marca'
+        type='text'
+        value={newMarca.nombre}
+        onChange={(e) => setNewMarca({ ...newMarca, nombre: e.target.value })}
+        />}
+        handle={handleCreateMarcaSubmit}
+        hacer='Crear'
+      /> 
+      <React.Fragment>
+        <BootstrapDialog onClose={handleCloseDialogEditer} aria-labelledby="customized-dialog-title" open={openEditer}>
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">Modificar implemento</DialogTitle>
         <IconButton
           aria-label="close"
           onClick={handleCloseDialogEditer}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
+          sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500],}}
         >
           <CloseIcon />
         </IconButton>
@@ -641,15 +836,15 @@ const handleCreateImplementoSubmit = async () => {
               label="Codigo"
               type="text"
               name="codigo"
-              value={newImplemento.codigo || ''}
-              onChange={(e) => setNewImplemento({ ...newImplemento, codigo: e.target.value })}
+              value={selectedRowData ? selectedRowData.codigo : ''}
+              onChange={(e) => setSelectedRowData({...selectedRowData, codigo: e.target.value})}
             />
             <TextField
               label="Nombre"
               type="text"
               name="nombre"
-              value={newImplemento.nombre || ''}
-              onChange={(e) => setNewImplemento({ ...newImplemento, nombre: e.target.value })}
+              value={selectedRowData ? selectedRowData.nombre : ''}
+              onChange={(e) => setSelectedRowData({...selectedRowData, nombre: e.target.value})}
             />
             <ComSelect 
             nombre='Categoria'
@@ -657,27 +852,29 @@ const handleCreateImplementoSubmit = async () => {
             onChange={(value) => handleCategoriaFormSubmit(value)}
             getOptionLabel={(option) => option.label}
             value={setSelectedCategory}
+            inicial={extraerCategory}
             />
             <TextField
             label="Cantidad"
             type="number"
             name="cantidad"
-            value={newImplemento.cantidad}
-            onChange={handleGeneralCantidadChange}
+            value={selectedRowData ? selectedRowData.cantidad : ''}
+            onChange={(e) => setSelectedRowData({...selectedRowData, cantidad: e.target.value})}
            />
            <TextField
             label="Cantidad Estado"
             type="number"
             name="cantidad"
-            value={newImplemento.estado[0].cantidad}
+            value={extraerCantidadEstado}
             onChange={handleCantidadChange}
            />
-            <ComSelect 
+           <ComSelect 
             nombre='Marca'
             items={selectedMarcaInfor.map((opcion) => opcion.label)}
             onChange={(value) => handleMarcaFormit(value)}
             getOptionLabel={(option) => option.label}
             value={setSelectedMarca}
+            inicial={extraerMarca}
             />
             <ComSelect 
             nombre='Estado'
@@ -685,102 +882,236 @@ const handleCreateImplementoSubmit = async () => {
             onChange={(value) => handleEstadoFormit(value)}
             getOptionLabel={(option) => option.label}
             value={setSelectedEstado}
+            inicial={extraerEstado}
             />
-             <FormControl>
-            <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={aptoValue ? true : false}
+          <div>
+          <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
+            SI
+            <Radio
+              checked={aptoValue === true}
               onChange={handleChangeRadio}
-            >
-              <FormControlLabel value={true} control={<Radio />} label="SI" />
-              <FormControlLabel value={false} control={<Radio />} label="NO" />
-            </RadioGroup>
-          </FormControl>
-
-            <TextField
-              label="Peso"
-              type="text"
-              name="peso"
-              value={newImplemento.descripcion.peso || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  peso: e.target.value,
-                },
-              })}
+              value={extraerApto}
+              name="radio-buttons"
             />
-            <TextField
-              label="Color"
-              type="text"
-              name="color"
-              value={newImplemento.descripcion.color || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  color: e.target.value,
-                },
-              })}
+            NO
+            <Radio
+              checked={aptoValue === false}
+              onChange={handleChangeRadio}
+              value={extraerApto}
+              name="radio-buttons"
             />
-
-            <TextField
-              label="Material"
-              type="text"
-              name="material"
-              value={newImplemento.descripcion.material || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  material: e.target.value,
-                },
-              })}
+          </div>
+          <TextField
+            label="Peso"
+            type="text"
+            name="peso"
+            value={selectedRowData ? selectedRowData.peso: ''}
+            onChange={(e) => setSelectedRowData({...selectedRowData, peso: e.target.value})}
             />
-            <TextField
-              label="Detalles"
-              type="text"
-              name="detalles"
-              value={newImplemento.descripcion.detalles || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  detalles: e.target.value,
-                },
-              })}
+          <TextField
+            label="Color"
+            type="text"
+            name="color"
+            value={selectedRowData ? selectedRowData.color: ''}
+            onChange={(e) => setSelectedRowData({...selectedRowData, color: e.target.value})}
             />
-            <TextField
-              label="Tamano"
-              type="text"
-              name="tamano"
-              value={newImplemento.descripcion.tamano || ''}
-              onChange={(e) => setNewImplemento({
-                ...newImplemento,
-                descripcion: {
-                  ...newImplemento.descripcion,
-                  tamano: e.target.value,
-                },
-              })}
+          <TextField
+            label="Material"
+            type="text"
+            name="material"
+            value={selectedRowData ? extraerMaterial : ''}
+            onChange={(e) => setSelectedRowData({...selectedRowData,material: e.target.value})}
+          />
+          <TextField
+            label="Detalles"
+            type="text"
+            name="detalles"
+            value={selectedRowData ? selectedRowData.detalles: ''}
+            onChange={(e) => setSelectedRowData({...selectedRowData,detalles: e.target.value})}
             />
+          <TextField
+            label="Tamano"
+            type="text"
+            name="tamano"
+            value={selectedRowData ? extraerTamano : ''}
+            onChange={(e) => setSelectedRowData({...selectedRowData, tamano: e.target.value})}
+          />
           </form>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleCloseDialogEditer}>
-            Guardar Cambios
-          </Button>
+          <Button autoFocus onClick={actualizarPatch}>Guardar Cambios</Button>
         </DialogActions>
       </BootstrapDialog>
     </React.Fragment>
-    
+
+      <Dialog open={crearImplemento} onClose={handleCreateImplementoClose}>
+        <DialogTitle>Crear Nuevo Implemento</DialogTitle>
+        <DialogContent>
+          <form>
+            El implemento que va a crear a continuacion debe especificar la cantidad de implementos en dicho estado, si el implemento tiene mas de un estado, tendrá que crear otra vez el implemento pero especificando el otro estado faltante.
+          <TextField
+            label="Codigo"
+            type="text"
+            name="codigo"
+            value={newImplemento.codigo || ''}
+            onChange={(e) => setNewImplemento({ ...newImplemento, codigo: e.target.value })}
+          />
+          <TextField
+            label="Nombre"
+            type="text"
+            name="nombre"
+            value={newImplemento.nombre || ''}
+            onChange={(e) => setNewImplemento({ ...newImplemento, nombre: e.target.value })}
+          />
+          <ComSelect 
+          nombre='Categoria'
+          items={selectedIdCat.map((opcion) => opcion.label)}
+          onChange={(value) => handleCategoriaFormSubmit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectedCategory}
+          />
+          <TextField
+          label="Cantidad"
+          type="number"
+          name="cantidad"
+          value={newImplemento.cantidad}
+          onChange={handleGeneralCantidadChange}
+          />
+          <TextField
+          label="Cantidad Estado"
+          type="number"
+          name="cantidad"
+          value={newImplemento.estado[0].cantidad}
+          onChange={handleCantidadChange}
+          />
+          <ComSelect 
+          nombre='Marca'
+          items={selectedMarcaInfor.map((opcion) => opcion.label)}
+          onChange={(value) => handleMarcaFormit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectedMarca}
+          />
+          <ComSelect 
+          nombre='Estado'
+          items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+          onChange={(value) => handleEstadoFormit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectedEstado}
+          />
+        <div>
+          <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
+            SI
+            <Radio
+              checked={aptoValue === true}
+              onChange={handleChangeRadio}
+              value={true}
+              name="radio-buttons"
+            />
+            NO
+            <Radio
+              checked={aptoValue === false}
+              onChange={handleChangeRadio}
+              value={false}
+              name="radio-buttons"
+            />
+        </div>
+
+          <TextField
+            label="Peso"
+            type="text"
+            name="peso"
+            value={newImplemento.descripcion.peso || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                peso: e.target.value,
+              },
+            })}
+          />
+          <TextField
+            label="Color"
+            type="text"
+            name="color"
+            value={newImplemento.descripcion.color || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                color: e.target.value,
+              },
+            })}
+          />
+
+          <TextField
+            label="Material"
+            type="text"
+            name="material"
+            value={newImplemento.descripcion.material || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                material: e.target.value,
+              },
+            })}
+          />
+          <TextField
+            label="Detalles"
+            type="text"
+            name="detalles"
+            value={newImplemento.descripcion.detalles || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                detalles: e.target.value,
+              },
+            })}
+          />
+          <TextField
+            label="Tamano"
+            type="text"
+            name="tamano"
+            value={newImplemento.descripcion.tamano || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                tamano: e.target.value,
+              },
+            })}
+          />
+        </form>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCreateImplementoClose}>Cancelar</Button>
+          <Button onClick={handleCreateImplementoSubmit}>Enviar</Button>
+        </DialogActions>
+      </Dialog>
+
       <Box sx={{ '& > :not(style)': { m: 1 } }}>
-      <Fab color="secondary" aria-label="add" onClick={handleCreateImplementoClick}>
-        <AddIcon />
-      </Fab>
+        <Fab color="secondary" aria-label="add" onClick={handleCreateImplementoClick}>
+          <AddIcon />
+        </Fab>
       </Box>
 
+      <Stack>
+      <Snackbar
+        className="Snackbar-contraseña"
+        open={openSnack}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert
+          onClose={handleCloseSnackBar}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          Cantidad inválida
+        </Alert>
+      </Snackbar>
+    </Stack>
     </Paper>
   );
 };
