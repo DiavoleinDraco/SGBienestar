@@ -14,6 +14,8 @@ import MensajeDetalle from '../pages/mensajes_detalles/mensajes_detalles';
 import Inventario from '../pages/Administrador/Inventario/Inventario';
 import Solicitudes from '../pages/Administrador/Solicitudes/Solicitudes';
 import Prestamos from '../pages/Aprendiz/prestamos/prestamos';
+import Board from '../pages/Aprendiz/Board_Aprendiz/Board_Aprendiz.jsx';
+import Implementos from '../pages/Aprendiz/Implementos/Implementos.jsx';
 
 
 export function LasRutas() {
@@ -34,6 +36,8 @@ export function LasRutas() {
         <Route path="/mensajes/:messageId" element={<MensajeDetalle />} />
         <Route path="/solicitudes" element={<Solicitudes />} />
         <Route path="/prestamos" element={<Prestamos />} />
+        <Route path="/aprendiz" element={<Board />} />
+        <Route path="/implementos" element={<Implementos />} />
       </Routes>
     </Router>
   );

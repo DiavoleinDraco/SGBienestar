@@ -62,6 +62,7 @@ export default function Options({ nombre, menuItems, filter }) {
   };
 
   return (
+    <>
     <div>
       <Button
         id="demo-customized-button"
@@ -85,7 +86,7 @@ export default function Options({ nombre, menuItems, filter }) {
         onClose={handleClose}
       >
         {menuItems.map((item) => (
-          <MenuItem key={item}  disableRipple>
+          <MenuItem key={item.id}  disableRipple>
             {item.label}
           </MenuItem>
         ))}
@@ -94,7 +95,7 @@ export default function Options({ nombre, menuItems, filter }) {
       {filter}
       </MenuItem>
       </StyledMenu>
-     
     </div>
+    </>
   );
 };

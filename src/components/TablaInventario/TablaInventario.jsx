@@ -100,8 +100,13 @@ const Alert = forwardRef(function Alert(props, ref) {
 
 
 export default function TablaInventario() {
-
     const [implementos, setImplementos] = useState([]);
+    const [reloadData, setReloadData] = useState(false);
+    const [errorrType, setErrorType] = useState({});
+    const [errorMensaje, setErrorMensaje] = useState(null);
+    const [cat, setCat] = useState('');
+    const [est, setEst] = useState('');
+    const [marc, setMarc] = useState('');
     const [eliminarCat, setEliminarCat] = useState(false);
     const [eliminarEstado, setEliminarEstado] = useState(false);
     const [eliminarMarca, setEliminaMarca] = useState(false);
@@ -214,37 +219,6 @@ export default function TablaInventario() {
     TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
     TableBody: React.forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
   };
-
-  const createCategoriaClick = () => {
-    setCrearCat(true)
-  };
-  const [NewCategoria, setNewCategoria] = useState({nombre: '', img: 'null'})
-  const handleCreateCategoriaSubmit = async () => {
-    try {
-      const response  = await post('/categoria', NewCategoria);
-      console.log('Se ha creado una nueva Categoría con éxito', response)
-      setNewCategoria({ nombre: '', img: null });
-      createClose();
-    } catch (error) {
-      console.error('Error en la solicitud: ', error)
-    };
-  };
-
-  const createEstadoClick = () => {
-    setCrearEstado(true)
-  }
-  const [newEstado, setNewEstado] = useState({estado: ''})
-  const handleCreateEstadoSubmit = async () => {
-    try{
-      const response = await post('/estado-implemento', newEstado)
-      console.log('se ha creado un nuevo estado: ', response)
-      setNewEstado({ estado: ''})
-      createClose()
-    } catch (error) {
-      console.error('Error en la solicitud: ', error)
-    }
-  };
-
   const createMarcaClick = () => {
     setCrearMarca(true)
   };
@@ -258,6 +232,65 @@ export default function TablaInventario() {
     setEliminaMarca(true)
   }
 
+  const createCategoriaClick = () => {
+    setCrearCat(true)
+  };
+  const [NewCategoria, setNewCategoria] = useState({nombre: '', img: 'null'})
+  const handleCreateCategoriaSubmit = async () => {
+    try {
+      if (NewCategoria.nombre === '') {
+        setErrorMensaje('Completa el campo para la creación');
+        setOpenSanck(true);
+      } else {
+        const response = await post('/categoria', NewCategoria);
+        console.log('Se ha creado una nueva Categoría con éxito', response);
+        setNewCategoria({ nombre: '', img: 'null' });
+        createClose();
+      }
+    } catch (error) {
+      console.error('Error en la solicitud: ', error)
+      
+    };
+  };
+
+  const createEstadoClick = () => {
+    setCrearEstado(true)
+  }
+  const [newEstado, setNewEstado] = useState({estado: ''})
+  const handleCreateEstadoSubmit = async () => {
+    try{
+      if(newEstado.estado === ''){
+      setErrorMensaje('Completa el campo para la creación')
+      setOpenSanck(true)
+      } else {
+      const response = await post('/estado-implemento', newEstado)
+      console.log('se ha creado un nuevo estado: ', response)
+      setNewEstado({ estado: ''})
+      createClose()
+      }
+    } catch (error) {
+      console.error('Error en la solicitud: ', error)
+      setOpenSanck(true)
+    }
+  };
+
+  const [newMarca, setNewMarca] = useState({nombre: ''})
+  const handleCreateMarcaSubmit = async () => {
+    try {
+      if(newMarca.nombre === ''){
+        setErrorMensaje('Completa el campo para la creación')
+        setOpenSanck(true)
+      } else {
+        const response = await post('/marca', newMarca)
+        console.log('Se ha creado una nueva Marca: ', response)
+        setNewMarca({nombre: ''})
+        createClose()
+      }
+    } catch (error) {
+      console.log('Error en la solicitud: ', error)
+    }
+  };
+
   const createClose = () => {
     setCrearMarca(false)
     setCrearCat(false)
@@ -267,25 +300,53 @@ export default function TablaInventario() {
     setEliminarEstado(false)
   };
 
-  const handleEliminarCat = async (_id) => {
+  const handleEliminarCat = async () => {
     try {
-      await eliminar('/categoria/', _id);
+      if (cat) {
+        await eliminar('/categoria/', cat);
+        console.log('Categoría eliminada con éxito');
+        createClose()
+        setReloadData(!reloadData);
+      } else {
+        setErrorMensaje('Seleccione una categoría a eliminar')
+        setOpenSanck(true)
+      }
     } catch (error) {
-      console.error('error al eliminar', error)
+      console.error('Error al eliminar la categoría', error);
+    }
+  };
+
+  const handleEliminarMarc = async () => {
+    try {
+      if(marc) {
+        await eliminar('/marca/', marc);
+        console.log('Marca eliminada con éxito');
+        createClose()
+        setReloadData(!reloadData);
+      } else {
+        setErrorMensaje('Seleccione una marca a eliminar')
+        setOpenSanck(true)
+      }
+    } catch (error) {
+      console.error('Error al eliminar la marca', error);
     }
   }
 
-  const [newMarca, setNewMarca] = useState({nombre: ''})
-  const handleCreateMarcaSubmit = async () => {
-    try {
-      const response = await post('/marca', newMarca)
-      console.log('Se ha creado una nueva Marca: ', response)
-      setNewMarca({nombre: ''})
+ const handleEliminarEst = async () => {
+  try {
+    if(est) {
+      await eliminar('/estado-implemento/', est);
+      console.log('Estado eliminado con éxito');
       createClose()
-    } catch (error) {
-      console.log('Error en la solicitud: ', error)
+      setReloadData(!reloadData);
+    } else {
+      setErrorMensaje('Seleccione un estado a eliminar')
+      setOpenSanck(true)
     }
-  };
+  } catch (error) {
+    console.error('Error al eliminar el estado', error);
+  }
+ }
 
     const menuItems = [
      { label: <div>
@@ -320,7 +381,7 @@ export default function TablaInventario() {
       .catch((error) => {
         console.error("Error al encontrart el resultado", error);
       });
-  }, []);
+  }, [reloadData]);
 
   const handleCategoriaFormSubmit = (selectedCategoria) => {
     const selectedCategoriaOption = selectedIdCat.find(
@@ -331,7 +392,7 @@ export default function TablaInventario() {
       const selectedInfoCat = selectedCategoriaOption.value;
       const updateInfo = {...newImplemento, categoria: selectedInfoCat};
       setNewImplemento(updateInfo)
-      console.log('hola',selectedInfoCat)
+      setCat(selectedInfoCat)
     }
   }
 
@@ -340,7 +401,6 @@ export default function TablaInventario() {
     value: cat['_id']
   }));
 
-  console.log(selectedIdCat)
 
   useEffect(() => {
     get("/marca")
@@ -350,7 +410,7 @@ export default function TablaInventario() {
       .catch((error) => {
         console.error("Error al encontrart el resultado", error);
       });
-  }, []);
+  }, [reloadData]);
 
   const handleMarcaFormit = (selectedMarca) => {
     const selectedMarcaOption = selectedMarcaInfor.find(
@@ -361,6 +421,7 @@ export default function TablaInventario() {
       const selectedInfoMarca = selectedMarcaOption.value;
       const updatedInfo = {...newImplemento, marca: selectedInfoMarca }
       setNewImplemento(updatedInfo)
+      setMarc(selectedInfoMarca)
     }
   }
 
@@ -414,7 +475,7 @@ export default function TablaInventario() {
       .catch((error) => {
         console.error("Error al encontrart el resultado", error);
       });
-  }, []);
+  }, [reloadData]);
 
   const handleEstadoFormit = (selectedEstado) => {
     const selectedEstadoOption = selectedEstadoInfoo.find(
@@ -423,6 +484,8 @@ export default function TablaInventario() {
   
     if (selectedEstadoOption) {
       const selectedInfoEstado = selectedEstadoOption.value;
+      setEst(selectedInfoEstado)
+      console.log('Valor de apto en el estado:', aptoValue);
       setNewImplemento((prevNewImplemento) => ({
         ...prevNewImplemento,
         estado: [
@@ -433,6 +496,7 @@ export default function TablaInventario() {
           },
         ],
       }));
+      setAptoValue(aptoValue);
     }
   };
   
@@ -456,10 +520,11 @@ const handleCloseSnackBar = (event, reason) => {
       }
       setOpenSanck(false);
     };
+    
 
 const handleCreateImplementoSubmit = async () => {
     const cantidad = parseInt(newImplemento.estado[0].cantidad);
-    if (isNaN(cantidad) || cantidad === '' || cantidad <= 0) {
+    if (isNaN(cantidad) || cantidad < 0) {
       console.error('La cantidad no es un número válido o está vacía o es menor o igual a cero');
       setOpenSanck(true)
       return;
@@ -476,6 +541,13 @@ const handleCreateImplementoSubmit = async () => {
     estado: newImplemento.estado,
   };
     console.log('INFO DE NUEVOS IMPLEMENTOS', data)
+    const isEmptyField = Object.values(data).some(value => value === '' || value === undefined);
+
+  if (isEmptyField) {
+    setErrorMensaje('Completa todos los campos');
+    setOpenSanck(true);
+    return;
+  }
 
     try {
       const response = await post('/implementos', data);
@@ -490,6 +562,7 @@ const handleCreateImplementoSubmit = async () => {
       console.error('Error en la solicitud: ', error);
     };
   };
+
   //-------------------------- Traer los implementos-------------------------//
   useEffect(() => {
     get('/implementos')
@@ -497,11 +570,11 @@ const handleCreateImplementoSubmit = async () => {
         // Mapear los datos y cambiar '_id' a 'id'
         console.log('Info de impplementos: ', implementosdata)
         const transformedData = implementosdata.map((item) => {
-          const material = item.descripcion.material || null;
+          const material = item.descripcion ? item.descripcion.material || null : null;
           const tamano = item.descripcion.tamano || null;
           const descripcion = `Material: ${material}, Tamaño: ${tamano}`;
           const estado = item.estado ? item.estado[0].estado : null;
-          const cantidadEstado = item.estado[0].cantidad || null;
+          const cantidadEstado = item.estado && item.estado[0] ? item.estado[0].cantidad || null : null;
           const valueAP = item.estado[0].apto || false
         
           return {
@@ -509,9 +582,9 @@ const handleCreateImplementoSubmit = async () => {
             id: item._id, 
             nombre: item.nombre, 
             categoria: item.categoria[0] ? item.categoria[0].nombre : null,
-            marca: item.marca.nombre,
+            marca: item.marca ? item.marca.nombre : null,
             peso: item.descripcion.peso,
-            estado: estado.length > 0 ? estado[0].estado : null,
+            estado: estado ? estado[0].estado : null,
             cantidadEstado: cantidadEstado,
             apto: valueAP,
             color: item.descripcion.color,
@@ -627,8 +700,6 @@ const handleCreateImplementoSubmit = async () => {
     };
     handleClickOpenDialogEditer()
   };
-  console.log('apto extraido: ', extraerApto)
-  console.log('ID extraido: ', extraerId)
 
   async function actualizarPatch(imple) {
 
@@ -687,6 +758,8 @@ const handleCreateImplementoSubmit = async () => {
     </React.Fragment>
   );
 };
+
+console.log('aptovalue: ', aptoValue)
 
   return (
     <Paper style={{ height: 600, width: '1030px', position: 'relative', left: '90px' }}>
@@ -750,7 +823,7 @@ const handleCreateImplementoSubmit = async () => {
         getOptionLabel={(option) => option.label}
         value={setSelectedCategory}
         />}
-        handle={handleCreateCategoriaSubmit}
+        handle={handleEliminarCat}
         hacer='Eliminar'
       />
       <Dialogos 
@@ -764,7 +837,7 @@ const handleCreateImplementoSubmit = async () => {
         getOptionLabel={(option) => option.label}
         value={setSelectedEstado}
         />}
-        handle={handleCreateCategoriaSubmit}
+        handle={handleEliminarEst}
         hacer='Eliminar'
       />
       <Dialogos 
@@ -778,7 +851,7 @@ const handleCreateImplementoSubmit = async () => {
           getOptionLabel={(option) => option.label}
           value={setSelectedMarca}
           />}
-        handle={handleCreateCategoriaSubmit}
+        handle={handleEliminarMarc}
         hacer='Eliminar'
       />
 
@@ -943,13 +1016,11 @@ const handleCreateImplementoSubmit = async () => {
         </DialogActions>
       </BootstrapDialog>
     </React.Fragment>
-
       <Dialog open={crearImplemento} onClose={handleCreateImplementoClose}>
         <DialogTitle>Crear Nuevo Implemento</DialogTitle>
         <DialogContent>
           <form>
-            El implemento que va a crear a continuacion debe especificar la cantidad de implementos en dicho estado, si el implemento tiene mas de un estado, tendrá que crear otra vez el implemento pero especificando el otro estado faltante.
-          <TextField
+            <TextField
             label="Codigo"
             type="text"
             name="codigo"
@@ -991,14 +1062,7 @@ const handleCreateImplementoSubmit = async () => {
           getOptionLabel={(option) => option.label}
           value={setSelectedMarca}
           />
-          <ComSelect 
-          nombre='Estado'
-          items={selectedEstadoInfoo.map((opcion) => opcion.label)}
-          onChange={(value) => handleEstadoFormit(value)}
-          getOptionLabel={(option) => option.label}
-          value={setSelectedEstado}
-          />
-        <div>
+          <div>
           <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
             SI
             <Radio
@@ -1015,7 +1079,13 @@ const handleCreateImplementoSubmit = async () => {
               name="radio-buttons"
             />
         </div>
-
+          <ComSelect 
+          nombre='Estado'
+          items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+          onChange={(value) => handleEstadoFormit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectedEstado}
+          />
           <TextField
             label="Peso"
             type="text"
@@ -1095,7 +1165,6 @@ const handleCreateImplementoSubmit = async () => {
           <AddIcon />
         </Fab>
       </Box>
-
       <Stack>
       <Snackbar
         className="Snackbar-contraseña"
@@ -1108,7 +1177,7 @@ const handleCreateImplementoSubmit = async () => {
           severity="error"
           sx={{ width: "100%" }}
         >
-          Cantidad inválida
+          {errorMensaje || 'Cantidad inválida'}
         </Alert>
       </Snackbar>
     </Stack>

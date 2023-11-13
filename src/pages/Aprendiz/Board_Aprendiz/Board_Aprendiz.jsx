@@ -42,46 +42,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const drawerWidth = 240;
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
-
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -147,7 +107,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function Menu() {
+export default function Board() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [openDialogo, setOpenDialogo] = useState(false);
@@ -194,7 +154,7 @@ export default function Menu() {
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
-    <Menu
+    <Board
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -211,12 +171,12 @@ export default function Menu() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
+    </Board>
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
-    <Menu
+    <Board
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -255,7 +215,7 @@ export default function Menu() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-    </Menu>
+    </Board>
   );
 
   return (
@@ -356,7 +316,7 @@ export default function Menu() {
         </DrawerHeader>
         <Divider />
         <List>
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/usuarios')}}>
+        <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -374,10 +334,10 @@ export default function Menu() {
                 >
                   <PeopleAltIcon />
                 </ListItemIcon>
-                <ListItemText primary='Usuarios' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Implementos' sx={{ opacity: open ? 1 : 0 }} onClick={()=>{navigate('/implementos')}} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/solicitudes')}}>
+            <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -390,14 +350,15 @@ export default function Menu() {
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
+                    color:"#fff",
                   }}
                 >
                   <PeopleAltIcon />
                 </ListItemIcon>
-                <ListItemText primary='Solicitudes' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Préstamos' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/sanciones')}}>
+            <ListItem disablePadding sx={{ display: 'block' }} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -415,10 +376,10 @@ export default function Menu() {
                 >
                   <WarningAmberIcon />
                 </ListItemIcon>
-                <ListItemText primary='Sanciones' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Historial' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/inventario')}}>
+            <ListItem disablePadding sx={{ display: 'block' }} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -435,50 +396,8 @@ export default function Menu() {
                   }}
                 >
                   <WarningAmberIcon />
-                </ListItemIcon>
-                <ListItemText primary='Inventario' sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/Mensajes')}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 3.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"#fff",
-                  }}
-                >
-                  <InboxIcon />
                 </ListItemIcon>
                 <ListItemText primary='Mensajes' sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/informes')}} >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 3.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                    color:"#fff",
-                  }}
-                >
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary='Informes' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
         </List>
@@ -504,8 +423,7 @@ export default function Menu() {
                 <ListItemText primary='Ajustes' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <Divider />
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/admin')}}>
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/aprendiz')}} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -523,7 +441,7 @@ export default function Menu() {
                 >
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary='Volver' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Volver' sx={{ opacity: open ? 1 : 0 }}  />
               </ListItemButton>
             </ListItem>
       </Drawer>
