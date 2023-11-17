@@ -101,7 +101,15 @@ export default function ComposeBar({
             className="compose-input"
           />
         )}
-        <button className="compose-button" onClick={handleSendMessage} disabled={isLoading || isMessageSent}>
+           <textarea
+        name="message"
+        className="compose-textarea"
+        placeholder="Escribe tu mensaje..."
+        value={message}
+        onChange={handleMessageChange}
+      ></textarea>
+      <div className='cont-botton'>
+      <button className="compose-button" onClick={handleSendMessage} disabled={isLoading || isMessageSent}>
           Enviar
         </button>
         {onClose && ( // Solo muestra el botón "Descartar" si se proporciona la función "onClose"
@@ -110,15 +118,9 @@ export default function ComposeBar({
           </button>
         )}
       </div>
+      </div>
       {isLoading && <p>Enviando mensaje...</p>}
       {isMessageSent && <p>Mensaje enviado con éxito.</p>}
-      <textarea
-        name="message"
-        className="compose-textarea"
-        placeholder="Escribe tu mensaje..."
-        value={message}
-        onChange={handleMessageChange}
-      ></textarea>
     </div>
   );
 }

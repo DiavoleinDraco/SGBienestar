@@ -1,4 +1,65 @@
-.cont-table-solicitudes{
+.cont-table-solicitudes {
     top: 20%;
     position: absolute;
+}
+
+/* .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+    background-color: #fff !important;
+    border: 1px solid black !important;
+    color: rgba(0, 0, 0, 0.87);
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    width: 100%;
+    overflow-x: auto;
+    width: 90% !important;
+    height: 80% !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
+
+/* Estilo del boton de aceptar solicitud */
+.css-ke5b6m-MuiButtonBase-root-MuiButton-root {
+    background-color: #3c1263 !important;
+}
+
+/* Estilo del boton de eliminar solicitud */
+.css-180lf2n-MuiButtonBase-root-MuiButton-root {
+    border: 1px solid #ff0000b0 !important;
+    color: #ff0000b0 !important;
+}
+
+.contenedor-tabla-solicitudes {
+    border: 3px solid black;
+}
+
+.cont-table-solicitudes {
+    border: 1px solid black;
+    width: 90% !important;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -38%);
+}
+
+/* Solicitudes Titulo*/
+.contenedor-TitleSoli{
+    background: #00FF0000;
+    width: 90%;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -410%);
+    z-index: 100;
+}
+
+.TitleSoli {
+    color: #fff;
+    display: flex;
+    margin-left: 6%;
 }

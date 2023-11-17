@@ -16,10 +16,11 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import DeleteIcon from '@material-ui/icons/Delete';
 import get, { eliminar } from '../../UseFetch';
+import './Tablacorreo.css'
 
 export default function DataGridProDemo({ Delete, Consulta }) {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
   const [data, setData] = useState([]);
   const [rows, setRows] = useState([]);
   const [highlightedRow, setHighlightedRow] = useState(null);
@@ -31,11 +32,11 @@ export default function DataGridProDemo({ Delete, Consulta }) {
   };
 
   const tableContainerStyle = {
-    width: '80%',
+    width: '100%',
   };
 
   const tableRowStyle = {
-    height: '40px',
+    height: '6vh',
   };
 
   const handleDeleteClick = async (_id) => {
@@ -137,7 +138,7 @@ export default function DataGridProDemo({ Delete, Consulta }) {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={ { label: 'All', value: -1 }}
               colSpan={3}
               count={rows.length}
               rowsPerPage={rowsPerPage}

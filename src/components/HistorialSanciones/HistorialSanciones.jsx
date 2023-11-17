@@ -349,31 +349,12 @@ export default function HistorialSanciones() {
       </Dialog>
 
 
-      <div className="mensaje-de-filas">
-        {selected.length > 0 && (
-          <div>
-            <span style={{ color: "white", margin: "0", padding: "0" }}>
-              {selected.length} Fila(s) seleccionada(s)
-            </span>
-            <IconButton style={{ color: "white" }} onClick={handleDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        )}
-      </div>
+
       <div className="contenedor-table-sanciones">
-        <button
-          style={{ margin: "10px" }}
-          className={`filtro-button ${mostrarSancionesActivas ? "active" : "inactive"
-            }`}
-          onClick={handleToggleFiltro}
-        >
-          Sanciones
-          {mostrarSancionesActivas ? "Activas" : "Inactivas"}
-        </button>
+
 
         <TableContainer component={Paper}>
-          <Toolbar>
+          <Toolbar className="barra-sanciones">
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -385,6 +366,30 @@ export default function HistorialSanciones() {
                 onChange={handleSearchChange}
               />
             </Search>
+            <div className="cont-btn-san-act-inact">
+            <button
+              style={{ margin: "10px" }}
+              className={`filtro-button ${mostrarSancionesActivas ? "active" : "inactive"
+                }`}
+              onClick={handleToggleFiltro}
+            >
+              Sanciones
+              {mostrarSancionesActivas ? " Activas" : " Inactivas"}
+            </button>
+            </div>
+            <div className="mensaje-de-filas">
+              {selected.length > 0 && (
+                <div>
+                  <span style={{ color: "black", margin: "0", padding: "0" }}>
+                    {selected.length} Fila(s) seleccionada(s)
+                  </span>
+                  <IconButton style={{ color: "black" }} onClick={handleDelete}>
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              )}
+            </div>
+            
           </Toolbar>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>

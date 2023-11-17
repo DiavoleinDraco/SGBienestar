@@ -11,6 +11,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import get, { actualizar } from '../../../UseFetch';
 import './Solicitudes.css';
+// importacion de la imagen para el diseño.
+import imagen from "./png.jpg";
 
 
 export default function BasicTable() {
@@ -19,30 +21,30 @@ export default function BasicTable() {
   const [idAprobado, setIdAprobado] = useState("");
   const [idRechazado, setIdRechazado] = useState("");
 
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await get('/prestamos');
         setTableData(data);
-  
+
         const datosGuardados = data;
         console.log("datos de la tabla", datosGuardados);
-  
+
       } catch (error) {
         console.error('Error al obtener datos de la API', error);
       }
     };
-  
+
     fetchData();
   }, []);
-   
 
 
 
-const idAprobadoInicial = null;
-const idRechazadoInicial = null;
+
+  const idAprobadoInicial = null;
+  const idRechazadoInicial = null;
 
 
 
@@ -60,7 +62,7 @@ const idRechazadoInicial = null;
         setIdAprobado(aprobado?._id || idAprobadoInicial);
         setIdRechazado(rechazado?._id || idRechazadoInicial);
 
-        console.log("ID Aprobado:", typeof(idAprobado));
+        console.log("ID Aprobado:", typeof (idAprobado));
         console.log("ID Rechazado:", idRechazado);
 
       } catch (error) {
@@ -70,18 +72,18 @@ const idRechazadoInicial = null;
 
     fetchDataEstado();
   }, [idAprobado, idRechazado]);
-console.log(idAprobado)
+  console.log(idAprobado)
 
 
-  
 
 
-   //____________Actualizar____________
+
+  //_____Actualizar_____
 
 
-   const handleAceptar = async (id) => {
+  const handleAceptar = async (id) => {
     try {
-      console.log('perrolol'+idAprobado)
+      console.log('perrolol' + idAprobado)
       await actualizar("/prestamos/", id, { estado: `${idAprobado}` });
     } catch (error) {
       console.error('Error al actualizar solicitud:', error);
@@ -90,13 +92,13 @@ console.log(idAprobado)
 
   const handleRechazar = async (id) => {
     try {
-      await actualizar("/prestamos/", id, { estado: `${idRechazado}`});
+      await actualizar("/prestamos/", id, { estado: `${idRechazado}` });
     } catch (error) {
       console.error('Error al actualizar solicitud:', error);
     }
   };
 
-   
+
 
 
 
@@ -105,45 +107,50 @@ console.log(idAprobado)
   return (
     <div>
 
-    <Menu></Menu>
+      <div s className="contenedor-table-solicitudes">
+        <Menu></Menu>
+        <div className='contenedor-TitleSoli'>
+        <h2 className='TitleSoli'>Apartado de <br /> Solicitudes</h2>
+        </div>
+        <div className="imagen-sanciones-container">
+          <img className="imagen-sanciones" src={imagen} alt="imagen de pelota" />
+        </div>
+        <TableContainer className='cont-table-solicitudes' component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align='right'>Usuario</TableCell>
+                <TableCell align='right'>Numero de Documento</TableCell>
+                <TableCell align='right'>Nombre del Implemento</TableCell>
+                <TableCell align='right'>Estado de la solicitud</TableCell>
+                <TableCell align='right'> Aprobar solicitud</TableCell>
+                <TableCell align='right'>Rechazar solicitud</TableCell>
 
-    <TableContainer className='cont-table-solicitudes' component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-          <TableCell align='right'>Usuario</TableCell>
-          <TableCell align='right'>Numero de Documento</TableCell>
-          <TableCell align='right'>Nombre del Implemento</TableCell>
-          <TableCell align='right'>Estado de la solicitud</TableCell>
-          <TableCell align='right'> Aprobar solicitud</TableCell>
-          <TableCell align='right'>Rechazar solicitud</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableData.map((row) => (
+                <TableRow
+                  key={row._id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell align="right">{row.usuario.nombres + " " + row.usuario.apellidos}</TableCell>
+                  <TableCell align="right">{row.usuario.n_doc}</TableCell>
+                  <TableCell align="right">{row.usuario.apellidos}</TableCell>
+                  <TableCell align="right">{row.estado.nombre}</TableCell>
+                  <TableCell align="right">{<Button variant="contained" color="success" onClick={() => handleAceptar(row._id)}> Aceptar</Button>}</TableCell>
+                  <TableCell align="right">{<Button variant="outlined" color="error" onClick={() => handleRechazar(row._id)}>Rechazar</Button>}</TableCell>
 
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {tableData.map((row) => (
-            <TableRow
-              key={row._id} 
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell align="right">{row.usuario.nombres + " " + row.usuario.apellidos}</TableCell>
-              <TableCell align="right">{row.usuario.n_doc}</TableCell>
-              <TableCell align="right">{row.usuario.apellidos}</TableCell>
-              <TableCell align="right">{row.estado.nombre}</TableCell>
-              <TableCell align="right">{<Button variant="contained" color="success" onClick={() => handleAceptar(row._id) }> Aceptar</Button> }</TableCell>
-              <TableCell align="right">{ <Button variant="outlined" color="error" onClick={() => handleRechazar(row._id) }>Rechazar</Button> }</TableCell>
-              
-            </TableRow>
-             
-          ))}
+                </TableRow>
 
-        
-        </TableBody>
-      </Table>
-    </TableContainer>
+              ))}
+
+
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
 
     </div>
   );
 }
-
-

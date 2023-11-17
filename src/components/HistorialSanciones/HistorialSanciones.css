@@ -2,40 +2,42 @@
   background-color: rgb(25 118 210 / 50%) !important;
 }
 
-.contenedor-table-sanciones {
-  position: relative;
-  top: 50px;
+/* Estilos del boton de sanciones activas o inactivas */
+.cont-btn-san-act-inact {
+  width: 100%;
 }
 
-/* Estilos del boton */
 .filtro-button {
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   font-size: 16px;
   border-radius: 50px;
+  float: right;
 }
 
 .active {
-  color: #3c1263 !important;
-  background: #f6f6f6 !important;
+  color: #f6f6f6 !important;
+  background: #3c1263 !important;
 }
 
 .inactive {
-  color: #3c1263 !important;
-  background: #f6f6f6 !important;
+  color: #f6f6f6 !important;
+  background: #3c1263 !important;
 }
 
+/* Estilo de las filas seleccionadas */
 .mensaje-de-filas {
   position: absolute;
-  top: 10px; /* Ajusta la posición vertical según sea necesario */
+  top: 0; /* Ajusta la posición vertical según sea necesario */
   left: 50%; /* Centra el mensaje horizontalmente */
   transform: translateX(-50%); /* Centra el mensaje horizontalmente */
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(255, 0, 0, 0);
   color: white;
   padding: 10px;
   border-radius: 5px;
   z-index: 1;
+  height: 65px;
 }
 
 /* Estilo de la barra de busqueda (filtro) */
@@ -47,4 +49,9 @@
   width: 100%;
   border: 1px solid;
   border-radius: 10px;
+}
+
+/* Estilo de la barra en sanciones */
+.barra-sanciones {
+  background: #dadada !important;
 }

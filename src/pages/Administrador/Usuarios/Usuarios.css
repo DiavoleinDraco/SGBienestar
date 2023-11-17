@@ -1,19 +1,26 @@
 #titulouser{
-    width: 49% ;
-    font-size: 3.2em;
-    box-sizing: border-box;
-    align-self: center;
-    color: #0382AC;
+    width: 59%;
+    font-size: 2.9rem;
+    color: #f6f6f6;
     font-family: "questrial";
-    height:150px;
-    /* outline: 1px solid black; */
-
+    position: absolute;
+    z-index: 300 !important;
+   top: 40px !important;
+   left: -430px;
+   
 }
 
-.bi{
-width: 100px;
-transform: translate(15px ,15px);
-height: 85px;
+.cont-img{
+width: 100% !important;
+height: 250px !important;
+}
+.imagen-user{
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+body{
+    background: #f6f6f6 !important;
 }
 
 .css-heg063-MuiTabs-flexContainer {
@@ -22,20 +29,19 @@ height: 85px;
     display: -ms-flexbox;
     display: flex;
     justify-content: space-around;
-    
+   
 }
-body{
-  background: #fff;
-}
+
 /* barra de menu  horizontal  */
 .css-hyum1k-MuiToolbar-root {
-    background:#0382AC;
-    height: 5vh;
+    background:#2c0757 !important;
+    box-shadow: none !important;
+     height: 7vh;
      width: 100%;
 }
 /* barra de menu  vertical  */
 .css-2dum1v-MuiDrawer-docked .MuiDrawer-paper {
-    background:#0382AC;
+    background:#2c0757 !important;
      width: 109px !important;
     color: #fff !important;
 
@@ -45,20 +51,17 @@ body{
     transform: translateY(45px);
 }
 .css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper {
-    background:#0382AC;
+    background:#2c0757 !important;
     color: white;
     display: flex;
-    width: 235px !important;
-    
+    width: 235px !important;  
 }
-
 .css-h4y409-MuiList-root{
     display: flex;
     flex-direction: column;
     height: 500px;
     text-align: center;
     justify-content: space-evenly;
-
 }
 .css-10hburv-MuiTypography-root{
 font-size: 1.5em !important;
@@ -66,22 +69,48 @@ font-family:  questrial !important;
 }
 
 
-
+.css-k008qs {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 50px;
+    top: -60px;
+    position: absolute;
+}
 
 .css-i4bv87-MuiSvgIcon-root {  
 width: 1.7em !important;
 height: 1.7em !important;
  }
 .css-uxa1ks-MuiListItem-root:nth-child(6){
-background: #808653 !important;
+
  }
 /* .css-11xur9t-MuiPaper-root-MuiTableContainer-root{
     background: rebeccapurple !important;
     height: 92% !important;
 } */
+.css-19z1ozs-MuiPaper-root-MuiAppBar-root{
+    box-shadow: none !important;
+}
+.css-1191obr-MuiPaper-root-MuiAppBar-root{
+    box-shadow: none !important;
+}
 
 .MuiBox-root .css-159drnt{
-    background: #e4e7e4;
+    background: #6cbb6c;
   margin: auto;
     width: 110PX;
+}
+
+.css-7mt4h1-MuiInputBase-root {
+    color: #fff !important;
+}
+.css-h4y409-MuiList-root {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    background: #6cbb6c;
+    text-align: center;
+    justify-content: space-evenly;
 }

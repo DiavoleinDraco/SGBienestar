@@ -1,43 +1,57 @@
-
-  
-  /* En tu archivo "mensajes.css" */
+/* En tu archivo "mensajes.css" */
 .mensajes-container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Opcional: ajusta la altura según tus necesidades */
+  background: grey;
+  height: 90vh;
+  position: relative;
+  left: 15%;
+  width: 90%; 
+  margin: 90px auto 40px ;/* Opcional: ajusta la altura según tus necesidades */
 }
 
-.center-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.titulo-mesajes{
+  outline: 1px solid black;
+  position: absolute;
+  top:10%;
 }
-/* En tu archivo "mensajes.css" */
-.mensajes-detalle-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+ç
+.cont-img{
+  width: 100% !important;
+  height: 300px !important;
+  }
+  .imagen-user{
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+  }  
+
+.MuiTable-root{
+  height: 40% !important;
+}
+.MuiTableBody-root{
+  height: 70% !important;
 }
 
-.mensajes-detalle-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
-}
 
-.icon {
-  cursor: pointer;
-  font-size: 24px; /* Tamaño del icono */
-  margin: 0 16px; /* Espaciado entre los iconos */
+.css-13xfq8m-MuiTabPanel-root {
+  width: 100% !important;
 }
-
-.mensajes-detalle-content {
-  flex: 1;
-  padding: 16px;
-  background-color: #fff; /* Fondo blanco */
+.comp{
+  background: rgb(210, 201, 201);
+  border: none;
+  height: 50px !important;
+  width: 50px;
+  padding:15px 3px !important;
+  box-sizing: border-box;
+  border-radius: 200px !important;
+    display: block !important;
+    bottom: 100px;
+    position: fixed;
+    right: 90px;
+    z-index: 9999;
+}
+.bi-send-plus{
+  color: #471069;
+  
 }

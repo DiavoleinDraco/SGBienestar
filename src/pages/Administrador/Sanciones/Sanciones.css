@@ -4,7 +4,6 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* Esto asegura que el contenedor ocupe toda la altura de la ventana */
 }
 
 /* Titulo del Modal */
@@ -21,8 +20,6 @@
     /* Puedes ajustar el margen según sea necesario */
 }
 
-/* Estilo para lo que esta dentro del boton */
-
 .dialog-text-container {
     display: flex;
     justify-content: center;
@@ -36,11 +33,11 @@
 }
 
 .contenedor-tabla-sanciones {
-    /* Establece la altura máxima y habilita el desplazamiento vertical si es necesario */
     max-height: 80vh;
     overflow-y: auto;
-    /* Puedes usar 'scroll' en lugar de 'auto' si siempre quieres mostrar la barra de desplazamiento */
-    /* Otros estilos para el contenedor si es necesario */
+    width: 90% !important;
+    height: 74% !important;
+    margin-top: 40px;
 }
 
 /* Estio del dialogo */
@@ -49,6 +46,7 @@
     padding-bottom: 40px !important;
 }
 
+/* Estilo del multiple select */
 .css-13cymwt-control {
     -webkit-align-items: center;
     -webkit-box-align: center;
@@ -77,7 +75,8 @@
     border-style: solid;
     border-width: 1px;
     box-sizing: border-box;
-    max-width: 340px;
+    width: 380px !important;
+    max-width: 380px;
 }
 
 .css-1nmdiq5-menu {
@@ -91,16 +90,57 @@
     margin-bottom: 8px;
     margin-top: 8px;
     box-sizing: border-box;
-    max-width: 340px;
+    max-width: 380px;
 }
 
 .css-t3ipsp-control {
-    max-width: 340px !important;
+    max-width: 380px !important;
 }
+/* Hasta qui el estilo del MultipleSelect */
 
 .pregunta {
     font-size: 15px !important;
     margin-top: 15px !important;
 }
 
-/* Estilo de los imputs de nueva sancion y tiempo de sancion */
+/* Estilo para la imagen de sanciones */
+.imagen-sanciones-container{
+    background-color: black;
+    width: 90% !important;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -410%);
+    z-index: -10;
+}
+
+.imagen-sanciones {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Estilo para el modal de sanciones */
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2), 0px 24px 38px 3px rgba(0,0,0,0.14), 0px 9px 46px 8px rgba(0,0,0,0.12);
+    margin: 32px;
+    position: relative;
+    overflow-y: auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-height: calc(100% - 64px);
+    width: 500px !important;
+    max-width: 500px !important;
+}

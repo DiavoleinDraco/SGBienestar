@@ -25,6 +25,8 @@ import HistorialSanciones from "../../../components/HistorialSanciones/Historial
 import { useLocation } from "react-router-dom";
 import React, { useEffect } from "react";
 import { style } from "@mui/system";
+// importacion de la imagen para el diseño.
+import imagen from "./png.jpg";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -55,7 +57,7 @@ export default function Sanciones() {
 
   let datosObjeto = null;
 
-  //_________
+  //___
 
   const openConfirmDialog = () => {
     setConfirmDialogOpen(true);
@@ -71,7 +73,7 @@ export default function Sanciones() {
     setConfirmDialogOpen(false);
   };
 
-  //___________________________________________
+  //_______________
 
   useEffect(() => {
     const datosAlmacenados = sessionStorage.getItem("as");
@@ -86,10 +88,10 @@ export default function Sanciones() {
     }
   }, []);
 
-  //_______ Convierte los datos a un objeto si están presentes en el sessionStorage
+  //___ Convierte los datos a un objeto si están presentes en el sessionStorage
   datosObjeto = JSON.parse(datosAlmacenados);
 
-  //_______________________
+  //_________
 
   const handleClickOpenCrear = () => {
     setOpenDialogoCrear(true);
@@ -208,28 +210,23 @@ export default function Sanciones() {
       <Menu></Menu>
 
       <div className="sanciones-div">
+        <div className="title-sanciones">
+          <div className="ti-san-hi">
         <p
           style={{
             fontSize: "30px",
             margin: "0",
-            color: "#000",
+            color: "#fff",
             marginTop: "5px",
           }}
         >
-          APARTADO DE SANCIONES <i className="bi bi-person-exclamation"></i>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="34"
-            height="40"
-            fill="currentColor"
-            className="bi bi-person-exclamation"
-            viewBox="0 0 16 16"
-            marginTop="10px"
-          >
-            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
-            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5Zm0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z" />
-          </svg>
+          APARTADO DE <br /> SANCIONES 
         </p>
+        </div>
+        </div>
+        <div className="imagen-sanciones-container">
+        <img className="imagen-sanciones" src={imagen} alt="imagen de pelota" />
+        </div>
       </div>
 
       <div
@@ -238,10 +235,9 @@ export default function Sanciones() {
           border: "1px solid black",
           borderRadius: "10px",
           height: "80%",
-          background: "rgba(255, 255, 255, 0.5)",
-          padding: "10px",
+          background: "rgba(255, 255, 255)",
           width: "70%",
-          top: "10px",
+          top: "20px",
           position: "relative",
         }}
       >
@@ -326,10 +322,10 @@ export default function Sanciones() {
                 marginRight: "10px",
               }}
             >
-              <p style={{ marginLeft: "-100px" }}>Número de Documento</p>
+              <p style={{ marginLeft: "-180px" }}>Número de Documento</p>
             </div>
             <input
-              style={{ width: "90%", height: "30px", fontSize: "15px" }}
+              style={{ width: "80%", height: "30px", fontSize: "15px" }}
               type="text"
               className="inputt"
               value={
@@ -360,10 +356,10 @@ export default function Sanciones() {
                 marginBottom: "10px",
               }}
             >
-              <p style={{ marginLeft: "-136px" }}>Correo Electrónico</p>
+              <p style={{ marginLeft: "-186px" }}>Correo Electrónico</p>
             </div>
             <input
-              style={{ width: "90%", height: "30px", fontSize: "15px" }}
+              style={{ width: "80%", height: "30px", fontSize: "15px" }}
               type="text"
               className="inputt"
               value={
@@ -387,7 +383,8 @@ export default function Sanciones() {
             }}
           >
             <div style={{ flex: 1, marginLeft: "44px", marginRight: "44px" }}>
-              <p style={{ marginLeft: "-210px" }}>Sanción</p>
+              <p style={{ marginLeft: "-310px" }}>Sanción</p>
+              <div className="cont-mul-sele">
               <MultipleSelect
                 options={selectOptions}
                 selectedOptions={selectedOptions}
@@ -397,13 +394,14 @@ export default function Sanciones() {
                 }
                 className="custom-multiple-select"
               />
+              </div>
             </div>
           </div>
 
           <div style={{ marginBottom: "10px", width: "100%" }}>
-            <p style={{ marginRight: "160px" }}>Nueva sanción</p>
+            <p style={{ marginLeft: "-260px" }}>Nueva sanción</p>
             <input
-              style={{ width: "264px", height: "30px" }}
+              style={{ width: "380px", height: "30px" }}
               name=""
               onChange={(value) => handleSanciones("description", value)}
             />
@@ -425,7 +423,7 @@ export default function Sanciones() {
                 marginBottom: "10px",
               }}
             >
-              <p style={{ marginRight: "110px" }}>Tiempo de la sanción</p>
+              <p style={{ marginLeft: "-210px" }}>Tiempo de la sanción</p>
               <div
                 style={{
                   display: "flex",
@@ -439,12 +437,13 @@ export default function Sanciones() {
                     width: "50px",
                     height: "30px",
                     position: "relative",
-                    left: "28px",
+                    left: "30px",
+                    width:"100px"
                   }}
                   name=""
                   onChange={(value) => handleSanciones("duracion", value)}
                 />
-                <div style={{ marginBottom: "14px", marginLeft: "40px" }}>
+                <div style={{ marginBottom: "14px", marginLeft: "100px" }}>
                   <ComSelect
                     nombre=""
                     items={["Horas", "Días", "Meses"]}

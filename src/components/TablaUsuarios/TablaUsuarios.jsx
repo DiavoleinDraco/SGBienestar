@@ -26,12 +26,13 @@ const Search = styled('div')(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
-  width: '100%',
+  width: '10%',
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
+    marginLeft: theme.spacing(0),
+   
 
-    
+
+   
   },
 }));
 
@@ -43,8 +44,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width:"50px",
-  background:"red",
+ 
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -67,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export function enviarData(datos) {
   console.log('enviar:', data)
-  
+ 
 }
 
 export default function TablaUsarios() {
@@ -90,7 +90,7 @@ export default function TablaUsarios() {
       dataKey: 'correo_inst',
     },
   ];
-  
+ 
   const VirtuosoTableComponents = {
     Scroller: React.forwardRef((props, ref) => (
       <TableContainer component={Paper} {...props} ref={ref} />
@@ -121,7 +121,7 @@ export default function TablaUsarios() {
         console.error("Error al cargar el usuario", usuarioError);
       });
   }, []);
-  
+ 
   function encabezado() {
     return (
       <TableRow className='cont-table'>
@@ -140,10 +140,10 @@ export default function TablaUsarios() {
           variant="head"
           sx={{
             backgroundColor: 'background.paper',
-            
+           
           }}
         >
-          
+         
         </TableCell>
       </TableRow>
     );
@@ -156,10 +156,10 @@ export default function TablaUsarios() {
     sessionStorage.setItem("as",JSON.stringify(data[userData]))
     console.log(sessionStorage.getItem("as"))
     console.log('user:', data[userData]);
-  
+ 
     navigate('/sanciones', { state: { userData } });
   }
-  
+ 
   function rowContent(_index, row) {
 
     if (searchTerm.length > 0) {
@@ -180,7 +180,7 @@ export default function TablaUsarios() {
         ))}
        <TableCell>
           <Buttons
-            nombre='sancionar' 
+            nombre='sancionar'
             onclick={() => handleSancionarClick(_index) }
           />
         </TableCell>
@@ -191,13 +191,13 @@ export default function TablaUsarios() {
   console.log('dataaaa:' , data)
 
   return (
-    <Paper style={{ height: 920, width: '100%', background:"red", outline:"1px solid black",display:"flex",flexDirection:"column"}}>
+    <Paper style={{ height: 939, width: '100%', background:"TRANSPARENT",display:"flex",flexDirection:"column"}}>
       <Toolbar className='cont-busc'>
         <Search className='buscador'>
-          <SearchIconWrapper className='searc'>
+          <SearchIconWrapper className='lupaa'>
             <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase 
+            <StyledInputBase
             placeholder="Buscar usuarios"
             inputProps={{ 'aria-label': 'search' }}
             value={searchTerm}

@@ -1,10 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import TablaUsarios from '../TablaUsuarios/TablaUsuarios';
+import { margin } from '@mui/system';
 
 export default function NavTabs({ tabs }) {
   const [value, setValue] = React.useState(tabs[0].value);
@@ -14,9 +16,9 @@ export default function NavTabs({ tabs }) {
   };
 
   return (
-    <Box sx={{ width: '100%',typography: 'body1', height:"120vh"}}>
+    <Box  sx={{ width:'100%', typography: 'body1', background:"grey", display:"flex",flexDirection:"column"}}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1 ,alignSelf:"center", borderColor: 'divider',width: '100%'}}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', background:"transparent", width: '105%', margin:"auto"}}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             {tabs.map((tab) => (
               <Tab key={tab.value} label={tab.label} value={tab.value} />
