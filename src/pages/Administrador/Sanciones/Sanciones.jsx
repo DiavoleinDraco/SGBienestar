@@ -121,8 +121,8 @@ export default function Sanciones() {
   };
 
   const handleSanciones = (fieldName, value) => {
-    const num = value.target.value
-    console.log(value)
+    const num = value.target.value;
+    console.log(value);
     if (fieldName === "usuario") {
       setIdUsuario(value);
     } else if (fieldName === "description") {
@@ -144,9 +144,8 @@ export default function Sanciones() {
   const handleEnviarSanciones = async () => {
     console.log(datosObjeto.id);
 
-
     let tiempoEnHoras = parseFloat(tiempoS);
-    console.log(tiempoEnHoras)
+    console.log(tiempoEnHoras);
     if (unidadTiempo === "Días") {
       tiempoEnHoras *= 24;
     } else if (unidadTiempo === "Meses") {
@@ -167,7 +166,7 @@ export default function Sanciones() {
       description: combinedDescription,
       estado: estadoS,
       duracion: Math.round(tiempoEnHoras),
-    })
+    });
     if (
       !combinedDescription ||
       !estadoS ||
@@ -189,7 +188,6 @@ export default function Sanciones() {
         duracion: Math.round(tiempoEnHoras),
       };
 
-
       try {
         const response = await post("/sanciones", data);
         setDialogMessage("Se le ha aplicado la sanción a este aprendiz");
@@ -197,13 +195,11 @@ export default function Sanciones() {
         sessionStorage.removeItem("as");
         console.log("Se ha creado la sanción con éxito");
         setOpenDialogoCrear(false);
-
       } catch (error) {
         console.error("Error en la solicitud:", error);
       }
     }
-  }
-
+  };
 
   return (
     <div className="container-sanciones">
@@ -212,35 +208,27 @@ export default function Sanciones() {
       <div className="sanciones-div">
         <div className="title-sanciones">
           <div className="ti-san-hi">
-        <p
-          style={{
-            fontSize: "30px",
-            margin: "0",
-            color: "#fff",
-            marginTop: "5px",
-          }}
+            <p className="title-san">
+              <b>
+                {" "}
+                Apartado de <br /> Sanciones{" "}
+              </b>
+            </p>
+          </div>
+        </div>
+        <div
+          className="imagen-sanciones-container"
+          style={{ background: "#2c0757" }}
         >
-          APARTADO DE <br /> SANCIONES 
-        </p>
-        </div>
-        </div>
-        <div className="imagen-sanciones-container">
-        <img className="imagen-sanciones" src={imagen} alt="imagen de pelota" />
+          <img
+            className="imagen-sanciones"
+            src={imagen}
+            alt="imagen de pelota"
+          />
         </div>
       </div>
 
-      <div
-        className="contenedor-tabla-sanciones"
-        style={{
-          border: "1px solid black",
-          borderRadius: "10px",
-          height: "80%",
-          background: "rgba(255, 255, 255)",
-          width: "70%",
-          top: "20px",
-          position: "relative",
-        }}
-      >
+      <div className="contenedor-tabla-sanciones">
         {" "}
         <HistorialSanciones />
       </div>
@@ -385,15 +373,15 @@ export default function Sanciones() {
             <div style={{ flex: 1, marginLeft: "44px", marginRight: "44px" }}>
               <p style={{ marginLeft: "-310px" }}>Sanción</p>
               <div className="cont-mul-sele">
-              <MultipleSelect
-                options={selectOptions}
-                selectedOptions={selectedOptions}
-                onChange={handleChange}
-                handleSanciones={(value) =>
-                  handleSanciones("description", value)
-                }
-                className="custom-multiple-select"
-              />
+                <MultipleSelect
+                  options={selectOptions}
+                  selectedOptions={selectedOptions}
+                  onChange={handleChange}
+                  handleSanciones={(value) =>
+                    handleSanciones("description", value)
+                  }
+                  className="custom-multiple-select"
+                />
               </div>
             </div>
           </div>
@@ -438,7 +426,7 @@ export default function Sanciones() {
                     height: "30px",
                     position: "relative",
                     left: "30px",
-                    width:"100px"
+                    width: "100px",
                   }}
                   name=""
                   onChange={(value) => handleSanciones("duracion", value)}

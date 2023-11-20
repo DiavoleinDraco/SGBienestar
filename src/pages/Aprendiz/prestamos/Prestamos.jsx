@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
-import get, { post } from "../../../UseFetch";
+import get, { eliminar, post } from "../../../UseFetch";
 import jwtDecode from "jwt-decode";
-import "./Prestamos.css"
+import "./Prestamos.css";
 import Textfield from "../../../components/Textfield/Textfield";
 
 export default function Prestamos() {
   const [implemento, setImplemento] = useState("");
   const [estado, setEstado] = useState("");
-  const [fechaInicio, setFechaInicio] = useState("");
+  const [fechaInicio, setFechaInicio] = useState(new Date()); // Inicializa como objeto Date
   const usuarioid = localStorage.getItem("token");
-  const decode = jwtDecode(usuarioid)
+  const decode = jwtDecode(usuarioid);
+
   useEffect(() => {
     const obtenerIdEstadoPendiente = async () => {
       try {
         const estados = await get("/estado-prestamo");
-        const estadoPendiente = estados.find((estado) => estado.nombre === "Pendiente");
-
-
+        const estadoPendiente = estados.find(
+          (estado) => estado.nombre === "Pendiente"
+        );
 
         if (estadoPendiente) {
           setEstado(estadoPendiente._id);
@@ -30,25 +31,23 @@ export default function Prestamos() {
 
     obtenerIdEstadoPendiente();
 
-    // Obtener y actualizar la fecha de inicio
     const fechaActual = new Date();
-    setFechaInicio(fechaActual.toISOString());
+    setFechaInicio(fechaActual);
   }, []);
 
   const obtenerDatosPrestamo = () => {
-    const fechaActual = new Date();
-    const fechaFin = new Date(fechaActual);
-    fechaFin.setHours(fechaActual.getHours() + 1);
+    const fechaFin = new Date(fechaInicio);
+    fechaFin.setMinutes(fechaFin.getMinutes() + 15);
 
     return {
-      implementos: [],
+      implementos: [implemento],
+      cantidad_implementos: [1],
       usuario: decode.id,
-      fecha_inicio: fechaInicio,
+      fecha_inicio: fechaInicio.toISOString(),
       fecha_fin: fechaFin.toISOString(),
       estado: estado,
     };
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,49 +58,97 @@ export default function Prestamos() {
     }
 
     const data = obtenerDatosPrestamo();
-    console.log(data)
+    console.log(data);
     const response = await post("/prestamos", data);
     console.log(response);
   };
 
+  const prestamo = async () => {
+    try {
+      if (!implemento) {
+        console.error(
+          "Ingrese un ID de implemento válido para eliminar prestamo."
+        );
+        return;
+      }
+
+      const response = await eliminar("/prestamos/", implemento);
+      console.log(response);
+
+      setImplemento("");
+    } catch (error) {
+      console.error("Error al eliminar la prestamo", error);
+    }
+  };
+
   return (
     <div className="contenedor-prestamos">
-
       <h1>Detalles del prestamo</h1>
-      <p>Querido usuario, usted tendra un tiempo de 1 hora para hacer uso del implemento deportivo</p>
-      <p>recuerde devolverlo dentro del horario estipulado, en buenas condiciones y respetando</p>
-      <p>las normas señaladas en las politicas de prestamos designadas por el area de Bienestar</p>
+      <p className="parr-prestamo">
+        Querido usuario, usted tendra un tiempo de 15 minutos para ir a buscar el
+        implemento deportivo, recuerde devolverlo dentro del horario estipulado,
+        en buenas condiciones y respetando las normas señaladas en las politicas
+        de prestamos designadas por el area de Bienestar.
+      </p>
 
-      <div>
-        Usuario: {decode.nombre}
-      </div>
-
-
-      <div>
-        <p>Nombre del Implemento: { }</p>
-      </div>
-
-      <div>
-
-        <p>Detalles: { }</p>
-
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="id-prestamos">
-          <Textfield
-            name="id del implemento"
-            value={implemento}
-            onChange={(value) => setImplemento(value)}
-          />
+      <div className="cot-UND">
+        <div>
+          {" "}
+          <b> Usuario: </b> {decode.nombre}
         </div>
 
         <div>
-          <p>Fecha de generación: {fechaInicio}</p>
+          <p>
+            {" "}
+            <b>Nombre del Implemento:</b> {}
+          </p>
         </div>
 
-        <button type="submit">Confirmar Prestamo</button>
+        <div>
+          <p>
+            {" "}
+            <b>Detalles:</b> {}
+          </p>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <div className="contenedor-inputs">
+          <div className="id-prestamos">
+            <Textfield
+              name="id del implemento"
+              value={implemento}
+              onChange={(value) => setImplemento(value)}
+            />
+          </div>
+
+          <div className="id-prestamos">
+            <Textfield
+              name="id del implemento para borrar"
+              value={implemento}
+              onChange={(value) => setImplemento(value)}
+            />
+          </div>
+        </div>
+
+        <div className="contenedor-btn-prestamos">
+          <button
+            className="btn-prestamo"
+            style={{ marginRight: "10%" }}
+            type="submit"
+          >
+            Confirmar Prestamo
+          </button>
+
+          <button className="btn-prestamo" type="button" onClick={prestamo}>
+            Eliminar Prestamo
+          </button>
+        </div>
+
+        <div>
+          <p>Fecha de generación: {fechaInicio.toLocaleString()}</p>
+        </div>
       </form>
     </div>
   );
 }
-

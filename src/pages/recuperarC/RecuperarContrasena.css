@@ -184,6 +184,7 @@ li {
   opacity: 1;
   z-index: 1;
   height: 240px;
+  background: #f6f6f6 !important;
 }
 
 /* Clase para ocultar un slide */

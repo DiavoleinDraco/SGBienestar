@@ -1,6 +1,8 @@
 .cont-table-solicitudes {
-    top: 20%;
-    position: absolute;
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
@@ -23,43 +25,74 @@
 
 /* Estilo del boton de aceptar solicitud */
 .css-ke5b6m-MuiButtonBase-root-MuiButton-root {
-    background-color: #3c1263 !important;
+  background-color: #2c0757 !important;
 }
 
 /* Estilo del boton de eliminar solicitud */
 .css-180lf2n-MuiButtonBase-root-MuiButton-root {
-    border: 1px solid #ff0000b0 !important;
-    color: #ff0000b0 !important;
+  border: 1px solid #ff0000b0 !important;
+  color: #ff0000b0 !important;
 }
 
 .contenedor-tabla-solicitudes {
-    border: 3px solid black;
+  border: 3px solid black;
 }
 
 .cont-table-solicitudes {
-    border: 1px solid black;
-    width: 90% !important;
-    height: 80%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -38%);
+  width: 90% !important;
+  height: 71%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-47%, -30%);
 }
 
 /* Solicitudes Titulo*/
-.contenedor-TitleSoli{
-    background: #00FF0000;
-    width: 90%;
-    height: 10%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -410%);
-    z-index: 100;
+.contenedor-TitleSoli {
+  background: #00ff0000;
+  width: 90%;
+  height: 10%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -410%);
+  z-index: 100;
 }
 
 .TitleSoli {
-    color: #fff;
-    display: flex;
-    margin-left: 6%;
+  color: #fff;
+  display: flex;
+  margin-left: 10%;
+  margin-top: 2%;
+}
+
+/* Contenedor de la imagen en el apartado de sanciones */
+.imagen-sanciones-container {
+  width: 90%;
+  height: 18%;
+  position: absolute;
+  top: 9%;
+  left: 50%;
+  transform: translateX(-47%);
+  overflow: hidden; /* Evita que la imagen se desborde del contenedor */
+}
+
+/* Estilo para la imagen */
+.imagen-sanciones {
+  width: 90% !important;
+  height: 100% !important;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-56%, -50%);
+}
+
+/* Estilo para los botones de flitro en solicitudes */
+.boton-solicitudes {
+    margin: 10px !important;
+    background: #2c0757 !important;
 }

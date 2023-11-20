@@ -1,146 +1,171 @@
 .container-sanciones {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 /* Titulo del Modal */
 #customized-dialog-title {
-    margin-left: -30px !important;
+  margin-left: -30px !important;
 }
 
 /* Estilo para el boton */
 .container-botones {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin: 20px;
-    /* Puedes ajustar el margen según sea necesario */
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  /* Puedes ajustar el margen según sea necesario */
 }
 
 .dialog-text-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .inputt {
-    position: relative !important;
-    top: -20px;
+  position: relative !important;
+  top: -20px;
 }
 
 .contenedor-tabla-sanciones {
-    max-height: 80vh;
-    overflow-y: auto;
-    width: 90% !important;
-    height: 74% !important;
-    margin-top: 40px;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 90% !important;
+  height: 70% !important;
+  margin-top: 40px;
+  border-radius: 10px 10px 0 0;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-47%, -36%);
 }
 
 /* Estio del dialogo */
 .dialog-text {
-    font-size: 15px !important;
-    padding-bottom: 40px !important;
+  font-size: 15px !important;
+  padding-bottom: 40px !important;
 }
 
 /* Estilo del multiple select */
 .css-13cymwt-control {
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    cursor: default;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-    min-height: 38px;
-    outline: 0!important;
-    position: relative;
-    -webkit-transition: all 100ms;
-    transition: all 100ms;
-    background-color: hsl(0, 0%, 100%);
-    border-color: hsl(0, 0%, 80%);
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 1px;
-    box-sizing: border-box;
-    width: 380px !important;
-    max-width: 380px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: default;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  min-height: 38px;
+  outline: 0 !important;
+  position: relative;
+  -webkit-transition: all 100ms;
+  transition: all 100ms;
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  width: 380px !important;
+  max-width: 380px;
 }
 
 .css-1nmdiq5-menu {
-    top: 100%;
-    position: absolute;
-    width: 100%;
-    z-index: 1;
-    background-color: hsl(0, 0%, 100%);
-    border-radius: 4px;
-    box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
-    margin-bottom: 8px;
-    margin-top: 8px;
-    box-sizing: border-box;
-    max-width: 380px;
+  top: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
+  margin-bottom: 8px;
+  margin-top: 8px;
+  box-sizing: border-box;
+  max-width: 380px;
 }
 
 .css-t3ipsp-control {
-    max-width: 380px !important;
+  max-width: 380px !important;
 }
 /* Hasta qui el estilo del MultipleSelect */
 
 .pregunta {
-    font-size: 15px !important;
-    margin-top: 15px !important;
+  font-size: 15px !important;
+  margin-top: 15px !important;
 }
 
 /* Estilo para la imagen de sanciones */
-.imagen-sanciones-container{
-    background-color: black;
-    width: 90% !important;
-    height: 10%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -410%);
-    z-index: -10;
+.imagen-sanciones-container {
+  background-color: black;
+  width: 90% !important;
+  height: 10%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -410%);
+  z-index: -10;
 }
 
 .imagen-sanciones {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 /* Estilo para el modal de sanciones */
 .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
-    background-color: #fff;
-    color: rgba(0, 0, 0, 0.87);
-    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    border-radius: 4px;
-    box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2), 0px 24px 38px 3px rgba(0,0,0,0.14), 0px 9px 46px 8px rgba(0,0,0,0.12);
-    margin: 32px;
-    position: relative;
-    overflow-y: auto;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    max-height: calc(100% - 64px);
-    width: 500px !important;
-    max-width: 500px !important;
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
+    0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  margin: 32px;
+  position: relative;
+  overflow-y: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  max-height: calc(100% - 64px);
+  width: 500px !important;
+  max-width: 500px !important;
+}
+
+/* Contenedor del titulo de sanciones */
+.title-sanciones {
+  z-index: 100;
+  background: #00ff0000;
+  width: 20%;
+  height: 20%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-207%, -203%);
+}
+
+/* Titulo de sanciones */
+.title-san {
+  color: #fff;
+  font-size: 24px;
 }

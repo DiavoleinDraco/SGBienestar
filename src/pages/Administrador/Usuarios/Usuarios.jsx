@@ -9,7 +9,7 @@ import TablaUsuarios from '../../../components/TablaUsuarios/TablaUsuarios';
 export default function Usuarios(){
     return (
 
-        <Box sx={{ height:"92vh",width:"95%",background:"white",display:'flex',justifyContent:"CENTER",borderRadius:"10px",flexWrap:"wrap", margin:"98px auto 0%",position: 'relative', left: '2%'}}>
+        <Box sx={{ height:"92vh",width:"95%",background:"red",display:'flex',justifyContent:"CENTER",borderRadius:"10px",flexWrap:"wrap", margin:"98px auto 0%",position: 'relative', left: '2%'}}>
             <Menu />
             <div className='cont-img'>
               <img className='imagen-user' src={useer} alt="" />      

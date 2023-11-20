@@ -1,12 +1,87 @@
+/* Estilo del contenedor principal */
 .contenedor-prestamos{
     margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-120%);
+    transform: translate(-50%,-50%);
+    background: #f6f6f6;
+    width: 50%;
+    height: 50%;
+    border-radius: 30px;
 }
 
-.id-prestamos {
-    display: flex;
-    justify-content: center;
+/* Estilo del contenedor Before */
+.contenedor-prestamos::before{
+    content: "";
+    background: #f6f6f6cc;
+    width: 110%;
+    height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    z-index: -10;
+}
+
+/* Estilo del contenedor After */
+.contenedor-prestamos::after{
+    content: "";
+    background: #f6f6f6cc;
+    width: 70%;
+    height: 70%;
+    width: 120%;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    z-index: -10;
+}
+
+/* Estilo para el parrafo */
+.parr-prestamo {
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+/* Estilo para Usuario, Nombre del Implemento y Detalles */
+.cot-UND {
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+/* Estilo para los inputs de prestamo */
+.contenedor-inputs {
+    text-align: left;
+    margin-left: 9%;
+    margin-right: 9%;
+    margin-top: 4%;
+}
+
+/* Contenedor de los botones de prestamo */
+.contenedor-btn-prestamos {
+    margin-top: 8%;
+}
+
+/* Estilo para los botones de prestamo */
+.btn-prestamo {
+    color: #f6f6f6;
+    background: #2c0572;
+    border: none;
+    height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #2c0572;
+}
+
+.btn-prestamo:hover {
+    background: #f6f6f6;
+    color: #2c0572;
+    border: 1px solid #2c0572;
 }

@@ -13,14 +13,12 @@
 .cont-img{
 width: 100% !important;
 height: 250px !important;
+background:#2c0757;
 }
 .imagen-user{
     width: 100%;
     object-fit: cover;
     height: 100%;
-}
-body{
-    background: #f6f6f6 !important;
 }
 
 .css-heg063-MuiTabs-flexContainer {
@@ -29,26 +27,22 @@ body{
     display: -ms-flexbox;
     display: flex;
     justify-content: space-around;
+
    
 }
 
 /* barra de menu  horizontal  */
 .css-hyum1k-MuiToolbar-root {
-    background:#2c0757 !important;
+    background:#2c0757;
     box-shadow: none !important;
      height: 7vh;
      width: 100%;
 }
 /* barra de menu  vertical  */
-.css-2dum1v-MuiDrawer-docked .MuiDrawer-paper {
+.MuiDrawer-paper {
     background:#2c0757 !important;
      width: 109px !important;
     color: #fff !important;
-
-}
-.MuiDrawer-paper :nth-child(7){
- 
-    transform: translateY(45px);
 }
 .css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper {
     background:#2c0757 !important;
@@ -56,13 +50,7 @@ body{
     display: flex;
     width: 235px !important;  
 }
-.css-h4y409-MuiList-root{
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-    text-align: center;
-    justify-content: space-evenly;
-}
+
 .css-10hburv-MuiTypography-root{
 font-size: 1.5em !important;
 font-family:  questrial !important;
@@ -82,10 +70,12 @@ font-family:  questrial !important;
 .css-i4bv87-MuiSvgIcon-root {  
 width: 1.7em !important;
 height: 1.7em !important;
+color: #f6f6f6;
  }
-.css-uxa1ks-MuiListItem-root:nth-child(6){
-
- }
+/* .css-uxa1ks-MuiListItem-root:nth-child(7){
+background: red;
+transform: translateY(40px) !important;
+ } */
 /* .css-11xur9t-MuiPaper-root-MuiTableContainer-root{
     background: rebeccapurple !important;
     height: 92% !important;
@@ -102,15 +92,20 @@ height: 1.7em !important;
   margin: auto;
     width: 110PX;
 }
+.css-9mgopn-MuiDivider-root{
+display: none !important;
+}
 
 .css-7mt4h1-MuiInputBase-root {
-    color: #fff !important;
+    color: #000000 !important;
+    font-size: 1.2em !important;
 }
 .css-h4y409-MuiList-root {
     display: flex;
     flex-direction: column;
-    height: 500px;
-    background: #6cbb6c;
-    text-align: center;
+    height: 900px;
     justify-content: space-evenly;
 }
+.css-uxa1ks-MuiListItem-root:hover{
+    background: #f6f6f63f;
+} 
