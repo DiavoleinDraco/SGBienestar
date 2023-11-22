@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import get, { eliminar, post } from "../../../UseFetch";
+import get, { eliminar, getParametre, post } from "../../../UseFetch";
 import jwtDecode from "jwt-decode";
 import "./Prestamos.css";
 import Textfield from "../../../components/Textfield/Textfield";
+import GenerateQr from "../../../components/Generate_Qr/Generate_Qr";
 
 export default function Prestamos() {
   const [implemento, setImplemento] = useState("");
@@ -10,7 +11,8 @@ export default function Prestamos() {
   const [fechaInicio, setFechaInicio] = useState(new Date()); // Inicializa como objeto Date
   const usuarioid = localStorage.getItem("token");
   const decode = jwtDecode(usuarioid);
-
+  const [peticionExitosa, setPeticionExitosa] = useState(false);
+  const [IDPrestamo, setIDPrestamo] = useState("");
   useEffect(() => {
     const obtenerIdEstadoPendiente = async () => {
       try {
@@ -50,17 +52,20 @@ export default function Prestamos() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+   
+      e.preventDefault();
 
-    if (estado.trim() === "") {
-      console.error("El campo de estado no puede estar vacío.");
-      return;
-    }
+      if (estado.trim() === "") {
+        console.error("El campo de estado no puede estar vacío.");
+        return;
+      }
 
-    const data = obtenerDatosPrestamo();
-    console.log(data);
-    const response = await post("/prestamos", data);
-    console.log(response);
+      const data = obtenerDatosPrestamo();
+      console.log(data);
+      setPeticionExitosa(true)
+      const response = await post("/prestamos", data)
+      
+   
   };
 
   const prestamo = async () => {
@@ -80,7 +85,22 @@ export default function Prestamos() {
       console.error("Error al eliminar la prestamo", error);
     }
   };
+  if (peticionExitosa) {
+    getParametre('/prestamos/usuario/',decode.id).then((response) => setIDPrestamo(response[response.length - 1]._id))
 
+    return (
+      <div className="contenedor-prestamos">
+       <p className="parr-prestamo">
+       La petición se creó con éxito. Presiona si quieres descargar el qr.
+      </p>
+      <div className="qr">
+      <GenerateQr busqueda={IDPrestamo}></GenerateQr>
+      </div>
+        
+      </div>
+    );
+  }
+  console.log(peticionExitosa)
   return (
     <div className="contenedor-prestamos">
       <h1>Detalles del prestamo</h1>

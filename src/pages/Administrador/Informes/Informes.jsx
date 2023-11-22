@@ -76,8 +76,7 @@ export default function Informes () {
       if (selectedOption) {
         setOpen(false);
       } else {
-        // Puedes mostrar un mensaje de error o realizar otra acción aquí
-        setOpenSanck(true)
+                setOpenSanck(true)
       }
     };
 
@@ -129,6 +128,11 @@ export default function Informes () {
       label: tipo.nombre,
       value: tipo['_id']
     }))
+
+
+
+//_______________________________________________________
+
   
 
 //__________________USUARIO_______________________________
@@ -163,6 +167,7 @@ export default function Informes () {
 
 /*
 
+-.
 
 
 
@@ -175,28 +180,28 @@ export default function Informes () {
   
   const handleInformeDataChange = (fieldName, value, index, subfield) => {
     if (fieldName === "infoAdicional") {
-      // Clona el array existente
+ 
       const updatedInfoAdicional = [...informeData.infoAdicional];
   
       if (!updatedInfoAdicional[index]) {
-        updatedInfoAdicional[index] = {}; // Inicializa el objeto si es nuevo
+        updatedInfoAdicional[index] = {}; 
       }
   
       if (subfield) {
-        // Solo agrega el campo si se proporciona un subfield (nombreImple, unidades, caracteristicas)
+       
         updatedInfoAdicional[index] = {
           ...updatedInfoAdicional[index],
           [subfield]: value,
         };
       }
   
-      // Actualiza el estado con el nuevo array clonado
+      
       setInformeData({
         ...informeData,
         infoAdicional: updatedInfoAdicional,
       });
     } else {
-      // Lógica para otros campos
+      
       setInformeData({
         ...informeData,
         [fieldName]: value,
@@ -242,9 +247,9 @@ export default function Informes () {
 
   const handleDeleteInfoAdicional = (index) => {
     if (additionalInfoCount > 1) {
-      // Clona el array existente de infoAdicional
+    
       const updatedInfoAdicional = [...informeData.infoAdicional];
-      updatedInfoAdicional.splice(index, 1); // Elimina el campo adicional específico
+      updatedInfoAdicional.splice(index, 1); 
       setInformeData({
         ...informeData,
         infoAdicional: updatedInfoAdicional,
@@ -290,7 +295,7 @@ export default function Informes () {
                             handleInformeDataChange("infoAdicional", value, index, "caracteristicas")
                           }
                         />
-                        {index > 0 && ( // Muestra el botón "delete" solo si el acordeón no es el primero
+                        {index > 0 && ( 
                     <IconButton onClick={() => handleDeleteInfoAdicional(index)}>
                       <DeleteIcon />
                     </IconButton>

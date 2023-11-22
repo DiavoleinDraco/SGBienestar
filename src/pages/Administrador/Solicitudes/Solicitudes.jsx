@@ -40,13 +40,21 @@ export default function BasicTable() {
         const data = await get("/prestamos");
         setTableData(data);
         setDatosGuardados(data);
+        
+        
       } catch (error) {
         console.error("Error al obtener datos de la API", error);
       }
     };
 
     fetchData();
+    
   }, []);
+
+ 
+  
+
+
 
   useEffect(() => {
     const fetchDataEstado = async () => {
@@ -92,6 +100,8 @@ export default function BasicTable() {
 
     fetchDataEstado();
   }, [idAprobado, idRechazado, idFallido, idCompletado, IdPendiente]);
+
+
 
   console.log("IdPendiente:", IdPendiente);
 
@@ -156,34 +166,52 @@ export default function BasicTable() {
     }
   };
 
-  const filterTableData = () => {
-    const dataToRender = searchTerm ? filterTableDataT() : tableData;
 
-    switch (filter) {
+
+
+  const filterTableData = () => {
+    const dataToRender = searchTerm ? filterTableData : tableData;
+  
+    const sortedData = dataToRender.sort((a, b) => {
+      
+      const dateA = new Date(a.fecha_inicio);
+      const dateB = new Date(b.fecha_inicio);
+  
+      
+      return dateB - dateA;
+    });
+  
+    
+
+  
+  switch (filter) {
       case "pendientes":
-        return dataToRender.filter(
-          (row) => row.estado.nombre === ESTADO_PENDIENTE
-        );
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_PENDIENTE);
       case "aprobadas":
-        return dataToRender.filter(
-          (row) => row.estado.nombre === ESTADO_APROBADO
-        );
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_APROBADO);
       case "rechazadas":
-        return dataToRender.filter(
-          (row) => row.estado.nombre === ESTADO_RECHAZADO
-        );
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_RECHAZADO);
       case "fallidas":
-        return dataToRender.filter(
-          (row) => row.estado.nombre === ESTADO_FALLIDO
-        );
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_FALLIDO);
       case "completados":
-        return dataToRender.filter(
-          (row) => row.estado.nombre === ESTADO_COMPLETADO
-        );
-      default:
-        return dataToRender;
+        
+     
+  return sortedData.filter((row) => row.estado.nombre === ESTADO_COMPLETADO);
+      
+      
+  default:
+        return sortedData;
     }
   };
+
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+    return formattedDate;
+  };
+
+
 
   return (
     <div>
@@ -251,6 +279,10 @@ export default function BasicTable() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
+              <TableCell align="right">
+                  {" "}
+                  <b> Fecha </b>{" "}
+                </TableCell>
                 <TableCell align="right">
                   {" "}
                   <b> Usuario </b>{" "}
@@ -294,6 +326,7 @@ export default function BasicTable() {
                   key={row._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
+                  <TableCell align="right">{formatDate(row.fecha_inicio)}</TableCell>
                   <TableCell align="right">
                     {row.usuario.nombres + " " + row.usuario.apellidos}
                   </TableCell>
