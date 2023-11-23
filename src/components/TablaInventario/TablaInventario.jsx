@@ -100,66 +100,53 @@ const Alert = forwardRef(function Alert(props, ref) {
 
 
 export default function TablaInventario() {
-    const [implementos, setImplementos] = useState([]);
-    const [reloadData, setReloadData] = useState(false);
-    const [errorrType, setErrorType] = useState({});
-    const [errorMensaje, setErrorMensaje] = useState(null);
-    const [cat, setCat] = useState('');
-    const [est, setEst] = useState('');
-    const [marc, setMarc] = useState('');
-    const [eliminarCat, setEliminarCat] = useState(false);
-    const [eliminarEstado, setEliminarEstado] = useState(false);
-    const [eliminarMarca, setEliminaMarca] = useState(false);
-    const [crearCat, setCrearCat] = useState(false);
-    const [crearEstado, setCrearEstado] = useState(false)
-    const [crearMarca, setCrearMarca] = useState(false)
-    const [selectedRowData, setSelectedRowData] = useState(null);
-    const [extraerId, setExtraerId] = useState(null);
-    const [extraerCategory, setExtraerCategory] = useState(null);
-    const [extraerMaterial, setExtraerMaterial] = useState(null);
-    const [extraerTamano, setExtraerTamano] = useState(null);
-    const [extraerMarca, setExtraerMarca] = useState(null);
-    const [extraerEstado, setExtraerEstado] = useState(null);
-    const [extraerCantidadEstado, setExtraerCantidadEstado] = useState(null);
-    const [extraerApto, setExtraerApto] = useState(null);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [deleteImplementos, setDeleteImplementos] = useState(null);
-    const [deleteValues, setDeleteValues] = useState({});
-    const [open, setOpen] = useState(false);
-    const [openSnack, setOpenSanck] = useState(false);
-    const [openEditer, setOpenEditer] = useState(false);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [categoria, setCategoria] = useState([])
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [marca, setMarca] = useState([])
-    const [selectedMarca, setSelectedMarca] = useState(null)
-    const [estado, setEstado] = useState([])
-    const [selectedEstado, setSelectedEstado] = useState(null)
-    const [aptoValue, setAptoValue] = useState('')
-    const [selectedImplementoData, setSelectedImplementoData] = useState(null);
-    const [crearImplemento, setCrearImplemento] = useState(false);
-    const [implementoEditado, setImplementoEditado] = useState(null);
-    const [newImplemento, setNewImplemento] = useState({
-      codigo: '',
-      nombre: '',
-      marca: [],
-      descripcion: {
-        peso: '',
-        color: '',
-        material: '',
-        detalles: '',
-        tamano: '',
-      },
-      categoria: [],
-      cantidad: 0,
-      img: null,
-      estado: [
-        {
-          estado: '',
-          cantidad: 0, 
-          apto: false, 
-        },
-      ],
+  const [implementos, setImplementos] = useState([]);
+  const [extraerMaterial, setExtraerMaterial] = useState(null);
+  const [extraerTamano, setExtraerTamano] = useState(null);
+  const [implementoSeleccionado, setImplementoSeleccionado] = useState(null)
+  const [additionalInfoCount, setAdditionalInfoCount] = useState(1);
+  const [cantidadEst, setCantidadEst] = useState([]);
+  const [reloadData, setReloadData] = useState(false);
+  const [errorMensaje, setErrorMensaje] = useState(null);
+  const [cat, setCat] = useState('');
+  const [est, setEst] = useState('');
+  const [marc, setMarc] = useState('');
+  const [eliminarCat, setEliminarCat] = useState(false);
+  const [eliminarEstado, setEliminarEstado] = useState(false);
+  const [eliminarMarca, setEliminaMarca] = useState(false);
+  const [crearCat, setCrearCat] = useState(false);
+  const [crearEstado, setCrearEstado] = useState(false)
+  const [crearMarca, setCrearMarca] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('');
+  const [deleteImplementos, setDeleteImplementos] = useState(null);
+  const [deleteValues, setDeleteValues] = useState({});
+  const [open, setOpen] = useState(false);
+  const [openSnack, setOpenSanck] = useState(false);
+  const [openEditer, setOpenEditer] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [categoria, setCategoria] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [marca, setMarca] = useState([])
+  const [selectedMarca, setSelectedMarca] = useState(null)
+  const [estado, setEstado] = useState([])
+  const [selectedEstado, setSelectedEstado] = useState(null)
+  const [aptoValues, setAptoValues] = useState([]);
+  const [crearImplemento, setCrearImplemento] = useState(false);
+  const [newImplemento, setNewImplemento] = useState({
+    codigo: '',
+    nombre: '',
+    marca: [],
+    descripcion: {
+    peso: '',
+    color: '',
+    material: '',
+    detalles: '',
+    tamano: '',
+    },
+    categoria: [],
+    cantidad: 0,
+    img: 'null',
+    estado: [],
     });
 
     const [columnVisibility, setColumnVisibility] = useState({
@@ -197,16 +184,16 @@ export default function TablaInventario() {
     };
 
   const columns = [
-    {label: 'Nombre', dataKey: 'nombre'},
-    {label: 'Categoría',dataKey: 'categoria'},
-    {label: 'Cantidad', dataKey: 'cantidad'},
-    {label: 'Marca', dataKey: 'marca'},
-    {label: 'Peso', dataKey: 'peso'},
-    {label: 'Estado', dataKey: 'estado'},
-    {label: 'Color', dataKey: 'color'},
-    {label: 'Detalles', dataKey: 'detalles'},
-    {label: 'Descripción', dataKey: 'descripcion'},
-  ];
+    {label: 'NOMBRE', dataKey: 'nombre'},
+    {label: 'CATEGORÍA',dataKey: 'categoria'},
+    {label: 'CANTIDAD TOTAL', dataKey: 'cantidad'},
+    {label: 'MARCA', dataKey: 'marca'},
+    {label: 'PESO', dataKey: 'peso'},
+    {label: 'ESTADO', dataKey: 'estado'},
+    {label: 'COLOR', dataKey: 'color'},
+    {label: 'DETALLES', dataKey: 'detalles'},
+    {label: 'DESCRIPCIÓN', dataKey: 'descripcion'},
+    ];
 
   const VirtuosoTableComponents = {
     Scroller: React.forwardRef((props, ref) => (
@@ -430,42 +417,95 @@ export default function TablaInventario() {
     value: marca["_id"]
   }))
 
-  const handleCantidadChange = (event) => {
-    const newCantidad = parseInt(event.target.value)
-    // Verificar si la cadena es un número válido
+  // Función para calcular la cantidad total
+const calcularCantidadTotal = (estado) => {
+  return estado.reduce((total, estadoObj) => total + estadoObj.cantidad, 0);
+};
+
+useEffect(() => {
+  const total = calcularCantidadTotal(newImplemento.estado);
+  setNewImplemento((prevImplemento) => ({
+  ...prevImplemento,
+  cantidad: total,
+  }));
+ }, [newImplemento.estado]);
+
+const handleGeneralCantidadChange = (event) => {
+  const newCantidad = parseInt(event.target.value, 10);
+
+  if (!isNaN(newCantidad)) {
+    setNewImplemento((prevImplemento) => ({
+      ...prevImplemento,
+      cantidad: parseInt(newCantidad, 10), // Actualiza la cantidad debajo de la categoría
+    }));
+  } else {
+    console.error('La cantidad debajo de la categoría no es un número válido.');
+  }
+};
+
+const handleChangeRadio = (index, newAptoValue) => {
+  setAptoValues((prevAptoValues) => {
+    const updatedAptoValues = [...prevAptoValues];
+    updatedAptoValues[index] = newAptoValue;
+    return updatedAptoValues;
+  });
+
+  setImplementoSeleccionado((prevImplemento) => {
+    const nuevoApto = [...prevImplemento.apto];
+    nuevoApto[index] = newAptoValue;
+    return {
+      ...prevImplemento,
+      apto: nuevoApto,
+    };
+  });
+};
+
+  const handleCantidadChange = (event, index) => {
+    const newCantidad = parseInt(event.target.value);
+  
     if (!isNaN(newCantidad) && newCantidad !== '') {
-      setNewImplemento((prevImplemento) => ({
-        ...prevImplemento,
-        estado: [
-          {
-            ...prevImplemento.estado[0],
-            cantidad: parseInt(newCantidad, 10),
-          },
-        ],
-      }));
+      console.log('in the cant: ', aptoValues[index]);
+  
+      setNewImplemento((prevImplemento) => {
+        const updatedEstado = [...prevImplemento.estado];
+  
+        if (updatedEstado[index]) {
+          // Si existe, actualizamos la cantidad
+          updatedEstado[index].cantidad = newCantidad;
+        } else {
+          updatedEstado[index] = {
+            estado: selectedEstado, // Ajusta esto según tu lógica
+            cantidad: newCantidad,
+            apto: false, // Establecemos a false por defecto
+          };
+        }
+  
+        return {
+          ...prevImplemento,
+          estado: updatedEstado,
+        };
+      });
     } else {
       console.error('La cantidad no es un número válido o está vacía.');
     }
   };
   
-  const handleGeneralCantidadChange = (event) => {
-    const newCantidad = parseInt(event.target.value, 10);
-  
-    // Verificar si la cadena es un número válido
-    if (!isNaN(newCantidad)) {
-      setNewImplemento((prevImplemento) => ({
-        ...prevImplemento,
-        cantidad: parseInt(newCantidad, 10), // Actualiza la cantidad debajo de la categoría
-      }));
-    } else {
-      // Aquí puedes manejar la entrada no válida, por ejemplo, mostrando un mensaje de error
-      console.error('La cantidad debajo de la categoría no es un número válido.');
-    }
-  };
 
-  const handleChangeRadio = (event) => {
-    setAptoValue(event.target.value === 'true');
-  };
+  useEffect(() => {
+    setNewImplemento((prevImplemento) => {
+      const updatedEstado = prevImplemento.estado.map((estadoObj, objIndex) => {
+        return {
+          ...estadoObj,
+          apto: aptoValues[objIndex] !== undefined ? aptoValues[objIndex] : false,
+        };
+      });
+  
+      return {
+        ...prevImplemento,
+        estado: updatedEstado,
+      };
+    });
+  }, [aptoValues]);
 
   useEffect(() => {
     get("/estado-implemento")
@@ -477,27 +517,46 @@ export default function TablaInventario() {
       });
   }, [reloadData]);
 
-  const handleEstadoFormit = (selectedEstado) => {
+  const handleEstadoFormit = (selectedEstad, index) => {
     const selectedEstadoOption = selectedEstadoInfoo.find(
-      (option) => option.label === selectedEstado
+      (option) => option.label === selectedEstad
     );
   
     if (selectedEstadoOption) {
       const selectedInfoEstado = selectedEstadoOption.value;
-      setEst(selectedInfoEstado)
-      console.log('Valor de apto en el estado:', aptoValue);
-      setNewImplemento((prevNewImplemento) => ({
-        ...prevNewImplemento,
-        estado: [
-          {
-            estado: selectedInfoEstado,
-            cantidad: prevNewImplemento.estado[0].cantidad,
-            apto: aptoValue,
-          },
-        ],
-      }));
-      setAptoValue(aptoValue);
-    }
+      setSelectedEstado(selectedInfoEstado);
+      setEst(selectedInfoEstado);
+      console.log('el aptovalues que se guarda es: ', aptoValues[index])
+  
+      setNewImplemento((prevNewImplemento) => {
+        const updatedEstado = prevNewImplemento.estado.map((estadoObj, objIndex) => {
+          if (objIndex === index) {
+            return {
+              ...estadoObj,
+              cantidad: cantidadEst, // Asegúrate de que cantidadEst esté definido
+              apto: aptoValues[index] !== undefined ? aptoValues[index] : false,
+              estado: selectedInfoEstado, // Actualizamos el estado
+            };
+          } else {
+            return estadoObj;
+          }
+        });
+  
+        return {
+          ...prevNewImplemento,
+          estado: updatedEstado,
+        };
+      });
+  
+     // Actualizar el array de aptoValues
+ setAptoValues((prevAptoValues) => {
+  const updatedAptoValues = [...prevAptoValues];
+  if (aptoValues[index] !== undefined) {
+  updatedAptoValues[index] = aptoValues[index];
+  }
+  return updatedAptoValues;
+  });
+  }
   };
   
   const selectedEstadoInfoo = estado.map((data) => ({
@@ -521,13 +580,17 @@ const handleCloseSnackBar = (event, reason) => {
       setOpenSanck(false);
     };
     
-
 const handleCreateImplementoSubmit = async () => {
+  if (!newImplemento.estado || !newImplemento.estado[0]) {
+    setOpenSanck(true);
+    return;
+    }
+    
     const cantidad = parseInt(newImplemento.estado[0].cantidad);
     if (isNaN(cantidad) || cantidad < 0) {
-      console.error('La cantidad no es un número válido o está vacía o es menor o igual a cero');
-      setOpenSanck(true)
-      return;
+    console.error('La cantidad no es un número válido o está vacía o es menor o igual a cero');
+    setOpenSanck(true)
+    return;
     }
 
   const data = {
@@ -541,7 +604,7 @@ const handleCreateImplementoSubmit = async () => {
     estado: newImplemento.estado,
   };
     console.log('INFO DE NUEVOS IMPLEMENTOS', data)
-    const isEmptyField = Object.values(data).some(value => value === '' || value === undefined);
+    const isEmptyField = Object.values(data).some(value => value === '' || value === undefined || value === 0);
 
   if (isEmptyField) {
     setErrorMensaje('Completa todos los campos');
@@ -573,10 +636,16 @@ const handleCreateImplementoSubmit = async () => {
           const material = item.descripcion ? item.descripcion.material || null : null;
           const tamano = item.descripcion.tamano || null;
           const descripcion = `Material: ${material}, Tamaño: ${tamano}`;
-          const estado = item.estado ? item.estado[0].estado : null;
-          const cantidadEstado = item.estado && item.estado[0] ? item.estado[0].cantidad || null : null;
-          const valueAP = item.estado[0].apto || false
-        
+          let estados = []; // Por defecto, si no hay estados
+          let cantidadEstadoArray = []; // Para almacenar todas las cantidades de estado
+          let aptoArray = [];
+         
+          if (item.estado && item.estado.length > 0) {
+          // Convertir la cadena 'estado' a un array
+          estados = item.estado.map(estadoObj => estadoObj.estado[0].estado.trim());
+          cantidadEstadoArray = item.estado.map(estadoObj => estadoObj.cantidad || null);
+          aptoArray = item.estado.map(estadoObj => estadoObj.apto || false);
+          }
           return {
             ...item, 
             id: item._id, 
@@ -584,11 +653,11 @@ const handleCreateImplementoSubmit = async () => {
             categoria: item.categoria[0] ? item.categoria[0].nombre : null,
             marca: item.marca ? item.marca.nombre : null,
             peso: item.descripcion.peso,
-            estado: estado ? estado[0].estado : null,
-            cantidadEstado: cantidadEstado,
-            apto: valueAP,
-            color: item.descripcion.color,
-            detalles: item.descripcion.detalles,
+            estado: estados,
+            cantidadEstado: cantidadEstadoArray  || null,
+            apto: aptoArray || null,
+            color: item.descripcion.color || 'N/A',
+            detalles: item.descripcion.detalles || 'N/A',
             descripcion: descripcion
           }
         });
@@ -677,21 +746,43 @@ const handleCreateImplementoSubmit = async () => {
     setOpenEditer(false);
   };
 
-  async function actualizarImplemento(imple) {
-    setSelectedRowData(imple);
-    setSelectedImplementoData(imple);
-    setExtraerId(imple._id)
-    setExtraerCategory(imple.categoria);
-    setExtraerEstado(imple.estado);
-    setExtraerMarca(imple.marca);
-    setExtraerCantidadEstado(imple.cantidadEstado)
-    setExtraerApto(imple.apto)
+  const handleCampoChange = (campo, valor, index) => {
+    if (campo === 'material') {
+      setExtraerMaterial(valor);
+    } else if (campo === 'tamano') {
+      setExtraerTamano(valor);
+    } else if (campo === 'cantidadEstado') {
+    // Parsea el valor a un número
+    const cantidadEstadoNumerico = parseInt(valor, 10);
+   
+    // Asegúrate de que el valor sea un número válido
+    if (!isNaN(cantidadEstadoNumerico)) {
+      setImplementoSeleccionado(prevImplemento => {
+      const nuevaCantidadEstado = [...prevImplemento.cantidadEstado];
+      nuevaCantidadEstado[index] = cantidadEstadoNumerico;
+   
+    return {
+      ...prevImplemento,
+      cantidadEstado: nuevaCantidadEstado,
+    };
+    });
+    }
+    } else {
+    // Para otros campos, actualiza el estado general de implementoSeleccionado
+    setImplementoSeleccionado(prevImplemento => ({
+    ...prevImplemento,
+    [campo]: valor,
+    }));
+    }
+   };
+
+   async function actualizarImplemento(imple) {
     console.log('este es este', imple)
-    
+    setImplementoSeleccionado(imple);
     const descri = imple.descripcion;
     const materialMatch = descri.match(/Material: (.*?),/)
     const tamanoMatch = descri.match(/Tamaño: (.*?)(?:,|$)/);
-
+   
     if(materialMatch && materialMatch[1] && tamanoMatch && tamanoMatch[1]){
     const mate = materialMatch[1].trim();
     const taman = tamanoMatch[1].trim();
@@ -699,30 +790,12 @@ const handleCreateImplementoSubmit = async () => {
     setExtraerMaterial(mate)
     };
     handleClickOpenDialogEditer()
-  };
-
-  async function actualizarPatch(imple) {
-
-    const data = {
-      codigo: newImplemento.codigo,
-      nombre: newImplemento.nombre,
-      marca: newImplemento.marca.toString(),
-      descripcion: newImplemento.descripcion,
-      categoria: newImplemento.categoria,
-      cantidad: newImplemento.cantidad,
-      img: newImplemento.img,
-      estado: newImplemento.estado,
-    }
-    console.log('data de implementos modificados: ', data)
-
-    try {
-      const response = await actualizar('/implementos/', extraerId, data);
-      console.log(`Implemento actualizado con éxito:  ${response}`);
-    } catch (error) {
-      console.error('Error al actualizar el implemento', error);
-    }
-    handleCloseDialogEditer()
-  };
+    };
+   
+    async function actualizarPatch(imple) {
+    console.log('Implemento actualizado:', implementoSeleccionado);
+    handleCloseDialogEditer();
+    };
 
  function rowContent(_index, row) {
   if (searchTerm.length > 0) {
@@ -737,32 +810,62 @@ const handleCreateImplementoSubmit = async () => {
     <React.Fragment>
       {columns.map((column) => {
         if (columnVisibility[column.dataKey]) {
-          return (
-            <TableCell key={column.dataKey}>
-              {row[column.dataKey]}
-            </TableCell>
-          );
-        }
-        return null;
+          if (column.dataKey === 'estado') {
+        // Mostrar la información específica para la columna de estado
+      return (
+        <TableCell key={column.dataKey}>
+          {row.estado.map((estado, index) => (
+            <div key={index}>
+              {`Estado: ${estado}, Cantidad: ${row.cantidadEstado[index]}`}
+            </div>
+          ))}
+        </TableCell>
+      );
+      } else {
+      // Renderizar valores normales
+        return (
+          <TableCell key={column.dataKey}>
+            {row[column.dataKey]}
+          </TableCell>
+        );
+    }}
+      return null;
       })}
-      <TableCell>
-        <IconButton onClick={() => actualizarImplemento(row)}>
-          <DriveFileRenameOutlineIcon />
-        </IconButton>
-      </TableCell>
-      <TableCell>
-        <IconButton onClick={() => handleEliminarClick(row.id)}>
-          <DeleteIcon />
-        </IconButton>
-      </TableCell>
+        <TableCell>
+          <IconButton onClick={() => actualizarImplemento(row)}>
+            <DriveFileRenameOutlineIcon />
+          </IconButton>
+        </TableCell>
+        <TableCell>
+          <IconButton onClick={() => handleEliminarClick(row.id)}>
+            <DeleteIcon />
+          </IconButton>
+        </TableCell>
     </React.Fragment>
-  );
+    );
+   }
+   
+const handleDeleteInfoEstados = (index) => {
+  if (additionalInfoCount > 1) {
+    setNewImplemento((prevImplemento) => {
+      const updatedEstado = [...prevImplemento.estado];
+      updatedEstado.splice(index, 1);
+
+      return {
+        ...prevImplemento,
+        estado: updatedEstado,
+      };
+    });
+
+    setAdditionalInfoCount(additionalInfoCount - 1);
+  }
 };
 
-console.log('aptovalue: ', aptoValue)
+console.log('aptovalue: ', aptoValues)
+console.log('jajk: ', newImplemento.cantidad)
 
   return (
-    <Paper style={{ height: 600, width: '1030px', position: 'relative', left: '90px' }}>
+    <Paper style={{ height: 995, width: '90%', position: 'relative', left: '96px' }}>
       <Toolbar>
       <Search>
             <SearchIconWrapper>
@@ -791,7 +894,6 @@ console.log('aptovalue: ', aptoValue)
         <div style={{ padding: 16 }}>
           <ColumnVisibilityControls />
         </div>
-        Elija la información que desea en su informe.
       </Popover>
         <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
           <FilterListIcon /> Filtrar
@@ -893,129 +995,146 @@ console.log('aptovalue: ', aptoValue)
         handle={handleCreateMarcaSubmit}
         hacer='Crear'
       /> 
-      <React.Fragment>
-        <BootstrapDialog onClose={handleCloseDialogEditer} aria-labelledby="customized-dialog-title" open={openEditer}>
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">Modificar implemento</DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleCloseDialogEditer}
-          sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500],}}
-        >
-          <CloseIcon />
+
+    <Dialogos 
+    opener={openEditer}
+    closer={handleCloseDialogEditer}
+    handle={actualizarPatch}
+    hacer='Guardar cambios'
+    titulo='MODIFICAR IMPLEMENTO'
+    contenido={
+    <div>
+      <TextField 
+        label='Codigo'
+        value={implementoSeleccionado ? implementoSeleccionado.codigo : ''}
+        onChange={(e) => handleCampoChange('codigo', e.target.value)}
+      />
+      <TextField 
+        label='Nombre'
+        value={implementoSeleccionado ? implementoSeleccionado.nombre : ''}
+        onChange={(e) => handleCampoChange('nombre', e.target.value)}
+      />
+      {implementoSeleccionado && implementoSeleccionado.estado && (
+      implementoSeleccionado.estado.map((estado, index) => (
+        <BasicAccordion 
+          key={index}
+          titulo={`ESTADO ${index + 1}`}
+          contenido={
+        <div>
+          <ComSelect 
+          nombre='Estado'
+          items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+          onChange={(value) => handleEstadoFormit(value, index)}
+          getOptionLabel={(option) => option.label}
+          inicial={estado}
+          
+        />
+        <TextField 
+          label='Cantidad Estado'
+          type="number"
+          value={implementoSeleccionado.cantidadEstado[index] || ''}
+          onChange={(e) => handleCampoChange('cantidadEstado', e.target.value, index)}
+        />
+
+        <div>
+        <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
+        SI
+        <Radio
+          checked={implementoSeleccionado.apto[index] === true}
+          onChange={() => handleChangeRadio(index, true)}
+          value={true}
+          name={`radio-buttons-${index}`}
+        />
+        NO
+        <Radio
+          checked={implementoSeleccionado.apto[index] === false}
+          onChange={() => handleChangeRadio(index, false)}
+          value={false}
+          name={`radio-buttons-${index}`}
+        />
+        {index > 0 && (
+          <IconButton onClick={() => handleDeleteInfoEstados(index)}>
+              <DeleteIcon />
+          </IconButton>
+      )}
+      </div>
+      </div>
+      }
+      />
+      )))}
+      <Fab
+        size="small"
+        color="secondary"
+        aria-label="add"
+        onClick={() => setAdditionalInfoCount(additionalInfoCount + 1)}
+      >
+        <IconButton>
+          <AddIcon />
         </IconButton>
-        <DialogContent dividers>
-          <form>
-            <TextField
-              label="Codigo"
-              type="text"
-              name="codigo"
-              value={selectedRowData ? selectedRowData.codigo : ''}
-              onChange={(e) => setSelectedRowData({...selectedRowData, codigo: e.target.value})}
-            />
-            <TextField
-              label="Nombre"
-              type="text"
-              name="nombre"
-              value={selectedRowData ? selectedRowData.nombre : ''}
-              onChange={(e) => setSelectedRowData({...selectedRowData, nombre: e.target.value})}
-            />
-            <ComSelect 
-            nombre='Categoria'
-            items={selectedIdCat.map((opcion) => opcion.label)}
-            onChange={(value) => handleCategoriaFormSubmit(value)}
-            getOptionLabel={(option) => option.label}
-            value={setSelectedCategory}
-            inicial={extraerCategory}
-            />
-            <TextField
-            label="Cantidad"
-            type="number"
-            name="cantidad"
-            value={selectedRowData ? selectedRowData.cantidad : ''}
-            onChange={(e) => setSelectedRowData({...selectedRowData, cantidad: e.target.value})}
-           />
-           <TextField
-            label="Cantidad Estado"
-            type="number"
-            name="cantidad"
-            value={extraerCantidadEstado}
-            onChange={handleCantidadChange}
-           />
-           <ComSelect 
-            nombre='Marca'
-            items={selectedMarcaInfor.map((opcion) => opcion.label)}
-            onChange={(value) => handleMarcaFormit(value)}
-            getOptionLabel={(option) => option.label}
-            value={setSelectedMarca}
-            inicial={extraerMarca}
-            />
-            <ComSelect 
-            nombre='Estado'
-            items={selectedEstadoInfoo.map((opcion) => opcion.label)}
-            onChange={(value) => handleEstadoFormit(value)}
-            getOptionLabel={(option) => option.label}
-            value={setSelectedEstado}
-            inicial={extraerEstado}
-            />
-          <div>
-          <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
-            SI
-            <Radio
-              checked={aptoValue === true}
-              onChange={handleChangeRadio}
-              value={extraerApto}
-              name="radio-buttons"
-            />
-            NO
-            <Radio
-              checked={aptoValue === false}
-              onChange={handleChangeRadio}
-              value={extraerApto}
-              name="radio-buttons"
-            />
-          </div>
-          <TextField
-            label="Peso"
-            type="text"
-            name="peso"
-            value={selectedRowData ? selectedRowData.peso: ''}
-            onChange={(e) => setSelectedRowData({...selectedRowData, peso: e.target.value})}
-            />
-          <TextField
-            label="Color"
-            type="text"
-            name="color"
-            value={selectedRowData ? selectedRowData.color: ''}
-            onChange={(e) => setSelectedRowData({...selectedRowData, color: e.target.value})}
-            />
-          <TextField
-            label="Material"
-            type="text"
-            name="material"
-            value={selectedRowData ? extraerMaterial : ''}
-            onChange={(e) => setSelectedRowData({...selectedRowData,material: e.target.value})}
-          />
-          <TextField
-            label="Detalles"
-            type="text"
-            name="detalles"
-            value={selectedRowData ? selectedRowData.detalles: ''}
-            onChange={(e) => setSelectedRowData({...selectedRowData,detalles: e.target.value})}
-            />
-          <TextField
-            label="Tamano"
-            type="text"
-            name="tamano"
-            value={selectedRowData ? extraerTamano : ''}
-            onChange={(e) => setSelectedRowData({...selectedRowData, tamano: e.target.value})}
-          />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={actualizarPatch}>Guardar Cambios</Button>
-        </DialogActions>
-      </BootstrapDialog>
-    </React.Fragment>
+      </Fab>
+      <div>
+        Cantidad
+      <input 
+        name=''
+        value={implementoSeleccionado ? implementoSeleccionado.cantidad : ''}
+        onChange={(e) => handleCampoChange('cantidad', e.target.value)}
+      />
+      </div>
+      <ComSelect 
+        nombre='Categoria'
+        items={selectedIdCat.map((opcion) => opcion.label)}
+        onChange={(value) => handleCategoriaFormSubmit(value)}
+        getOptionLabel={(option) => option.label}
+        inicial={implementoSeleccionado ? implementoSeleccionado.categoria : ''}
+      />
+      <ComSelect 
+        nombre='Marca'
+        items={selectedMarcaInfor.map((opcion) => opcion.label)}
+        onChange={(value) => handleMarcaFormit(value)}
+        getOptionLabel={(option) => option.label}
+        value={setSelectedMarca}
+        inicial={implementoSeleccionado ? implementoSeleccionado.marca : ''}
+      />
+      <TextField 
+        label='Peso'
+        type="text"
+        name='peso'
+        value={implementoSeleccionado ? implementoSeleccionado.peso : ''}
+        onChange={(e) => handleCampoChange('peso', e.target.value)}
+      />
+      <TextField 
+        label='Color'
+        type="text"
+        name='color'
+        value={implementoSeleccionado ? implementoSeleccionado.color : ''}
+        onChange={(e) => handleCampoChange('color', e.target.value)}
+      />
+      <TextField 
+        label='Material'
+        name='material'
+        type="text"
+        value={implementoSeleccionado ? extraerMaterial : ''}
+        onChange={(e) => handleCampoChange('material', e.target.value)}
+      />
+      <TextField 
+        label='Detalles'
+        type="text"
+        name='detalles'
+        value={implementoSeleccionado ? implementoSeleccionado.detalles : ''}
+        onChange={(e) => handleCampoChange('detalles', e.target.value)}
+      />
+      <TextField 
+        label='Tamaño'
+        type="text"
+        name='tamano'
+        value={implementoSeleccionado ? extraerTamano : ''}
+        onChange={(e) => handleCampoChange('tamano', e.target.value)}
+      />
+    </div>
+    }
+    />
+
+
       <Dialog open={crearImplemento} onClose={handleCreateImplementoClose}>
         <DialogTitle>Crear Nuevo Implemento</DialogTitle>
         <DialogContent>
@@ -1034,6 +1153,72 @@ console.log('aptovalue: ', aptoValue)
             value={newImplemento.nombre || ''}
             onChange={(e) => setNewImplemento({ ...newImplemento, nombre: e.target.value })}
           />
+          {Array.from({ length: additionalInfoCount }).map((_, index) => (
+            <BasicAccordion 
+            key={index}
+            titulo={`ESTADO ${index + 1}`}
+            contenido={
+              <div>
+                  <ComSelect 
+                  nombre='Estado'
+                  items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+                  onChange={(value) => handleEstadoFormit(value, index)}
+                  getOptionLabel={(option) => option.label}
+                  value={setSelectedEstado}
+                  />
+                 <TextField
+                  label="Cantidad Estado"
+                  type="number"
+                  name="cantidad"
+                  value={newImplemento.estado[index]?.cantidad || ''}
+                  onChange={(e) => handleCantidadChange(e, index)}
+                  />
+                  <div>
+                    <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
+                      SI
+                      <Radio
+                        checked={aptoValues[index] === true}
+                        onChange={(event) => handleChangeRadio(event, index)}
+                        value={true}
+                        name="radio-buttons"
+                      />
+                      NO
+                      <Radio
+                        checked={aptoValues[index] === false}
+                        onChange={(event) => handleChangeRadio(event, index)}
+                        value={false}
+                        name="radio-buttons"
+                      />
+                      {index > 0 && ( // Muestra el botón "delete" solo si el acordeón no es el primero
+                    <IconButton onClick={() => handleDeleteInfoEstados(index)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
+                  </div>
+              </div>
+            }
+            />
+          ))}
+              <Fab
+                size="small"
+                color="secondary"
+                aria-label="add"
+                onClick={() => setAdditionalInfoCount(additionalInfoCount + 1)}
+              >
+                <IconButton>
+                  <AddIcon />
+                </IconButton>
+              </Fab>
+            <div className="contenedorsito">
+              <div style={{position:'relative', top: '-40px', left : '90px'}}>
+                Cantidad
+                <input
+                name="" 
+                value= {calcularCantidadTotal(newImplemento.estado)} 
+                onChange={handleGeneralCantidadChange}
+                />
+              </div>
+            </div>
           <ComSelect 
           nombre='Categoria'
           items={selectedIdCat.map((opcion) => opcion.label)}
@@ -1041,50 +1226,12 @@ console.log('aptovalue: ', aptoValue)
           getOptionLabel={(option) => option.label}
           value={setSelectedCategory}
           />
-          <TextField
-          label="Cantidad"
-          type="number"
-          name="cantidad"
-          value={newImplemento.cantidad}
-          onChange={handleGeneralCantidadChange}
-          />
-          <TextField
-          label="Cantidad Estado"
-          type="number"
-          name="cantidad"
-          value={newImplemento.estado[0].cantidad}
-          onChange={handleCantidadChange}
-          />
           <ComSelect 
           nombre='Marca'
           items={selectedMarcaInfor.map((opcion) => opcion.label)}
           onChange={(value) => handleMarcaFormit(value)}
           getOptionLabel={(option) => option.label}
           value={setSelectedMarca}
-          />
-          <div>
-          <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
-            SI
-            <Radio
-              checked={aptoValue === true}
-              onChange={handleChangeRadio}
-              value={true}
-              name="radio-buttons"
-            />
-            NO
-            <Radio
-              checked={aptoValue === false}
-              onChange={handleChangeRadio}
-              value={false}
-              name="radio-buttons"
-            />
-        </div>
-          <ComSelect 
-          nombre='Estado'
-          items={selectedEstadoInfoo.map((opcion) => opcion.label)}
-          onChange={(value) => handleEstadoFormit(value)}
-          getOptionLabel={(option) => option.label}
-          value={setSelectedEstado}
           />
           <TextField
             label="Peso"

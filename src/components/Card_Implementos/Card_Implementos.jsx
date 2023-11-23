@@ -5,10 +5,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
-export default function Card_Implementos({ textoAlt, imagen, titulo, descripcion, boton }) {
+export default function Card_Implementos({ textoAlt, imagen, titulo, descripcion, boton, onSelect, isSelected }) {
+  
+  const handleCardClick = () => {
+    onSelect()
+  }
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+    <Card sx={{ maxWidth: 345, backgroundColor: isSelected ? '#b0b0b0' : 'white' }}>
+      <CardActionArea onClick={handleCardClick}>
         <CardMedia
           component="img"
           height="140"
@@ -24,11 +28,6 @@ export default function Card_Implementos({ textoAlt, imagen, titulo, descripcion
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-         {boton}
-        </Button>
-      </CardActions>
     </Card>
   );
 };

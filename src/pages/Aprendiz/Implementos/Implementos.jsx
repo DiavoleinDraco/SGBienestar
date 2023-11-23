@@ -4,16 +4,21 @@ import Board from "../Board_Aprendiz/Board_Aprendiz";
 import { Box } from "@mui/material";
 import NavTabs from '../../../components/NavTabs/NavTabs'
 import Card_Implementos from "../../../components/Card_Implementos/Card_Implementos";
-import prueba from '../../imagenes/fondo.jpg'
+import prueba from '../../imagenes/fondo.jpg';
+import Button from '@mui/material/Button';
 
 export default function Implementos(){
     const [implementos, setImplementos] = useState([]);
+    const [implementosSeleccionados, setImplementosSeleccionados] = useState([]);
+    const [data, setData] = useState([])
+
 
     useEffect(() => {
         get('/implementos')
           .then((implementosdata) => {
             // Mapear los datos y cambiar '_id' a 'id'
             console.log('Info de implementos: ', implementosdata)
+
             const transformedData = implementosdata.map((item) => {
               const material = item.descripcion ? item.descripcion.material || null : null;
               const tamano = item.descripcion.tamano || null;
@@ -28,13 +33,14 @@ export default function Implementos(){
                 nombre: item.nombre, 
                 categoria: item.categoria[0] ? item.categoria[0].nombre : null,
                 marca: item.marca ? item.marca.nombre : null,
-                peso: item.descripcion.peso,
+                peso: item.descripcion.peso || 'N/A',
                 estado: estado ? estado[0].estado : null,
                 cantidadEstado: cantidadEstado,
                 apto: valueAP,
-                color: item.descripcion.color,
-                detalles: item.descripcion.detalles,
-                descripcion: descripcion
+                color: item.descripcion.color || 'N/A',
+                detalles: item.descripcion.detalles || 'N/A',
+                descripcion: descripcion,
+                img: item.img
               }
             });
             setImplementos(transformedData);
@@ -44,6 +50,27 @@ export default function Implementos(){
           });
       }, []);
 
+      const handleSelectImplemento = (implemento) => {
+        // Verificar si el implemento ya está seleccionado
+        const isSelected = implementosSeleccionados.some((item) => item.id === implemento.id);
+      
+        if (!isSelected) {
+          // Si no está seleccionado, añadirlo a la lista de seleccionados
+          setImplementosSeleccionados((prevSelected) => [...prevSelected, implemento]);
+        }
+      
+        // Actualizar el estado 'data' con la información de los implementos seleccionados
+        setData(
+          implementosSeleccionados.map((item) => ({
+            id: item.id,
+            nombre: item.nombre,
+          }))
+        );
+      
+        // Mostrar información en la consola
+        console.log('Implementos seleccionados:', data);
+      };
+
       const renderImplementosPorCategoria = (categoria) => (
         <div>
           <h3>{categoria}</h3>
@@ -51,15 +78,26 @@ export default function Implementos(){
             {implementos
               .filter((implemento) => implemento.categoria === categoria)
               .map((implemento) => (
-                <div>
-                <Card_Implementos
-            imagen={prueba}
-            textoAlt={implemento.nombre}
-            titulo={implemento.nombre}
-            descripcion={[implemento.descripcion,', Color: ', implemento.color, ',   Marca: ', implemento.marca, ',    Peso: ', implemento.peso]}
-            boton='prestar'
-            />
-            </div>
+                <div key={implemento.id}>
+                  <Card_Implementos
+                    imagen={prueba}
+                    textoAlt={implemento.nombre}
+                    titulo={implemento.nombre.toUpperCase()}
+                    descripcion={[
+                      implemento.descripcion,
+                      ', Color: ',
+                      implemento.color,
+                      ',   Marca: ',
+                      implemento.marca,
+                      ',    Peso: ',
+                      implemento.peso,
+                      '  imagen:   ',
+                      implemento.img
+                    ]}
+                    onSelect={() => handleSelectImplemento(implemento)}
+                    isSelected={implementosSeleccionados.some((item) => item.id === implemento.id)}
+                  />
+                </div>
               ))}
           </ul>
         </div>
@@ -67,44 +105,37 @@ export default function Implementos(){
   
       const tabs = [
           {
-            label: 'FÚTBOL',
+            label: 'DEPORTIVO',
             value: '1',
-            content: renderImplementosPorCategoria('Fútbol sala'),
-          },
-          {
-            label: 'VOLEIBOL',
-            value: '2',
-            content: renderImplementosPorCategoria('Voleibol'),
-          },
-          {
-            label: 'BALONCESTO',
-            value: '3',
-            content: renderImplementosPorCategoria('Baloncesto'),
+            content: [
+              renderImplementosPorCategoria('Baloncesto'),
+              renderImplementosPorCategoria('Fútbol sala'),
+              renderImplementosPorCategoria('Voleibol'),
+              renderImplementosPorCategoria('Tenis de mesa'),
+              renderImplementosPorCategoria('Ajedrez'),
+              renderImplementosPorCategoria('N/A')
+            ],
           },
           {
             label: 'GIMNASIO',
-            value: '4',
+            value: '2',
             content: renderImplementosPorCategoria('Gimnasio'),
           },
-          {
-            label: 'TENIS DE MESA',
-            value: '5',
-            content: renderImplementosPorCategoria('Tenis de mesa')
-          },
-          {
-            label: 'AJEDREZ',
-            value: '6',
-            content: renderImplementosPorCategoria('Ajedrez')
-          }
+          
       ];
   
       return (
-          <>
-          <Box sx={{ display: 'block', position: 'relative', left: '200px'}}>
-            <Board />
-            <h2>Implementos</h2>
-            <NavTabs tabs={tabs} />
-          </Box>
-          </>
-      );
+        <>
+        <Box sx={{ display: 'block', position: 'relative', left: '200px' }}>
+          <Board />
+          <h2>Implementos</h2>
+          {implementosSeleccionados.length > 0 && (
+            <span style={{ marginLeft: '10px' }}>
+              <Button>PRESTAR {implementosSeleccionados.length} {'IMPLEMENTO(S)'}</Button>
+            </span>
+          )}
+          <NavTabs tabs={tabs} />
+        </Box>
+      </>
+    );
   }
