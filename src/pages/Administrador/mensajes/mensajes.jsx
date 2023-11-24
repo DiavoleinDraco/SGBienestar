@@ -8,19 +8,21 @@ import NavTabs from '../../../components/NavTabs/NavTabs';
 import Menu from '../../../components/menu/Menu';
 import { Transform } from '@material-ui/icons';
 import { Translate } from '@mui/icons-material';
+import mensajes from "../Sanciones/png.jpg"
 
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
+
   alignItems: 'center',
-  paddingTop: '20px', // Espacio en la parte superior
-  marginLeft: '-160px',
+  // Espacio en la parte superior
+
   overflowX: 'hidden', // Bloquear el scroll horizontal
   position: 'relative', // Añade posición relativa al contenedor
 };
 
 const composeButtonStyle = {
-  zIndex: '100',
+  zIndex: '100%',
 };
 
 
@@ -35,7 +37,7 @@ export default function Mensajes() {
   };
   const handleComposeOpen = () => {
     setIsComposeOpen(true);
-  
+
   };
 
   const handleComposeClose = () => {
@@ -61,14 +63,17 @@ export default function Mensajes() {
   ];
 
   return (
+    
     <div style={containerStyle} className="mensajes-container">
-      <Menu></Menu>
+       <Menu></Menu>
+      <div className='cont-mensaje'>
+        <h1 className='titulo-mesajes'>Apartado de <br /> mensajes</h1>
+      </div>
+     <div className='cont-tablemsg'>
+     <NavTabs tabs={tabs} />
 
-      {/* <div className='cont-img'>
-        <img className='imagen-user' src={imagen} alt="" />
-      </div> */}
-      <h1 className='titulo-mesajes'>Apartado de mensajes</h1>
-      <NavTabs tabs={tabs} />
+     </div>
+    
       <button className='comp' style={composeButtonStyle} onClick={handleComposeClick}>
         <i class="bi bi-send-plus"></i><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
           <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z" />

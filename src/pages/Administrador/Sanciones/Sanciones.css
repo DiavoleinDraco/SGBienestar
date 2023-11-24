@@ -36,14 +36,14 @@
   max-height: 80vh;
   overflow-y: auto;
   width: 90% !important;
-  height: 70% !important;
+  height: 90% !important;
   margin-top: 40px;
   border-radius: 10px 10px 0 0;
   background: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-47%, -36%);
+  transform: translate(-47.8%, -42%);
 }
 
 /* Estio del dialogo */
@@ -102,6 +102,7 @@
 .css-t3ipsp-control {
   max-width: 380px !important;
 }
+
 /* Hasta qui el estilo del MultipleSelect */
 
 .pregunta {
@@ -111,21 +112,13 @@
 
 /* Estilo para la imagen de sanciones */
 .imagen-sanciones-container {
-  background-color: black;
-  width: 90% !important;
-  height: 10%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -410%);
-  z-index: -10;
-}
-
-.imagen-sanciones {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
+  width: 100% !important;
+  height: 50% !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -90%);
+  z-index: -100;
 }
 
 /* Estilo para el modal de sanciones */
@@ -155,7 +148,7 @@
 /* Contenedor del titulo de sanciones */
 .title-sanciones {
   z-index: 100;
-  background: #00ff0000;
+  background: #00000000;
   width: 20%;
   height: 20%;
   position: absolute;
@@ -166,6 +159,43 @@
 
 /* Titulo de sanciones */
 .title-san {
-  color: #fff;
+  color: #ffffff;
   font-size: 24px;
+  margin-top: 8%;
+  margin-right: 30%;
+  font-size: 30px;
+}
+
+/* Contenedor de los divs */
+.contenedor-div {
+  width: 50%;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -118%);
+  z-index: 300;
+}
+
+/* Estilo para el contenedor inclinado y girado */
+.contenedor-div-inclinado {
+  background: #fff;
+  width: 170px;
+  height: 60px;
+  position: absolute;
+  top: 4%;
+  left: 160px;
+  transform: translateX(-50%) skewY(-50deg) rotate(-40deg);
+  z-index: 200;
+}
+
+/* Ajusta la posición de los contenedores hijos adicionales */
+.contenedor-div-inclinado:nth-child(2) {
+  left: 40px;
+  /* Ajusta la distancia según tu preferencia */
+}
+
+.contenedor-div-inclinado:nth-child(3) {
+  left: 100px;
+  /* Ajusta la distancia según tu preferencia */
 }

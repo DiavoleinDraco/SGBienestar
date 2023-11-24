@@ -19,7 +19,7 @@ const Solicitudes = lazy(() => import('../pages/Administrador/Solicitudes/Solici
 const Prestamos = lazy(() => import('../pages/Aprendiz/prestamos/prestamos'));
 const Board = lazy(() => import('../pages/Aprendiz/Board_Aprendiz/Board_Aprendiz.jsx'));
 const Implementos = lazy(() => import('../pages/Aprendiz/Implementos/Implementos.jsx'));
-
+const Perfil = lazy(() => import('../pages/Perfil/Perfil.jsx'))
 
 
 export function LasRutas() {
@@ -57,6 +57,7 @@ export function LasRutas() {
         <Route path="/prestamos" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Prestamos /></Suspense>)} />
         <Route path="/aprendiz" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Board /></Suspense>)} />
         <Route path="/implementos" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Implementos /></Suspense>)} />
+        <Route path="/perfil" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Perfil /></Suspense>)} />
 
       </Routes>
     </Router>

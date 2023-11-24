@@ -34,6 +34,8 @@ import Dialog from "@mui/material/Dialog";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import './Menu.css';
+import { Popover } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -147,17 +149,38 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Menu() {
+  const [mensajeMenuAnchorEl, setMensajeMenuAnchorEl] = useState(null);
+  const [profileMenuAnchorEl, setProfileMenuAnchorEl] = useState(null);
   const theme = useTheme();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [openDialogo, setOpenDialogo] = useState(false);
   const navigate = useNavigate();
 
+
+
+   /*!Para cerrar sesion */
+  const handleCerrarSesion = () => {
+    localStorage.removeItem('token')
+    const token = localStorage.getItem('token')
+    if(!token){
+      navigate('/login')
+    }
+  }
+
+  /*Viajar a perifl */
+  const handlPerfilClik = () => {
+    navigate("/perfil")
+  }
   const handleClickOpen = () => {
     setOpenDialogo(true);
   };
 
   const handleClose = () => {
     setOpenDialogo(false);
+  };
+
+  const handleProfileMenuClose = () => {
+    setProfileMenuAnchorEl(null);
   };
 
   const handleDrawerOpen = () => {
@@ -176,6 +199,8 @@ export default function Menu() {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+    setProfileMenuAnchorEl(event.currentTarget);
+
   };
 
   const handleMobileMenuClose = () => {
@@ -285,7 +310,10 @@ export default function Menu() {
               onClick={handleClickOpen}
               color="inherit"
             >
-              <NotificationsIcon />
+              <i class="bi bi-bell"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6" />
+              </svg>
             </Button>
             <Dialog
               fullScreen
@@ -325,6 +353,7 @@ export default function Menu() {
                 </ListItem>
               </List>
             </Dialog>
+            {/*esto */}
             <IconButton
               size="large"
               edge="end"
@@ -334,8 +363,32 @@ export default function Menu() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <i class="bi bi-person-circle"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+              </svg>
             </IconButton>
+            <Popover
+              id="profile-menu"
+              open={Boolean(profileMenuAnchorEl)}
+              anchorEl={profileMenuAnchorEl}
+              onClose={handleProfileMenuClose}
+              anchorOrigin={{
+                vertical: 'bottom',  // Ajusta la posición vertical
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',  // Ajusta la posición vertical
+                horizontal: 'right',
+              }}
+            >
+              <Box sx={{ p: 2 }}>
+                <Button onClick={handlPerfilClik}>Perfil</Button>
+                <Button onClick={handleCerrarSesion}>Cerrar Sesión</Button>
+
+              </Box>
+            </Popover>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -389,8 +442,8 @@ export default function Menu() {
                 <i className="bi bi-people"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-people"
                   viewBox="0 0 16 16"
@@ -426,8 +479,8 @@ export default function Menu() {
                 <i className="bi bi-send"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-send"
                   viewBox="0 0 16 16"
@@ -466,8 +519,8 @@ export default function Menu() {
                 <i className="bi bi-exclamation-square"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-exclamation-square"
                   viewBox="0 0 16 16"
@@ -507,8 +560,8 @@ export default function Menu() {
                 <i className="bi bi-file-earmark-spreadsheet"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-file-earmark-spreadsheet"
                   viewBox="0 0 16 16"
@@ -547,8 +600,8 @@ export default function Menu() {
                 <i className="bi bi-envelope-plus"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-envelope-plus"
                   viewBox="0 0 16 16"
@@ -559,7 +612,7 @@ export default function Menu() {
               </ListItemIcon>
               <ListItemText
                 primary="Mensajes"
-                sx={{ opacity: open ? 1 : 0, background: "red" }}
+                sx={{ opacity: open ? 1 : 0, }}
               />
             </ListItemButton>
           </ListItem>
@@ -588,8 +641,8 @@ export default function Menu() {
                 <i className="bi bi-file-earmark-text"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-file-earmark-text"
                   viewBox="0 0 16 16"
@@ -600,7 +653,7 @@ export default function Menu() {
               </ListItemIcon>
               <ListItemText
                 primary="Informes"
-                sx={{ opacity: open ? 1 : 0, background: "green" }}
+                sx={{ opacity: open ? 1 : 0, }}
               />
             </ListItemButton>
           </ListItem>
@@ -623,8 +676,8 @@ export default function Menu() {
                 <i className="bi bi-gear"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-gear"
                   viewBox="0 0 16 16"
@@ -662,8 +715,8 @@ export default function Menu() {
                 <i className="bi bi-house-door"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-house-door"
                   viewBox="0 0 16 16"

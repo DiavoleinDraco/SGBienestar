@@ -8,6 +8,7 @@ body {
   background-repeat: no-repeat;
   /* Evita la repetición del fondo */
 }
+
 /* form es el padre de la clase padre */
 .form {
   display: flex;
@@ -34,6 +35,7 @@ body {
   top: 210px;
   border-radius: 30px;
 }
+
 .form::before {
   content: "";
   height: 805px;
@@ -104,20 +106,14 @@ body {
   width: 810px;
   justify-content: center;
   align-content: space-evenly;
-
 }
 
-
-.titulo-registro{
+.titulo-registro {
   flex-grow: 1;
   color: #3c1263;
   font-size: 50px !important;
   font-family: "Questrial", sans-serif;
-
-  
 }
-
-
 
 ul,
 li {
@@ -131,7 +127,6 @@ ul.slider {
   width: 440px;
   height: 750px;
   margin: 0;
-
 }
 
 #slide3 {
@@ -214,8 +209,9 @@ ul.slider li:target {
 .item {
   width: 250px;
   height: 60px;
-  /* outline: 2px solid rgb(8, 1, 15);  */
+  /* outline: 2px solid rgb(8, 1, 15); */
 }
+
 .item-contra {
   width: 250px;
   height: 220px !important;
@@ -242,6 +238,7 @@ ul.slider li:target {
   width: 250px;
   height: 60px;
 }
+
 /*Estilos para los campos*/
 
 .makeStyles-root-4 {
@@ -277,6 +274,7 @@ ul.slider li:target {
   background: #3c1263;
   outline: 1px solid #3c1263;
 }
+
 .registro-s:hover {
   border-radius: 50px;
   width: 240px;
@@ -292,8 +290,9 @@ ul.slider li:target {
   height: 60px !important;
   width: inherit !important;
 }
+
 .MuiTypography-root {
-  /* outline: 1px solid  #a2cd2f !important; */
+  /* outline: 1px solid #a2cd2f !important; */
   height: inherit !important;
   padding: 11px 8px 5px 8px !important;
   font-size: 12px !important;
@@ -338,7 +337,6 @@ ul.slider li:target {
     margin-bottom: 90px;
     width: 480px;
     background: #f6f6f6;
-  
   }
 
   .form:after {
@@ -351,6 +349,7 @@ ul.slider li:target {
     top: 195px;
     border-radius: 30px;
   }
+
   .form::before {
     content: "";
     height: 720px;
@@ -422,23 +421,18 @@ ul.slider li:target {
     justify-content: center;
     align-content: space-around;
     /* outline:#136312 2px solid; */
- 
   }
 
- 
-.titlee{
-  flex-grow: 1;
+  .titlee {
+    flex-grow: 1;
+  }
 
-  
-}
- .titulo-registro{
-  flex-grow: 1;
-  color: #3c1263;
-  font-size: 40px !important;
-  font-family: "Questrial", sans-serif;
-  
-}
-
+  .titulo-registro {
+    flex-grow: 1;
+    color: #3c1263;
+    font-size: 40px !important;
+    font-family: "Questrial", sans-serif;
+  }
 
   ul,
   li {
@@ -512,9 +506,7 @@ ul.slider li:target {
     display: flex;
     width: 300px;
     justify-content: space-evenly;
-   
   }
-  
 
   .menu li a {
     display: inline-block;
@@ -537,8 +529,8 @@ ul.slider li:target {
   .item {
     width: 250px;
     height: 60px;
-   
   }
+
   .item-contra {
     width: 250px;
     height: 220px !important;
@@ -566,6 +558,7 @@ ul.slider li:target {
     width: 250px;
     height: 60px;
   }
+
   /*Estilos para los campos*/
 
   .makeStyles-root-4 {
@@ -599,9 +592,7 @@ ul.slider li:target {
     border-radius: 50px;
     width: 240px;
     background: #3c1263;
-  
   }
- 
 
   .MuiTooltip-popper {
     position: absolute !important;
@@ -611,8 +602,9 @@ ul.slider li:target {
     height: 60px !important;
     width: inherit !important;
   }
+
   .MuiTypography-root {
-    /* outline: 1px solid  #a2cd2f !important; */
+    /* outline: 1px solid #a2cd2f !important; */
     height: inherit !important;
     padding: 11px 8px 5px 8px !important;
     font-size: 12px !important;
@@ -632,16 +624,15 @@ ul.slider li:target {
   }
 }
 
-
 @media screen and (max-width: 400px) {
-  body{
+  body {
     margin: 0;
-   background: #f6f6f6 !important;
- 
+    background: #f6f6f6 !important;
+
     /* Hace que el fondo cubra toda la pantalla sin recortar */
-  
+
     /* Evita que el fondo se mueva con el contenido */
-    
+
     /* Evita la repetición del fondo */
   }
 
@@ -663,6 +654,7 @@ ul.slider li:target {
   .form:after {
     display: none;
   }
+
   .form::before {
     display: none;
   }
@@ -704,16 +696,15 @@ ul.slider li:target {
   }
 
   #imagenes {
-    background:#3c1263;
+    background: #3c1263;
     height: 89px !important;
     position: absolute;
-    width: 390px!important;
-   
+    width: 390px !important;
   }
 
   #imagenes img {
     object-fit: cover;
-    height:100%;
+    height: 100%;
     width: 100%;
   }
 
@@ -724,25 +715,20 @@ ul.slider li:target {
     width: 355px;
     justify-content: center;
     align-content: space-around;
-    outline:1px solid rgb(194, 203, 15); 
- 
+    outline: 1px solid rgb(194, 203, 15);
   }
 
-
-  .titlee{
+  .titlee {
     flex-grow: 1;
-
   }
-  #title-registro{
+
+  #title-registro {
     flex-grow: 1;
     padding-top: 3px;
     color: #3c1263;
     font-size: 30px !important;
     font-family: "Questrial", sans-serif;
- 
-    
   }
-  
 
   ul,
   li {
@@ -840,14 +826,14 @@ ul.slider li:target {
   .item {
     width: 230px;
     height: 57px;
-    /* outline:1px solid rgb(0, 0, 0);  */
+    /* outline:1px solid rgb(0, 0, 0); */
   }
+
   .item-contra {
     width: 230px;
     height: 220px !important;
   }
 
- 
   .contenedor {
     border-radius: 29px;
     width: inherit;
@@ -858,13 +844,13 @@ ul.slider li:target {
     align-content: center !important;
     justify-content: space-evenly;
     flex-direction: column;
-   
   }
 
   .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
     width: 250px;
     height: 60px;
   }
+
   /*Estilos para los campos*/
 
   .makeStyles-root-4 {
@@ -902,16 +888,16 @@ ul.slider li:target {
     outline: 1px solid #3c1263 !important;
     background-color: #3c1263 !important;
   }
+
   .registro-s:hover {
     border-radius: 50px;
     width: 200px;
-   
   }
-  .css-1rwt2y5-MuiButtonBase-root-MuiButton-root{
+
+  .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
     background-color: #3c1263;
   }
 
-  
   .MuiTooltip-popper {
     position: absolute !important;
   }
@@ -920,8 +906,9 @@ ul.slider li:target {
     height: 60px !important;
     width: inherit !important;
   }
+
   .MuiTypography-root {
-    /* outline: 1px solid  #a2cd2f !important; */
+    /* outline: 1px solid #a2cd2f !important; */
     height: inherit !important;
     padding: 11px 8px 5px 8px !important;
     font-size: 12px !important;
@@ -939,5 +926,10 @@ ul.slider li:target {
     color: #fff !important;
     border: 1px solid #fff !important;
   }
+}
 
+/* Correcion de los inputs de registro bugeados */
+.css-6hp17o-MuiList-root-MuiMenu-list {
+  display: flex;
+  flex-direction: column;
 }

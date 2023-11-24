@@ -36,7 +36,7 @@ export default function DataGridProDemo({ Delete, Consulta }) {
   };
 
   const tableRowStyle = {
-    height: '6vh',
+    height: '2vh',
   };
 
   const handleDeleteClick = async (_id) => {
@@ -130,7 +130,7 @@ export default function DataGridProDemo({ Delete, Consulta }) {
           ))}
 
           {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
+            <TableRow style={{ height: 2 * emptyRows }}>
               <TableCell colSpan={3} />
             </TableRow>
           )}
@@ -156,3 +156,4 @@ export default function DataGridProDemo({ Delete, Consulta }) {
     </TableContainer>
   );
 }
+

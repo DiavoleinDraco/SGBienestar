@@ -220,11 +220,6 @@ export default function Sanciones() {
           className="imagen-sanciones-container"
           style={{ background: "#2c0757" }}
         >
-          <img
-            className="imagen-sanciones"
-            src={imagen}
-            alt="imagen de pelota"
-          />
         </div>
       </div>
 

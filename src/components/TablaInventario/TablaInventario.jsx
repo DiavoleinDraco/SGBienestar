@@ -41,6 +41,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Options from '../Options/Options';
 import BasicAccordion from '../BasicAccordion/BasicAccordion';
 import Dialogos from '../Dialogos/Dialogos';
+import'./TablaInventario.css';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -702,7 +703,7 @@ const handleCreateImplementoSubmit = async () => {
 
   function encabezado() {
     return (
-      <TableRow className=''>
+      <TableRow className='tabla-inv'>
         {columns.map((column) => {
           if (columnVisibility[column.dataKey]) {
             return (
@@ -710,7 +711,7 @@ const handleCreateImplementoSubmit = async () => {
                 key={column.dataKey}
                 variant="head"
                 sx={{
-                  backgroundColor: 'background.paper',
+                  backgroundColor: '#e3e3e3',
                 }}
               >
                 {column.label}
@@ -723,7 +724,7 @@ const handleCreateImplementoSubmit = async () => {
          <TableCell
           variant="head"
           sx={{
-            backgroundColor: 'background.paper',
+            backgroundColor: '#e3e3e3',
           }}
         >
         </TableCell>
@@ -731,7 +732,7 @@ const handleCreateImplementoSubmit = async () => {
         <TableCell
           variant="head"
           sx={{
-            backgroundColor: 'background.paper',
+              backgroundColor: '#e3e3e3',
           }}
         >
         </TableCell>
@@ -865,11 +866,11 @@ console.log('aptovalue: ', aptoValues)
 console.log('jajk: ', newImplemento.cantidad)
 
   return (
-    <Paper style={{ height: 995, width: '90%', position: 'relative', left: '96px' }}>
+    <Paper className='tabla-inventario'>
       <Toolbar>
       <Search>
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon  />
             </SearchIconWrapper>
             <StyledInputBase
             placeholder="Buscar implemento…"
@@ -891,7 +892,7 @@ console.log('jajk: ', newImplemento.cantidad)
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}}
         transformOrigin={{ vertical: 'top', horizontal: 'left'}}>
 
-        <div style={{ padding: 16 }}>
+        <div style={{ padding: 16, }}>
           <ColumnVisibilityControls />
         </div>
       </Popover>
@@ -1136,9 +1137,9 @@ console.log('jajk: ', newImplemento.cantidad)
 
 
       <Dialog open={crearImplemento} onClose={handleCreateImplementoClose}>
-        <DialogTitle>Crear Nuevo Implemento</DialogTitle>
-        <DialogContent>
-          <form>
+        <DialogTitle className='cont-dialo'>Crear Nuevo Implemento</DialogTitle>
+        <DialogContent className='dialo'>
+          <form className='formulario-inv'>
             <TextField
             label="Codigo"
             type="text"
@@ -1153,12 +1154,13 @@ console.log('jajk: ', newImplemento.cantidad)
             value={newImplemento.nombre || ''}
             onChange={(e) => setNewImplemento({ ...newImplemento, nombre: e.target.value })}
           />
+          <div className='cont-estado'>
           {Array.from({ length: additionalInfoCount }).map((_, index) => (
             <BasicAccordion 
             key={index}
             titulo={`ESTADO ${index + 1}`}
             contenido={
-              <div>
+              <div className='estadooo'>
                   <ComSelect 
                   nombre='Estado'
                   items={selectedEstadoInfoo.map((opcion) => opcion.label)}
@@ -1173,8 +1175,8 @@ console.log('jajk: ', newImplemento.cantidad)
                   value={newImplemento.estado[index]?.cantidad || ''}
                   onChange={(e) => handleCantidadChange(e, index)}
                   />
-                  <div>
-                    <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
+                 <div className='apto'>
+                 <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
                       SI
                       <Radio
                         checked={aptoValues[index] === true}
@@ -1189,13 +1191,15 @@ console.log('jajk: ', newImplemento.cantidad)
                         value={false}
                         name="radio-buttons"
                       />
+                           </div>
+                    
                       {index > 0 && ( // Muestra el botón "delete" solo si el acordeón no es el primero
                     <IconButton onClick={() => handleDeleteInfoEstados(index)}>
                       <DeleteIcon />
                     </IconButton>
-                  )}
+                   )}
+            
                   </div>
-              </div>
             }
             />
           ))}
@@ -1209,16 +1213,17 @@ console.log('jajk: ', newImplemento.cantidad)
                   <AddIcon />
                 </IconButton>
               </Fab>
-            <div className="contenedorsito">
-              <div style={{position:'relative', top: '-40px', left : '90px'}}>
-                Cantidad
+          
+              <div className='cont-cantidad'>
+                CANTIDAD
                 <input
                 name="" 
                 value= {calcularCantidadTotal(newImplemento.estado)} 
                 onChange={handleGeneralCantidadChange}
                 />
-              </div>
+          
             </div>
+          </div>
           <ComSelect 
           nombre='Categoria'
           items={selectedIdCat.map((opcion) => opcion.label)}
@@ -1289,7 +1294,7 @@ console.log('jajk: ', newImplemento.cantidad)
           <TextField
             label="Tamano"
             type="text"
-            name="tamano"
+            name="tamanot"
             value={newImplemento.descripcion.tamano || ''}
             onChange={(e) => setNewImplemento({
               ...newImplemento,
@@ -1300,6 +1305,7 @@ console.log('jajk: ', newImplemento.cantidad)
             })}
           />
         </form>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCreateImplementoClose}>Cancelar</Button>

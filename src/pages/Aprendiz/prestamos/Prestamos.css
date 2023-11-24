@@ -1,18 +1,18 @@
 /* Estilo del contenedor principal */
-.contenedor-prestamos{
+.contenedor-prestamos {
     margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     background: #f6f6f6;
-    width: 50%;
+    width: 700px;
     height: 50%;
     border-radius: 30px;
 }
 
 /* Estilo del contenedor Before */
-.contenedor-prestamos::before{
+.contenedor-prestamos::before {
     content: "";
     background: #f6f6f6cc;
     width: 110%;
@@ -26,7 +26,7 @@
 }
 
 /* Estilo del contenedor After */
-.contenedor-prestamos::after{
+.contenedor-prestamos::after {
     content: "";
     background: #f6f6f6cc;
     width: 70%;
@@ -84,4 +84,34 @@
     background: #f6f6f6;
     color: #2c0572;
     border: 1px solid #2c0572;
+}
+
+/* Contenedor del logo de bienestar */
+.img-contenedor {
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -210%);
+    align-items: center;
+    align-content: center;
+}
+
+/* Estilo para el logo en prestamos */
+.img-prestamos {
+    width: 500px;
+    height: 300px;
+}
+
+.parr-qr {
+    font-size: 20px;
+    padding-top: 30px;
+}
+
+.qr {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

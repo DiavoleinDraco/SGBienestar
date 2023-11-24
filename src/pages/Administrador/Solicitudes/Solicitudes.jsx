@@ -9,7 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import get, { actualizar, post } from "../../../UseFetch";
+import get, { actualizar, getParametre, post } from "../../../UseFetch";
 import "./Solicitudes.css";
 // importacion de la imagen para el diseño.
 import imagen from "./png.jpg";
@@ -40,21 +40,13 @@ export default function BasicTable() {
         const data = await get("/prestamos");
         setTableData(data);
         setDatosGuardados(data);
-        
-        
       } catch (error) {
         console.error("Error al obtener datos de la API", error);
       }
     };
 
     fetchData();
-    
   }, []);
-
- 
-  
-
-
 
   useEffect(() => {
     const fetchDataEstado = async () => {
@@ -101,8 +93,6 @@ export default function BasicTable() {
     fetchDataEstado();
   }, [idAprobado, idRechazado, idFallido, idCompletado, IdPendiente]);
 
-
-
   console.log("IdPendiente:", IdPendiente);
 
   const handleAceptar = async (id) => {
@@ -116,11 +106,10 @@ export default function BasicTable() {
       }
 
       const data = {
-        id,
-        estado: idAprobado,
+        id
       };
 
-      const response = await post("/prestamos/finalizar", data);
+      const response = await getParametre("/prestamos/aprobar/", id);
 
       setErrorMessage("");
       setAlertOpen(false);
@@ -166,52 +155,49 @@ export default function BasicTable() {
     }
   };
 
-
-
-
   const filterTableData = () => {
     const dataToRender = searchTerm ? filterTableData : tableData;
-  
+
     const sortedData = dataToRender.sort((a, b) => {
-      
       const dateA = new Date(a.fecha_inicio);
       const dateB = new Date(b.fecha_inicio);
-  
-      
+
       return dateB - dateA;
     });
-  
-    
 
-  
-  switch (filter) {
+    switch (filter) {
       case "pendientes":
-        return sortedData.filter((row) => row.estado.nombre === ESTADO_PENDIENTE);
+        return sortedData.filter(
+          (row) => row.estado.nombre === ESTADO_PENDIENTE
+        );
       case "aprobadas":
-        return sortedData.filter((row) => row.estado.nombre === ESTADO_APROBADO);
+        return sortedData.filter(
+          (row) => row.estado.nombre === ESTADO_APROBADO
+        );
       case "rechazadas":
-        return sortedData.filter((row) => row.estado.nombre === ESTADO_RECHAZADO);
+        return sortedData.filter(
+          (row) => row.estado.nombre === ESTADO_RECHAZADO
+        );
       case "fallidas":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_FALLIDO);
       case "completados":
-        
-     
-  return sortedData.filter((row) => row.estado.nombre === ESTADO_COMPLETADO);
-      
-      
-  default:
+        return sortedData.filter(
+          (row) => row.estado.nombre === ESTADO_COMPLETADO
+        );
+
+      default:
         return sortedData;
     }
   };
 
-
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      undefined,
+      options
+    );
     return formattedDate;
   };
-
-
 
   return (
     <div>
@@ -227,59 +213,73 @@ export default function BasicTable() {
           className="imagen-sanciones-container"
           style={{ background: "#2c0757" }}
         >
-          <img
-            className="imagen-sanciones"
-            src={imagen}
-            alt="imagen de pelota"
-          />
         </div>
         <TableContainer className="cont-table-solicitudes" component={Paper}>
-          <Button
-            className="boton-solicitudes"
-            variant="contained"
-            onClick={() => setFilter("pendientes")}
+          <div
+            style={{
+              background: "#eaeaea",
+              borderBottom: "0.1px solid #868686",
+              position: "sticky",
+              top: 0,
+              zIndex: 100,
+            }}
+            className="btncont"
           >
-            Pendientes
-          </Button>
-          <Button
-            className="boton-solicitudes"
-            variant="contained"
-            onClick={() => setFilter("aprobadas")}
-          >
-            Aprobadas
-          </Button>
-          <Button
-            className="boton-solicitudes"
-            variant="contained"
-            onClick={() => setFilter("rechazadas")}
-          >
-            Rechazadas
-          </Button>
-          <Button
-            className="boton-solicitudes"
-            variant="contained"
-            onClick={() => setFilter("fallidas")}
-          >
-            Fallidas
-          </Button>
-          <Button
-            className="boton-solicitudes"
-            variant="contained"
-            onClick={() => setFilter("completados")}
-          >
-            Completados
-          </Button>
-          <Button
-            className="boton-solicitudes"
-            variant="contained"
-            onClick={() => setFilter(null)}
-          >
-            Todos
-          </Button>
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("pendientes")}
+            >
+              Pendientes
+            </Button>
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("aprobadas")}
+            >
+              Aprobadas
+            </Button>
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("rechazadas")}
+            >
+              Rechazadas
+            </Button>
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("fallidas")}
+            >
+              Fallidas
+            </Button>
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("completados")}
+            >
+              Completados
+            </Button>
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter(null)}
+            >
+              Todos
+            </Button>
+          </div>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-              <TableCell align="right">
+            <TableHead
+              style={{
+                background: "#eaeaea",
+                borderBottom: "0.1px solid #868686",
+                position: "sticky",
+                top: 65,
+                zIndex: 99,
+              }}
+            >
+              <TableRow >
+                <TableCell align="right">
                   {" "}
                   <b> Fecha </b>{" "}
                 </TableCell>
@@ -326,7 +326,9 @@ export default function BasicTable() {
                   key={row._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="right">{formatDate(row.fecha_inicio)}</TableCell>
+                  <TableCell align="right">
+                    {formatDate(row.fecha_inicio)}
+                  </TableCell>
                   <TableCell align="right">
                     {row.usuario.nombres + " " + row.usuario.apellidos}
                   </TableCell>
@@ -345,6 +347,7 @@ export default function BasicTable() {
                     <>
                       <TableCell align="right">
                         <Button
+                          style={{ background: "#e3e3e3", color: "#2c0757" }}
                           variant="contained"
                           color="primary"
                           onClick={() => handleRecibir(row._id)}
@@ -357,6 +360,7 @@ export default function BasicTable() {
                     <>
                       <TableCell align="right">
                         <Button
+                          style={{ background: "#e3e3e3", color: "#2c0757" }}
                           variant="contained"
                           color="success"
                           onClick={() => handleAceptar(row._id)}
