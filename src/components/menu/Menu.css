@@ -8,12 +8,15 @@
   box-shadow: none !important;
    height: 7vh;
    width: 100% !important;
+   border-bottom: 1px medium #e3e3e3;
 }
 /* barra de menu  vertical  */
 .MuiDrawer-paper {
   background:#2c0757 !important;
    width:70px !important;
   color: #fff !important;
+  display: none;
+  border-bottom: #202124 14px solid !important;
 }
 .css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper {
   background:#2c0757 !important;
@@ -61,15 +64,17 @@
   .css-h4y409-MuiList-root {
       display: flex;
       flex-direction: column;
-      height: 80%;
+      height: 50%;
       justify-content: space-evenly !important;
   }
-  .css-uxa1ks-MuiListItem-root:hover{
-      background: #f6f6f63f;
-  } 
+  /* .css-uxa1ks-MuiListItem-root:hover{
+      background: #4115748d !important;
+      
+  }  */
   
   .css-10hburv-MuiTypography-root{
     font-size: 17px !important;
+    font-weight: bold;
     }
     .css-1ex1afd-MuiTableCell-root {
         -webkit-font-smoothing: antialiased;
@@ -78,3 +83,21 @@
         color: #202124;
         text-shadow: none;
     }
+    .css-1191obr-MuiPaper-root-MuiAppBar-root {
+    
+      width: calc(100% - 190px);
+  }
+
+
+.css-va53ml-MuiButtonBase-root-MuiListItemButton-root{
+  width: 90%;
+  justify-self:center ;
+  margin: auto;
+  border-radius: 7px;
+}
+.css-va53ml-MuiButtonBase-root-MuiListItemButton-root:hover{
+background: #f6f6f632;
+}
+.MuiListItem-root .MuiListItem-gutters .css-uxa1ks-MuiListItem-root :hover{
+  background: none !important;
+}

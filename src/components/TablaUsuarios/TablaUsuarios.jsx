@@ -168,7 +168,7 @@ export default function TablaUsarios() {
         {columns.map((column) => (
           <TableCell key={column.label}>{row[column.dataKey]}</TableCell>
         ))}
-        <TableCell>
+        <TableCell className="sancionarb">
           <Buttons
             nombre="sancionar"
             onclick={() => handleSancionarClick(_index)}

@@ -341,10 +341,10 @@ export default function TablaInventario() {
       <BasicAccordion 
       titulo={'Crear'}
       contenido={
-        <div>
-          <button onClick={createCategoriaClick}>Categoría</button>
-          <button onClick={createEstadoClick}>Estado</button>
-          <button onClick={createMarcaClick}>Marca</button>
+        <div className='cont-boton' >
+          <button className='boton' onClick={createCategoriaClick}>Categoría</button>
+          <button className='boton' onClick={createEstadoClick}>Estado</button>
+          <button className='boton' onClick={createMarcaClick}>Marca</button>
         </div>
       }/>
      </div>},
@@ -352,10 +352,10 @@ export default function TablaInventario() {
       <BasicAccordion 
       titulo={'Eliminar'}
       contenido={
-        <div>
-          <button onClick={eliminarCatClick}>Categoría</button>
-          <button onClick={eliminarEstadoClick}>Estado</button>
-          <button onClick={eliminarMarcaClick}>Marca</button>
+        <div className='cont-boton' >
+          <button className='boton' onClick={eliminarCatClick}>Categoría</button>
+          <button className='boton' onClick={eliminarEstadoClick}>Estado</button>
+          <button className='boton' onClick={eliminarMarcaClick}>Marca</button>
         </div>
       }/>
      </div>}
@@ -870,8 +870,8 @@ console.log('jajk: ', newImplemento.cantidad)
       <Toolbar>
       <Search>
             <SearchIconWrapper>
-              <SearchIcon  />
-            </SearchIconWrapper>
+              <SearchIcon className='icon-search' />
+            </SearchIconWrapper >
             <StyledInputBase
             placeholder="Buscar implemento…"
             inputProps={{ 'aria-label': 'search' }}
@@ -884,7 +884,7 @@ console.log('jajk: ', newImplemento.cantidad)
       <Options 
       nombre='Más'
       menuItems={menuItems}
-      filter={<div>
+      filter={<div className='filter'>
          <Popover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -892,12 +892,15 @@ console.log('jajk: ', newImplemento.cantidad)
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}}
         transformOrigin={{ vertical: 'top', horizontal: 'left'}}>
 
-        <div style={{ padding: 16, }}>
+        <div style={{ padding:16, }}>
           <ColumnVisibilityControls />
         </div>
       </Popover>
         <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
-          <FilterListIcon /> Filtrar
+        <i class="bi bi-filter"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+</svg> Filtrar
         </IconButton>
       </div>}/>
       

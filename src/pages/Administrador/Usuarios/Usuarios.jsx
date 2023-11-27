@@ -12,8 +12,7 @@ export default function Usuarios() {
             <div className='cont-img'>
             </div>
             <div className="contenedor-title-usu">
-            <h1 id='titulouser'>Apartado de<br
-                /> Usuarios</h1>
+            <h1 id='titulouser'>Usuarios</h1>
             </div>
             <div className="cont-table-usuariuos">
                 <TablaUsuarios />

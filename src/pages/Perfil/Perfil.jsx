@@ -46,8 +46,8 @@ export default function RecuperarContrasena() {
     setActualizar(false);
 
     //actualizar('/registro/usuarios/',decode.id, actualizar)
-   
-   
+
+
   };
 
 
@@ -80,38 +80,46 @@ export default function RecuperarContrasena() {
   console.log(datosActualizados)
   if (userData) {
     return (
-      <div>
+      <div className="contenedor-padre-login">
 
-        <div className="blanco">
-          <p>Editar datos de usuario</p>
-         
+        <h2 className="title-perfil">Editar datos de usuario</h2>
 
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="contenedor-de-texfields">
+
+          <div className="contenedor-texfield-perfil">
           <Textfield editable={editable} name={'Telefono'} inicial={userData ? userData.telefono : null} onChange={(value) => handleInputChange('telefono', value)}></Textfield>
-          <span style={{marginLeft: '-1%', cursor: 'pointer'} } onClick={handleEditarClick}><EditIcon> </EditIcon></span>
-
-          <Textfield editable={editable} name={'Correo Personal'} inicial={userData.correo_pers} onChange={(value) => handleInputChange('correo_pers', value)}></Textfield>
-          <span style={{marginLeft: '-1%', cursor: 'pointer'} } onClick={handleEditarClick}><EditIcon> </EditIcon></span>
-
-
-          <Textfield editable={editable} name={'Dirección'} inicial={userData.direccion} onChange={(value) => handleInputChange('direccion', value)}></Textfield>
-          <span style={{marginLeft: '-1%', cursor: 'pointer'} } onClick={handleEditarClick}><EditIcon> </EditIcon></span>
-
-          <Textfield editable={editable} name={'Genero'} inicial={userData.direccion} onChange={(value) => handleInputChange('genero', value)}></Textfield>
-          <span style={{marginLeft: '-1%', cursor: 'pointer'} } onClick={handleEditarClick}><EditIcon> </EditIcon></span>
+          <span style={{ marginLeft: '-1%', cursor: 'pointer' }} onClick={handleEditarClick}><EditIcon> </EditIcon></span>
           </div>
-        
-          <Buttons nombre={'Guardar cambios'} onclick={handleSaveChanges}>Guardar</Buttons>
+          
+          <div className="contenedor-texfield-perfil">
+          <Textfield editable={editable} name={'Correo Personal'} inicial={userData.correo_pers} onChange={(value) => handleInputChange('correo_pers', value)}></Textfield>
+          <span style={{ marginLeft: '-1%', cursor: 'pointer' }} onClick={handleEditarClick}><EditIcon> </EditIcon></span>
+          </div>
+
+          <div className="contenedor-texfield-perfil">
+          <Textfield editable={editable} name={'Dirección'} inicial={userData.direccion} onChange={(value) => handleInputChange('direccion', value)}></Textfield>
+          <span style={{ marginLeft: '-1%', cursor: 'pointer' }} onClick={handleEditarClick}><EditIcon> </EditIcon></span>
+          </div>
+
+          <div className="contenedor-texfield-perfil">
+          <Textfield editable={editable} name={'Genero'} inicial={userData.direccion} onChange={(value) => handleInputChange('genero', value)}></Textfield>
+          <span style={{ marginLeft: '-1%', cursor: 'pointer' }} onClick={handleEditarClick}><EditIcon> </EditIcon></span>
+          </div>
+
         </div>
 
-        <div className="right-box">
-
-        <div className="photo-frame">
-         <img src={icono}></img>
+        <div className="btn-perfil">
+        <Buttons nombre={'Guardar cambios'} onclick={handleSaveChanges}>Guardar</Buttons>
         </div>
-        <p>Nombres: {decode.nombre + " " + decode.apellidos}</p> 
-          <p>Correo Institucional: {decode.correo_inst}</p> 
-      </div>
+
+        <div className="contenedor-info-perfil">
+          <div className="contenedor-img-perfil">
+            <img src={icono}></img>
+          </div>
+          <p>Nombres y Apellidos: <br /> {decode.nombre + " " + decode.apellidos }</p>
+          <br />
+          <p>Correo Institucional: {decode.correo_inst}</p>
+        </div>
       </div>
     );
   }

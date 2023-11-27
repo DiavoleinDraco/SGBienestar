@@ -47,3 +47,8 @@ width: calc(100% - 190px) !important;
     z-index: 999;
  
 }
+.sancionarb button{
+    background: #EBEBEB;
+    box-shadow: 6px 6px 20px -1px rgba(0, 0, 0, 0.15),
+        -6px -6px 20px -1px rgba(255, 255, 255, 0.7);
+}

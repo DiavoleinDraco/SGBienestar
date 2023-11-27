@@ -1,8 +1,7 @@
 .cont-inventario{
-    outline: 1px solid rgb(255, 245, 230);
     width: 100%;
-    background:#2c0757;
-    height: 100vh;
+    background:#68ac61;
+    height: 50vh;
 }
 .tabla-inv{
     width: 100%;
