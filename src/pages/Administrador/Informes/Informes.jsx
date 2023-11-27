@@ -53,6 +53,8 @@ export default function Informes() {
   const [DataUsuario, setData] = useState('')
   const [matchedUserId, setMatchedUserId] = useState(null);
   const [numeroDocumento, setNumeroDocumento] = useState('');
+  const [implemento, setImplemento] = useState([]);
+
 
   const [informeData, setInformeData] = useState({
 
@@ -71,19 +73,16 @@ export default function Informes() {
   });
 
 
+
   const agregarImplemento = () => {
     const nuevoImplemento = {
       "nombre": "",
       "cantidad": 0,
       "caracteristicas": ""
     };
-    setInformeData(prevState => ({
-      ...prevState,
-      implemento: [...prevState.implemento, nuevoImplemento]
-    }));
+    setImplemento([...implemento, nuevoImplemento]);
   };
   
-
 
 
   console.log(almacenar)
@@ -266,47 +265,41 @@ export default function Informes() {
         usuarios: updatedUsuarios,
       });
     } else if (fieldName === "estado") {
-      setInformeData({
-        ...informeData,
-        [fieldName]: value,
-      });
-    } else if (fieldName === "nombre") {
+      if(value == "Todo"){
+        setInformeData({
+          ...informeData,
+          [fieldName]: "Activo/Inactivo", 
+          usuarios: [""]
+        });
+      }else{
+        setInformeData({
+          ...informeData,
+          [fieldName]: value,
+        });
+      }
+     
+    } else if (fieldName === "implemento") {
       const updatedImplemento = [...informeData.implemento];
-      updatedImplemento[0] = {
-        ...updatedImplemento[0],
-        [fieldName]: value,
-      };
+      if (!updatedImplemento[index]) {
+        updatedImplemento[index] = {};
+      }
+      if (subfield) {
+        updatedImplemento[index] = {
+          ...updatedImplemento[index],
+          [subfield]: value,
+        };
+      }
       setInformeData({
         ...informeData,
         implemento: updatedImplemento,
-      })}else if (fieldName === "cantidad") {
-        const updatedImplemento = [...informeData.implemento];
-        updatedImplemento[0] = {
-          ...updatedImplemento[0],
-          [fieldName]: value < 0 ? 0 : value,
-        };
-        setInformeData({
-          ...informeData,
-          implemento: updatedImplemento,
-        })}else if (fieldName === "caracteristicas") {
-        const updatedImplemento = [...informeData.implemento];
-        updatedImplemento[0] = {
-          ...updatedImplemento[0],
-          [fieldName]: value,
-        };
-        setInformeData({
-          ...informeData,
-          implemento: updatedImplemento,
-        })}
-
-      else {
+      });
+    } else {
       setInformeData({
         ...informeData,
         [fieldName]: value,
       });
     }
   };
-
 
   const handleEstadoFormit = (selectedEstado) => {
     console.log(selectedEstado)
@@ -353,21 +346,28 @@ export default function Informes() {
 
   const handleEnviar = () => {
     try {
+      // Check if the selected option is "Informe de Nuevo Implemento" and implementos is "Todo"
+   
+  
       const filteredInformeData = filterEmptyFields(informeData);
-      post('/informe', filteredInformeData).then((response) => setDataResponse(response))
-      console.log("lol", filteredInformeData)
+      if (
+        selectedOption &&
+        selectedOption.label === "65374bb14d00eddbedad4102" &&
+        informeData.estado === "Activo/Inactivo"
+      ) {
+        setInformeData({
+          ...informeData,
+          usuarios: [""], // Set implemento to an empty array
+        });
+      }
+      post('/informe', filteredInformeData).then((response) => setDataResponse(response));
+      console.log("lol", filteredInformeData);
       setEnviado(true);
-      return(
-        <div>
-         
-         
-        </div>
-     
-      )
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   console.log(response._id)
 
@@ -432,7 +432,7 @@ export default function Informes() {
 
               <ComSelect
                 nombre="Estado de Sancion"
-                items={["Activo", "Inactivo"]}
+                items={["Activo", "Inactivo", "Todo"]}
                 onChange={(value) => handleInformeDataChange("estado", value)}
                 required
               />
@@ -461,27 +461,24 @@ export default function Informes() {
 
       {encabezadoContentImplemento}
 
-      {informeData.implemento.map((implemento, index) => (
+      {implemento.map((implemento, index) => (
   <div key={index}>
     <Textfield
       name={`Nombre ${index + 1}`}
-      onChange={(value) => handleInformeDataChange("nombre", value, index, "nombre")}
+      onChange={(value) => handleInformeDataChange("implemento", value, index, "nombre")}
     />
     <Textfield
       name={`Cantidad ${index + 1}`}
       soloNumeros={true}
-      onChange={(value) => handleInformeDataChange("cantidad", value, index, "cantidad")}
+      onChange={(value) => handleInformeDataChange("implemento", value, index, "cantidad")}
     />
     <Textfield
       name={`Caracteristicas ${index + 1}`}
-      onChange={(value) => handleInformeDataChange("caracteristicas", value, index, "caracteristicas")}
+      onChange={(value) => handleInformeDataChange("implemento", value, index, "caracteristicas")}
     />
   </div>
-
-
-
-
 ))}
+
 
 <button onClick={agregarImplemento}>Agregar Implemento</button>
 
@@ -538,7 +535,7 @@ export default function Informes() {
             severity="error"
             sx={{ width: "100%" }}
           >
-            Debe seleccionar una ficha
+            Debe seleccionar una Informe
           </Alert>
         </Snackbar>
       </Stack>

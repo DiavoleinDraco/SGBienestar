@@ -59,3 +59,7 @@
   display: table-header-group;
   background: #eaeaea !important;
 }
+
+.css-ke5b6m-MuiButtonBase-root-MuiButton-root {
+  background-color: rgb(227, 227, 227) !important;
+}
