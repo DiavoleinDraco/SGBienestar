@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Menu from '../../../components/menu/Menu';
+import React, { useState, useEffect, lazy } from "react";
+const Menu = lazy(() => import('../../../components/menu/Menu'));
+
+
 import Box from '@mui/material/Box';
 import Textfield from '../../../components/Textfield/Textfield';
 import ComSelect from '../../../components/ComSelect/ComSelect';
@@ -8,7 +10,7 @@ import Date from '../../../components/Date/Date';
 import NavTabs from '../../../components/NavTabs/NavTabs';
 import Buttons from '../../../components/Buttons/Buttons';
 import BasicAccordion from '../../../components/BasicAccordion/BasicAccordion';
-import get from "../../../UseFetch";
+import get, { getMultipleParametre, post } from "../../../UseFetch";
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -26,189 +28,67 @@ import Stack from "@mui/material/Stack";
 import { forwardRef } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import jwtDecode from "jwt-decode";
+
+
+
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 
-export default function Informes () {
+export default function Informes() {
   const [estado, setEstado] = useState([])
   const [additionalInfoCount, setAdditionalInfoCount] = useState(1);
-    const [selectedEstado, setSelectedEstado] = useState(null)
-    const [opcionesComSelect, setOpcionesComSelect] = useState([]);
-    const [open, setOpen] = useState(true);
-    const [openSnack, setOpenSanck] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(''); 
-    const [tipo, setTipo] = useState([]);
-    const navigate = useNavigate();
-    const [informeData, setInformeData] = useState({
-      tipoInforme: '',
-      fecha: '',
-      numeroInforme: '',
-      nombreFuncionario: '',
-      docIdentidad: '',
-      dependencia: '',
-      detalleInforme: '',
-      implementos: '',
-      descripcion: '',
-      cantidad: '',
-      infoAdicional: [
-        {
-          nombreImple: '',
-          unidades: '',
-          caracteristicas: '',
-        },
-      ],
-     
+  const [selectedEstado, setSelectedEstado] = useState(null)
+  const [opcionesComSelect, setOpcionesComSelect] = useState([]);
+  const [open, setOpen] = useState(true);
+  const [openSnack, setOpenSanck] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [tipo, setTipo] = useState([]);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token")
+  const almacenar = jwtDecode(token)
+  const [response, setDataResponse] = useState({})
+  const [enviado, setEnviado] = useState(false)
+  const [DataUsuario, setData] = useState('')
+  const [matchedUserId, setMatchedUserId] = useState(null);
+  const [numeroDocumento, setNumeroDocumento] = useState('');
 
-    });
-    const token = localStorage.getItem("token")
-    const almacenar= jwtDecode(token)
-    console.log(almacenar)
+  const [informeData, setInformeData] = useState({
 
-    const nombrecompleto= almacenar.nombre + " " + almacenar.apellidos
+    "tipo_informe": "",
+    "usuario": almacenar.id,
+    "dependencia": "Bienestar",
+    "implemento": [],
+    "estado_implemento": [
+      ""
+    ],
+    "estado": "",
+    "usuarios": [
+      ""
+    ],
+    "observaciones": ""
+  });
 
-    const handleClickOpen = () => {
-      setOpen(true);
+
+  const agregarImplemento = () => {
+    const nuevoImplemento = {
+      "nombre": "",
+      "cantidad": 0,
+      "caracteristicas": ""
     };
-  
-    const handleClose = () => {
-      if (selectedOption) {
-        setOpen(false);
-      } else {
-                setOpenSanck(true)
-      }
-    };
-
-    const handleCloseSnackBar = (event, reason) => {
-      if (reason === "clickaway") {
-        return;
-      }
-      setOpenSanck(false);
-    };
-    
-
-    console.log('informedata', informeData)
-
-    useEffect(() => {
-        get("/tipo-informe")
-        .then((data) => {
-          setTipo(data);
-          console.log('data de tipo: ', data)
-          if(data.length > 0){
-            setInformeData({
-              ...informeData,
-              tipoInforme: data[0]._id,
-            });
-
-          }
-        })
-        .catch((error) => {
-          console.error("Error al encontrart el resultado", error);
-        });
-    }, []);
-
-    const handleTipoInformeFormit = (selectedTipo) => {
-      const selectedTipoInformeOption = selectedTipoInfo.find(
-        (option) => option.label === selectedTipo
-      );
-
-      if(selectedTipoInformeOption) {
-        const selectedInfoTipo = selectedTipoInformeOption.value;
-        
-    setSelectedOption(selectedTipoInformeOption)
-        const updateInfo = {
-          ...informeData, tipoInforme: selectedInfoTipo
-        }
-        setInformeData(updateInfo)
-      }
-    }
-
-    const selectedTipoInfo = tipo.map((tipo) => ({
-      label: tipo.nombre,
-      value: tipo['_id']
-    }))
-
-
-
-//_______________________________________________________
-
-  
-
-//__________________USUARIO_______________________________
-
-  const encabezadoImplemento = () => (
-    <div className='container-Informes'>
-
-
-
-      <div className="contenedorsito">
-      <p style={{ marginLeft: "-172px" }}>Nombre del Funcionario:</p>
-      <div style={{position:'relative', top: '-40px', left : '90px'}}>
-      <input
-      
-      name="" 
-      value= {nombrecompleto} 
-      onChange={(value) => handleInformeDataChange("nombreFuncionario", value)}
-      />
-      </div>
-      </div>
-      <Textfield 
-      inicial='Bienestar'
-      name="Dependencia" 
-      onChange={(value) => handleInformeDataChange("dependencia", value)}
-      />
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <p>Observaciones</p>
-        <TextField multiline name="" onChange={(value) => handleInformeDataChange("dependencia", value)}/>
-        </div>
-    </div>
-  );
-
-/*
-
--.
-
-
-
-
-
-*/
-
-
-
-  
-  const handleInformeDataChange = (fieldName, value, index, subfield) => {
-    if (fieldName === "infoAdicional") {
- 
-      const updatedInfoAdicional = [...informeData.infoAdicional];
-  
-      if (!updatedInfoAdicional[index]) {
-        updatedInfoAdicional[index] = {}; 
-      }
-  
-      if (subfield) {
-       
-        updatedInfoAdicional[index] = {
-          ...updatedInfoAdicional[index],
-          [subfield]: value,
-        };
-      }
-  
-      
-      setInformeData({
-        ...informeData,
-        infoAdicional: updatedInfoAdicional,
-      });
-    } else {
-      
-      setInformeData({
-        ...informeData,
-        [fieldName]: value,
-      });
-    }
+    setInformeData(prevState => ({
+      ...prevState,
+      implemento: [...prevState.implemento, nuevoImplemento]
+    }));
   };
+  
 
+
+
+  console.log(almacenar)
+  console.log(matchedUserId)
+  {/*//!Peticiones */ }
   useEffect(() => {
     get("/estado-implemento")
       .then((data) => {
@@ -220,24 +100,227 @@ export default function Informes () {
       });
   }, []);
 
+  useEffect(() => {
+    get("/tipo-informe")
+      .then((data) => {
+        setTipo(data);
+        console.log('data de tipo: ', data)
+        if (data.length > 0) {
+          setInformeData({
+            ...informeData,
+            tipo_informe: data[0]._id,
+          });
+
+        }
+      })
+      .catch((error) => {
+        console.error("Error al encontrart el resultado", error);
+      });
+  }, []);
+
+  const nombrecompleto = almacenar.nombre + " " + almacenar.apellidos
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    if (selectedOption) {
+      setOpen(false);
+    } else {
+
+      setOpenSanck(true)
+    }
+  };
+
+  const handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSanck(false);
+  };
+
+
+  console.log('informedata', informeData)
+
+
+
+  const handleTipoInformeFormit = (selectedTipo) => {
+    const selectedTipoInformeOption = selectedTipoInfo.find(
+      (option) => option.label === selectedTipo
+    );
+
+    if (selectedTipoInformeOption) {
+      const selectedInfoTipo = selectedTipoInformeOption.value;
+
+      setSelectedOption(selectedTipoInformeOption)
+      const updateInfo = {
+        ...informeData, tipo_informe: selectedInfoTipo
+      }
+      setInformeData(updateInfo)
+    }
+  }
+
+  const selectedTipoInfo = tipo.map((tipo) => ({
+    label: tipo.nombre,
+    value: tipo['_id']
+  }))
+
+
+  //__________________USUARIO_______________________________
+
+  const encabezadoImplemento = () => (
+    <div className='container-Informes'>
+      <div className="contenedorsito">
+        <p style={{ marginLeft: "-172px" }}>Nombre del Funcionario:</p>
+        <div style={{ position: 'relative', top: '-40px', left: '90px' }}>
+          <input
+
+            name=""
+            value={nombrecompleto}
+            onChange={(value) => handleInformeDataChange("nombreFuncionario", event.target.value)}
+          />
+        </div>
+      </div>
+      <Textfield
+        inicial='Bienestar'
+        name="Dependencia"
+        onChange={(value) => handleInformeDataChange("dependencia", event.target.value)}
+      />
+
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <p>Observaciones</p>
+        <TextField multiline name="" onChange={(value) => handleInformeDataChange("observaciones", event.target.value)} />
+      </div>
+    </div>
+  );
+
+
+
+
+
+
+  /*
+  TRAE A TODOS LOS USUARIOS
+ 
+  */
+
+  useEffect(() => {
+    get("/registro/info")
+      .then((usuarios) => {
+        console.log("Hola", usuarios);
+        const dataUsuarios = usuarios.map((user) => ({
+          id: user._id,
+          numDoc: user.n_doc
+        }));
+        setData(dataUsuarios);
+        console.log("datos usuarios", dataUsuarios);
+
+        // Check for a matching user and set the matchedUserId state
+        const matchedUser = dataUsuarios.find(user => user.numDoc === numeroDocumento);
+        if (matchedUser) {
+          setMatchedUserId(matchedUser.id);
+        }
+        setInformeData({
+          ...informeData,
+          usuarios: [matchedUser.id]
+        })
+      })
+      .catch((usuarioError) => {
+        console.error("Error al cargar el usuario", usuarioError);
+      });
+  }, [numeroDocumento]); // Add numeroDocumento as a dependency
+
+
+
+
+
+
+
+  const handleInformeDataChange = (fieldName, value, index, subfield) => {
+    if (fieldName === "infoAdicional") {
+      const updatedInfoAdicional = [...informeData.infoAdicional];
+      if (!updatedInfoAdicional[index]) {
+        updatedInfoAdicional[index] = {};
+      }
+      if (subfield) {
+        updatedInfoAdicional[index] = {
+          ...updatedInfoAdicional[index],
+          [subfield]: value,
+        };
+      }
+      setInformeData({
+        ...informeData,
+        infoAdicional: updatedInfoAdicional,
+      });
+    } else if (fieldName === "estado_implemento") {
+      setInformeData({
+        ...informeData,
+        [fieldName]: value,
+      });
+    } else if (fieldName === "usuarios") {
+      const updatedUsuarios = [...informeData.usuarios, value];
+      setInformeData({
+        ...informeData,
+        usuario: value,
+        usuarios: updatedUsuarios,
+      });
+    } else if (fieldName === "estado") {
+      setInformeData({
+        ...informeData,
+        [fieldName]: value,
+      });
+    } else if (fieldName === "nombre") {
+      const updatedImplemento = [...informeData.implemento];
+      updatedImplemento[0] = {
+        ...updatedImplemento[0],
+        [fieldName]: value,
+      };
+      setInformeData({
+        ...informeData,
+        implemento: updatedImplemento,
+      })}else if (fieldName === "cantidad") {
+        const updatedImplemento = [...informeData.implemento];
+        updatedImplemento[0] = {
+          ...updatedImplemento[0],
+          [fieldName]: value < 0 ? 0 : value,
+        };
+        setInformeData({
+          ...informeData,
+          implemento: updatedImplemento,
+        })}else if (fieldName === "caracteristicas") {
+        const updatedImplemento = [...informeData.implemento];
+        updatedImplemento[0] = {
+          ...updatedImplemento[0],
+          [fieldName]: value,
+        };
+        setInformeData({
+          ...informeData,
+          implemento: updatedImplemento,
+        })}
+
+      else {
+      setInformeData({
+        ...informeData,
+        [fieldName]: value,
+      });
+    }
+  };
+
+
   const handleEstadoFormit = (selectedEstado) => {
+    console.log(selectedEstado)
     const selectedEstadoOption = selectedEstadoInfoo.find(
       (option) => option.label === selectedEstado
     );
-  
-    if(selectedEstadoOption){ 
+    const array = []
+    if (selectedEstadoOption) {
       const selectedInfoEstado = selectedEstadoOption.value;
-      setNewImplemento((prevNewImplemento) => ({
-        ...prevNewImplemento,
-        estado: [
-          {
-            estado: selectedInfoEstado,
-            cantidad: prevNewImplemento.estado[0].cantidad,
-            apto: aptoValue,
-          },
-        ],
-      }));
-    }
+      array.push(selectedInfoEstado)
+      console.log(array)
+      handleInformeDataChange(
+        "estado_implemento", array)
+    };
   }
 
   const selectedEstadoInfoo = estado.map((data) => ({
@@ -245,83 +328,75 @@ export default function Informes () {
     value: data['_id']
   }))
 
-  const handleDeleteInfoAdicional = (index) => {
-    if (additionalInfoCount > 1) {
-    
-      const updatedInfoAdicional = [...informeData.infoAdicional];
-      updatedInfoAdicional.splice(index, 1); 
-      setInformeData({
-        ...informeData,
-        infoAdicional: updatedInfoAdicional,
-      });
-      setAdditionalInfoCount(additionalInfoCount - 1);
+
+ 
+
+  const encabezadoContentImplemento = encabezadoImplemento();
+
+
+  const filterEmptyFields = (data) => {
+    const filteredData = {};
+    for (const [key, value] of Object.entries(data)) {
+      if (Array.isArray(value) && value.every((item) => item === "")) {
+        continue;
+      }
+      if (typeof value === "string" && value.trim() === "") {
+        continue;
+      }
+      if (typeof value === "object" && Object.keys(value).length === 0) {
+        continue;
+      }
+      filteredData[key] = value;
+    }
+    return filteredData;
+  };
+
+  const handleEnviar = () => {
+    try {
+      const filteredInformeData = filterEmptyFields(informeData);
+      post('/informe', filteredInformeData).then((response) => setDataResponse(response))
+      console.log("lol", filteredInformeData)
+      setEnviado(true);
+      return(
+        <div>
+         
+         
+        </div>
+     
+      )
+    } catch (error) {
+      console.error(error);
     }
   };
-  
-  const encabezadoContentImplemento = encabezadoImplemento();
+
+  console.log(response._id)
+
+  const dowload = (tipo) => {
+    try {
+      getMultipleParametre('/informe/download/', tipo, response._id).then((responses) => console.log(responses))
+
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
+
+  const descargarPdf = () => {
+    dowload('pdf/')
+  }
+
+  const descargarExcel = () => {
+    dowload('xlsx/')
+  }
+
 
   const getContentForSelectedOption = () => {
     if (selectedOption) {
       switch (selectedOption.label) {
-        case 'Informe de Estado':
-          return (
-            <>
-              {encabezadoContentImplemento}
-              {Array.from({ length: additionalInfoCount }).map((_, index) => (
-                <BasicAccordion
-                  key={index}
-                  titulo={`Implemento ${index + 1}`}
-                  contenido={
-                    <>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <p>Nombre del Implemento</p>
-                        <Textfield
-                          nombre="nombreImple"
-                          onChange={(value) =>
-                            handleInformeDataChange("infoAdicional", value, index, "nombreImple")
-                          }
-                        />
-                        <p>Unidades</p>
-                        <Textfield
-                          name="unidades"
-                          onChange={(value) =>
-                            handleInformeDataChange("infoAdicional", value, index, "unidades")
-                          }
-                        />
-                        <p>Caracteristicas</p>
-                        <Textfield
-                          name="caracteristicas"
-                          onChange={(value) =>
-                            handleInformeDataChange("infoAdicional", value, index, "caracteristicas")
-                          }
-                        />
-                        {index > 0 && ( 
-                    <IconButton onClick={() => handleDeleteInfoAdicional(index)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  )}
-
-                      </div>
-                    </>
-                  }
-                />
-              ))}
-              <Fab
-                size="small"
-                color="secondary"
-                aria-label="add"
-                onClick={() => setAdditionalInfoCount(additionalInfoCount + 1)}
-              >
-                <IconButton>
-                  <AddIcon />
-                </IconButton>
-              </Fab>
-            </>
-          );
         case 'Informe de Inventario':
           return (
             <>
-              <h2>hola inve</h2>
+              <h2>Informe de Inventario</h2>
               {encabezadoContentImplemento}
               <ComSelect
                 nombre="Estado"
@@ -336,24 +411,87 @@ export default function Informes () {
         case 'Informe de Usuario':
           return (
             <>
-              <h2>Hola usu</h2>
+              <h2>Informe de Usuario</h2>
               {encabezadoContentImplemento}
             </>
           );
 
 
-//______________ SANCIONES_______
+        //______________ SANCIONES_______
 
 
         case 'Informe de Sanciones':
           return (
             <>
-              <h2>hola san</h2>
+              <h2>Informe de Sanciones</h2>
               {encabezadoContentImplemento}
-              <ComSelect nombre="Estado" 
-              items={['Activo', 'Inactivo', 'Todos']} />
+              <Textfield
+                name="Ingrese el Documento"
+                onChange={(value) => setNumeroDocumento(value)}
+              />
+
+              <ComSelect
+                nombre="Estado de Sancion"
+                items={["Activo", "Inactivo"]}
+                onChange={(value) => handleInformeDataChange("estado", value)}
+                required
+              />
+
             </>
           );
+
+
+
+
+
+
+
+
+        case 'Informe de Prestamos':
+          return (
+            <>
+              <h2>Informe de Prestamo</h2>
+              {encabezadoContentImplemento}
+            </>
+          );
+        case 'Informe de Nuevo Implemento':
+          return(
+            <>
+              <h2>Informe nuevo implemento</h2>
+
+      {encabezadoContentImplemento}
+
+      {informeData.implemento.map((implemento, index) => (
+  <div key={index}>
+    <Textfield
+      name={`Nombre ${index + 1}`}
+      onChange={(value) => handleInformeDataChange("nombre", value, index, "nombre")}
+    />
+    <Textfield
+      name={`Cantidad ${index + 1}`}
+      soloNumeros={true}
+      onChange={(value) => handleInformeDataChange("cantidad", value, index, "cantidad")}
+    />
+    <Textfield
+      name={`Caracteristicas ${index + 1}`}
+      onChange={(value) => handleInformeDataChange("caracteristicas", value, index, "caracteristicas")}
+    />
+  </div>
+
+
+
+
+))}
+
+<button onClick={agregarImplemento}>Agregar Implemento</button>
+
+              
+            </>
+          );
+
+
+
+
         default:
           return null;
       }
@@ -363,49 +501,60 @@ export default function Informes () {
 
 
 
-//____________________________________________
+  //____________________________________________
 
-    return (
-      <Box sx={{ display: 'block', position: 'relative', left: '200px'}}>
-        <Menu />
-        <h1>Apartado de informes</h1>
-        <React.Fragment>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Elija el informe que desea generar</DialogTitle>
-        <DialogContent>
-          <ComSelect
-        nombre="Tipo de informe"
-        items={selectedTipoInfo.map((opcion) => opcion.label)}
-        onChange={(value) => handleTipoInformeFormit(value)}
-        getOptionLabel={(option) => option.label}
-        value={selectedOption}
-      />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={()=>{navigate('/admin')}}>Cancelar</Button>
-          <Button onClick={handleClose}>Generar</Button>
-        </DialogActions>
-      </Dialog>
-    </React.Fragment>
+  return (
+    <Box sx={{ display: 'block', position: 'relative', left: '200px' }}>
+      <Menu />
+      <h1>Apartado de informes</h1>
+      <React.Fragment>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Elija el informe que desea generar</DialogTitle>
+          <DialogContent>
+            <ComSelect
+              nombre="Tipo de informe"
+              items={selectedTipoInfo.map((opcion) => opcion.label)}
+              onChange={(value) => handleTipoInformeFormit(value)}
+              getOptionLabel={(option) => option.label}
+              value={selectedOption}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => { navigate('/admin') }}>Cancelar</Button>
+            <Button onClick={handleClose}>Generar</Button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
 
-    <Stack>
-      <Snackbar
-        className="Snackbar-contraseña"
-        open={openSnack}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackBar}
-      >
-        <Alert
+      <Stack>
+        <Snackbar
+          className="Snackbar-contraseña"
+          open={openSnack}
+          autoHideDuration={6000}
           onClose={handleCloseSnackBar}
-          severity="error"
-          sx={{ width: "100%" }}
         >
-          Debe seleccionar una ficha
-        </Alert>
-      </Snackbar>
-    </Stack>
+          <Alert
+            onClose={handleCloseSnackBar}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            Debe seleccionar una ficha
+          </Alert>
+        </Snackbar>
+      </Stack>
 
-        {getContentForSelectedOption()}
-      </Box>
-    );
+      {getContentForSelectedOption()}
+
+      <button onClick={handleEnviar}>Enviar</button>
+      {enviado && (
+        <div>
+          <Buttons nombre="Excel" onclick={descargarExcel}></Buttons>
+          <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
+        </div>
+      )}
+     
+     
+
+    </Box>
+  );
 };

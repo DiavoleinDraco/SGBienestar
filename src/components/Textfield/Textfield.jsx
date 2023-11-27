@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import "./Textfield.css";
 import { useState } from "react";
 
-export default function Textfield({ name, required, onChange, inicial}) {
+export default function Textfield({ name, required, onChange, inicial, soloNumeros }) {
   const [error, setError] = useState('');
   const [data, setData] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
@@ -22,16 +22,16 @@ export default function Textfield({ name, required, onChange, inicial}) {
   const handleBlur = (e) => {
     e.preventDefault()
     if (required && data === '') {
-      setError(true);
+      setError('Este campo es obligatorio.');
     } else {
-      setError(false)
-    };
+      setError('');
+    }
 
-    if(name === 'Teléfono' && !telefonoRegex.test(data)){
-      setErrorTelefono(true);
+    if (name === 'Teléfono' && !telefonoRegex.test(data)) {
+      setErrorTelefono('Teléfono inválido.');
     } else {
-      setErrorTelefono(false)
-    };
+      setErrorTelefono('');
+    }
   };
 
   return (
@@ -40,7 +40,7 @@ export default function Textfield({ name, required, onChange, inicial}) {
         className="letras"
         component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "29ch" } 
+          "& > :not(style)": { m: 1, width: "29ch" }
         }}
         noValidate
         autoComplete="off"
@@ -55,9 +55,10 @@ export default function Textfield({ name, required, onChange, inicial}) {
             onChange={handleInputChange}
             error={Boolean(error || errorTelefono)}
             helperText={error || errorTelefono}
+            type={soloNumeros ? "number" : "text"}
+            className={soloNumeros ? "no-spinners" : ""}
+
           />
-          {(error) && (<p style={{ color: "RED" }}>Este campo es obligatorio.</p>) || 
-          (errorTelefono) && (<p style={{ color: "RED" }}>Teléfono inválido.</p>)}
         </div>
       </Box>
     </div>

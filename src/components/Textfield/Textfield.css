@@ -13,6 +13,22 @@ html body {
 
  
 }
+
+/* Desactiva las flechas de incremento y decremento en los campos de número */
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Desactiva el resaltado del campo en algunos navegadores */
+input[type="number"]:focus {
+  outline: none;
+}
 .letras{
 
  

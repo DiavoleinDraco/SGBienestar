@@ -104,3 +104,37 @@ export  async function getParametre (pat,parametro){
   
     }
   }
+
+  export async function getMultipleParametre(pat, parametro1, parametro2) 
+  { try {
+    const response = await fetch(UrlApi + pat + parametro1 + parametro2, 
+      { method: "GET",
+    headers: {
+    'Content-Type': 'application/json', },
+    });
+
+    if (response.ok) {
+    const contentDisposition = response.headers.get('Content-Disposition'); const fileName = contentDisposition ? contentDisposition.split('filename=')
+    [1] : null;
+    const contentType = response.headers.get('Content-Type'); 
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob); 
+    const link = document.createElement('a'); link.href = blobUrl;
+    link.download = fileName || 'Informe';
+    if (contentType && contentType.toLowerCase().includes('pdf')) { 
+      link.download += '.pdf';
+    } else if (contentType && contentType.toLowerCase().includes('xlsx')) 
+    { link.download += '.xlsx';
+    } else {
+    console.warn('Tipo de archivo no reconocido:', contentType);
+    }
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 100); } 
+    
+    else {
+    console.error('Error en la solicitud:', response.status); }
+    } catch (error) {
+    console.error('No se encontro la informacion', error);
+    } 
+  
+  }

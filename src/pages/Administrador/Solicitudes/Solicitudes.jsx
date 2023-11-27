@@ -23,6 +23,8 @@ export default function BasicTable() {
   const [idFallido, setIdFallido] = useState("");
   const [idCompletado, setIdCompletado] = useState("");
   const [IdPendiente, setIdPendiente] = useState("");
+  const [IdPerdido, setIdPerdido] = useState("");
+  const [IdRetrasado, setIdRetrasado] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
   const [filter, setFilter] = useState(null);
@@ -33,6 +35,8 @@ export default function BasicTable() {
   const ESTADO_FALLIDO = "Fallido";
   const ESTADO_COMPLETADO = "Completado";
   const ESTADO_PENDIENTE = "Pendiente";
+  const ESTADO_PERDIDO = "Perdido";
+  const ESTADO_RETRASADO = "Retrasado";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +62,9 @@ export default function BasicTable() {
             row.nombre === ESTADO_RECHAZADO ||
             row.nombre === ESTADO_FALLIDO ||
             row.nombre === ESTADO_COMPLETADO ||
-            row.nombre === ESTADO_PENDIENTE
+            row.nombre === ESTADO_PENDIENTE ||
+            row.nombre === ESTADO_PERDIDO ||
+            row.nombre === ESTADO_RETRASADO
         );
         const estadoSolicitudes = filtrados.map((row) => ({
           _id: row._id,
@@ -80,20 +86,30 @@ export default function BasicTable() {
           (row) => row.nombre === ESTADO_PENDIENTE
         );
 
+        const perdido = filtrados.find(
+          (row) => row.nombre === ESTADO_PERDIDO
+        );
+        const retrasado = filtrados.find(
+          (row) => row.nombre === ESTADO_RETRASADO
+        );
+
+
         setIdAprobado(aprobado?._id || null);
         setIdRechazado(rechazado?._id || null);
         setIdFallido(fallido?._id || null);
         setIdCompletado(completado?._id || null);
         setIdPendiente(pendiente?._id || null);
+        setIdPerdido(perdido?._id || null);
+        setIdRetrasado(retrasado?._id || null);
       } catch (error) {
         console.error("Error al obtener datos de la API", error);
       }
     };
 
     fetchDataEstado();
-  }, [idAprobado, idRechazado, idFallido, idCompletado, IdPendiente]);
+  }, [idAprobado, idRechazado, idFallido, idCompletado, IdPendiente, IdPerdido, IdRetrasado]);
 
-  console.log("IdPendiente:", IdPendiente);
+  console.log("IDss", idAprobado, idRechazado, idFallido, idCompletado, IdPendiente, IdPerdido, IdRetrasado);
 
   const handleAceptar = async (id) => {
     try {
@@ -142,11 +158,13 @@ export default function BasicTable() {
     }
   };
 
-  const handleRecibir = async (id) => {
+
+  const handleRecibido = async (id) => {
     try {
+      
       const data = {
         id: id,
-        estado: idCompletado,
+        estado: filter === "retrasado" ? IdRetrasado : IdPerdido,
       };
 
       const response = await post("/prestamos/finalizar", data);
@@ -167,28 +185,28 @@ export default function BasicTable() {
 
     switch (filter) {
       case "pendientes":
-        return sortedData.filter(
-          (row) => row.estado.nombre === ESTADO_PENDIENTE
-        );
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_PENDIENTE);
       case "aprobadas":
-        return sortedData.filter(
-          (row) => row.estado.nombre === ESTADO_APROBADO
-        );
+        
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_APROBADO);
       case "rechazadas":
-        return sortedData.filter(
-          (row) => row.estado.nombre === ESTADO_RECHAZADO
-        );
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_RECHAZADO);
       case "fallidas":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_FALLIDO);
       case "completados":
-        return sortedData.filter(
-          (row) => row.estado.nombre === ESTADO_COMPLETADO
-        );
-
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_COMPLETADO);
+      case "perdido":
+        
+        return [...sortedData.filter((row) => row.estado.nombre === ESTADO_PERDIDO), { estado: { nombre: "Recibido" } }];
+      case "retrasado":
+        
+        return [...sortedData.filter((row) => row.estado.nombre === ESTADO_RETRASADO), { estado: { nombre: "Recibido" } }];
       default:
         return sortedData;
     }
   };
+
+
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
@@ -239,13 +257,15 @@ export default function BasicTable() {
             >
               Aprobadas
             </Button>
+
             <Button
               className="boton-solicitudes"
               variant="contained"
-              onClick={() => setFilter("rechazadas")}
+              onClick={() => setFilter("retrasado")}
             >
-              Rechazadas
+              Retrasado
             </Button>
+
             <Button
               className="boton-solicitudes"
               variant="contained"
@@ -253,6 +273,15 @@ export default function BasicTable() {
             >
               Fallidas
             </Button>
+
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("rechazadas")}
+            >
+              Rechazadas
+            </Button>
+
             <Button
               className="boton-solicitudes"
               variant="contained"
@@ -260,6 +289,15 @@ export default function BasicTable() {
             >
               Completados
             </Button>
+
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("perdido")}
+            >
+              Perdido
+            </Button>
+
             <Button
               className="boton-solicitudes"
               variant="contained"
@@ -267,6 +305,9 @@ export default function BasicTable() {
             >
               Todos
             </Button>
+
+
+
           </div>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead
@@ -330,27 +371,28 @@ export default function BasicTable() {
                     {formatDate(row.fecha_inicio)}
                   </TableCell>
                   <TableCell align="right">
-                    {row.usuario.nombres + " " + row.usuario.apellidos}
+                    {row.usuario?.nombres + " " + row.usuario?.apellidos}
                   </TableCell>
-                  <TableCell align="right">{row.usuario.n_doc}</TableCell>
+                  <TableCell align="right">{row.usuario?.n_doc}</TableCell>
                   <TableCell align="right">
                     {" "}
-                    {row.implementos.map((implemento, index) => (
-                      <span key={index}>
+                    {row.implementos?.map((implemento) => (
+                      <span key={implemento.id}>
                         {implemento.nombre}
-                        {index !== row.implementos.length - 1 && ", "}
+                        {implemento !== row.implementos[row.implementos.length - 1] && ", "}
                       </span>
                     ))}
                   </TableCell>
+
                   <TableCell align="right">{row.estado.nombre}</TableCell>
-                  {filter === "aprobadas" ? (
+                  {filter === "aprobadas" || filter === "perdido" || filter === "retrasado" ? (
                     <>
                       <TableCell align="right">
                         <Button
                           style={{ background: "#e3e3e3", color: "#2c0757" }}
                           variant="contained"
                           color="primary"
-                          onClick={() => handleRecibir(row._id)}
+                          onClick={() => handleRecibido(row._id)}
                         >
                           Recibido
                         </Button>
