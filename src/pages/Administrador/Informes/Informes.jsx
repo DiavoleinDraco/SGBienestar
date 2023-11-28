@@ -54,6 +54,7 @@ export default function Informes() {
   const [matchedUserId, setMatchedUserId] = useState(null);
   const [numeroDocumento, setNumeroDocumento] = useState('');
   const [implemento, setImplemento] = useState([]);
+  const [showHistorial, setShowHistorial] = useState(false);
 
 
   const [informeData, setInformeData] = useState({
@@ -82,7 +83,7 @@ export default function Informes() {
     };
     setImplemento([...implemento, nuevoImplemento]);
   };
-  
+
 
 
   console.log(almacenar)
@@ -123,14 +124,24 @@ export default function Informes() {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    if (selectedOption) {
-      setOpen(false);
-    } else {
 
-      setOpenSanck(true)
+  const handleClose = () => {
+    try {
+      setOpen(false);
+
+      if (selectedOption && selectedOption.label === "Historial de Informes") {
+        setShowHistorial(true);
+      }
+    } catch (error) {
+      console.error("Error in handleClose:", error);
     }
   };
+
+
+
+
+
+
 
   const handleCloseSnackBar = (event, reason) => {
     if (reason === "clickaway") {
@@ -145,6 +156,8 @@ export default function Informes() {
 
 
   const handleTipoInformeFormit = (selectedTipo) => {
+
+
     const selectedTipoInformeOption = selectedTipoInfo.find(
       (option) => option.label === selectedTipo
     );
@@ -152,13 +165,18 @@ export default function Informes() {
     if (selectedTipoInformeOption) {
       const selectedInfoTipo = selectedTipoInformeOption.value;
 
-      setSelectedOption(selectedTipoInformeOption)
+      setSelectedOption(selectedTipoInformeOption);
       const updateInfo = {
-        ...informeData, tipo_informe: selectedInfoTipo
-      }
-      setInformeData(updateInfo)
+        ...informeData,
+        tipo_informe: selectedInfoTipo,
+      };
+      setInformeData(updateInfo);
+
+
+      setShowHistorial(false);
+      setOpen(false);
     }
-  }
+  };
 
   const selectedTipoInfo = tipo.map((tipo) => ({
     label: tipo.nombre,
@@ -215,7 +233,7 @@ export default function Informes() {
         setData(dataUsuarios);
         console.log("datos usuarios", dataUsuarios);
 
-        // Check for a matching user and set the matchedUserId state
+
         const matchedUser = dataUsuarios.find(user => user.numDoc === numeroDocumento);
         if (matchedUser) {
           setMatchedUserId(matchedUser.id);
@@ -228,7 +246,7 @@ export default function Informes() {
       .catch((usuarioError) => {
         console.error("Error al cargar el usuario", usuarioError);
       });
-  }, [numeroDocumento]); // Add numeroDocumento as a dependency
+  }, [numeroDocumento]);
 
 
 
@@ -265,19 +283,19 @@ export default function Informes() {
         usuarios: updatedUsuarios,
       });
     } else if (fieldName === "estado") {
-      if(value == "Todo"){
+      if (value == "Todo") {
         setInformeData({
           ...informeData,
-          [fieldName]: "Activo/Inactivo", 
+          [fieldName]: "Activo/Inactivo",
           usuarios: [""]
         });
-      }else{
+      } else {
         setInformeData({
           ...informeData,
           [fieldName]: value,
         });
       }
-     
+
     } else if (fieldName === "implemento") {
       const updatedImplemento = [...informeData.implemento];
       if (!updatedImplemento[index]) {
@@ -322,7 +340,7 @@ export default function Informes() {
   }))
 
 
- 
+
 
   const encabezadoContentImplemento = encabezadoImplemento();
 
@@ -346,9 +364,9 @@ export default function Informes() {
 
   const handleEnviar = () => {
     try {
-      // Check if the selected option is "Informe de Nuevo Implemento" and implementos is "Todo"
-   
-  
+
+
+
       const filteredInformeData = filterEmptyFields(informeData);
       if (
         selectedOption &&
@@ -357,7 +375,7 @@ export default function Informes() {
       ) {
         setInformeData({
           ...informeData,
-          usuarios: [""], // Set implemento to an empty array
+          usuarios: [""],
         });
       }
       post('/informe', filteredInformeData).then((response) => setDataResponse(response));
@@ -367,7 +385,7 @@ export default function Informes() {
       console.error(error);
     }
   };
-  
+
 
   console.log(response._id)
 
@@ -392,109 +410,129 @@ export default function Informes() {
 
   const getContentForSelectedOption = () => {
     if (selectedOption) {
-      switch (selectedOption.label) {
-        case 'Informe de Inventario':
-          return (
-            <>
-              <h2>Informe de Inventario</h2>
-              {encabezadoContentImplemento}
-              <ComSelect
-                nombre="Estado"
-                items={selectedEstadoInfoo.map((opcion) => opcion.label)}
-                onChange={(value) => handleEstadoFormit(value)}
-                getOptionLabel={(option) => option.label}
-                value={selectedEstado}
-              />
-            </>
-          );
-
-        case 'Informe de Usuario':
-          return (
-            <>
-              <h2>Informe de Usuario</h2>
-              {encabezadoContentImplemento}
-            </>
-          );
+      if (selectedOption.label === "Historial de Informes") {
+        return (
+          <>
+            <h2>Historial de Informes</h2>
 
 
-        //______________ SANCIONES_______
+          </>
+        );
+      } else {
+        switch (selectedOption.label) {
+
+          case 'Informe de Inventario':
+            return (
+              <>
+                <h2>Informe de Inventario</h2>
+                {encabezadoContentImplemento}
+                <ComSelect
+                  nombre="Estado"
+                  items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+                  onChange={(value) => handleEstadoFormit(value)}
+                  getOptionLabel={(option) => option.label}
+                  value={selectedEstado}
+                />
+              </>
+            );
 
 
-        case 'Informe de Sanciones':
-          return (
-            <>
-              <h2>Informe de Sanciones</h2>
-              {encabezadoContentImplemento}
-              <Textfield
-                name="Ingrese el Documento"
-                onChange={(value) => setNumeroDocumento(value)}
-              />
 
-              <ComSelect
-                nombre="Estado de Sancion"
-                items={["Activo", "Inactivo", "Todo"]}
-                onChange={(value) => handleInformeDataChange("estado", value)}
-                required
-              />
 
-            </>
-          );
+          case 'Informe de Usuario':
+            return (
+              <>
+                <h2>Informe de Usuario</h2>
+                {encabezadoContentImplemento}
+              </>
+            );
 
 
 
 
 
+          //______________ SANCIONES_______
 
 
+          case 'Informe de Sanciones':
+            return (
+              <>
+                <h2>Informe de Sanciones</h2>
+                {encabezadoContentImplemento}
+                <Textfield
+                  name="Ingrese el Documento"
+                  onChange={(value) => setNumeroDocumento(value)}
+                />
 
-        case 'Informe de Prestamos':
-          return (
-            <>
-              <h2>Informe de Prestamo</h2>
-              {encabezadoContentImplemento}
-            </>
-          );
-        case 'Informe de Nuevo Implemento':
-          return(
-            <>
-              <h2>Informe nuevo implemento</h2>
+                <ComSelect
+                  nombre="Estado de Sancion"
+                  items={["Activo", "Inactivo", "Todo"]}
+                  onChange={(value) => handleInformeDataChange("estado", value)}
+                  required
+                />
 
-      {encabezadoContentImplemento}
-
-      {implemento.map((implemento, index) => (
-  <div key={index}>
-    <Textfield
-      name={`Nombre ${index + 1}`}
-      onChange={(value) => handleInformeDataChange("implemento", value, index, "nombre")}
-    />
-    <Textfield
-      name={`Cantidad ${index + 1}`}
-      soloNumeros={true}
-      onChange={(value) => handleInformeDataChange("implemento", value, index, "cantidad")}
-    />
-    <Textfield
-      name={`Caracteristicas ${index + 1}`}
-      onChange={(value) => handleInformeDataChange("implemento", value, index, "caracteristicas")}
-    />
-  </div>
-))}
-
-
-<button onClick={agregarImplemento}>Agregar Implemento</button>
-
-              
-            </>
-          );
+              </>
+            );
 
 
 
 
-        default:
-          return null;
+
+
+
+
+          case 'Informe de Prestamos':
+            return (
+              <>
+                <h2>Informe de Prestamo</h2>
+                {encabezadoContentImplemento}
+              </>
+            );
+          case 'Informe de Nuevo Implemento':
+            return (
+              <>
+                <h2>Informe nuevo implemento</h2>
+
+                {encabezadoContentImplemento}
+
+                {implemento.map((implemento, index) => (
+                  <div key={index}>
+                    <Textfield
+                      name={`Nombre ${index + 1}`}
+                      onChange={(value) => handleInformeDataChange("implemento", value, index, "nombre")}
+                    />
+                    <Textfield
+                      name={`Cantidad ${index + 1}`}
+                      soloNumeros={true}
+                      onChange={(value) => handleInformeDataChange("implemento", value, index, "cantidad")}
+                    />
+                    <Textfield
+                      name={`Caracteristicas ${index + 1}`}
+                      onChange={(value) => handleInformeDataChange("implemento", value, index, "caracteristicas")}
+                    />
+                  </div>
+                ))}
+
+
+                <button onClick={agregarImplemento}>Agregar Implemento</button>
+
+
+              </>
+            );
+
+
+
+
+          default:
+            return null;
+        }
       }
     }
     return null;
   };
+
+
+
 
 
 
@@ -519,6 +557,7 @@ export default function Informes() {
           <DialogActions>
             <Button onClick={() => { navigate('/admin') }}>Cancelar</Button>
             <Button onClick={handleClose}>Generar</Button>
+            <Button onClick={() => setShowHistorial(true)}>Historial</Button>
           </DialogActions>
         </Dialog>
       </React.Fragment>
@@ -540,7 +579,12 @@ export default function Informes() {
         </Snackbar>
       </Stack>
 
-      {getContentForSelectedOption()}
+      {showHistorial ? (
+        <h2>Historial de Informes</h2>
+
+      ) : (
+        getContentForSelectedOption()
+      )}
 
       <button onClick={handleEnviar}>Enviar</button>
       {enviado && (
@@ -549,9 +593,6 @@ export default function Informes() {
           <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
         </div>
       )}
-     
-     
-
     </Box>
   );
 };

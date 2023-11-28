@@ -38,6 +38,48 @@ export default function BasicTable() {
   const ESTADO_PERDIDO = "Perdido";
   const ESTADO_RETRASADO = "Retrasado";
 
+
+
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+  
+  const filterBySearchTerm = (row) => {
+    const searchTermLowerCase = removeAccents(searchTerm.toLowerCase());
+    const rowWithoutAccents = {
+      ...row,
+      fecha_inicio: removeAccents(row.fecha_inicio),
+      usuario: {
+        ...row.usuario,
+        nombres: removeAccents(row.usuario?.nombres),
+        apellidos: removeAccents(row.usuario?.apellidos),
+        n_doc: removeAccents(row.usuario?.n_doc),
+      },
+      implementos: (row.implementos || []).map((implemento) => ({
+        ...implemento,
+        nombre: removeAccents(implemento.nombre),
+      })),
+      estado: {
+        ...row.estado,
+        nombre: removeAccents(row.estado.nombre),
+      },
+    };
+  
+    return (
+      rowWithoutAccents.fecha_inicio.includes(searchTermLowerCase) ||
+      (rowWithoutAccents.usuario?.nombres + " " + rowWithoutAccents.usuario?.apellidos)
+        .toLowerCase()
+        .includes(searchTermLowerCase) ||
+      rowWithoutAccents.usuario?.n_doc.toLowerCase().includes(searchTermLowerCase) ||
+      rowWithoutAccents.implementos.some((implemento) =>
+        implemento.nombre.toLowerCase().includes(searchTermLowerCase)
+      ) ||
+      rowWithoutAccents.estado.nombre.toLowerCase().includes(searchTermLowerCase)
+    );
+  };
+
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -173,8 +215,17 @@ export default function BasicTable() {
     }
   };
 
+
+
+
+
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   const filterTableData = () => {
-    const dataToRender = searchTerm ? filterTableData : tableData;
+    const dataToRender = searchTerm ? tableData.filter(filterBySearchTerm) : tableData;
 
     const sortedData = dataToRender.sort((a, b) => {
       const dateA = new Date(a.fecha_inicio);
@@ -183,31 +234,36 @@ export default function BasicTable() {
       return dateB - dateA;
     });
 
-    switch (filter) {
+    const filterLowerCase = filter?.toLowerCase();
+
+
+  
+    
+  
+  
+
+
+
+  
+    switch (filterLowerCase) {
       case "pendientes":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_PENDIENTE);
       case "aprobadas":
-        
-        return sortedData.filter((row) => row.estado.nombre === ESTADO_APROBADO);
+      case "perdido":
+      case "retrasado":
+        return sortedData.filter((row) => row.estado.nombre.toLowerCase() === filterLowerCase);
       case "rechazadas":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_RECHAZADO);
       case "fallidas":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_FALLIDO);
       case "completados":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_COMPLETADO);
-      case "perdido":
-        
-        return [...sortedData.filter((row) => row.estado.nombre === ESTADO_PERDIDO), { estado: { nombre: "Recibido" } }];
-      case "retrasado":
-        
-        return [...sortedData.filter((row) => row.estado.nombre === ESTADO_RETRASADO), { estado: { nombre: "Recibido" } }];
       default:
         return sortedData;
     }
   };
 
-
-
+  
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     const formattedDate = new Date(dateString).toLocaleDateString(
@@ -219,8 +275,16 @@ export default function BasicTable() {
 
   return (
     <div>
+
+<Menu></Menu>
+
       <div className="contenedor-table-solicitudes">
-        <Menu></Menu>
+       
+
+
+  
+
+
 
         <div className="contenedor-TitleSoli">
           <h2 className="TitleSoli">
@@ -241,8 +305,24 @@ export default function BasicTable() {
               top: 0,
               zIndex: 100,
             }}
+
+
+
+            
             className="btncont"
           >
+
+
+
+<input
+          type="text"
+          placeholder="Buscar..."
+          onChange={handleSearch}
+          value={searchTerm}
+          style={{ marginLeft: "10px", marginTop: "10px" }}
+        />
+
+
             <Button
               className="boton-solicitudes"
               variant="contained"
@@ -310,57 +390,49 @@ export default function BasicTable() {
 
           </div>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead
-              style={{
-                background: "#eaeaea",
-                borderBottom: "0.1px solid #868686",
-                position: "sticky",
-                top: 65,
-                zIndex: 99,
-              }}
-            >
-              <TableRow >
-                <TableCell align="right">
-                  {" "}
-                  <b> Fecha </b>{" "}
-                </TableCell>
-                <TableCell align="right">
-                  {" "}
-                  <b> Usuario </b>{" "}
-                </TableCell>
-                <TableCell align="right">
-                  {" "}
-                  <b> Numero de Documento </b>{" "}
-                </TableCell>
-                <TableCell align="right">
-                  {" "}
-                  <b> Nombre del Implemento </b>{" "}
-                </TableCell>
-                <TableCell align="right">
-                  {" "}
-                  <b> Estado de la solicitud </b>{" "}
-                </TableCell>
-                {filter === "aprobadas" ? (
-                  <>
-                    <TableCell align="right">
-                      {" "}
-                      <b> Recibir </b>{" "}
-                    </TableCell>
-                  </>
-                ) : filter === "pendientes" ? (
-                  <>
-                    <TableCell align="right">
-                      {" "}
-                      <b> Aceptar solicitud </b>{" "}
-                    </TableCell>
-                    <TableCell align="right">
-                      {" "}
-                      <b> Rechazar solicitud </b>{" "}
-                    </TableCell>
-                  </>
-                ) : null}
-              </TableRow>
-            </TableHead>
+          <TableHead
+  style={{
+    background: "#eaeaea",
+    borderBottom: "0.1px solid #868686",
+    position: "sticky",
+    top: 65,
+    zIndex: 99,
+  }}
+>
+  <TableRow>
+    <TableCell align="right">
+      <b>Fecha</b>
+    </TableCell>
+    <TableCell align="right">
+      <b>Usuario</b>
+    </TableCell>
+    <TableCell align="right">
+      <b>Numero de Documento</b>
+    </TableCell>
+    <TableCell align="right">
+      <b>Nombre del Implemento</b>
+    </TableCell>
+    <TableCell align="right">
+      <b>Estado de la solicitud</b>
+    </TableCell>
+    {(filter === "aprobadas" || filter === "perdido" || filter === "retrasado") && (
+      <TableCell align="right">
+        <b>Recibir</b>
+      </TableCell>
+    )}
+    {filter === "pendientes" && (
+      <>
+        <TableCell align="right">
+          <b>Aceptar solicitud</b>
+        </TableCell>
+        <TableCell align="right">
+          <b>Rechazar solicitud</b>
+        </TableCell>
+      </>
+    )}
+  </TableRow>
+</TableHead>
+
             <TableBody>
               {filterTableData().map((row) => (
                 <TableRow
