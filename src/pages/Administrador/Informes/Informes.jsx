@@ -28,6 +28,7 @@ import Stack from "@mui/material/Stack";
 import { forwardRef } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import jwtDecode from "jwt-decode";
+import TablaInformes from "../../../components/Historial_Informes/Historial_Informes";
 
 
 
@@ -414,8 +415,7 @@ export default function Informes() {
         return (
           <>
             <h2>Historial de Informes</h2>
-
-
+            <TablaInformes/>
           </>
         );
       } else {
@@ -580,7 +580,14 @@ export default function Informes() {
       </Stack>
 
       {showHistorial ? (
+        <div>
         <h2>Historial de Informes</h2>
+
+
+      
+      < TablaInformes />
+    
+      </div>
 
       ) : (
         getContentForSelectedOption()
