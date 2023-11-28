@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
-export default function Card_Implementos({ textoAlt, imagen, titulo, descripcion, boton, onSelect, isSelected }) {
+export default function Card_Implementos({ textoAlt, imagen, titulo, descripcion, boton, onSelect, isSelected, chip }) {
   
   const handleCardClick = () => {
     onSelect()
@@ -28,6 +28,9 @@ export default function Card_Implementos({ textoAlt, imagen, titulo, descripcion
           </Typography>
         </CardContent>
       </CardActionArea>
+      <CardActions>
+       {chip}
+      </CardActions>
     </Card>
   );
 };
