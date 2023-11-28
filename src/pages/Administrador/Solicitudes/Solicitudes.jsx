@@ -23,8 +23,8 @@ export default function BasicTable() {
   const [idFallido, setIdFallido] = useState("");
   const [idCompletado, setIdCompletado] = useState("");
   const [IdPendiente, setIdPendiente] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [alertOpen, setAlertOpen] = useState(false);
+  const [IdPerdido, setIdPerdido] = useState("");
+  const [IdRetrasado, setIdRetrasado] = useState("");
   const [filter, setFilter] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -33,6 +33,53 @@ export default function BasicTable() {
   const ESTADO_FALLIDO = "Fallido";
   const ESTADO_COMPLETADO = "Completado";
   const ESTADO_PENDIENTE = "Pendiente";
+  const ESTADO_PERDIDO = "Perdido";
+  const ESTADO_RETRASADO = "Retrasado";
+
+
+
+  //_____Filtro de sanciones________
+
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+
+  const filterBySearchTerm = (row) => {
+    const searchTermLowerCase = removeAccents(searchTerm.toLowerCase());
+    const rowWithoutAccents = {
+      ...row,
+      fecha_inicio: removeAccents(row.fecha_inicio),
+      usuario: {
+        ...row.usuario,
+        nombres: removeAccents(row.usuario?.nombres),
+        apellidos: removeAccents(row.usuario?.apellidos),
+        n_doc: removeAccents(row.usuario?.n_doc),
+      },
+      implementos: (row.implementos || []).map((implemento) => ({
+        ...implemento,
+        nombre: removeAccents(implemento.nombre),
+      })),
+      estado: {
+        ...row.estado,
+        nombre: removeAccents(row.estado.nombre),
+      },
+    };
+
+    return (
+      rowWithoutAccents.fecha_inicio.includes(searchTermLowerCase) ||
+      (rowWithoutAccents.usuario?.nombres + " " + rowWithoutAccents.usuario?.apellidos)
+        .toLowerCase()
+        .includes(searchTermLowerCase) ||
+      rowWithoutAccents.usuario?.n_doc.toLowerCase().includes(searchTermLowerCase) ||
+      rowWithoutAccents.implementos.some((implemento) =>
+        implemento.nombre.toLowerCase().includes(searchTermLowerCase)
+      ) ||
+      rowWithoutAccents.estado.nombre.toLowerCase().includes(searchTermLowerCase)
+    );
+  };
+
+
+  //_____Peticion para traer todas los prestamos
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +95,9 @@ export default function BasicTable() {
     fetchData();
   }, []);
 
+
+  //___________
+
   useEffect(() => {
     const fetchDataEstado = async () => {
       try {
@@ -58,7 +108,9 @@ export default function BasicTable() {
             row.nombre === ESTADO_RECHAZADO ||
             row.nombre === ESTADO_FALLIDO ||
             row.nombre === ESTADO_COMPLETADO ||
-            row.nombre === ESTADO_PENDIENTE
+            row.nombre === ESTADO_PENDIENTE ||
+            row.nombre === ESTADO_PERDIDO ||
+            row.nombre === ESTADO_RETRASADO
         );
         const estadoSolicitudes = filtrados.map((row) => ({
           _id: row._id,
@@ -80,20 +132,34 @@ export default function BasicTable() {
           (row) => row.nombre === ESTADO_PENDIENTE
         );
 
+        const perdido = filtrados.find(
+          (row) => row.nombre === ESTADO_PERDIDO
+        );
+        const retrasado = filtrados.find(
+          (row) => row.nombre === ESTADO_RETRASADO
+        );
+
+
         setIdAprobado(aprobado?._id || null);
         setIdRechazado(rechazado?._id || null);
         setIdFallido(fallido?._id || null);
         setIdCompletado(completado?._id || null);
         setIdPendiente(pendiente?._id || null);
+        setIdPerdido(perdido?._id || null);
+        setIdRetrasado(retrasado?._id || null);
       } catch (error) {
         console.error("Error al obtener datos de la API", error);
       }
     };
 
     fetchDataEstado();
-  }, [idAprobado, idRechazado, idFallido, idCompletado, IdPendiente]);
+  }, [idAprobado, idRechazado, idFallido, idCompletado, IdPendiente, IdPerdido, IdRetrasado]);
 
-  console.log("IdPendiente:", IdPendiente);
+  console.log("IDss", idAprobado, idRechazado, idFallido, idCompletado, IdPendiente, IdPerdido, IdRetrasado);
+
+
+  //_____ botones 
+
 
   const handleAceptar = async (id) => {
     try {
@@ -117,6 +183,7 @@ export default function BasicTable() {
       console.error("Error al procesar la solicitud:", error);
     }
   };
+
 
   const handleRechazar = async (id) => {
     try {
@@ -142,8 +209,10 @@ export default function BasicTable() {
     }
   };
 
-  const handleRecibir = async (id) => {
+
+  const handleRecibido = async (id) => {
     try {
+
       const data = {
         id: id,
         estado: idCompletado,
@@ -155,8 +224,13 @@ export default function BasicTable() {
     }
   };
 
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   const filterTableData = () => {
-    const dataToRender = searchTerm ? filterTableData : tableData;
+    const dataToRender = searchTerm ? tableData.filter(filterBySearchTerm) : tableData;
 
     const sortedData = dataToRender.sort((a, b) => {
       const dateA = new Date(a.fecha_inicio);
@@ -165,30 +239,26 @@ export default function BasicTable() {
       return dateB - dateA;
     });
 
-    switch (filter) {
+    const filterLowerCase = filter?.toLowerCase();
+
+    switch (filterLowerCase) {
       case "pendientes":
-        return sortedData.filter(
-          (row) => row.estado.nombre === ESTADO_PENDIENTE
-        );
-      case "aprobadas":
-        return sortedData.filter(
-          (row) => row.estado.nombre === ESTADO_APROBADO
-        );
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_PENDIENTE);
+      case "aprobado":
+      case "perdido":
+      case "retrasado":
+        return sortedData.filter((row) => row.estado.nombre.toLowerCase() === filterLowerCase);
       case "rechazadas":
-        return sortedData.filter(
-          (row) => row.estado.nombre === ESTADO_RECHAZADO
-        );
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_RECHAZADO);
       case "fallidas":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_FALLIDO);
       case "completados":
-        return sortedData.filter(
-          (row) => row.estado.nombre === ESTADO_COMPLETADO
-        );
-
+        return sortedData.filter((row) => row.estado.nombre === ESTADO_COMPLETADO);
       default:
         return sortedData;
     }
   };
+
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
@@ -199,10 +269,18 @@ export default function BasicTable() {
     return formattedDate;
   };
 
+
+
+
+
+
+
   return (
     <div>
+
+      <Menu></Menu>
+
       <div className="contenedor-table-solicitudes">
-        <Menu></Menu>
 
         <div className="contenedor-TitleSoli">
           <h2 className="TitleSoli">
@@ -223,8 +301,22 @@ export default function BasicTable() {
               top: 0,
               zIndex: 100,
             }}
+
+
+
+
             className="btncont"
           >
+
+            <input
+              type="text"
+              placeholder="Buscar..."
+              onChange={handleSearch}
+              value={searchTerm}
+              style={{ marginLeft: "10px", marginTop: "10px" }}
+            />
+
+
             <Button
               className="boton-solicitudes"
               variant="contained"
@@ -235,17 +327,19 @@ export default function BasicTable() {
             <Button
               className="boton-solicitudes"
               variant="contained"
-              onClick={() => setFilter("aprobadas")}
+              onClick={() => setFilter("aprobado")}
             >
-              Aprobadas
+              Aprobado
             </Button>
+
             <Button
               className="boton-solicitudes"
               variant="contained"
-              onClick={() => setFilter("rechazadas")}
+              onClick={() => setFilter("retrasado")}
             >
-              Rechazadas
+              Retrasado
             </Button>
+
             <Button
               className="boton-solicitudes"
               variant="contained"
@@ -253,6 +347,16 @@ export default function BasicTable() {
             >
               Fallidas
             </Button>
+
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("rechazadas")}
+
+            >
+              Rechazadas
+            </Button>
+
             <Button
               className="boton-solicitudes"
               variant="contained"
@@ -260,6 +364,15 @@ export default function BasicTable() {
             >
               Completados
             </Button>
+
+            <Button
+              className="boton-solicitudes"
+              variant="contained"
+              onClick={() => setFilter("perdido")}
+            >
+              Perdido
+            </Button>
+
             <Button
               className="boton-solicitudes"
               variant="contained"
@@ -267,6 +380,9 @@ export default function BasicTable() {
             >
               Todos
             </Button>
+
+
+
           </div>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead
@@ -278,48 +394,40 @@ export default function BasicTable() {
                 zIndex: 99,
               }}
             >
-              <TableRow >
+              <TableRow>
                 <TableCell align="right">
-                  {" "}
-                  <b> Fecha </b>{" "}
+                  <b>Fecha</b>
                 </TableCell>
                 <TableCell align="right">
-                  {" "}
-                  <b> Usuario </b>{" "}
+                  <b>Usuario</b>
                 </TableCell>
                 <TableCell align="right">
-                  {" "}
-                  <b> Numero de Documento </b>{" "}
+                  <b>Numero de Documento</b>
                 </TableCell>
                 <TableCell align="right">
-                  {" "}
-                  <b> Nombre del Implemento </b>{" "}
+                  <b>Nombre del Implemento</b>
                 </TableCell>
                 <TableCell align="right">
-                  {" "}
-                  <b> Estado de la solicitud </b>{" "}
+                  <b>Estado de la solicitud</b>
                 </TableCell>
-                {filter === "aprobadas" ? (
+                {(filter === "aprobado" || filter === "perdido" || filter === "retrasado") && (
+                  <TableCell align="right">
+                    <b>Recibir</b>
+                  </TableCell>
+                )}
+                {filter === "pendientes" && (
                   <>
                     <TableCell align="right">
-                      {" "}
-                      <b> Recibir </b>{" "}
-                    </TableCell>
-                  </>
-                ) : filter === "pendientes" ? (
-                  <>
-                    <TableCell align="right">
-                      {" "}
-                      <b> Aceptar solicitud </b>{" "}
+                      <b>Aceptar solicitud</b>
                     </TableCell>
                     <TableCell align="right">
-                      {" "}
-                      <b> Rechazar solicitud </b>{" "}
+                      <b>Rechazar solicitud</b>
                     </TableCell>
                   </>
-                ) : null}
+                )}
               </TableRow>
             </TableHead>
+
             <TableBody>
               {filterTableData().map((row) => (
                 <TableRow
@@ -330,27 +438,28 @@ export default function BasicTable() {
                     {formatDate(row.fecha_inicio)}
                   </TableCell>
                   <TableCell align="right">
-                    {row.usuario.nombres + " " + row.usuario.apellidos}
+                    {row.usuario?.nombres + " " + row.usuario?.apellidos}
                   </TableCell>
-                  <TableCell align="right">{row.usuario.n_doc}</TableCell>
+                  <TableCell align="right">{row.usuario?.n_doc}</TableCell>
                   <TableCell align="right">
                     {" "}
-                    {row.implementos.map((implemento, index) => (
-                      <span key={index}>
+                    {row.implementos?.map((implemento) => (
+                      <span key={implemento.id}>
                         {implemento.nombre}
-                        {index !== row.implementos.length - 1 && ", "}
+                        {implemento !== row.implementos[row.implementos.length - 1] && ", "}
                       </span>
                     ))}
                   </TableCell>
+
                   <TableCell align="right">{row.estado.nombre}</TableCell>
-                  {filter === "aprobadas" ? (
+                  {filter === "aprobado" || filter === "perdido" || filter === "retrasado" ? (
                     <>
                       <TableCell align="right">
                         <Button
                           style={{ background: "#e3e3e3", color: "#2c0757" }}
                           variant="contained"
                           color="primary"
-                          onClick={() => handleRecibir(row._id)}
+                          onClick={() => handleRecibido(row._id)}
                         >
                           Recibido
                         </Button>

@@ -268,30 +268,41 @@ export default function HistorialSanciones() {
   //_____ Search de tabla, filttro de busqueda ______
 
   const handleSearchChange = (event) => {
-    const searchValue = event.target.value;
+    const searchValue = event.target.value.toLowerCase(); 
     setSearchTerm(searchValue);
-
+  
     const filteredSanciones = sancionesData.filter((sancion) => {
       const nombre = sancion.nombre.toLowerCase();
+      const documento = sancion.documento.toString().toLowerCase(); 
       const programa = sancion.programa.toLowerCase();
       const sancionTexto = sancion.sancion.toLowerCase();
       const sancionTiempo = sancion.tiempo.toLowerCase();
       const fechaSancion = sancion.fecha.toLowerCase();
-     
-
+  
+      
+      const normalizedSearchValue = searchValue.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  
+      
+      const normalizedNombre = nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const normalizedDocumento = documento.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const normalizedPrograma = programa.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const normalizedSancionTexto = sancionTexto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const normalizedSancionTiempo = sancionTiempo.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const normalizedFechaSancion = fechaSancion.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  
       return (
-        nombre.includes(searchValue.toLowerCase()) ||
-        programa.includes(searchValue.toLowerCase()) ||
-        sancionTexto.includes(searchValue.toLowerCase()) ||
-        sancionTiempo.includes(searchValue.toLowerCase()) ||
-        fechaSancion.includes(searchValue.toLowerCase()) 
-        
-        
+        normalizedNombre.includes(normalizedSearchValue) ||
+        normalizedDocumento.includes(normalizedSearchValue) ||
+        normalizedPrograma.includes(normalizedSearchValue) ||
+        normalizedSancionTexto.includes(normalizedSearchValue) ||
+        normalizedSancionTiempo.includes(normalizedSearchValue) ||
+        normalizedFechaSancion.includes(normalizedSearchValue)
       );
     });
-
+  
     setFilteredData(filteredSanciones);
   };
+  
 
   //__________ RETURN______________________
 
