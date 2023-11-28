@@ -12,7 +12,7 @@
   ;
 }
 
-.title-bienvenido{
+.title-bienvenido {
   font-family: "Questrial", sans-serif;
 }
 
@@ -156,6 +156,15 @@
   }
 }
 
+/* Estilo de la imagen de login */
+#logo-login {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -280%);
+}
+
 
 
 /* Estilo para los enlaces con la clase "custom-link" para que parezcan botones */
@@ -183,7 +192,6 @@
 
   .padree {
     width: 460px !important
-    
   }
 
   .twos {
@@ -200,7 +208,6 @@
 
   .padree {
     width: 400px !important
-    
   }
 
   .twos {
@@ -271,21 +278,21 @@
 
   #logo-login {
     width: 300px !important;
-    border-radius:  20px; 
+    border-radius: 20px;
   }
 
   #imagenes {
-    background:#3c1263;
+    background: #3c1263;
     margin-top: 2px;
-   height: 150px !important;
-   width: 460px !important;
+    height: 150px !important;
+    width: 460px !important;
   }
 
-  .title-bienvenido{
+  .title-bienvenido {
     position: relative;
     top: -20px;
     font-size: 40px;
   }
 
-  
+
 }

@@ -1,0 +1,11 @@
+.cont-dialogo{
+height: 250px;
+width: 20%;
+margin: auto;
+}
+.dialogo{
+height: 295px;
+width: 70%;
+background: lightblue;
+margin: auto;
+}

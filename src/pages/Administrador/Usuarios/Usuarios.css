@@ -1,111 +1,39 @@
-#titulouser{
-    width: 59%;
-    font-size: 2.9rem;
-    color: #f6f6f6;
-    font-family: "questrial";
-    position: absolute;
-    z-index: 300 !important;
-   top: 40px !important;
-   left: -430px;
-   
+#titulouser {
+    color: #fff;
+    font-size: 30px;
 }
 
-.cont-img{
-width: 100% !important;
-height: 250px !important;
-background:#2c0757;
+.contenedor-title-usu {
+    z-index: 100;
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-260%,-500%);
 }
-.imagen-user{
+
+
+.cont-img {
+    width: 100% !important;
+    height: 40% !important;
+    background: #2c0757;
+    position: absolute;
+}
+
+.imagen-user {
     width: 100%;
     object-fit: cover;
     height: 100%;
 }
 
-.css-heg063-MuiTabs-flexContainer {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: space-around;
 
-   
-}
-
-/* barra de menu  horizontal  */
-.css-hyum1k-MuiToolbar-root {
-    background:#2c0757;
-    box-shadow: none !important;
-     height: 7vh;
-     width: 100%;
-}
-/* barra de menu  vertical  */
-.MuiDrawer-paper {
-    background:#2c0757 !important;
-     width: 109px !important;
-    color: #fff !important;
-}
-.css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper {
-    background:#2c0757 !important;
-    color: white;
-    display: flex;
-    width: 235px !important;  
-}
-
-.css-10hburv-MuiTypography-root{
-font-size: 1.5em !important;
-font-family:  questrial !important;
-}
-
-
-.css-k008qs {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    width: 50px;
-    top: -60px;
+/* Estilo del contenedor de la tabla de usuarios*/
+.cont-table-usuariuos {
+    width: 90%;
+    height: 80%;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
 }
-
-.css-i4bv87-MuiSvgIcon-root {  
-width: 1.7em !important;
-height: 1.7em !important;
-color: #f6f6f6;
- }
-/* .css-uxa1ks-MuiListItem-root:nth-child(7){
-background: red;
-transform: translateY(40px) !important;
- } */
-/* .css-11xur9t-MuiPaper-root-MuiTableContainer-root{
-    background: rebeccapurple !important;
-    height: 92% !important;
-} */
-.css-19z1ozs-MuiPaper-root-MuiAppBar-root{
-    box-shadow: none !important;
-}
-.css-1191obr-MuiPaper-root-MuiAppBar-root{
-    box-shadow: none !important;
-}
-
-.MuiBox-root .css-159drnt{
-    background: #6cbb6c;
-  margin: auto;
-    width: 110PX;
-}
-.css-9mgopn-MuiDivider-root{
-display: none !important;
-}
-
-.css-7mt4h1-MuiInputBase-root {
-    color: #000000 !important;
-    font-size: 1.2em !important;
-}
-.css-h4y409-MuiList-root {
-    display: flex;
-    flex-direction: column;
-    height: 900px;
-    justify-content: space-evenly;
-}
-.css-uxa1ks-MuiListItem-root:hover{
-    background: #f6f6f63f;
-} 

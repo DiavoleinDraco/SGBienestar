@@ -1,4 +1,14 @@
 .clickable-row:hover {
-    cursor: pointer;
-  }
-  
+  cursor: pointer;
+}
+
+.css-j6dtil {
+  width: 97%;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  background: #e3e3e3;
+  transform: translateY(50%);
+}

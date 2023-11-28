@@ -1,3 +1,103 @@
 .MuiListItem-root .MuiListItem-gutters .css-uxa1ks-MuiListItem-root:hover {
   background: #f6f6f6e1 !important;
 }
+
+/* barra de menu  horizontal  */
+.css-hyum1k-MuiToolbar-root {
+  background:#2c0757;
+  box-shadow: none !important;
+   height: 7vh;
+   width: 100% !important;
+   border-bottom: 1px medium #e3e3e3;
+}
+/* barra de menu  vertical  */
+.MuiDrawer-paper {
+  background:#2c0757 !important;
+   width:70px !important;
+  color: #fff !important;
+  display: none;
+  border-bottom: #202124 14px solid !important;
+}
+.css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper {
+  background:#2c0757 !important;
+  color: white;
+  display: flex;
+  width: 190px !important;  
+}
+
+.css-10hburv-MuiTypography-root{
+  font-size: 1.5em !important;
+  font-family:  questrial !important;
+  }
+  
+  
+  .css-k008qs {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      width: 50px;
+      top: -60px;
+      position: absolute;
+  }
+  
+  .css-i4bv87-MuiSvgIcon-root {  
+  width: 1.7em !important;
+  height: 1.7em !important;
+  color: #f6f6f6;
+   }
+  
+  .css-19z1ozs-MuiPaper-root-MuiAppBar-root{
+      box-shadow: none !important;
+  }
+  .css-1191obr-MuiPaper-root-MuiAppBar-root{
+      box-shadow: none !important;
+  }
+  .MuiBox-root .css-159drnt{
+      background: #6cbb6c;
+    margin: auto;
+      width: 110PX;
+  }
+  .css-9mgopn-MuiDivider-root{
+  display: none !important;
+  }
+  .css-h4y409-MuiList-root {
+      display: flex;
+      flex-direction: column;
+      height: 50%;
+      justify-content: space-evenly !important;
+  }
+  /* .css-uxa1ks-MuiListItem-root:hover{
+      background: #4115748d !important;
+      
+  }  */
+  
+  .css-10hburv-MuiTypography-root{
+    font-size: 17px !important;
+    font-weight: bold;
+    }
+    .css-1ex1afd-MuiTableCell-root {
+        -webkit-font-smoothing: antialiased;
+        font-size: .75rem !important;
+        letter-spacing: normal;
+        color: #202124;
+        text-shadow: none;
+    }
+    .css-1191obr-MuiPaper-root-MuiAppBar-root {
+    
+      width: calc(100% - 190px);
+  }
+
+
+.css-va53ml-MuiButtonBase-root-MuiListItemButton-root{
+  width: 90%;
+  justify-self:center ;
+  margin: auto;
+  border-radius: 7px;
+}
+.css-va53ml-MuiButtonBase-root-MuiListItemButton-root:hover{
+background: #f6f6f632;
+}
+.MuiListItem-root .MuiListItem-gutters .css-uxa1ks-MuiListItem-root :hover{
+  background: none !important;
+}

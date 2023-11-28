@@ -41,6 +41,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Options from "../Options/Options";
 import BasicAccordion from "../BasicAccordion/BasicAccordion";
 import Dialogos from "../Dialogos/Dialogos";
+import'./TablaInventario.css';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -346,10 +347,10 @@ export default function TablaInventario() {
           <BasicAccordion
             titulo={"Crear"}
             contenido={
-              <div>
-                <button onClick={createCategoriaClick}>Categoría</button>
-                <button onClick={createEstadoClick}>Estado</button>
-                <button onClick={createMarcaClick}>Marca</button>
+              <div className='cont-boton' >
+                <button className='boton' onClick={createCategoriaClick}>Categoría</button>
+                <button className='boton' onClick={createEstadoClick}>Estado</button>
+                <button className='boton' onClick={createMarcaClick}>Marca</button>
               </div>
             }
           />
@@ -362,10 +363,10 @@ export default function TablaInventario() {
           <BasicAccordion
             titulo={"Eliminar"}
             contenido={
-              <div>
-                <button onClick={eliminarCatClick}>Categoría</button>
-                <button onClick={eliminarEstadoClick}>Estado</button>
-                <button onClick={eliminarMarcaClick}>Marca</button>
+              <div className='cont-boton' >
+                <button className='boton' onClick={eliminarCatClick}>Categoría</button>
+                <button className='boton' onClick={eliminarEstadoClick}>Estado</button>
+                <button className='boton' onClick={eliminarMarcaClick}>Marca</button>
               </div>
             }
           />
@@ -617,7 +618,6 @@ export default function TablaInventario() {
 
   const handleCreateImplementoClose = () => {
     setCrearImplemento(false);
-    window.location.reload()
   };
 
   const handleCloseSnackBar = (event, reason) => {
@@ -691,6 +691,7 @@ export default function TablaInventario() {
       setImplementos(updatedImplementos);
       // Cierra el diálogo de creación de implemento
       handleCreateImplementoClose();
+    window.location.reload()
     } catch (error) {
       console.error("Error en la solicitud: ", error);
     }
@@ -786,7 +787,46 @@ export default function TablaInventario() {
     handleClose();
     // Agregar aquí la lógica para eliminar el elemento después de confirmar "Agree"
     handleEliminarSancionClick(deleteImplementos);
-    console.log("Eliminar implemento con ID: ", deleteImplementos);
+    console.log('Eliminar implemento con ID: ', deleteImplementos);
+  };
+
+  function encabezado() {
+    return (
+      <TableRow className='tabla-inv'>
+        {columns.map((column) => {
+          if (columnVisibility[column.dataKey]) {
+            return (
+              <TableCell
+                key={column.dataKey}
+                variant="head"
+                sx={{
+                  backgroundColor: '#e3e3e3',
+                }}
+              >
+                {column.label}
+              </TableCell>
+            );
+          }
+          return null;
+        })}
+
+         <TableCell
+          variant="head"
+          sx={{
+            backgroundColor: '#e3e3e3',
+          }}
+        >
+        </TableCell>
+
+        <TableCell
+          variant="head"
+          sx={{
+              backgroundColor: '#e3e3e3',
+          }}
+        >
+        </TableCell>
+      </TableRow>
+    );
   };
 
   const handleClickOpenDialogEditer = () => {
@@ -997,15 +1037,13 @@ export default function TablaInventario() {
   console.log("jajk: ", newImplemento.cantidad);
 
   return (
-    <Paper
-      style={{ height: 995, width: "90%", position: "relative", left: "96px" }}
-    >
+    <Paper className='tabla-inventario'>
       <Toolbar>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
+      <Search>
+            <SearchIconWrapper>
+              <SearchIcon className='icon-search' />
+            </SearchIconWrapper >
+            <StyledInputBase
             placeholder="Buscar implemento…"
             inputProps={{ "aria-label": "search" }}
             value={searchTerm}
@@ -1014,29 +1052,29 @@ export default function TablaInventario() {
         </Search>
       </Toolbar>
 
-      <Options
-        nombre="Más"
-        menuItems={menuItems}
-        filter={
-          <div>
-            <Popover
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={() => setAnchorEl(null)}
-              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-              transformOrigin={{ vertical: "top", horizontal: "left" }}
-            >
-              <div style={{ padding: 16 }}>
-                <ColumnVisibilityControls />
-              </div>
-            </Popover>
-            <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
-              <FilterListIcon /> Filtrar
-            </IconButton>
-          </div>
-        }
-      />
+      <Options 
+      nombre='Más'
+      menuItems={menuItems}
+      filter={<div className='filter'>
+         <Popover
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}}
+        transformOrigin={{ vertical: 'top', horizontal: 'left'}}>
 
+        <div style={{ padding:16, }}>
+          <ColumnVisibilityControls />
+        </div>
+      </Popover>
+        <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
+        <i class="bi bi-filter"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+</svg> Filtrar
+        </IconButton>
+      </div>}/>
+      
       <TableVirtuoso
         data={implementos}
         components={VirtuosoTableComponents}
@@ -1052,6 +1090,7 @@ export default function TablaInventario() {
         handle={handleAgreeClick}
         hacer="Eliminar"
       />
+
       <Dialogos
         opener={eliminarCat}
         closer={createClose}
@@ -1067,6 +1106,7 @@ export default function TablaInventario() {
         handle={handleEliminarCat}
         hacer="Eliminar"
       />
+
       <Dialogos
         opener={eliminarEstado}
         closer={createClose}
@@ -1082,6 +1122,7 @@ export default function TablaInventario() {
         handle={handleEliminarEst}
         hacer="Eliminar"
       />
+
       <Dialogos
         opener={eliminarMarca}
         closer={createClose}
@@ -1297,51 +1338,45 @@ export default function TablaInventario() {
       />
 
       <Dialog open={crearImplemento} onClose={handleCreateImplementoClose}>
-        <DialogTitle>Crear Nuevo Implemento</DialogTitle>
-        <DialogContent>
-          <form>
+        <DialogTitle className='cont-dialo'>Crear Nuevo Implemento</DialogTitle>
+        <DialogContent className='dialo'>
+          <form className='formulario-inv'>
             <TextField
-              label="Codigo"
-              type="text"
-              name="codigo"
-              value={newImplemento.codigo || ""}
-              onChange={(e) =>
-                setNewImplemento({ ...newImplemento, codigo: e.target.value })
-              }
-            />
-            <TextField
-              label="Nombre"
-              type="text"
-              name="nombre"
-              value={newImplemento.nombre || ""}
-              onChange={(e) =>
-                setNewImplemento({ ...newImplemento, nombre: e.target.value })
-              }
-            />
-            {Array.from({ length: additionalInfoCount }).map((_, index) => (
-              <BasicAccordion
-                key={index}
-                titulo={`ESTADO ${index + 1}`}
-                contenido={
+            label="Codigo"
+            type="text"
+            name="codigo"
+            value={newImplemento.codigo || ''}
+            onChange={(e) => setNewImplemento({ ...newImplemento, codigo: e.target.value })}
+          />
+          <TextField
+            label="Nombre"
+            type="text"
+            name="nombre"
+            value={newImplemento.nombre || ''}
+            onChange={(e) => setNewImplemento({ ...newImplemento, nombre: e.target.value })}
+          />
+          {Array.from({ length: additionalInfoCount }).map((_, index) => (
+            <BasicAccordion 
+            key={index}
+            titulo={`ESTADO ${index + 1}`}
+            contenido={
+              <div>
+                  <ComSelect 
+                  nombre='Estado'
+                  items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+                  onChange={(value) => handleEstadoFormit(value, index)}
+                  getOptionLabel={(option) => option.label}
+                  value={setSelectedEstado}
+                  />
+                 <TextField
+                  label="Cantidad Estado"
+                  type="number"
+                  name="cantidad"
+                  value={newImplemento.estado[index]?.cantidad || ''}
+                  onChange={(e) => handleCantidadChange(e, index)}
+                  />
                   <div>
-                    <ComSelect
-                      nombre="Estado"
-                      items={selectedEstadoInfoo.map((opcion) => opcion.label)}
-                      onChange={(value) => handleEstadoFormit(value, index)}
-                      getOptionLabel={(option) => option.label}
-                      value={setSelectedEstado}
-                    />
-                    <TextField
-                      label="Cantidad Estado"
-                      type="number"
-                      name="cantidad"
-                      value={newImplemento.estado[index]?.cantidad || ""}
-                      onChange={(e) => handleCantidadChange(e, index)}
-                    />
-                    <div>
-                      <FormLabel id="demo-controlled-radio-buttons-group">
-                        ¿Es apto el implemento?
-                      </FormLabel>
+                    <FormLabel id="demo-controlled-radio-buttons-group">¿Es apto el implemento?</FormLabel>
                       SI
                       <Radio
                         checked={aptoValues[index] === true}
@@ -1356,30 +1391,29 @@ export default function TablaInventario() {
                         value={false}
                         name="radio-buttons"
                       />
+                           </div>
+                    
                       {index > 0 && ( // Muestra el botón "delete" solo si el acordeón no es el primero
-                        <IconButton
-                          onClick={() => handleDeleteInfoEstados(index)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      )}
-                    </div>
+                    <IconButton onClick={() => handleDeleteInfoEstados(index)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
                   </div>
-                }
-              />
-            ))}
-            <Fab
-              size="small"
-              color="secondary"
-              aria-label="add"
-              onClick={() => setAdditionalInfoCount(additionalInfoCount + 1)}
-            >
-              <IconButton>
-                <AddIcon />
-              </IconButton>
-            </Fab>
+            }
+            />
+          ))}
+              <Fab
+                size="small"
+                color="secondary"
+                aria-label="add"
+                onClick={() => setAdditionalInfoCount(additionalInfoCount + 1)}
+              >
+                <IconButton>
+                  <AddIcon />
+                </IconButton>
+              </Fab>
             <div className="contenedorsito">
-              <div style={{ position: "relative", top: "-40px", left: "90px" }}>
+              <div style={{position:'relative', top: '-40px', left : '90px'}}>
                 Cantidad
                 <input
                   name=""
@@ -1388,97 +1422,87 @@ export default function TablaInventario() {
                 />
               </div>
             </div>
-            <ComSelect
-              nombre="Categoria"
-              items={selectedIdCat.map((opcion) => opcion.label)}
-              onChange={(value) => handleCategoriaFormSubmit(value)}
-              getOptionLabel={(option) => option.label}
-              value={setSelectedCategory}
-            />
-            <ComSelect
-              nombre="Marca"
-              items={selectedMarcaInfor.map((opcion) => opcion.label)}
-              onChange={(value) => handleMarcaFormit(value)}
-              getOptionLabel={(option) => option.label}
-              value={setSelectedMarca}
-            />
-            <TextField
-              label="Peso"
-              type="text"
-              name="peso"
-              value={newImplemento.descripcion.peso || ""}
-              onChange={(e) =>
-                setNewImplemento({
-                  ...newImplemento,
-                  descripcion: {
-                    ...newImplemento.descripcion,
-                    peso: e.target.value,
-                  },
-                })
-              }
-            />
-            <TextField
-              label="Color"
-              type="text"
-              name="color"
-              value={newImplemento.descripcion.color || ""}
-              onChange={(e) =>
-                setNewImplemento({
-                  ...newImplemento,
-                  descripcion: {
-                    ...newImplemento.descripcion,
-                    color: e.target.value,
-                  },
-                })
-              }
-            />
+          <ComSelect 
+          nombre='Categoria'
+          items={selectedIdCat.map((opcion) => opcion.label)}
+          onChange={(value) => handleCategoriaFormSubmit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectedCategory}
+          />
+          <ComSelect 
+          nombre='Marca'
+          items={selectedMarcaInfor.map((opcion) => opcion.label)}
+          onChange={(value) => handleMarcaFormit(value)}
+          getOptionLabel={(option) => option.label}
+          value={setSelectedMarca}
+          />
+          <TextField
+            label="Peso"
+            type="text"
+            name="peso"
+            value={newImplemento.descripcion.peso || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                peso: e.target.value,
+              },
+            })}
+          />
+          <TextField
+            label="Color"
+            type="text"
+            name="color"
+            value={newImplemento.descripcion.color || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                color: e.target.value,
+              },
+            })}
+          />
 
-            <TextField
-              label="Material"
-              type="text"
-              name="material"
-              value={newImplemento.descripcion.material || ""}
-              onChange={(e) =>
-                setNewImplemento({
-                  ...newImplemento,
-                  descripcion: {
-                    ...newImplemento.descripcion,
-                    material: e.target.value,
-                  },
-                })
-              }
-            />
-            <TextField
-              label="Detalles"
-              type="text"
-              name="detalles"
-              value={newImplemento.descripcion.detalles || ""}
-              onChange={(e) =>
-                setNewImplemento({
-                  ...newImplemento,
-                  descripcion: {
-                    ...newImplemento.descripcion,
-                    detalles: e.target.value,
-                  },
-                })
-              }
-            />
-            <TextField
-              label="Tamano"
-              type="text"
-              name="tamano"
-              value={newImplemento.descripcion.tamano || ""}
-              onChange={(e) =>
-                setNewImplemento({
-                  ...newImplemento,
-                  descripcion: {
-                    ...newImplemento.descripcion,
-                    tamano: e.target.value,
-                  },
-                })
-              }
-            />
-          </form>
+          <TextField
+            label="Material"
+            type="text"
+            name="material"
+            value={newImplemento.descripcion.material || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                material: e.target.value,
+              },
+            })}
+          />
+          <TextField
+            label="Detalles"
+            type="text"
+            name="detalles"
+            value={newImplemento.descripcion.detalles || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                detalles: e.target.value,
+              },
+            })}
+          />
+          <TextField
+            label="Tamano"
+            type="text"
+            name="tamano"
+            value={newImplemento.descripcion.tamano || ''}
+            onChange={(e) => setNewImplemento({
+              ...newImplemento,
+              descripcion: {
+                ...newImplemento.descripcion,
+                tamano: e.target.value,
+              },
+            })}
+          />
+        </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCreateImplementoClose}>Cancelar</Button>
@@ -1512,5 +1536,5 @@ export default function TablaInventario() {
         </Snackbar>
       </Stack>
     </Paper>
-  );
+  )
 }

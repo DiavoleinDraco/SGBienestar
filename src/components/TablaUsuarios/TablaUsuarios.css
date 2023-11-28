@@ -1,48 +1,54 @@
-.buscador{
-    /*
-    background: none !important;
-    height: inherit;
-    background: rgb(109, 153, 51) !important; */
- width: 50% !important;
- display: flex !important;
- background: transparent !important;
+.css-pl8gqh-MuiStack-root{
+    justify-content: center;
 }
-.cont-busc{
-    /* background: #a3a3a8ee !important;
-    border-top-right-radius: 40PX;
-    border-top-left-radius: 40PX;*/
-    height: 85px !important;
+.css-yz9k0d-MuiInputBase-input::placeholder{
+    color: #2c0757!important;
+    font-size: 1em;
+    font-family: 'Anton', sans-serif !important;
+}
+.MuiTableCell-root{
+    text-align: center !important;
+    font-size: 1em !important;
+    text-transform: capitalize !important;
+    font-family: "questrial" !important;
+}
+
+.buscador{
+ width: 300px !important;
+}
+.css-gzkfr-MuiTableCell-root{
+ font-size: 1.5em !important;
+}
+.css-1191obr-MuiPaper-root-MuiAppBar-root {
+
+width: calc(100% - 190px) !important;
 }
 .lupaa{
-color:   #2175a6;
-border-radius: 70px;
-background: #f6f6f6;
-width: 50px;
-height: 50px !important;
-border: 1px solid #ffffff4d;
-z-index: 300;
-position: fixed;
-left:479px;
-top: 4px;
+    width: 45px;
 }
-
-/* .css-yz9k0d-MuiInputBase-input{
-
-} */
-.css-yz9k0d-MuiInputBase-input::placeholder{
-    color: white !important;
-    font-size: 1.6em;
-    font-family: "QUESTRIAL";
-    text-align: start !important;
-    z-index: 900 !important;
-
-}
-
-.css-7mt4h1-MuiInputBase-root .MuiInputBase-input{
-    width: 30em !important;
-    height: 40px;
-    border-radius: 70px !important;
+.css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
+    width: 27ch  !important;
     border: none;
-    background: #2175a6;
-    transform: translateY(1px);
+}
+.css-yz9k0d-MuiInputBase-input {
+    color: #000000 !important;
+    font-family: "questrial" !important; 
+    height: 18px !important;
+   background:#e3e3e3 !important;
+   border: none !important;
+   border-radius: 26px;
+
+}
+.cont-busc{
+    background:inherit !important;
+}
+.icon-search{
+    color: #2c0757 !important;
+    z-index: 999;
+ 
+}
+.sancionarb button{
+    background: #EBEBEB;
+    box-shadow: 6px 6px 20px -1px rgba(0, 0, 0, 0.15),
+        -6px -6px 20px -1px rgba(255, 255, 255, 0.7);
 }

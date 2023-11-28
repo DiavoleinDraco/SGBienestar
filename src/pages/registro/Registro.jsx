@@ -106,9 +106,6 @@ export default function Registro() {
     return null;
   };
 
-
-
-
   const handleRegistroClick = async () => {
     try {
       const camposObligatoriosLlenos = validarCamposObligatorios();
@@ -125,23 +122,23 @@ export default function Registro() {
         throw new Error("Debes seleccionar una ficha.");
       }
 
-      console.log(info.rol)
+      console.log(info.rol);
 
       if (!info.correo_inst) {
         throw new Error("El correo electrónico institucional es obligatorio.");
       }
-
 
       const emailValidationMessage = validateEmail(info.correo_inst, info.rol);
       if (emailValidationMessage) {
         throw new Error(emailValidationMessage);
       }
 
-
-
       info["pps"] = true;
       const response = await post("/registro", info);
-      const idNewUser = await getParametre(`/registro/usuario/findByMail/`, info["correo_inst"]);
+      const idNewUser = await getParametre(
+        `/registro/usuario/findByMail/`,
+        info["correo_inst"]
+      );
 
       localStorage.setItem("token", idNewUser.token);
       navegacion(`/auth`);
@@ -200,7 +197,6 @@ export default function Registro() {
       setIsFichaRequired(selectRolvalue === "Aprendiz");
     }
   };
-
 
   const rolOption = rol.map((rol) => ({
     label: rol.nombre,
@@ -277,7 +273,7 @@ export default function Registro() {
       <div id="imagenes">
         <img src={miimagen} alt="sena-imagen" />
       </div>
-      <form className="form">
+      <div className="form">
         <div className="title">
           <h1 className="titulo-registro">REGISTRATE</h1>
         </div>
@@ -326,10 +322,7 @@ export default function Registro() {
                   onChange={(value) => handleRolFormSubmit(value)}
                   getOptionLabel={(option) => option.label}
                   value={setSelectRolId}
-
                   required
-
-
                 />
               </div>
             </div>
@@ -569,7 +562,7 @@ export default function Registro() {
             </a>
           </li>
         </ul>
-      </form>
+      </div>
       <div className="item-casaa">
         <div className="casaaa">
           <Link to="/home" className="linkk">

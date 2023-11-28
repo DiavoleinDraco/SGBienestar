@@ -127,7 +127,8 @@ export default function TablaUsarios() {
             key={column.dataKey}
             variant="head"
             sx={{
-              backgroundColor: "background.paper",
+              backgroundColor: "#e3e3e3",
+              fontWeight: "bold",
             }}
           >
             {column.label}
@@ -136,7 +137,7 @@ export default function TablaUsarios() {
         <TableCell
           variant="head"
           sx={{
-            backgroundColor: "background.paper",
+            backgroundColor: "#e3e3e3",
           }}
         ></TableCell>
       </TableRow>
@@ -167,7 +168,7 @@ export default function TablaUsarios() {
         {columns.map((column) => (
           <TableCell key={column.label}>{row[column.dataKey]}</TableCell>
         ))}
-        <TableCell>
+        <TableCell className="sancionarb">
           <Buttons
             nombre="sancionar"
             onclick={() => handleSancionarClick(_index)}
@@ -182,18 +183,15 @@ export default function TablaUsarios() {
   return (
     <Paper
       style={{
-        height: 887,
-        outline: "1px solid black",
+        height: 900,
         width: "100%",
-        background: "red",
-        display: "flex",
-        flexDirection: "column",
+
       }}
     >
       <Toolbar className="cont-busc">
         <Search className="buscador">
           <SearchIconWrapper className="lupaa">
-            <SearchIcon />
+            <SearchIcon className="icon-search" />
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Buscar usuarios"

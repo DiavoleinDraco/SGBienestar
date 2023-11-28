@@ -1,0 +1,99 @@
+.contenedor-padre-login {
+  width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title-perfil {
+  color: #333;
+}
+
+.contenedor-de-texfields {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 300px;
+  gap: 30px;
+  position: absolute;
+  position: absolute;
+  top: 16%;
+  left: 10%;
+}
+
+.contenedor-texfield-perfil {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Puedes personalizar el estilo de los Textfield según tus necesidades */
+.textfield-input {
+  width: 100%;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Puedes personalizar el estilo del icono de edición */
+.contenedor-texfield-perfil span {
+  margin-left: -1%;
+  cursor: pointer;
+  color: #007bff; /* Cambia el color según tu preferencia */
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.contenedor-info-perfil {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  align-content: center;
+  flex-direction: column;
+  width: 300px;
+  position: absolute;
+  top: 14%;
+  right: 2%;
+}
+
+/* Estilo para el contenedor de la imagen */
+.contenedor-img-perfil {
+  display: flex;
+}
+
+.contenedor-img-perfil img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50%;
+}
+
+/* Puedes personalizar el estilo del párrafo según tus necesidades */
+.contenedor-info-perfil p {
+  margin: 0;
+  color: #555;
+}
+
+/* Estilo de los iconos de lapiz */
+.css-i4bv87-MuiSvgIcon-root {
+  width: 1.7em !important;
+  height: 1.7em !important;
+  color: #000000 !important;
+}
+
+/* Estilo para el contenedor de perfil */
+.btn-perfil {
+  position: absolute;
+  top: 90%;
+  left: 42%;
+}
