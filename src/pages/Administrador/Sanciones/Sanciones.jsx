@@ -64,7 +64,7 @@ export default function Sanciones() {
   };
   const handleConfirmAction = async () => {
     await handleEnviarSanciones();
-
+    window.location.reload();
     setConfirmDialogOpen(false);
   };
 
@@ -476,6 +476,7 @@ export default function Sanciones() {
                 Cancelar
               </Button>
               <Button onClick={handleConfirmAction} color="primary">
+                
                 Aceptar
               </Button>
             </DialogActions>
@@ -494,6 +495,7 @@ export default function Sanciones() {
                   onClick={openConfirmDialog}
                   variant="contained"
                   endIcon={<SendIcon />}
+                  
                 >
                   Sancionar
                 </Button>

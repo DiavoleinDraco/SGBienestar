@@ -557,7 +557,7 @@ export default function Informes() {
           <DialogActions>
             <Button onClick={() => { navigate('/admin') }}>Cancelar</Button>
             <Button onClick={handleClose}>Generar</Button>
-            <Button onClick={() => setShowHistorial(true)}>Historial</Button>
+            <Button onClick={() => setShowHistorial(true)}>Historial de Informes</Button>
           </DialogActions>
         </Dialog>
       </React.Fragment>

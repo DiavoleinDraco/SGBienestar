@@ -25,8 +25,6 @@ export default function BasicTable() {
   const [IdPendiente, setIdPendiente] = useState("");
   const [IdPerdido, setIdPerdido] = useState("");
   const [IdRetrasado, setIdRetrasado] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [alertOpen, setAlertOpen] = useState(false);
   const [filter, setFilter] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -40,10 +38,12 @@ export default function BasicTable() {
 
 
 
+  //_____Filtro de sanciones________
+
   const removeAccents = (str) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   };
-  
+
   const filterBySearchTerm = (row) => {
     const searchTermLowerCase = removeAccents(searchTerm.toLowerCase());
     const rowWithoutAccents = {
@@ -64,7 +64,7 @@ export default function BasicTable() {
         nombre: removeAccents(row.estado.nombre),
       },
     };
-  
+
     return (
       rowWithoutAccents.fecha_inicio.includes(searchTermLowerCase) ||
       (rowWithoutAccents.usuario?.nombres + " " + rowWithoutAccents.usuario?.apellidos)
@@ -79,6 +79,7 @@ export default function BasicTable() {
   };
 
 
+  //_____Peticion para traer todas los prestamos
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,6 +94,9 @@ export default function BasicTable() {
 
     fetchData();
   }, []);
+
+
+  //___________
 
   useEffect(() => {
     const fetchDataEstado = async () => {
@@ -153,6 +157,10 @@ export default function BasicTable() {
 
   console.log("IDss", idAprobado, idRechazado, idFallido, idCompletado, IdPendiente, IdPerdido, IdRetrasado);
 
+
+  //_____ botones 
+
+
   const handleAceptar = async (id) => {
     try {
       const rowData = tableData.find((row) => row._id === id);
@@ -175,6 +183,7 @@ export default function BasicTable() {
       console.error("Error al procesar la solicitud:", error);
     }
   };
+
 
   const handleRechazar = async (id) => {
     try {
@@ -203,10 +212,10 @@ export default function BasicTable() {
 
   const handleRecibido = async (id) => {
     try {
-      
+
       const data = {
         id: id,
-        estado: filter === "retrasado" ? IdRetrasado : IdPerdido,
+        estado: idCompletado,
       };
 
       const response = await post("/prestamos/finalizar", data);
@@ -214,10 +223,6 @@ export default function BasicTable() {
       console.error("Error al procesar la solicitud:", error);
     }
   };
-
-
-
-
 
 
   const handleSearch = (event) => {
@@ -236,19 +241,10 @@ export default function BasicTable() {
 
     const filterLowerCase = filter?.toLowerCase();
 
-
-  
-    
-  
-  
-
-
-
-  
     switch (filterLowerCase) {
       case "pendientes":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_PENDIENTE);
-      case "aprobadas":
+      case "aprobado":
       case "perdido":
       case "retrasado":
         return sortedData.filter((row) => row.estado.nombre.toLowerCase() === filterLowerCase);
@@ -263,7 +259,7 @@ export default function BasicTable() {
     }
   };
 
-  
+
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     const formattedDate = new Date(dateString).toLocaleDateString(
@@ -273,18 +269,18 @@ export default function BasicTable() {
     return formattedDate;
   };
 
+
+
+
+
+
+
   return (
     <div>
 
-<Menu></Menu>
+      <Menu></Menu>
 
       <div className="contenedor-table-solicitudes">
-       
-
-
-  
-
-
 
         <div className="contenedor-TitleSoli">
           <h2 className="TitleSoli">
@@ -308,19 +304,17 @@ export default function BasicTable() {
 
 
 
-            
+
             className="btncont"
           >
 
-
-
-<input
-          type="text"
-          placeholder="Buscar..."
-          onChange={handleSearch}
-          value={searchTerm}
-          style={{ marginLeft: "10px", marginTop: "10px" }}
-        />
+            <input
+              type="text"
+              placeholder="Buscar..."
+              onChange={handleSearch}
+              value={searchTerm}
+              style={{ marginLeft: "10px", marginTop: "10px" }}
+            />
 
 
             <Button
@@ -333,9 +327,9 @@ export default function BasicTable() {
             <Button
               className="boton-solicitudes"
               variant="contained"
-              onClick={() => setFilter("aprobadas")}
+              onClick={() => setFilter("aprobado")}
             >
-              Aprobadas
+              Aprobado
             </Button>
 
             <Button
@@ -358,6 +352,7 @@ export default function BasicTable() {
               className="boton-solicitudes"
               variant="contained"
               onClick={() => setFilter("rechazadas")}
+              
             >
               Rechazadas
             </Button>
@@ -390,48 +385,48 @@ export default function BasicTable() {
 
           </div>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead
-  style={{
-    background: "#eaeaea",
-    borderBottom: "0.1px solid #868686",
-    position: "sticky",
-    top: 65,
-    zIndex: 99,
-  }}
->
-  <TableRow>
-    <TableCell align="right">
-      <b>Fecha</b>
-    </TableCell>
-    <TableCell align="right">
-      <b>Usuario</b>
-    </TableCell>
-    <TableCell align="right">
-      <b>Numero de Documento</b>
-    </TableCell>
-    <TableCell align="right">
-      <b>Nombre del Implemento</b>
-    </TableCell>
-    <TableCell align="right">
-      <b>Estado de la solicitud</b>
-    </TableCell>
-    {(filter === "aprobadas" || filter === "perdido" || filter === "retrasado") && (
-      <TableCell align="right">
-        <b>Recibir</b>
-      </TableCell>
-    )}
-    {filter === "pendientes" && (
-      <>
-        <TableCell align="right">
-          <b>Aceptar solicitud</b>
-        </TableCell>
-        <TableCell align="right">
-          <b>Rechazar solicitud</b>
-        </TableCell>
-      </>
-    )}
-  </TableRow>
-</TableHead>
+            <TableHead
+              style={{
+                background: "#eaeaea",
+                borderBottom: "0.1px solid #868686",
+                position: "sticky",
+                top: 65,
+                zIndex: 99,
+              }}
+            >
+              <TableRow>
+                <TableCell align="right">
+                  <b>Fecha</b>
+                </TableCell>
+                <TableCell align="right">
+                  <b>Usuario</b>
+                </TableCell>
+                <TableCell align="right">
+                  <b>Numero de Documento</b>
+                </TableCell>
+                <TableCell align="right">
+                  <b>Nombre del Implemento</b>
+                </TableCell>
+                <TableCell align="right">
+                  <b>Estado de la solicitud</b>
+                </TableCell>
+                {(filter === "aprobado" || filter === "perdido" || filter === "retrasado") && (
+                  <TableCell align="right">
+                    <b>Recibir</b>
+                  </TableCell>
+                )}
+                {filter === "pendientes" && (
+                  <>
+                    <TableCell align="right">
+                      <b>Aceptar solicitud</b>
+                    </TableCell>
+                    <TableCell align="right">
+                      <b>Rechazar solicitud</b>
+                    </TableCell>
+                  </>
+                )}
+              </TableRow>
+            </TableHead>
 
             <TableBody>
               {filterTableData().map((row) => (
@@ -457,7 +452,7 @@ export default function BasicTable() {
                   </TableCell>
 
                   <TableCell align="right">{row.estado.nombre}</TableCell>
-                  {filter === "aprobadas" || filter === "perdido" || filter === "retrasado" ? (
+                  {filter === "aprobado" || filter === "perdido" || filter === "retrasado" ? (
                     <>
                       <TableCell align="right">
                         <Button
