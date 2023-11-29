@@ -1,7 +1,8 @@
 .ti-HInfo {
-    color: #ffffff;
+    color: #fff;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -1150%);
+    transform: translate(-50%, -600%);
+    z-index: 100;
 }

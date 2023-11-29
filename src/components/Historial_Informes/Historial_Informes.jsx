@@ -84,9 +84,11 @@ export default function TablaInformes() {
   };
 
   return (
-    <Paper sx={{width: "90%", height:"70%", position: "absolute", top:"50%", left:"50%", transform:"translate(-50%,-40%)"}}>
+    <Paper sx={{width: "90%", height:"65%", position: "absolute", top:"50%", left:"50%", transform:"translate(-50%,-34%)"}}>
+      <div className="fondo-morado-HistInfor"></div>
 
       <input
+        style={{margin: "10px"}}
         type="text"
         placeholder="Buscar por número de informe"
         value={searchTerm}
@@ -94,7 +96,7 @@ export default function TablaInformes() {
       />
 
 
-<TableContainer sx={{ maxHeight: 845 }}>
+<TableContainer sx={{ maxHeight: 400 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

@@ -162,6 +162,8 @@ export default function Informes() {
 
   const encabezadoImplemento = () => (
     <div className="container-Informes">
+      <div className="fondo-banco"></div>
+      <div className="fondo-morado"></div>
       <div className="contenedorsito">
         <div style={{ display: "inline-block" }}>
           <p style={{ display: "inline-block", marginRight: "10px" }}>
@@ -170,12 +172,12 @@ export default function Informes() {
           <input
             style={{
               padding: "8px",
-              border: "1px solid #000",
+              border: "1px solid #2c0757",
               borderRadius: "4px",
               boxSizing: "border-box",
               width: "250px", // Ajusta el ancho según sea necesario
               outline: "none", // Elimina el contorno al enfocar
-              borderColor: "#007bff", // Cambia el color del borde al enfocar el input
+              borderColor: "#2c0757", // Cambia el color del borde al enfocar el input
             }}
             className="input-name-fun"
             name=""
@@ -205,6 +207,11 @@ export default function Informes() {
       >
         <p>Observaciones</p>
         <TextField
+          style={{
+            maxHeight: '46px',
+            overflowY: 'auto', // Muestra una barra de desplazamiento vertical si es necesario
+          }}
+
           multiline
           name=""
           onChange={(event) =>
@@ -437,19 +444,19 @@ export default function Informes() {
                 <h2 className="ti-HInfo">Informe de Sanciones</h2>
                 {encabezadoContentImplemento}
                 <div className="contenedor-numeroDoc">
-                <Textfield
-                  name="Ingrese el Documento"
-                  onChange={(value) => setNumeroDocumento(value)}
-                />
+                  <Textfield
+                    name="Ingrese el Documento"
+                    onChange={(value) => setNumeroDocumento(value)}
+                  />
                 </div>
 
                 <div className="contenedor-estadSan">
-                <ComSelect
-                  nombre="Estado de Sancion"
-                  items={["Activo", "Inactivo", "Todo"]}
-                  onChange={(value) => handleInformeDataChange("estado", value)}
-                  required
-                />
+                  <ComSelect
+                    nombre="Estado de Sancion"
+                    items={["Activo", "Inactivo", "Todo"]}
+                    onChange={(value) => handleInformeDataChange("estado", value)}
+                    required
+                  />
                 </div>
               </>
             );
@@ -471,40 +478,40 @@ export default function Informes() {
                 {implemento.map((implemento, index) => (
                   <div key={index}>
                     <div className="contenedor-de-inpust-agregar-implementos">
-                    <Textfield
-                      name={`Nombre ${index + 1}`}
-                      onChange={(value) =>
-                        handleInformeDataChange(
-                          "implemento",
-                          value,
-                          index,
-                          "nombre"
-                        )
-                      }
-                    />
-                    <Textfield
-                      name={`Cantidad ${index + 1}`}
-                      soloNumeros={true}
-                      onChange={(value) =>
-                        handleInformeDataChange(
-                          "implemento",
-                          value,
-                          index,
-                          "cantidad"
-                        )
-                      }
-                    />
-                    <Textfield
-                      name={`Caracteristicas ${index + 1}`}
-                      onChange={(value) =>
-                        handleInformeDataChange(
-                          "implemento",
-                          value,
-                          index,
-                          "caracteristicas"
-                        )
-                      }
-                    />
+                      <Textfield
+                        name={`Nombre ${index + 1}`}
+                        onChange={(value) =>
+                          handleInformeDataChange(
+                            "implemento",
+                            value,
+                            index,
+                            "nombre"
+                          )
+                        }
+                      />
+                      <Textfield
+                        name={`Cantidad ${index + 1}`}
+                        soloNumeros={true}
+                        onChange={(value) =>
+                          handleInformeDataChange(
+                            "implemento",
+                            value,
+                            index,
+                            "cantidad"
+                          )
+                        }
+                      />
+                      <Textfield
+                        name={`Caracteristicas ${index + 1}`}
+                        onChange={(value) =>
+                          handleInformeDataChange(
+                            "implemento",
+                            value,
+                            index,
+                            "caracteristicas"
+                          )
+                        }
+                      />
                     </div>
                   </div>
                 ))}

@@ -61,7 +61,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -400%);
+  transform: translate(-50%, -240%);
+  z-index: 100;
 }
 
 .cont-tilte-informes h1 {
@@ -77,7 +78,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -70%);
+  transform: translate(-68%, -58%);
   display: flex;
   flex-direction: column;
   justify-content: space-around; /* Ajusta esta propiedad según sea necesario */
@@ -94,29 +95,41 @@
 /* Estilo del contenedor que tiene el input de estado */
 .contenedor-estado {
   position: absolute;
-  bottom: 28%;
-  left: 33.2%;
+  bottom: 24%;
+  left: 26%;
 }
 
 /* Contenedor del input del numero de documento */
 .contenedor-numeroDoc {
   position: absolute;
-  top: 66%;
-  left: 31.6%;
+  top: 68%;
+  left: 23.5%;
 }
 
 /* Contenedor del input de Estado de sanciones */
 .contenedor-estadSan {
   position: absolute;
-  top: 80%;
-  left: 33.3%;
+  top: 82%;
+  left: 26.2%;
 }
 
 /* Boton de agregar implemento */
 .btn-agregar-implemento {
   position: absolute;
-  top: 80%;
-  left: 33.3%;
+  top: 82%;
+  left: 26%;
+  color: #fff;
+  background-color: #2c0757;
+  border: 1px solid #2c0757;
+  width: 100px;
+  height: 40px;
+}
+
+.btn-agregar-implemento:hover {
+  background-color: #fff;
+  color: #2c0757;
+  border: 1px solid #2c0757;
+  cursor: pointer;
 }
 
 /* Contenedor de los inpus de agregar implementos */
@@ -124,7 +137,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-63%, 60%);
+  transform: translate(-90%, 80%);
   width: 30%;
   height: 20%;
   display: flex;
@@ -134,4 +147,28 @@
   flex: 1;
   padding: 10px; /* Puedes ajustar el espacio interno según sea necesario */
   box-sizing: border-box;
+}
+
+/* Div de fondo blaco para informes */
+.fondo-banco {
+  background: #f6f6f6;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-36%, -26%);
+  width: 140%;
+  height: 70vh;
+  z-index: -100;
+}
+
+/* Div para el fondo morado */
+.fondo-morado {
+  background-color: #2c0757;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-42.8%, -80%);
+  width: 250%;
+  height: 140%;
+  z-index: -300;
 }
