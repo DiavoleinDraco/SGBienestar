@@ -5,14 +5,22 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './mensajes_detallas.css';
+import './responder.css'
 import { useParams } from 'react-router-dom';
 import { getParametre, eliminar } from "../../UseFetch"; // Asegúrate de importar eliminar
 import { useNavigate } from "react-router-dom";
-
+import Buttons from "../../components/Buttons/Buttons";
+import { width } from "@mui/system";
+import { Popover } from "@mui/material";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ComposeBar from "../../components/componentedeprueba/Redactar_mensaje";
 export default function MensajesDetalle() {
   const { messageId } = useParams();
   const [user, setUser] = useState(null);
   const redireccionar = useNavigate();  // Inicializa history
+  const [showResponder, setShowResponder] = useState(false);
+  const [showReenviar, setShowReenviar] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const infoCorreo = () => {
     getParametre("/mail/mail/", messageId)
@@ -24,6 +32,25 @@ export default function MensajesDetalle() {
         console.error("Error al obtener la información del usuario:", error);
       });
   };
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  // Función para cerrar el Popover
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleReenviarClick = () => {
+    setShowReenviar(true);
+
+  }
+
+  const handleResponderClick = () => {
+    setShowResponder(true);
+
+  }
 
   const handleDeleteClick = async (_id) => {
     try {
@@ -39,47 +66,91 @@ export default function MensajesDetalle() {
     infoCorreo();
   }, []);
 
+  const mensaje = (
+    <div className="mensajes-detalle-content">
+      <div className="mensaje-header">
+        <div className="contenedor-table-dt-mensajes" style={{ textAlign: "center", background: "gray" }}>
+          <table className="table-dt-mensajes" style={{ align: "center", width: "800", cellSpacing: "0", cellPadding: "0", border: "0" }}>
+            <tbody>
+              <tr>
+                <td bgcolor="#f2f2f2" style={{ padding: "20px", textAlign: "center" }}>
+                  <h1 style={{ color: "#000000" }}>Servicio Nacional de Aprendizaje</h1>
+                  <p style={{ color: "#000000" }}>Hola, {user && user.correo}</p>
+                  <p style={{ color: "#000000" }}>Asunto: {user && user.asunto}</p>
+                  <p style={{ color: "#000000", fontSize: "18px" }}>{user && user.mensaje}</p>
+                  <p style={{ color: "#000000" }}>Atentamente, Equipo de Bienestar.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  )
+
   return (
     <Box sx={{ display: 'flex', position: 'relative', top: '100px' }}>
       <Menu />
       <div className="mensajes-detalle-container">
         <div className="mensajes-detalle-header">
-        <IconButton onClick={() => redireccionar("/mensajes")}> {/* Redirige a la página de mensajes */}
+          <IconButton onClick={() => redireccionar("/mensajes")}>
             <ArrowBackIcon />
           </IconButton>
-          <IconButton onClick={() => handleDeleteClick(messageId)}> {/* Llama a handleDeleteClick con el messageId */}
+          <IconButton onClick={() => handleDeleteClick(messageId)}>
             <DeleteIcon />
           </IconButton>
         </div>
-        <div className="mensajes-detalle-content">
-          <div className="mensaje-header">
-            <div className="mensaje-info">
-              <h2>{user && user.asunto}</h2>
-              
-              <p>Para: {user && user.correo}</p>
-            </div>
-            <div className="mensaje-body">
-            <div style={{ backgroundColor: "#ffffff", marginTop: "20px", width: "600px", margin: "0 auto" }}>
-    <div style={{ textAlign: "center", padding: "20px 0" }}>
-      <img src="" alt="SGbienestar Logo" width="150" />
-    </div>
-    <div style={{ backgroundColor: "#007bff", color: "#ffffff", padding: "20px", fontSize: "24px", textAlign: "center" }}>
-      Notificación de Sanción
-    </div>
-    <div style={{ padding: "20px", fontSize: "16px" }}>
-      <p>Estimado usuario de SGbienestar,</p>
-      <p>{user && user.mensaje}</p>
-    </div>
-    <div style={{ backgroundColor: "#007bff", color: "#ffffff", textAlign: "center", padding: "20px", fontSize: "14px" }}>
-      Póngase en contacto con nosotros en <a href="mailto:soporte@sgbienestar.com">soporte@sgbienestar.com</a> para obtener asistencia.
-    </div>
-    <div style={{ textAlign: "center", marginTop: "20px", color: "#999" }}>
-      © 2023 SGbienestar. Todos los derechos reservados.
-    </div>
-  </div>
-              
-            </div>
+        <div className="mensaje-info">
+          <h2>{user && user.asunto}</h2>
+          <div style={{ display: "flex", alignItems: "center" }}>
+          <p style={{ width: "20%" }}>Para: {user && user.correo && Array.isArray(user.correo) ? user.correo.join(", ").slice(0, 23) + "..." : "Correo no válido"}</p>
+            <button
+              style={{
+                background: "none",
+                border: "none",
+                width: "10%",
+                display: "inline-block",
+              }}
+              onClick={handlePopoverOpen}
+            >
+              <KeyboardArrowDownIcon color="action" />
+            </button>
           </div>
+          <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            onClose={handlePopoverClose}
+            anchorOrigin={{
+              vertical: 'bottom',  // Ajusta la posición vertical
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',  // Ajusta la posición vertical
+              horizontal: 'left',
+            }}
+          >
+            <div style={{ padding: '20px', width: "500px", textAlign: "left" }}>
+              <p>Para: {user && user.correo && Array.isArray(user.correo) ? user.correo.join(", ") : "Correo no valido"}</p>
+              <p>Asunto: {user && user.asunto}</p>
+            </div>
+          </Popover>
+          {mensaje}
+        
+          {showResponder ?
+            <div className="cuadro-responder">
+             <ComposeBar
+             style="custom-style"
+             showChecklist={false}
+             defaultRecipient={user && user.correo}
+             defaultAsunto={ user && user.asunto}
+             onClose={() => setShowResponder(false)}  // Asigna la función onClose correctamente
+             ></ComposeBar>
+            
+
+            </div>
+            :   <div className="botones-responder">
+            <Buttons nombre={"Responder"} onclick={handleResponderClick}></Buttons>
+          </div>}
         </div>
       </div>
     </Box>

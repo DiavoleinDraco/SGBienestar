@@ -16,54 +16,55 @@ export default function Comentarioas() {
   return (
     <div>
       <Button aria-describedby={open ? 'popper' : undefined} onClick={handleClick}>
-      <div className="custom-icon-container">
-        <Message /> {/* Muestra el ícono de mensaje */}
+        <div className="custom-icon-container">
+          <Message /> {/* Muestra el ícono de mensaje */}
         </div>
       </Button>
-        <Popper
-          id={open ? 'popper' : undefined}
-          open={open}
-          anchorEl={anchorEl}
-          placement="top"
-          disablePortal={false}
-          modifiers={[
-            {
-              name: 'flip',
-              enabled: false,
-              options: {
-                altBoundary: false,
-                rootBoundary: 'document',
-                padding: 8,
-              },
+      <Popper
+        id={open ? 'popper' : undefined}
+        open={open}
+        anchorEl={anchorEl}
+        placement="top"
+        disablePortal={false}
+        modifiers={[
+          {
+            name: 'flip',
+            enabled: false,
+            options: {
+              altBoundary: false,
+              rootBoundary: 'document',
+              padding: 8,
             },
-            {
-              name: 'preventOverflow',
-              enabled: true,
-              options: {
-                altAxis: true,
-                altBoundary: true,
-                tether: true,
-                rootBoundary: 'document',
-                padding: 8,
-              },
+          },
+          {
+            name: 'preventOverflow',
+            enabled: true,
+            options: {
+              altAxis: true,
+              altBoundary: true,
+              tether: true,
+              rootBoundary: 'document',
+              padding: 8,
             },
-          ]}
-        >
-          <div className="popper-content-container">
-            <Close className="close-button" onClick={() => setAnchorEl(null)} />
-            <div className="purple-area">
-              {/* Área morada */}
-            </div>
-            <div className="compose-bar-area">
-              <ComposeBar style="chat-widget"  endpoint = '/mail/admin'  showAsunto={true}/>
-            </div>
-            <div className="comment-box">
-              {/* Cuadro de comentarios */}
-              Espacio para enviar comentarios
-            </div>
+          },
+        ]}
+      >
+        <div className="popper-content-container">
+          <Close className="close-button" onClick={() => setAnchorEl(null)} />
+          <div className="purple-area">
+            {/* Área morada */}
           </div>
-        </Popper>
-    
+          <div className="compose-bar-area">
+            <ComposeBar style="chat-widget" endpoint='/mail/admin' showAsunto={true} showChecklist={false}
+              defaultRecipient='sgbienestar.sena@gmail.com'/>
+          </div>
+          <div className="comment-box">
+            {/* Cuadro de comentarios */}
+            Espacio para enviar comentarios
+          </div>
+        </div>
+      </Popper>
+
     </div>
   );
 }

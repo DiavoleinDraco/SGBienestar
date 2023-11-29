@@ -1,0 +1,54 @@
+/* Estilos para el cuadro de redacción de correo */
+.compose-bar.custom-style {
+    background: #fff; /* Color de fondo */
+    border: 1px solid #ddd; /* Borde del cuadro */
+    border-radius: 5px; /* Bordes redondeados */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 80%; /* Ancho del cuadro en relación con el div padre */
+    margin: 20px auto; /* Centra el cuadro en el medio del div padre */
+    padding: 20px; /* Espaciado interno */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para un efecto elevado */
+  }
+  
+  /* Estilos para la línea que separa */
+  .compose-bar.custom-style::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 100%;
+    background: #ddd; /* Color de la línea */
+  }
+  
+  /* Estilos para los botones de enviar y descartar */
+  .compose-bar.custom-style .compose-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px; /* Espacio entre los botones y el área de redacción */
+  }
+  
+  .compose-bar.custom-style .compose-button {
+    background-color: #524175;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Estilos para el área de redacción del mensaje */
+  .compose-bar.custom-style .compose-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Otros estilos según tus necesidades */
+  

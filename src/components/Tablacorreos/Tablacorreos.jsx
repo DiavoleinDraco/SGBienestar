@@ -55,22 +55,33 @@ export default function DataGridProDemo({ Delete, Consulta }) {
     get(Consulta)
       .then((fetchedData) => {
         setData(fetchedData);
-        const array = []
-        const rowsData = fetchedData.map((item) => ({
-          _id: item._id,
-          correo: item.correo,
-          asunto: item.asunto,
-          mensaje: item.mensaje,
-          fechaEnvio: item.createdAt
-        })).sort((a, b) => new Date(b.fechaEnvio) - new Date(a.fechaEnvio));;
-        console.log(rowsData)
+        const rowsData = fetchedData.map((item) => {
+          let correosmostrar;
+          if (item && Array.isArray(item.correo) && item.correo.length > 2) {
+            correosmostrar = item.correo.slice(0, 2).join(", ") + " ...";
+          } else if (item && Array.isArray(item.correo)) {
+            correosmostrar = item.correo.join(", ");
+          } else {
+            correosmostrar = "Correo no válido";
+          }
+          console.log(item.correo)
+  
+          return {
+            _id: item._id,
+            correo: item.correo,
+            correoCortado: correosmostrar,
+            asunto: item.asunto,
+            mensaje: item.mensaje,
+            fechaEnvio: item.createdAt
+          };
+        }).sort((a, b) => new Date(b.fechaEnvio) - new Date(a.fechaEnvio));
+  
         setRows(rowsData);
       })
       .catch((error) => {
         console.error("Error al encontrar el resultado", error);
       });
   }, [Consulta]);
-
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
@@ -108,7 +119,7 @@ export default function DataGridProDemo({ Delete, Consulta }) {
               onMouseLeave={handleRowMouseLeave}
             >
               <TableCell component="th" scope="row" style={tableCellStyle} onClick={() => handleCellClick(row._id)}>
-                {row.correo}
+                {row.correoCortado}
               </TableCell>
               <TableCell align="right" onClick={() => handleCellClick(row._id)}>
                 {row.asunto}
