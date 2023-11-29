@@ -33,6 +33,12 @@ export default function Almacenar_Imple({ cantidadDisponible, onCountChange, isI
     }
   };
 
+  const handleChange = (event) => {
+    const newCount = parseInt(event.target.value, 10) || 0;
+    setCount(newCount);
+    onCountChange(newCount);
+  };
+
 
   return (
     <Box
@@ -51,7 +57,7 @@ export default function Almacenar_Imple({ cantidadDisponible, onCountChange, isI
       <div>
         
         <ButtonGroup>
-        <input type="text" value={count} />
+         <input type="text" value={count} onChange={handleChange} />
           <Button aria-label="reduce" onClick={handleDecrease} disabled={!isImplementoSelected}>
             <RemoveIcon fontSize="small" />
           </Button>

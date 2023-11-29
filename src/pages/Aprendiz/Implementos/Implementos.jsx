@@ -26,7 +26,7 @@ export default function Implementos(){
     const [open, setOpen] = useState(false)
     const [errorMensaje, setErrorMensaje] = useState(null);
     const [isImplementoSelected, setIsImplementoSelected] = useState(false)
-
+    
     const errorCant = () => {
       setOpen(false)
     }
@@ -74,6 +74,20 @@ export default function Implementos(){
     console.log(almacenar)
 
     const handleSelectImplemento = (implemento) => {
+
+      if (!implemento.apto) {
+        // Mostrar Snackbar indicando que el implemento no es apto
+        setErrorMensaje('El implemento no es apto para préstamo');
+        setOpen(true);
+        return;
+      }
+
+      if (almacenar.sanciones === true){
+        setErrorMensaje('No se puede hacer la solicitud de préstamo, porque usted tiene una sanción activa');
+        setOpen(true);
+        return;
+      }
+      
       setImplementosSeleccionados((prevSelected) => {
         const isSelected = prevSelected.some((item) => item.id === implemento.id);
     
@@ -82,9 +96,7 @@ export default function Implementos(){
           return prevSelected.filter((item) => item.id !== implemento.id);
         }
     
-        if (almacenar.privilegio === 1 && almacenar.privilegio === 2 && prevSelected.length >= 1) {
-          
-        } else if (almacenar.privilegio === 3 && prevSelected.length >= 1){
+        if (almacenar.privilegio === 3 && prevSelected.length >= 1){
           setErrorMensaje('Solo puedes seleccionar un implemento.');
           setOpen(true);
           return prevSelected;
