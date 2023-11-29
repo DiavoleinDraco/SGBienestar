@@ -1,0 +1,38 @@
+.cont-p{
+   
+  width: 80% !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  margin: auto;
+}
+.css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-lastButton, .css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-middleButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: 0;
+    margin: auto;
+}
+.inpu{
+    width: 150px;
+    flex-grow: 99;
+    border: none !important;
+    margin-bottom: 5px !important;
+  border: none !important;
+    text-align: center;
+    margin: auto;
+}
+.button-mas{
+    width: 50px !important;
+    margin: auto;
+    border: 
+    none !important;
+}
+.css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-middleButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: none !important;
+}
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root{
+    border: 1px solid rgb(151, 149, 149) !important;
+    color: #000;
+    border-radius:95px !important;
+}

@@ -1,8 +1,8 @@
-/* .tabla-inventario{
+ .tabla-inventario{
     background: #2c0757;
-    height:90%;
+    height:64%;
     width: 90%;
-    transform: translateY(180px);
+    transform: translateY(184px);
     POSITION: absolute;
 }  
 
@@ -12,224 +12,225 @@
 }
 /*MAS BOTON */
 .css-zddlty-MuiButtonBase-root-MuiButton-root {
-  outline: #f6f6f6 1px solid;
-  background: transparent;
-    border-radius: 3px !important;
-    
-
-border-radius: 6px;
-color: #f6f6f6;
-}
-.css-1b0ve20{
-    box-sizing: border-box;
-    border-radius: 200px !important;
-    display: block !important;
-    bottom: 60px;
-    position: fixed;
-    right: 50px;
-    z-index: 9999;
+    outline: #f6f6f6 1px solid;
+    background: transparent;
+    left: 269px;
+      border-radius: 3px !important;
+  border-radius: 6px;
+  color: #f6f6f6;
   }
-  .MuiSvgIcon-root {
-color: #ffffff !important;
+  .css-zddlty-MuiButtonBase-root-MuiButton-root :hover{
+    background: none !important;
   }
-  .css-1p7a5wk-MuiButtonBase-root-MuiFab-root{
-    background: #2c0757;
-  }
-
-.MuiTypography-root .MuiTypography-body1 .css-ahj2mt-MuiTypography-root{
-    background: rgb(51, 99, 153) !important;
-}
-.contenedor-tablaa{
-    background: rgb(96, 90, 102) ;
-    height: 100% !important;
-}
-.formulario-inv{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap !important;
-    height: 700px;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 530px;
-}
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
-    background: #F6F6F6;
-    padding: 0% !important;
-    display: flex !important;
-}
-.cont-cantidad{
-    height: 50px;
-    display: flex;
-    justify-content: end;
-    flex-direction: column;
-    width: 382px;
-    top: 270px;
-}
-.MuiTypography-h6 {
-    left: 0;
- }
-  .css-9rrh7h-MuiButtonBase-root-MuiFab-root{
-
- right: 3px ;
-}
-.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
-    width: 90%;
-}
-.cont-estado{
-    /* width: 80%;
-    outline: 1px solid rgb(128, 47, 47); */
-    display: flex;
-    flex-direction: column;
-    row-gap: 6px;
-    align-items: center;
-    justify-content: space-evenly !important;
-
-}
-
-
-.css-1elwnq4-MuiPaper-root-MuiAccordion-root{
- 
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
- }
-    .css-ahj2mt-MuiTypography-root{
-        display: flex;
-        flex-wrap: wrap;
-        width: 300px;
-        justify-content: center;
-
+  .css-1b0ve20{
+      box-sizing: border-box;
+      border-radius: 200px !important;
+      display: block !important;
+      bottom: -130px;
+      position: fixed;
+      right: -90px;
+      z-index: 9999;
     }
-    /* es apto este imple */
-#demo-controlled-radio-buttons-group{
-    display:flex;
-    height: 20px;
-}
-.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root{
-    justify-self: end;
-}
-.estadooo{
-   background: #5d2e96;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    height: 200px;
-  row-gap: 5px;
-    align-items: center;
-}
-
-.apto{
-    width: 190px;
-}
-.css-pwcg7p-MuiCollapse-root{
-    /* outline: 1px solid black; */
-  width: 100%;
-}
-.css-1e6y48t-MuiButtonBase-root-MuiButton-root{
-color: #f6f6f6 !important;
-background: #2c0757 !important;
-font-family: questrial;
-font-size: 0.700rem !important;
-box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-}
-.css-1e6y48t-MuiButtonBase-root-MuiButton-root:hover{
-    background: #f6f6f6 !important;
-    color:  #2c0757 !important;
-    
-}
-.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
-    margin: auto;
-    width: 55% !important;
-}
-
-.css-yw020d-MuiAccordionSummary-expandIconWrapper {
-width: 30px;
-border-radius: 50px;
-transform: translateX(-199%);
-}
-/*icono de crear y eliminar */
-.css-yw020d-MuiAccordionSummary-expandIconWrapper :nth-child(1) {
-color: #2c0757;
-}
-/* caja de crear y eliminar */
-.css-1elwnq4-MuiPaper-root-MuiAccordion-root.Mui-expanded {
-    margin: auto !important; 
-}
-/* CAJA DE LA ESTADO */
-.css-15v22id-MuiAccordionDetails-root{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-.css-4zusw8-MuiModal-root-MuiPopover-root-MuiMenu-root .MuiPaper-root {
-    width: 495px;
-}
-
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+    .MuiSvgIcon-root {
+  color: #ffffff !important;
+    }
+    .css-1p7a5wk-MuiButtonBase-root-MuiFab-root{
+      background: #2c0757;
+    }
+  
+  .MuiTypography-root .MuiTypography-body1 .css-ahj2mt-MuiTypography-root{
+      background: rgb(51, 99, 153) !important;
+  }
+  .contenedor-tablaa{
+      height: 100% !important;
+  }
+  .formulario-inv{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap !important;
+      height: 700px;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 530px;
+  }
+  .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+      background: #F6F6F6;
+      padding: 0% !important;
+      display: flex !important;
+  }
+  .cont-cantidad{
+      height: 50px;
+      display: flex;
+      justify-content: end;
+      flex-direction: column;
+      width: 382px;
+      top: 270px;
+  }
+  .MuiTypography-h6 {
+      left: 0;
+   }
+    .css-9rrh7h-MuiButtonBase-root-MuiFab-root{
+  
+   right: 3px ;
+  }
+  .css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+      width: 90%;
+  }
+  .cont-estado{
+      /* width: 80%;
+      outline: 1px solid rgb(128, 47, 47); */
+      display: flex;
+      flex-direction: column;
+      row-gap: 6px;
+      align-items: center;
+      justify-content: space-evenly !important;
+  
+  }
+  
+  
+  .css-1elwnq4-MuiPaper-root-MuiAccordion-root{
    
-    padding: 30px;
-    display: flex;
-    justify-content: end;
-
-}
-
-.css-ypiqx9-MuiDialogContent-root {
-    height: 100px;
-    padding: 0;
-    width: 490px;
-    display: flex;
-    height:700px;
-    justify-content: center;
-    align-items: center !important;
-}
-.css-1n2xrp0-MuiTableCell-root{
-    font-weight: 500;
-    font-size: 0.555rem;
-    line-height: 1.5rem;
-}
-.botones-inv{
-display: flex;
-background: #2c0757 !important;
-
-}
-.boton{
-    background: #2c0757;
-    border: none !important;
-    height: 25px;
-    border-radius: 3px;
-    color: #f6f6f6;
-
-box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-
-}
-.cont-boton{
-    width: 100% !important;
-    display: flex;
-    justify-content: space-evenly;
-}
-.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover{
-    background: #f6f6f6 !important;
-}
-.css-1x7jfmm-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
-    width: 600px !important;
-    display: flex;
-    justify-content: center;
-}
-.css-3bmhjh-MuiPaper-root-MuiPopover-paper {
-
-    display: flex;
-    flex-direction: column-reverse;
-}
-.css-1elwnq4-MuiPaper-root-MuiAccordion-root:first-of-type {
-    width: 400px !important;
-    border-top-left-radius: 4px !important;
-    border-top-right-radius: 4px !important;
-}
-.filter{
-    font-size: .041rem;
-}
-
-.css-zddlty-MuiButtonBase-root-MuiButton-root {
-   transform: translate(399px, -40px);
-} 
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+  
+   }
+      .css-ahj2mt-MuiTypography-root{
+          display: flex;
+          flex-wrap: wrap;
+          width: 300px;
+          justify-content: center;
+  
+      }
+      /* es apto este imple */
+  #demo-controlled-radio-buttons-group{
+      display:flex;
+      height: 20px;
+  }
+  .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root{
+      justify-self: end;
+  }
+  .estadooo{
+     background: #5d2e96;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+    row-gap: 5px;
+      align-items: center;
+  }
+  
+  .apto{
+      width: 190px;
+  }
+  .css-pwcg7p-MuiCollapse-root{
+      /* outline: 1px solid black; */
+    width: 100%;
+  }
+  .css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+  color: #f6f6f6 !important;
+  background: #2c0757 !important;
+  font-family: questrial;
+  font-size: 0.700rem !important;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+  }
+  .css-1e6y48t-MuiButtonBase-root-MuiButton-root:hover{
+      background: #f6f6f6 !important;
+      color:  #2c0757 !important;
+      
+  }
+  .css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+      margin: auto;
+      width: 55% !important;
+  }
+  
+  .css-yw020d-MuiAccordionSummary-expandIconWrapper {
+  width: 30px;
+  border-radius: 50px;
+  transform: translateX(-199%);
+  }
+  /*icono de crear y eliminar */
+  .css-yw020d-MuiAccordionSummary-expandIconWrapper :nth-child(1) {
+  color: #2c0757;
+  }
+  /* caja de crear y eliminar */
+  .css-1elwnq4-MuiPaper-root-MuiAccordion-root.Mui-expanded {
+      margin: auto !important; 
+  }
+  /* CAJA DE LA ESTADO */
+  .css-15v22id-MuiAccordionDetails-root{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+  }
+  .css-4zusw8-MuiModal-root-MuiPopover-root-MuiMenu-root .MuiPaper-root {
+      width: 495px;
+  }
+  
+  .css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+     
+      padding: 30px;
+      display: flex;
+      justify-content: end;
+  
+  }
+  
+  .css-ypiqx9-MuiDialogContent-root {
+      height: 100px;
+      padding: 0;
+      width: 490px;
+      display: flex;
+      height:700px;
+      justify-content: center;
+      align-items: center !important;
+  }
+  .css-1n2xrp0-MuiTableCell-root{
+      font-weight: 500;
+      font-size: 0.555rem;
+      line-height: 1.5rem;
+  }
+  .botones-inv{
+  display: flex;
+  background: #2c0757 !important;
+  
+  }
+  .boton{
+      background: #2c0757;
+      border: none !important;
+      height: 25px;
+      border-radius: 3px;
+      color: #f6f6f6;
+  
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+  
+  }
+  .cont-boton{
+      width: 100% !important;
+      display: flex;
+      justify-content: space-evenly;
+  }
+  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover{
+      background: #f6f6f6 !important;
+  }
+  .css-1x7jfmm-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+      width: 600px !important;
+      display: flex;
+      justify-content: center;
+  }
+  .css-3bmhjh-MuiPaper-root-MuiPopover-paper {
+  
+      display: flex;
+      flex-direction: column-reverse;
+  }
+  .css-1elwnq4-MuiPaper-root-MuiAccordion-root:first-of-type {
+      width: 400px !important;
+      border-top-left-radius: 4px !important;
+      border-top-right-radius: 4px !important;
+  }
+  .filter{
+      font-size: .041rem;
+  }
+  
+  .css-zddlty-MuiButtonBase-root-MuiButton-root {
+     transform: translate(399px, -40px);
+  } 

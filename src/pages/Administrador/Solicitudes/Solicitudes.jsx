@@ -396,23 +396,23 @@ export default function BasicTable() {
             >
               <TableRow>
                 <TableCell align="right">
-                  <b>Fecha</b>
+                  <b>FECHA</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>Usuario</b>
+                  <b>USUARIO</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>Numero de Documento</b>
+                  <b>N. DOCUMENTO</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>Nombre del Implemento</b>
+                  <b>IMPLEMENTO</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>Estado de la solicitud</b>
+                  <b>ESTADO DE LA SOLICITUD</b>
                 </TableCell>
                 {(filter === "aprobado" || filter === "perdido" || filter === "retrasado") && (
                   <TableCell align="right">
-                    <b>Recibir</b>
+                    <b>RECIBIR</b>
                   </TableCell>
                 )}
                 {filter === "pendientes" && (

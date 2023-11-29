@@ -1,12 +1,14 @@
 .cont-inventario{
     width: 100%;
-    background:#68ac61;
+    background: #2c0757;
     height: 50vh;
 }
 .tabla-inv{
     width: 100%;
-    outline: 1px solid rgb(22, 22, 21);
     height: 100% !important;
+}
+.titulo-inv{
+color: #fff;
 }
 .css-1ps6pg7-MuiPaper-root {
     background-color: #fff;

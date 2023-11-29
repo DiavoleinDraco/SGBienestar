@@ -70,15 +70,15 @@ export default function TablaUsarios() {
   const navigate = useNavigate();
   const columns = [
     {
-      label: "N.documento",
+      label: "N. DOCUMENTO",
       dataKey: "numDoc",
     },
     {
-      label: "Programas",
+      label: "PROGRAMA",
       dataKey: "nombrePrograma",
     },
     {
-      label: "Correo electronico",
+      label: "CORREO ELÉCTRONICO",
       dataKey: "correo_inst",
     },
   ];
@@ -185,6 +185,8 @@ export default function TablaUsarios() {
       style={{
         height: 900,
         width: "100%",
+        position: "absolute",
+        top: "15%"
 
       }}
     >

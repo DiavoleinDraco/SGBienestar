@@ -1,0 +1,7 @@
+.cardCont{
+    margin-top: 15px;
+    box-sizing: border-box !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -1,0 +1,161 @@
+
+    *{
+        font-family: questrial !important;
+    }
+/* boton de prestar */
+.Boton-prestar{
+        outline:1px solid  #2c075786 !important;
+        border-radius: 6px;
+        color:  #2c075786 !important;
+        background: transparent !important;  
+    }
+.Boton-prestarr{
+        border-radius: 6px;
+        color:  #fff !important;
+        background:#2c075786 !important; 
+    }
+    .titulo-imple{
+        height: 90px;
+        color:#fff;
+        font-size: 3rem;
+    }
+    .css-1191obr-MuiPaper-root-MuiAppBar-root {
+        width: calc(100% - 240px) !important;
+    }
+    .cont-prestar{
+        background: #332c3b !important;
+        display: flex !important;
+        justify-content: end !important;
+        align-items: center !important;
+    }
+    .cont-implem{
+        background: #2c0757;
+        height: 300px;
+
+    }
+    .square{
+        background: #e3e3e3;
+        position: absolute;
+        height: 230px;
+        transform: rotate(45deg);
+        width: 240px;
+        left: -45px;
+        top: 10px;
+        
+    }
+    .squares{
+        background:#4f0e9b93;
+        position: absolute;
+        height: 230px;
+        transform: rotate(55deg);
+        width: 240px;
+        left: -1px;
+        top: -12px;
+        
+    }
+
+    /* contenido de las cartas */
+    .categoria{
+        background:#2c0757!important;
+        color: #fff;
+        height: 60px;
+        box-sizing: border-box;
+        padding: 15px 3px;
+        width: 100% !important;
+      
+        font-weight: normal;
+    }
+    .contCard{
+        display: flex;
+        background: #fff;
+        width: 100% !important;
+        flex-wrap: wrap;
+        justify-content:start;
+        gap: 30px;
+        padding: 20px;
+    
+    }
+    .disponible{
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+       align-items:  center;
+       margin: auto;
+       height: 95px;
+       width: 250px;
+       
+    }
+    
+    .css-10x3ego input{
+        width: 80px;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        border: none;
+        border-radius: 10px;
+    }
+    .css-10x3ego {
+    background: #e3e3e3;
+    }
+    
+    .css-r40f8v-MuiTypography-root {
+        margin: 0;
+        height: 55px;
+    }
+    .disponi{
+        background: #e2e2e2;
+        border-radius: 40px;
+        background: #2c0757;
+        transform: translateY(-140px);
+    
+    }
+    .disponi :nth-child(1){
+        background:none;
+      
+        color: #fff;
+    }
+    .css-h93ljk-MuiTypography-root {
+        margin: 0;
+        font-family: "Roboto","Helvetica","Arial",sans-serif;
+        font-weight: 400;
+        font-size: 0.944rem;
+        line-height: 1.334;
+        letter-spacing: 0em;
+        margin-bottom: 0.35em;
+    }
+    .css-heg063-MuiTabs-flexContainer{
+        justify-content: space-around;
+    }
+    .css-j6dtil {
+        width: 100%;
+        font-family: "Roboto","Helvetica","Arial",sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.5;
+        letter-spacing: 0.00938em;
+        background: #e3e3e3;
+    }
+    .css-1t6e9jv-MuiCardActions-root {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+      padding: 0 !important; 
+    }
+    .css-1oitmrd-MuiButtonBase-root-MuiCardActionArea-root :hover{
+        background: none !important;
+    }
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+        color: #2c0757;
+    }
+    .css-1aquho2-MuiTabs-indicator{
+background: #2c0757 !important;
+    }
+    
+    .css-racbf3{
+        border: none !important;
+    }

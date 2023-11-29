@@ -15,6 +15,7 @@ import Almacenar_Imple from "../../../components/Almacenar_Imple/Almacenar_Imple
 import Snackbar from "@mui/material/Snackbar";
 import { forwardRef } from "react";
 import MuiAlert from "@mui/material/Alert";
+import'./Implementos.css';
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -26,7 +27,7 @@ export default function Implementos(){
     const [open, setOpen] = useState(false)
     const [errorMensaje, setErrorMensaje] = useState(null);
     const [isImplementoSelected, setIsImplementoSelected] = useState(false)
-    
+
     const errorCant = () => {
       setOpen(false)
     }
@@ -74,20 +75,6 @@ export default function Implementos(){
     console.log(almacenar)
 
     const handleSelectImplemento = (implemento) => {
-
-      if (!implemento.apto) {
-        // Mostrar Snackbar indicando que el implemento no es apto
-        setErrorMensaje('El implemento no es apto para préstamo');
-        setOpen(true);
-        return;
-      }
-
-      if (almacenar.sanciones === true){
-        setErrorMensaje('No se puede hacer la solicitud de préstamo, porque usted tiene una sanción activa');
-        setOpen(true);
-        return;
-      }
-      
       setImplementosSeleccionados((prevSelected) => {
         const isSelected = prevSelected.some((item) => item.id === implemento.id);
     
@@ -96,7 +83,9 @@ export default function Implementos(){
           return prevSelected.filter((item) => item.id !== implemento.id);
         }
     
-        if (almacenar.privilegio === 3 && prevSelected.length >= 1){
+        if (almacenar.privilegio === 1 && almacenar.privilegio === 2 && prevSelected.length >= 1) {
+          
+        } else if (almacenar.privilegio === 3 && prevSelected.length >= 1){
           setErrorMensaje('Solo puedes seleccionar un implemento.');
           setOpen(true);
           return prevSelected;
@@ -119,29 +108,27 @@ export default function Implementos(){
 
       const renderImplementosPorCategoria = (categoria) => (
         <div>
-         <h3>{categoria === 'N/A' ? 'OTROS' : categoria.toUpperCase()}</h3>
-          <ul>
+         <h3 className="categoria">{categoria === 'N/A' ? 'OTROS' : categoria.toUpperCase()}</h3>
+          <ul className="contCard">
             {implementos
               .filter((implemento) => implemento.categoria === categoria)
               .map((implemento) => (
-                <div key={implemento.id}>
+                <div className="card" key={implemento.id}>
                   <Card_Implementos
                     imagen={prueba}
                     textoAlt={implemento.nombre}
                     titulo={implemento.nombre.toUpperCase()}
                     descripcion={[
                       implemento.descripcion,
-                      ', Color: ',
+                      ', Color:     ',
                       implemento.color,
                       ',   Marca: ',
                       implemento.marca,
                       ',    Peso: ',
                       implemento.peso,
-                      '  imagen:   ',
-                      implemento.img,
                     ]}
-                    chip={<div>
-                        <Stack direction="row" spacing={1}>
+                    chip={<div className="disponible">
+                        <Stack className="disponi" direction="row" spacing={1}>
                             <Chip label={`Disponible: ${implemento.cantidad}`} />
                         </Stack>
 
@@ -214,33 +201,43 @@ export default function Implementos(){
   
       return (
         <>
-        <Box sx={{ display: 'block', position: 'relative', left: '200px' }}>
+        <Box sx={{ background:"#e3e3e3",display: 'flex',width:"100%",flexDirection:"column"}}>
           <Board />
-          <h2>Implementos</h2>
+          <div className="cont-implem">
+            <div className="square"></div>
+            <div className="squares"></div>
+          <h2 className="titulo-imple">Implementos</h2>
+
+          </div>
+          <div className="cont-prestar">
           {implementosSeleccionados.length > 0 && (
-            <span style={{ marginLeft: '10px' }}>
+            <span style={{ margin: 'auto' }}>
               <Button
+              className="Boton-prestarr"
               variant="contained"
               onClick={handlePrestarClick}
               color="primary"
               size="large" // Puedes ajustar el tamaño del botón aquí
-              style={{ fontSize: '20px', fontWeight: 'bold' }} // Estilos adicionales
+               // Estilos adicionales
             > PRESTAR {implementosSeleccionados.length} {'IMPLEMENTO(S)'}</Button>
             </span>
           )}
           {implementosSeleccionados.length === 0 && (
-          <span style={{ marginLeft: '10px' }}>
+          <span >
             {/* Mostrar un mensaje o deshabilitar el botón si no hay implementos seleccionados */}
-            <Button
+            <Button className="Boton-prestar"
               variant="contained"
               color="primary"
               size="large" // Puedes ajustar el tamaño del botón aquí
-              style={{ fontSize: '20px', fontWeight: 'bold' }} // Estilos adicionales
+             // Estilos adicionales
               disabled
-            >PRESTAR</Button>
+            >PRESTAR</Button> 
           </span>
         )}
-        <Stack>
+            
+          </div>
+      
+        <Stack className="imple">
         <Snackbar
           className="Snackbar-contraseña"
           open={open}

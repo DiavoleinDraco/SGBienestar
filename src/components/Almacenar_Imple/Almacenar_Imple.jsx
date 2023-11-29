@@ -5,6 +5,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import'./Almacenar_Imple.css';
 
 export default function Almacenar_Imple({ cantidadDisponible, onCountChange, isImplementoSelected }) {
   const [count, setCount] = useState(0);
@@ -33,39 +34,34 @@ export default function Almacenar_Imple({ cantidadDisponible, onCountChange, isI
     }
   };
 
-  const handleChange = (event) => {
-    const newCount = parseInt(event.target.value, 10) || 0;
-    setCount(newCount);
-    onCountChange(newCount);
-  };
-
 
   return (
-    <Box
+    <Box 
       sx={{
         color: 'action.active',
-        display: 'flex',
-        flexDirection: 'column',
+        width:"80%",
+        height:"90px",
+        display:"flex",
+     marginBottom:"24px",
+        justifyContent:"space-evenly",
+      
         '& > *': {
-          marginBottom: 2,
+          marginBottom: 1,
         },
         '& .MuiBadge-root': {
           marginRight: 4,
         },
       }}
     >
-      <div>
-        
-        <ButtonGroup>
-         <input type="text" value={count} onChange={handleChange} />
-          <Button aria-label="reduce" onClick={handleDecrease} disabled={!isImplementoSelected}>
+        <ButtonGroup className="cont-p">
+        <input className="inpu" type="text" value={count} />
+          <Button className="button-mas"  aria-label="reduce" onClick={handleDecrease} disabled={!isImplementoSelected}>
             <RemoveIcon fontSize="small" />
           </Button>
-          <Button aria-label="increase" onClick={handleIncrease} disabled={!isImplementoSelected}>
+          <Button className="button-mas" aria-label="increase" onClick={handleIncrease} disabled={!isImplementoSelected}>
             <AddIcon fontSize="small" />
           </Button>
         </ButtonGroup>
-      </div>
     </Box>
   );
 }
