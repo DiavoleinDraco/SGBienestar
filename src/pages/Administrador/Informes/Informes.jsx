@@ -1,26 +1,25 @@
 import React, { useState, useEffect, lazy } from "react";
-const Menu = lazy(() => import('../../../components/menu/Menu'));
+const Menu = lazy(() => import("../../../components/menu/Menu"));
 
-
-import Box from '@mui/material/Box';
-import Textfield from '../../../components/Textfield/Textfield';
-import ComSelect from '../../../components/ComSelect/ComSelect';
-import './Informes.css'
-import Date from '../../../components/Date/Date';
-import NavTabs from '../../../components/NavTabs/NavTabs';
-import Buttons from '../../../components/Buttons/Buttons';
-import BasicAccordion from '../../../components/BasicAccordion/BasicAccordion';
+import Box from "@mui/material/Box";
+import Textfield from "../../../components/Textfield/Textfield";
+import ComSelect from "../../../components/ComSelect/ComSelect";
+import "./Informes.css";
+import Date from "../../../components/Date/Date";
+import NavTabs from "../../../components/NavTabs/NavTabs";
+import Buttons from "../../../components/Buttons/Buttons";
+import BasicAccordion from "../../../components/BasicAccordion/BasicAccordion";
 import get, { getMultipleParametre, post } from "../../../UseFetch";
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MuiAlert from "@mui/material/Alert";
@@ -30,71 +29,60 @@ import Snackbar from "@mui/material/Snackbar";
 import jwtDecode from "jwt-decode";
 import TablaInformes from "../../../components/Historial_Informes/Historial_Informes";
 
-
-
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 export default function Informes() {
-  const [estado, setEstado] = useState([])
+  const [estado, setEstado] = useState([]);
   const [additionalInfoCount, setAdditionalInfoCount] = useState(1);
-  const [selectedEstado, setSelectedEstado] = useState(null)
+  const [selectedEstado, setSelectedEstado] = useState(null);
   const [opcionesComSelect, setOpcionesComSelect] = useState([]);
   const [open, setOpen] = useState(true);
   const [openSnack, setOpenSanck] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
   const [tipo, setTipo] = useState([]);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token")
-  const almacenar = jwtDecode(token)
-  const [response, setDataResponse] = useState({})
-  const [enviado, setEnviado] = useState(false)
-  const [DataUsuario, setData] = useState('')
+  const token = localStorage.getItem("token");
+  const almacenar = jwtDecode(token);
+  const [response, setDataResponse] = useState({});
+  const [enviado, setEnviado] = useState(false);
+  const [DataUsuario, setData] = useState("");
   const [matchedUserId, setMatchedUserId] = useState(null);
-  const [numeroDocumento, setNumeroDocumento] = useState('');
+  const [numeroDocumento, setNumeroDocumento] = useState("");
   const [implemento, setImplemento] = useState([]);
   const [showHistorial, setShowHistorial] = useState(false);
 
-
   const [informeData, setInformeData] = useState({
-
-    "tipo_informe": "",
-    "usuario": almacenar.id,
-    "dependencia": "Bienestar",
-    "implemento": [],
-    "estado_implemento": [
-      ""
-    ],
-    "estado": "",
-    "usuarios": [
-      ""
-    ],
-    "observaciones": ""
+    tipo_informe: "",
+    usuario: almacenar.id,
+    dependencia: "Bienestar",
+    implemento: [],
+    estado_implemento: [""],
+    estado: "",
+    usuarios: [""],
+    observaciones: "",
   });
-
-
 
   const agregarImplemento = () => {
     const nuevoImplemento = {
-      "nombre": "",
-      "cantidad": 0,
-      "caracteristicas": ""
+      nombre: "",
+      cantidad: 0,
+      caracteristicas: "",
     };
     setImplemento([...implemento, nuevoImplemento]);
   };
 
-
-
-  console.log(almacenar)
-  console.log(matchedUserId)
-  {/*//!Peticiones */ }
+  console.log(almacenar);
+  console.log(matchedUserId);
+  {
+    /*//!Peticiones */
+  }
   useEffect(() => {
     get("/estado-implemento")
       .then((data) => {
         setEstado(data);
-        console.log('Estados: ', data)
+        console.log("Estados: ", data);
       })
       .catch((error) => {
         console.error("Error al encontrart el resultado", error);
@@ -105,13 +93,12 @@ export default function Informes() {
     get("/tipo-informe")
       .then((data) => {
         setTipo(data);
-        console.log('data de tipo: ', data)
+        console.log("data de tipo: ", data);
         if (data.length > 0) {
           setInformeData({
             ...informeData,
             tipo_informe: data[0]._id,
           });
-
         }
       })
       .catch((error) => {
@@ -119,12 +106,11 @@ export default function Informes() {
       });
   }, []);
 
-  const nombrecompleto = almacenar.nombre + " " + almacenar.apellidos
+  const nombrecompleto = almacenar.nombre + " " + almacenar.apellidos;
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
 
   const handleClose = () => {
     try {
@@ -138,12 +124,6 @@ export default function Informes() {
     }
   };
 
-
-
-
-
-
-
   const handleCloseSnackBar = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -151,14 +131,9 @@ export default function Informes() {
     setOpenSanck(false);
   };
 
-
-  console.log('informedata', informeData)
-
-
+  console.log("informedata", informeData);
 
   const handleTipoInformeFormit = (selectedTipo) => {
-
-
     const selectedTipoInformeOption = selectedTipoInfo.find(
       (option) => option.label === selectedTipo
     );
@@ -173,7 +148,6 @@ export default function Informes() {
       };
       setInformeData(updateInfo);
 
-
       setShowHistorial(false);
       setOpen(false);
     }
@@ -181,42 +155,65 @@ export default function Informes() {
 
   const selectedTipoInfo = tipo.map((tipo) => ({
     label: tipo.nombre,
-    value: tipo['_id']
-  }))
-
+    value: tipo["_id"],
+  }));
 
   //__________________USUARIO_______________________________
 
   const encabezadoImplemento = () => (
-    <div className='container-Informes'>
+    <div className="container-Informes">
       <div className="contenedorsito">
-        <p style={{ marginLeft: "-172px" }}>Nombre del Funcionario:</p>
-        <div style={{ position: 'relative', top: '-40px', left: '90px' }}>
+        <div style={{ display: "inline-block" }}>
+          <p style={{ display: "inline-block", marginRight: "10px" }}>
+            Nombre del Funcionario:
+          </p>
           <input
-
+            style={{
+              padding: "8px",
+              border: "1px solid #000",
+              borderRadius: "4px",
+              boxSizing: "border-box",
+              width: "250px", // Ajusta el ancho según sea necesario
+              outline: "none", // Elimina el contorno al enfocar
+              borderColor: "#007bff", // Cambia el color del borde al enfocar el input
+            }}
+            className="input-name-fun"
             name=""
             value={nombrecompleto}
-            onChange={(value) => handleInformeDataChange("nombreFuncionario", event.target.value)}
+            onChange={(event) =>
+              handleInformeDataChange("nombreFuncionario", event.target.value)
+            }
           />
         </div>
       </div>
-      <Textfield
-        inicial='Bienestar'
-        name="Dependencia"
-        onChange={(value) => handleInformeDataChange("dependencia", event.target.value)}
-      />
+      <div className="contenedor-dependencia">
+        <Textfield
+          inicial="Bienestar"
+          name="Dependencia"
+          onChange={(value) =>
+            handleInformeDataChange("dependencia", event.target.value)
+          }
+        />
+      </div>
 
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+      >
         <p>Observaciones</p>
-        <TextField multiline name="" onChange={(value) => handleInformeDataChange("observaciones", event.target.value)} />
+        <TextField
+          multiline
+          name=""
+          onChange={(event) =>
+            handleInformeDataChange("observaciones", event.target.value)
+          }
+        />
       </div>
     </div>
   );
-
-
-
-
-
 
   /*
   TRAE A TODOS LOS USUARIOS
@@ -229,31 +226,26 @@ export default function Informes() {
         console.log("Hola", usuarios);
         const dataUsuarios = usuarios.map((user) => ({
           id: user._id,
-          numDoc: user.n_doc
+          numDoc: user.n_doc,
         }));
         setData(dataUsuarios);
         console.log("datos usuarios", dataUsuarios);
 
-
-        const matchedUser = dataUsuarios.find(user => user.numDoc === numeroDocumento);
+        const matchedUser = dataUsuarios.find(
+          (user) => user.numDoc === numeroDocumento
+        );
         if (matchedUser) {
           setMatchedUserId(matchedUser.id);
         }
         setInformeData({
           ...informeData,
-          usuarios: [matchedUser.id]
-        })
+          usuarios: [matchedUser.id],
+        });
       })
       .catch((usuarioError) => {
         console.error("Error al cargar el usuario", usuarioError);
       });
   }, [numeroDocumento]);
-
-
-
-
-
-
 
   const handleInformeDataChange = (fieldName, value, index, subfield) => {
     if (fieldName === "infoAdicional") {
@@ -288,7 +280,7 @@ export default function Informes() {
         setInformeData({
           ...informeData,
           [fieldName]: "Activo/Inactivo",
-          usuarios: [""]
+          usuarios: [""],
         });
       } else {
         setInformeData({
@@ -296,7 +288,6 @@ export default function Informes() {
           [fieldName]: value,
         });
       }
-
     } else if (fieldName === "implemento") {
       const updatedImplemento = [...informeData.implemento];
       if (!updatedImplemento[index]) {
@@ -321,30 +312,25 @@ export default function Informes() {
   };
 
   const handleEstadoFormit = (selectedEstado) => {
-    console.log(selectedEstado)
+    console.log(selectedEstado);
     const selectedEstadoOption = selectedEstadoInfoo.find(
       (option) => option.label === selectedEstado
     );
-    const array = []
+    const array = [];
     if (selectedEstadoOption) {
       const selectedInfoEstado = selectedEstadoOption.value;
-      array.push(selectedInfoEstado)
-      console.log(array)
-      handleInformeDataChange(
-        "estado_implemento", array)
-    };
-  }
+      array.push(selectedInfoEstado);
+      console.log(array);
+      handleInformeDataChange("estado_implemento", array);
+    }
+  };
 
   const selectedEstadoInfoo = estado.map((data) => ({
     label: data.estado,
-    value: data['_id']
-  }))
-
-
-
+    value: data["_id"],
+  }));
 
   const encabezadoContentImplemento = encabezadoImplemento();
-
 
   const filterEmptyFields = (data) => {
     const filteredData = {};
@@ -365,9 +351,6 @@ export default function Informes() {
 
   const handleEnviar = () => {
     try {
-
-
-
       const filteredInformeData = filterEmptyFields(informeData);
       if (
         selectedOption &&
@@ -379,7 +362,9 @@ export default function Informes() {
           usuarios: [""],
         });
       }
-      post('/informe', filteredInformeData).then((response) => setDataResponse(response));
+      post("/informe", filteredInformeData).then((response) =>
+        setDataResponse(response)
+      );
       console.log("lol", filteredInformeData);
       setEnviado(true);
     } catch (error) {
@@ -387,27 +372,25 @@ export default function Informes() {
     }
   };
 
-
-  console.log(response._id)
+  console.log(response._id);
 
   const dowload = (tipo) => {
     try {
-      getMultipleParametre('/informe/download/', tipo, response._id).then((responses) => console.log(responses))
-
+      getMultipleParametre("/informe/download/", tipo, response._id).then(
+        (responses) => console.log(responses)
+      );
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-
-  }
+  };
 
   const descargarPdf = () => {
-    dowload('pdf/')
-  }
+    dowload("pdf/");
+  };
 
   const descargarExcel = () => {
-    dowload('xlsx/')
-  }
-
+    dowload("xlsx/");
+  };
 
   const getContentForSelectedOption = () => {
     if (selectedOption) {
@@ -420,108 +403,115 @@ export default function Informes() {
         );
       } else {
         switch (selectedOption.label) {
-
-          case 'Informe de Inventario':
+          case "Informe de Inventario":
             return (
               <>
-                <h2>Informe de Inventario</h2>
+                <h2 className="ti-HInfo">Informe de Inventario</h2>
                 {encabezadoContentImplemento}
-                <ComSelect
-                  nombre="Estado"
-                  items={selectedEstadoInfoo.map((opcion) => opcion.label)}
-                  onChange={(value) => handleEstadoFormit(value)}
-                  getOptionLabel={(option) => option.label}
-                  value={selectedEstado}
-                />
+
+                <div className="contenedor-estado">
+                  <ComSelect
+                    nombre="Estado"
+                    items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+                    onChange={(value) => handleEstadoFormit(value)}
+                    getOptionLabel={(option) => option.label}
+                    value={selectedEstado}
+                  />
+                </div>
               </>
             );
 
-
-
-
-          case 'Informe de Usuario':
+          case "Informe de Usuario":
             return (
               <>
-                <h2>Informe de Usuario</h2>
+                <h2 className="ti-HInfo">Informe de Usuario</h2>
                 {encabezadoContentImplemento}
               </>
             );
-
-
-
-
 
           //______________ SANCIONES_______
 
-
-          case 'Informe de Sanciones':
+          case "Informe de Sanciones":
             return (
               <>
-                <h2>Informe de Sanciones</h2>
+                <h2 className="ti-HInfo">Informe de Sanciones</h2>
                 {encabezadoContentImplemento}
+                <div className="contenedor-numeroDoc">
                 <Textfield
                   name="Ingrese el Documento"
                   onChange={(value) => setNumeroDocumento(value)}
                 />
+                </div>
 
+                <div className="contenedor-estadSan">
                 <ComSelect
                   nombre="Estado de Sancion"
                   items={["Activo", "Inactivo", "Todo"]}
                   onChange={(value) => handleInformeDataChange("estado", value)}
                   required
                 />
-
+                </div>
               </>
             );
 
-
-
-
-
-
-
-
-          case 'Informe de Prestamos':
+          case "Informe de Prestamos":
             return (
               <>
                 <h2>Informe de Prestamo</h2>
                 {encabezadoContentImplemento}
               </>
             );
-          case 'Informe de Nuevo Implemento':
+          case "Informe de Nuevo Implemento":
             return (
               <>
-                <h2>Informe nuevo implemento</h2>
+                <h2 className="ti-HInfo">Informe nuevo implemento</h2>
 
                 {encabezadoContentImplemento}
 
                 {implemento.map((implemento, index) => (
                   <div key={index}>
+                    <div className="contenedor-de-inpust-agregar-implementos">
                     <Textfield
                       name={`Nombre ${index + 1}`}
-                      onChange={(value) => handleInformeDataChange("implemento", value, index, "nombre")}
+                      onChange={(value) =>
+                        handleInformeDataChange(
+                          "implemento",
+                          value,
+                          index,
+                          "nombre"
+                        )
+                      }
                     />
                     <Textfield
                       name={`Cantidad ${index + 1}`}
                       soloNumeros={true}
-                      onChange={(value) => handleInformeDataChange("implemento", value, index, "cantidad")}
+                      onChange={(value) =>
+                        handleInformeDataChange(
+                          "implemento",
+                          value,
+                          index,
+                          "cantidad"
+                        )
+                      }
                     />
                     <Textfield
                       name={`Caracteristicas ${index + 1}`}
-                      onChange={(value) => handleInformeDataChange("implemento", value, index, "caracteristicas")}
+                      onChange={(value) =>
+                        handleInformeDataChange(
+                          "implemento",
+                          value,
+                          index,
+                          "caracteristicas"
+                        )
+                      }
                     />
+                    </div>
                   </div>
                 ))}
 
-
-                <button onClick={agregarImplemento}>Agregar Implemento</button>
-
-
+                <button className="btn-agregar-implemento" onClick={agregarImplemento}>Agregar Implemento</button>
               </>
             );
-
-
-
 
           default:
             return null;
@@ -531,17 +521,16 @@ export default function Informes() {
     return null;
   };
 
-
-
-
-
-
   //____________________________________________
 
   return (
-    <Box sx={{ display: 'block', position: 'relative', left: '200px' }}>
-      <Menu />
-      <h1>Apartado de informes</h1>
+    <Box>
+      <Menu></Menu>
+      <div className="cont-tilte-informes">
+        <h1 className="title-informes">
+          Apartado de <br /> informes
+        </h1>
+      </div>
       <React.Fragment>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Elija el informe que desea generar</DialogTitle>
@@ -555,9 +544,17 @@ export default function Informes() {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => { navigate('/admin') }}>Cancelar</Button>
+            <Button
+              onClick={() => {
+                navigate("/admin");
+              }}
+            >
+              Cancelar
+            </Button>
             <Button onClick={handleClose}>Generar</Button>
-            <Button onClick={() => setShowHistorial(true)}>Historial de Informes</Button>
+            <Button onClick={() => setShowHistorial(true)}>
+              Historial de Informes
+            </Button>
           </DialogActions>
         </Dialog>
       </React.Fragment>
@@ -581,25 +578,24 @@ export default function Informes() {
 
       {showHistorial ? (
         <div>
-          <h2>Historial de Informes</h2>
+          <h2 className="ti-HInfo">Historial de Informes</h2>
 
-
-
-          < TablaInformes />
-
+          <TablaInformes />
         </div>
-
       ) : (
         getContentForSelectedOption()
       )}
-
-      <button onClick={handleEnviar}>Enviar</button>
-      {enviado && (
-        <div>
-          <Buttons nombre="Excel" onclick={descargarExcel}></Buttons>
-          <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
-        </div>
-      )}
+      <div className="contenedor-de-enviar">
+        <button className="btn-informes-env" onClick={handleEnviar}>
+          Enviar
+        </button>
+        {enviado && (
+          <div className="contenedor-ex-pd">
+            <Buttons nombre="Excel" onclick={descargarExcel}></Buttons>
+            <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
+          </div>
+        )}
+      </div>
     </Box>
   );
-};
+}

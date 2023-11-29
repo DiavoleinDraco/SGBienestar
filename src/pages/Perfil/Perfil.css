@@ -1,99 +1,263 @@
-.contenedor-padre-login {
-  width: 800px;
-  height: 600px;
-  margin: 0 auto;
+/* Perfil.css */
+body {
+  background: #fff;
+}
+
+/* Estilo para el contenedor general en perfil */
+.contenedor-padre-perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: fff;
+  width: 1600px;
+  height: 1000px;
+  background-color: #f6f6f6;
+  box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
+  border-radius: 10px;
 }
 
+.fondo-perfil {
+  width: 100%;
+  height: 50%;
+  background: #2c0757;
+  position: absolute;
+}
+
+/* Comntenedor de las letras Apartado de Perfil */
+.cont-title-perfil {
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-420%, -370%);
+}
+
+.perfil-titulo {
+  font-size: 30px;
+  color: #ffffff;
+}
+
+/* Titulo del perfil en el div */
 .title-perfil {
-  color: #333;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
 .contenedor-de-texfields {
+  width: 100%;
+  max-width: 400px; /* Ajustar según sea necesario */
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-140%, -50%);
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-  width: 300px;
-  gap: 30px;
-  position: absolute;
-  position: absolute;
-  top: 16%;
-  left: 10%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .contenedor-texfield-perfil {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-/* Puedes personalizar el estilo de los Textfield según tus necesidades */
-.textfield-input {
+/* Agregar estilos más específicos para el componente Textfield si es necesario */
+.textfield {
   width: 100%;
-  padding: 8px;
   margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
 }
 
-/* Puedes personalizar el estilo del icono de edición */
+/* Estilar el icono de editar */
 .contenedor-texfield-perfil span {
-  margin-left: -1%;
   cursor: pointer;
-  color: #007bff; /* Cambia el color según tu preferencia */
 }
 
-.buttons {
-  margin-top: 10px;
+/* Estilo del boton en perfil */
+.btn-perfil {
+  position: absolute;
+  bottom: 100px;
+  width: 200px;
+  height: 40px;
+}
+
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+  background: #2c0757;
+  color: #fff;
+  border: 1px solid #fff !important;
+}
+
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root:hover {
+  background: #fff;
+  color: #2c0757;
+  border: 1px solid #2c0757 !important;
 }
 
 .contenedor-info-perfil {
   display: flex;
-  align-items: center;
-  margin-top: 20px;
-  align-content: center;
   flex-direction: column;
-  width: 300px;
+  align-items: center;
   position: absolute;
-  top: 14%;
-  right: 2%;
-}
-
-/* Estilo para el contenedor de la imagen */
-.contenedor-img-perfil {
-  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(50%, -70%);
 }
 
 .contenedor-img-perfil img {
-  max-width: 100px;
-  max-height: 100px;
-  border-radius: 50%;
+  width: 200px; /* Ajustar según sea necesario */
+  border: 1px solid black;
+  margin-bottom: 10px;
+  height: 200px;
 }
 
-/* Puedes personalizar el estilo del párrafo según tus necesidades */
+/* Agregar estilos más específicos para los párrafos si es necesario */
 .contenedor-info-perfil p {
-  margin: 0;
-  color: #555;
+  margin-bottom: 10px;
 }
 
-/* Estilo de los iconos de lapiz */
+/* Color de los lapices en perfil */
 .css-i4bv87-MuiSvgIcon-root {
   width: 1.7em !important;
   height: 1.7em !important;
   color: #000000 !important;
 }
 
-/* Estilo para el contenedor de perfil */
-.btn-perfil {
-  position: absolute;
-  top: 90%;
-  left: 42%;
+/* Diseño responsivo de perfil */
+
+/* Primera parte */
+@media (max-width: 1700px) {
+  .contenedor-padre-perfil {
+    width: 1400px;
+    height: 1000px;
+  }
+
+  .cont-title-perfil {
+    transform: translate(-360%, -370%);
+  }
+}
+
+/* Segunda parte */
+@media (max-width: 1500px) {
+  .contenedor-padre-perfil {
+    width: 1200px;
+    height: 1000px;
+  }
+
+  .cont-title-perfil {
+    transform: translate(-300%, -370%);
+  }
+
+  .contenedor-de-texfields {
+    transform: translate(-120%, -50%);
+  }
+
+  .contenedor-info-perfil {
+    transform: translate(30%, -70%);
+  }
+
+}
+
+/* Tercera parte */
+@media (max-width: 1300px) {
+  .contenedor-padre-perfil {
+    width: 1000px;
+    height: 1000px;
+  }
+
+  .cont-title-perfil {
+    transform: translate(-240%, -370%);
+  }
+
+  .contenedor-de-texfields {
+    transform: translate(-100%, -50%);
+  }
+
+  .contenedor-info-perfil {
+    transform: translate(10%, -70%);
+  }
+
+}
+
+/* Cuarta parte */
+@media (max-width: 1100px) {
+  .contenedor-padre-perfil {
+    width: 800px;
+    height: 1000px;
+  }
+
+  .cont-title-perfil {
+    transform: translate(-200%, -370%);
+  }
+
+  .contenedor-de-texfields {
+    height: 400px;
+    transform: translate(-50%, -0%);
+  }
+
+  .contenedor-info-perfil {
+    transform: translate(-50%, -120%);
+  }
+
+  .btn-perfil {
+    bottom: 30px;
+  }
+
+}
+
+/* Quinta parte */
+@media (max-width: 900px) {
+  .contenedor-padre-perfil {
+    width: 600px;
+    height: 1000px;
+  }
+
+  .cont-title-perfil {
+    transform: translate(-140%, -370%);
+  }
+
+  .contenedor-de-texfields {
+    height: 400px;
+    transform: translate(-50%, -0%);
+  }
+
+  .contenedor-info-perfil {
+    transform: translate(-50%, -110%);
+  }
+
+  .btn-perfil {
+    bottom: 30px;
+  }
+
+}
+
+/* Sexta parte */
+@media (max-width: 650px) {
+  .contenedor-padre-perfil {
+    width: 400px;
+    height: 1000px;
+  }
+
+  .cont-title-perfil {
+    transform: translate(-80%, -370%);
+  }
+
+  .contenedor-de-texfields {
+    height: 400px;
+    transform: translate(-50%, -0%);
+  }
+
+  .contenedor-info-perfil {
+    transform: translate(-50%, -110%);
+  }
+
+  .btn-perfil {
+    bottom: 30px;
+  }
+
 }

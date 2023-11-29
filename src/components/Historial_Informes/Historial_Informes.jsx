@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import get from '../../UseFetch';
+import "./Historial_Informes.css";
 
 const columns = [
   { id: 'numero', label: 'Numero', minWidth: 170 },
@@ -83,7 +84,7 @@ export default function TablaInformes() {
   };
 
   return (
-    <Paper sx={{ width: '100%' }}>
+    <Paper sx={{width: "90%", height:"70%", position: "absolute", top:"50%", left:"50%", transform:"translate(-50%,-40%)"}}>
 
 <input
   type="text"
@@ -93,11 +94,11 @@ export default function TablaInformes() {
 />
 
 
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 845 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell align="center" colSpan={2}>
+              <TableCell align="center" colSpan={5}>
                 Todos los Informes
               </TableCell>
             </TableRow>
@@ -130,15 +131,7 @@ export default function TablaInformes() {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={tableData.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+     
     </Paper>
   );
 }

@@ -43,7 +43,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-47.8%, -42%);
+  transform: translate(-50%, -45%);
 }
 
 /* Estio del dialogo */
@@ -161,9 +161,10 @@
 .title-san {
   color: #ffffff;
   font-size: 24px;
-  margin-top: 8%;
+  margin-top: -5%;
   margin-right: 30%;
   font-size: 30px;
+  width: 180px;
 }
 
 /* Contenedor de los divs */

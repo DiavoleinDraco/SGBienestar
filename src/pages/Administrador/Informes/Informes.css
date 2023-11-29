@@ -1,17 +1,137 @@
-.container-Informes {
-    border: 1px solid #ccc; /* Borde del cuadro */
-    padding: 20px; /* Espaciado interno */
-    margin-bottom: 20px; /* Margen inferior para separar del contenido debajo */
-    height: 400px;
-  }
-
-  .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
-    color: #000000 !important;
-    background-color: white !important;
-    position: relative;
-   
+/* Estilos para el botón "Enviar" */
+.btn-informes-env {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px 20px;
+  background-color: #2c0757;
+  color: #fff;
+  border: 1px solid #2c0757;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.contenedorsito {
-  margin-right: 800px;
+.btn-informes-env:hover {
+  background-color: #fff;
+  color: #2c0757;
+  border: 1px solid #2c0757;
+}
+
+/* Estilos para los botones "Excel" y "Pdf" */
+.contenedor-ex-pd {
+  position: fixed;
+  bottom: 10px;
+  right: 100px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-informes {
+  padding: 8px 16px;
+  background-color: #337ab7;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-informes:not(:last-child) {
+  margin-right: 5px;
+}
+
+.btn-informes:hover {
+  background-color: #286090;
+}
+
+.contenedor-ex-pd .buttons {
+  color: #2c0757;
+  background: #fff;
+  border: 1px solid #2c0757 !important;
+}
+
+.contenedor-ex-pd .buttons:hover {
+  color: #fff;
+  background: #2c0757;
+  border: 1px solid #fff !important;
+}
+
+/* Contenedor del titulo de informes */
+.cont-tilte-informes {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -400%);
+}
+
+.cont-tilte-informes h1 {
+  color: #fff;
+  font-size: 30px;
+  text-align: left;
+}
+
+/* Contenedor de inputs */
+.container-Informes {
+  width: 40%;
+  height: 40%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; /* Ajusta esta propiedad según sea necesario */
+  align-items: flex-start; /* Ajusta esta propiedad según sea necesario */
+  padding-left: 3%; /* Ajusta el valor según sea necesario */
+}
+
+/* Estilo del contenedor de dependencia */
+.contenedor-dependencia {
+  margin-left: -36px;
+}
+
+
+/* Estilo del contenedor que tiene el input de estado */
+.contenedor-estado {
+  position: absolute;
+  bottom: 28%;
+  left: 33.2%;
+}
+
+/* Contenedor del input del numero de documento */
+.contenedor-numeroDoc {
+  position: absolute;
+  top: 66%;
+  left: 31.6%;
+}
+
+/* Contenedor del input de Estado de sanciones */
+.contenedor-estadSan {
+  position: absolute;
+  top: 80%;
+  left: 33.3%;
+}
+
+/* Boton de agregar implemento */
+.btn-agregar-implemento {
+  position: absolute;
+  top: 80%;
+  left: 33.3%;
+}
+
+/* Contenedor de los inpus de agregar implementos */
+.contenedor-de-inpust-agregar-implementos {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-63%, 60%);
+  width: 30%;
+  height: 20%;
+  display: flex;
+}
+
+.contenedor-de-inpust-agregar-implementos > * {
+  flex: 1;
+  padding: 10px; /* Puedes ajustar el espacio interno según sea necesario */
+  box-sizing: border-box;
 }
