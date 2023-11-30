@@ -51,7 +51,8 @@ export default function Autenticacion() {
 
   return (
     <div>
-      <div className="father-conf">
+    {decodeToken.activacion ? navegacion('login') :
+    <div className="father-conf">
         <figure>
           <img className="foto" src={miimagen} alt="sena-imagen" />
         </figure>
@@ -118,6 +119,7 @@ export default function Autenticacion() {
           )}
         </div>
       </div>
-    </div>
+     }
+     </div>
   );
 }

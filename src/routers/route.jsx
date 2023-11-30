@@ -1,12 +1,12 @@
-
-import { BrowserRouter as Router, Routes, Route, Navigate,  } from 'react-router-dom';
-import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, } from 'react-router-dom';
+import React, { lazy, Suspense, useState } from 'react';
 const CircularColor = lazy(() => import('../components/Cargando/Cargando.jsx'))
 const Home = lazy(() => import('../pages/home/Home'));
 const Registro = lazy(() => import('../pages/registro/Registro'));
 const Login = lazy(() => import('../pages/login/Login'));
 const Autenticacion = lazy(() => import('../pages/autenticacion/Autenticacion'));
 import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
+import jwtDecode from 'jwt-decode';
 const Dashboard = lazy(() => import('../pages/Administrador/Dashboard/Dashboard'));
 const Sanciones = lazy(() => import('../pages/Administrador/Sanciones/Sanciones'));
 const Usuarios = lazy(() => import('../pages/Administrador/Usuarios/Usuarios'));
@@ -23,42 +23,65 @@ const Perfil = lazy(() => import('../pages/Perfil/Perfil.jsx'))
 
 
 export function LasRutas() {
+
   const token = localStorage.getItem('token');
-  const renderProtectedRoute = (element) => {
-    if (!token) {
+  const decode = token ? jwtDecode(token) : null;
+
+
+  const proteccionRutas = (elemento, privilegioAdmitido1, privilegioAdmitido2) => {
+
+    console.log(decode.privilegio)
+
+    if (!localStorage.getItem('token')) {
       return <Navigate to="/login" />;
     }
-    return element;
+
+    if (
+      (privilegioAdmitido1 && decode.privilegio === privilegioAdmitido1) ||
+      (privilegioAdmitido2 && decode.privilegio === privilegioAdmitido2)
+    ) {
+      return elemento;
+    }
+
+    return decode.privilegio === 3 || decode.privilegio === 2 ? (
+      <Navigate to="/aprendiz" />
+    ) : (
+      <Navigate to="/admin" />
+    );
+
   };
   return (
     <Router>
       <Routes>
-      <Route path="/home" element={<Suspense fallback={<CircularColor></CircularColor>}><Home /></Suspense>} />
-      <Route path="/registro" element={<Suspense fallback={<CircularColor></CircularColor>}><Registro /></Suspense>} />
-      <Route path="/login" element={<Suspense fallback={<CircularColor></CircularColor>}><Login /></Suspense>} />
-      <Route path="/auth/:" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Autenticacion /></Suspense>)} />
-        <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
-        <Route path="/admin" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Dashboard /></Suspense>)} />
-        <Route path="/usuarios" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Usuarios /></Suspense>)} />
+        <Route path="/home" element={<Suspense fallback={<CircularColor></CircularColor>}><Home /></Suspense>} />
+        <Route path="/registro" element={<Suspense fallback={<CircularColor></CircularColor>}><Registro /></Suspense>} />
+        <Route path="/login" element={<Suspense fallback={<CircularColor></CircularColor>}><Login /></Suspense>} />
+        <Route path="/auth/" element={(<Suspense fallback={<CircularColor></CircularColor>}><Autenticacion /></Suspense>)} />
+        <Route path="/RecuperarContrasena" element={<RecuperarContrasena />} />
+        <Route path="/admin" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Dashboard /></Suspense>, 1)} />
+        <Route path="/usuarios" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Usuarios /></Suspense>, 1)} />
         <Route
           path="/sanciones"
-          element={renderProtectedRoute(
+          element={proteccionRutas(
             <Suspense fallback={<CircularColor></CircularColor>}>
               <Sanciones />
-            </Suspense>
+            </Suspense>, 1
           )}
-        />     
-        <Route path="/informes" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Informes /></Suspense>)} />
-        <Route path="/mensajes" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Mensajes /></Suspense>)} />
-        <Route path="/mensajes/:messageId" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><MensajeDetalle /></Suspense>)} />
-        <Route path='/prestamo/info/:prestamoId' element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><PrestamoDetalle /></Suspense>)}/>
-        <Route path="/inventario" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Inventario /></Suspense>)} />
-        <Route path="/solicitudes" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Solicitudes /></Suspense>)} />
-        <Route path="/prestamos" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Prestamos /></Suspense>)} />
-        <Route path="/aprendiz" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Board /></Suspense>)} />
-        <Route path="/implementos" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Implementos /></Suspense>)} />
-        <Route path="/perfil" element={renderProtectedRoute(<Suspense fallback={<CircularColor></CircularColor>}><Perfil /></Suspense>)} />
-
+        />
+        <Route
+          path="/*"
+          element={<Navigate to="/home" replace />}
+        />
+        <Route path="/informes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Informes /></Suspense>, 1)} />
+        <Route path="/mensajes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Mensajes /></Suspense>, 1)} />
+        <Route path="/mensajes/:messageId" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><MensajeDetalle /></Suspense>, 1)} />
+        <Route path='/prestamo/info/:prestamoId' element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><PrestamoDetalle /></Suspense>, 3, 2)} />
+        <Route path="/inventario" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Inventario /></Suspense>, 1)} />
+        <Route path="/solicitudes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Solicitudes /></Suspense>, 1)} />
+        <Route path="/prestamos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Prestamos /></Suspense>, 1)} />
+        <Route path="/aprendiz" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Board /></Suspense>, 3, 2)} />
+        <Route path="/implementos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Implementos /></Suspense>, 3, 2)} />
+        <Route path="/perfil" element={(<Suspense fallback={<CircularColor></CircularColor>}><Perfil /></Suspense>)} />
       </Routes>
     </Router>
   );

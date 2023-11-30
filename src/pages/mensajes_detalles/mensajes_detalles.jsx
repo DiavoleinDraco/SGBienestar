@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import { getParametre, eliminar } from "../../UseFetch"; // Asegúrate de importar eliminar
 import { useNavigate } from "react-router-dom";
 import Buttons from "../../components/Buttons/Buttons";
-import { width } from "@mui/system";
 import { Popover } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ComposeBar from "../../components/componentedeprueba/Redactar_mensaje";
@@ -54,9 +53,9 @@ export default function MensajesDetalle() {
 
   const handleDeleteClick = async (_id) => {
     try {
-      // Realiza la eliminación
+     
       await eliminar('/mail/mail/', _id);
-      redireccionar("/mensajes"); // Redirecciona a la página de mensajes después de eliminar
+      redireccionar("/mensajes"); 
     } catch (error) {
       console.error("Error al eliminar", error);
     }
@@ -103,7 +102,7 @@ export default function MensajesDetalle() {
         <div className="mensaje-info">
           <h2>{user && user.asunto}</h2>
           <div style={{ display: "flex", alignItems: "center" }}>
-          <p style={{ width: "20%" }}>Para: {user && user.correo && Array.isArray(user.correo) ? user.correo.join(", ").slice(0, 23) + "..." : "Correo no válido"}</p>
+            <p style={{ width: "20%" }}>Para: {user && user.correo && Array.isArray(user.correo) ? user.correo.join(", ").slice(0, 23) + "..." : "Correo no válido"}</p>
             <button
               style={{
                 background: "none",
@@ -125,7 +124,7 @@ export default function MensajesDetalle() {
               horizontal: 'right',
             }}
             transformOrigin={{
-              vertical: 'top',  // Ajusta la posición vertical
+              vertical: 'top',  
               horizontal: 'left',
             }}
           >
@@ -135,22 +134,22 @@ export default function MensajesDetalle() {
             </div>
           </Popover>
           {mensaje}
-        
+
           {showResponder ?
             <div className="cuadro-responder">
-             <ComposeBar
-             style="custom-style"
-             showChecklist={false}
-             defaultRecipient={user && user.correo}
-             defaultAsunto={ user && user.asunto}
-             onClose={() => setShowResponder(false)}  // Asigna la función onClose correctamente
-             ></ComposeBar>
-            
+              <ComposeBar
+                style="custom-style"
+                showChecklist={false}
+                defaultRecipient={user && user.correo}
+                defaultAsunto={user && user.asunto}
+                onClose={() => setShowResponder(false)}  // Asigna la función onClose correctamente
+              ></ComposeBar>
+
 
             </div>
-            :   <div className="botones-responder">
-            <Buttons nombre={"Responder"} onclick={handleResponderClick}></Buttons>
-          </div>}
+            : <div className="botones-responder">
+              <Buttons nombre={"Responder"} onclick={handleResponderClick}></Buttons>
+            </div>}
         </div>
       </div>
     </Box>

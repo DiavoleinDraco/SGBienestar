@@ -265,11 +265,21 @@ export default function Registro() {
     label: eps.nombre,
     value: eps["_id"],
   }));
+  
+  const handleFormSubmit = (event) => {
+    event.preventDefault(); // Prevents the default form submission behavior
+
+    try {
+      // Your existing form submission logic here
+    } catch (error) {
+      // Handle errors
+    }
+  };
 
   //! FIN EPS
 
   return (
-    <div className="father">
+    <div className="father" onSubmit={handleFormSubmit}>
       <div id="imagenes">
         <img src={miimagen} alt="sena-imagen" />
       </div>
