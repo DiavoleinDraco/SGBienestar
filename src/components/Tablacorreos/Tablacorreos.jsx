@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
 import Table from '@material-ui/core/Table';
+import { TableHead } from '@mui/material';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -17,6 +18,7 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import DeleteIcon from '@material-ui/icons/Delete';
 import get, { eliminar } from '../../UseFetch';
 import './Tablacorreo.css'
+import { width } from '@mui/system';
 
 export default function DataGridProDemo({ Delete, Consulta }) {
   const [page, setPage] = React.useState(0);
@@ -29,17 +31,20 @@ export default function DataGridProDemo({ Delete, Consulta }) {
 
   const tableCellStyle = {
     fontSize: '14px',
+    
   };
 
-  const tableContainerStyle = {
+  const tableContainerStyle = { 
     width: '100%',
+    
   };
 
   const tableRowStyle = {
-    height: '2vh',
+    height: '2px',
+   
   };
 
-  const handleDeleteClick = async (_id) => {
+  const handleDeleteClick = async (_id) => { 
     try {
       await eliminar(Delete, _id);
 
@@ -55,33 +60,22 @@ export default function DataGridProDemo({ Delete, Consulta }) {
     get(Consulta)
       .then((fetchedData) => {
         setData(fetchedData);
-        const rowsData = fetchedData.map((item) => {
-          let correosmostrar;
-          if (item && Array.isArray(item.correo) && item.correo.length > 2) {
-            correosmostrar = item.correo.slice(0, 2).join(", ") + " ...";
-          } else if (item && Array.isArray(item.correo)) {
-            correosmostrar = item.correo.join(", ");
-          } else {
-            correosmostrar = "Correo no válido";
-          }
-          console.log(item.correo)
-  
-          return {
-            _id: item._id,
-            correo: item.correo,
-            correoCortado: correosmostrar,
-            asunto: item.asunto,
-            mensaje: item.mensaje,
-            fechaEnvio: item.createdAt
-          };
-        }).sort((a, b) => new Date(b.fechaEnvio) - new Date(a.fechaEnvio));
-  
+        const array = []
+        const rowsData = fetchedData.map((item) => ({
+          _id: item._id,
+          correo: item.correo,
+          asunto: item.asunto,
+          mensaje: item.mensaje,
+          fechaEnvio: item.createdAt
+        })).sort((a, b) => new Date(b.fechaEnvio) - new Date(a.fechaEnvio));;
+        console.log(rowsData)
         setRows(rowsData);
       })
       .catch((error) => {
         console.error("Error al encontrar el resultado", error);
       });
   }, [Consulta]);
+
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
@@ -107,6 +101,18 @@ export default function DataGridProDemo({ Delete, Consulta }) {
   return (
     <TableContainer component={Paper} style={tableContainerStyle}>
       <Table aria-label="custom pagination table">
+      <TableHead>
+          <TableRow>
+            <TableCell style={tableCellStyle}>CORREO</TableCell>
+            <TableCell align="right" style={tableCellStyle}>
+              ASUNTO
+            </TableCell>
+            <TableCell align="right" style={tableCellStyle}>
+              MENSAJE
+            </TableCell>
+            <TableCell />
+          </TableRow>
+        </TableHead>
         <TableBody>
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -119,7 +125,7 @@ export default function DataGridProDemo({ Delete, Consulta }) {
               onMouseLeave={handleRowMouseLeave}
             >
               <TableCell component="th" scope="row" style={tableCellStyle} onClick={() => handleCellClick(row._id)}>
-                {row.correoCortado}
+                {row.correo}
               </TableCell>
               <TableCell align="right" onClick={() => handleCellClick(row._id)}>
                 {row.asunto}
@@ -141,7 +147,7 @@ export default function DataGridProDemo({ Delete, Consulta }) {
           ))}
 
           {emptyRows > 0 && (
-            <TableRow style={{ height: 2 * emptyRows }}>
+            <TableRow style={{ height: 33 * emptyRows }}>
               <TableCell colSpan={3} />
             </TableRow>
           )}
@@ -167,4 +173,3 @@ export default function DataGridProDemo({ Delete, Consulta }) {
     </TableContainer>
   );
 }
-

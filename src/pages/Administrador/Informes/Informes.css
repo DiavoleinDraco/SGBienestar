@@ -61,7 +61,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -240%);
+  transform: translate(-50%, -380%);
   z-index: 100;
 }
 
@@ -90,7 +90,6 @@
 .contenedor-dependencia {
   margin-left: -36px;
 }
-
 
 /* Estilo del contenedor que tiene el input de estado */
 .contenedor-estado {
@@ -152,6 +151,7 @@
 /* Div de fondo blaco para informes */
 .fondo-banco {
   background: #f6f6f6;
+  border-radius: 10px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -159,6 +159,7 @@
   width: 140%;
   height: 70vh;
   z-index: -100;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
 /* Div para el fondo morado */
@@ -171,4 +172,11 @@
   width: 250%;
   height: 140%;
   z-index: -300;
+}
+
+@media (max-height: 740px) {
+  /* Contenedor del titulo de informes */
+  .cont-tilte-informes {
+    transform: translate(-50%, -240%);
+  }
 }

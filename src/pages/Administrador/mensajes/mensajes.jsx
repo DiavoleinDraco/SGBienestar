@@ -66,6 +66,7 @@ export default function Mensajes() {
     
     <div style={containerStyle} className="mensajes-container">
        <Menu></Menu>
+       <div className='fondo-morado'></div>
       <div className='cont-mensaje'>
         <h1 className='titulo-mesajes'>Apartado de <br /> mensajes</h1>
       </div>

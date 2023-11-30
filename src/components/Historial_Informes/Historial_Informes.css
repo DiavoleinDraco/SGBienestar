@@ -1,8 +1,44 @@
 .ti-HInfo {
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -600%);
-    z-index: 100;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -980%);
+  z-index: 100;
+}
+
+.btn-descarga-tableInformes .btn-tbleInformes {
+  color: #fff;
+  background-color: #2c0757;
+  border: 1px solid #2c0757;
+  margin-left: 10px;
+}
+
+.btn-descarga-tableInformes .btn-tbleInformes:hover {
+  background-color: #fff;
+  color: #2c0757;
+  border: 1px solid #2c0757;
+  cursor: pointer;
+}
+
+.css-ahxqwc-MuiTableContainer-root {
+  width: 100%;
+  overflow-x: auto;
+  min-height: 720px !important;
+}
+
+/* Responsivo */
+@media (max-height:740px) {
+    .ti-HInfo {
+        transform: translate(-50%, -600%);
+    }
+
+    .css-ahxqwc-MuiTableContainer-root {
+        width: 100%;
+        overflow-x: auto;
+        height: 400px !important;
+        min-height: 400px !important;
+        max-height: 400px !important;
+    }
+
 }

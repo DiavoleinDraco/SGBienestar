@@ -1,31 +1,3 @@
-/* En tu archivo "mensajes.css"
-.mensajes-container {
-  background: #eeecec;
-  display: flex !important;
-  justify-content: start !important;
-  width: 100%;
-  align-items: center !important;
-  height: 100vh;
-  margin: 60px auto !important;
-  right: -36px;
-  margin-bottom: 0 !important;
-}
-
-
-.cont-mensaje {
-  background: #2c0757;
-  width: 100%;
-  height: 40% !important;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -110%);
-}
-
-.titulo-mesajes {
-  font-size: 1.3em !important;
-}
-
 .comp {
   background: #2c0757;
   border: none;
@@ -45,24 +17,61 @@
   color: #f6f6f6;
 }
 
-
-
+.fondo-morado{
+  background: #2c0757;
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -90%);
+}
 
 
 .titulo-mesajes {
   color: #ffffff;
-  width: 200px;
-  font-size: 30px;
-  outline: 1px solid black;
-  transform: translate(30px, -10px);
+  font-size: 36px !important;
+  position: static;
+  margin-top: -15%;
+  margin-right: -899px;
+  text-align: center !important;
+
+  
 }
 
 .cont-tablemsg {
   width: 90%;
-  height: 100% !important;
+  height: 500% !important;
+ 
 }
 
 
 .css-13xfq8m-MuiTabPanel-root {
   padding: 0px !important;
-} */
+} 
+.css-j6dtil {
+  width: 100%;
+  transform: translateY(24%);
+}
+
+.cont-tablemsg {
+  width: 90%;
+  height: 100vh !important;
+}
+
+.cont-mensaje {
+  width: 300px;
+  height: 120px;
+  position: absolute;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-200%, -410%);
+}
+
+.css-5tgis0 {
+  border-bottom: 1px solid;
+  border-color: rgba(0, 0, 0, 0.12);
+  width: 11%;
+  margin: auto;
+}
