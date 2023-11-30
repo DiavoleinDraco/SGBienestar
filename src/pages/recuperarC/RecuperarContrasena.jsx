@@ -130,7 +130,7 @@ export default function RecuperarContrasena() {
           id="slidee1 "
         >
           <div className="son">
-          <p style={{color:"#000"}}>Podemos enviarte un código de <b> recuperación </b>al<b> Correo Institucional</b>:</p>
+            <p style={{ color: "#000" }}>Podemos enviarte un código de <b> recuperación </b>al<b> Correo Institucional</b>:</p>
             <InputCorreo
               label="Correo institucional"
               institutional
@@ -139,18 +139,20 @@ export default function RecuperarContrasena() {
               error={errors.correo_inst}
             />
           </div>
+          <div className="contenedor-btn-enviarCod">
           <button className="btn-env-correo son" onClick={handleEnviarCorreo}>
             Enviar Codigo
           </button>
+          </div>
         </li>
         <li
           className={currentSlide === 1 ? "active" : "inactive"}
           id="slidee2 idd"
         >
-          <div className="son son-codigo">
-            <p className="son-codigo-rec" style={{color:"#000"}}>Se envió un código por correo, puede tardar. 
-            Revise la bandeja de spam o correos importantes. 
-            Si no llega, solicite otro código.</p>
+          <div className="son-2">
+            <p className="son-codigo-rec" style={{ color: "#000" }}>Se envió un código por correo, puede tardar.
+              Revise la bandeja de spam o correos importantes.
+              Si no llega, solicite otro código.</p>
             <Textfield
               className="son-codigo"
               name="Ingrese el codigo"
@@ -161,8 +163,8 @@ export default function RecuperarContrasena() {
           </div>
         </li>
         <li className={currentSlide === 2 ? "active" : "inactive"} id="slidee3">
-          <div className="son">
-            <p style={{color:"#000"}}>Escribe y confirma tu nueva <b> contraseña</b>:</p>
+          <div className="son-3">
+            <p style={{ color: "#000" }}>Escribe y confirma tu nueva <b> contraseña</b>:</p>
             <ButtonContraseña
               nombre="nueva contraseña"
               onChange={(value) => handleChange("newPassword", value)}
@@ -170,7 +172,7 @@ export default function RecuperarContrasena() {
               error={errors.contrasena}
             />
           </div>
-          <div className="item btn-rcontra-one">
+          <div className="contenedor-btn-rContra">
             <button className="btn-rcontra" onClick={handleCambiarContrasena}>
               Recuperar Contraseña
             </button>
@@ -195,8 +197,8 @@ export default function RecuperarContrasena() {
         )}
         {/* Hasta aqui */}
 
-        <div className="item item-link">
-          <Link className="custom-link link-inicio" to="/login">
+        <div className="contenedor-link-Rcontra">
+          <Link className="link-Rcontr" to="/login">
             Volver al inicio de sesión
           </Link>
         </div>

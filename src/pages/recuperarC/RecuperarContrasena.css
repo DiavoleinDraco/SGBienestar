@@ -16,11 +16,11 @@
 
 .padrecontenedor::after {
   content: "";
-  height: 500px;
+  height: 550px;
   width: 760px;
   position: absolute;
   background: rgba(255, 255, 255, 0.582);
-  top: 60px;
+  top: 30px;
   border-radius: 30px;
   margin-left: -80px;
   z-index: -100 !important;
@@ -28,11 +28,11 @@
 
 .padrecontenedor::before {
   content: "";
-  height: 400px;
+  height: 450px;
   width: 850px;
   position: absolute;
   background: #ffffff94;
-  top: 110px;
+  top: 80px;
   border-radius: 30px;
   margin-left: -125px;
   z-index: -200 !important;
@@ -75,9 +75,16 @@ li {
   z-index: 200;
 }
 
+.son-3 {
+  width: 300px;
+  height: 200px;
+  position: relative;
+  bottom: 40px;
+}
+
 .son {
   width: 300px;
-  height: 110px;
+  height: 200px;
 }
 
 .carta {
@@ -90,6 +97,7 @@ li {
   z-index: 1;
   opacity: 1;
 }
+
 .sldrr li:target {
   opacity: 1;
   z-index: 1;
@@ -115,28 +123,36 @@ li {
   font-size: 20px;
 }
 
+/* Estilo para el contenedor del link */
+.contenedor-link-Rcontra {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 30px;
+  left: 38%;
+}
+
 /*Estilo del link*/
-.custom-link {
+.link-Rcontr {
   display: inline-block;
   color: #3c1263;
   text-decoration: none;
   border-radius: 5px;
   text-align: center;
-  margin-left: -50px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.custom-link:hover {
-  transform: scale(1.05); /* Cambiar el tamaño al pasar el mouse */
+.link-Rcontr:hover {
+  transform: scale(1.05);
+  /* Cambiar el tamaño al pasar el mouse */
   text-decoration: underline;
 }
 
-.item-link {
-  position: relative;
-  left: 34%;
-  top: 8%;
+/* Estilo para el contenedor de recuperar contraseña */
+.contenedor-btn-rContra {
+  margin-top: 10px;
 }
-
 /*Estilo del boton de recuperar contraseña*/
 .btn-rcontra {
   border-radius: 50px;
@@ -144,8 +160,6 @@ li {
   height: 30px;
   color: #fff;
   background: #3c1263;
-  position: relative;
-  top: 44px;
   border: none;
 }
 
@@ -159,10 +173,10 @@ li {
 }
 
 /*Estilo del codigo*/
-.son-codigo {
+.son-2 {
   height: 100px;
   position: relative;
-  top: -30px;
+  top: -80px;
   left: 60px;
   width: 380px;
 }
@@ -184,14 +198,15 @@ li {
   opacity: 1;
   z-index: 1;
   height: 240px;
-  background: #f6f6f6 !important;
+  background: #00000000 !important;
 }
 
 /* Clase para ocultar un slide */
 .sldrr li.inactive {
   opacity: 0;
   z-index: 0;
-  pointer-events: none; /* Desactiva los eventos del elemento oculto */
+  pointer-events: none;
+  /* Desactiva los eventos del elemento oculto */
 }
 
 /*Estilo para el boton siguiente*/
@@ -217,6 +232,11 @@ li {
   border: solid 1px #3c1263;
 }
 
+/* Estilo para el contenedor de enviar correo en recuperar contraseña */
+.contenedor-btn-enviarCod {
+  margin-bottom: 20px;
+}
+
 /*Estilo para el boton enviar correo btn-env-correo*/
 .btn-env-correo {
   border-radius: 50px;
@@ -225,7 +245,6 @@ li {
   color: #fff;
   background: #3c1263;
   height: 40px;
-  margin-top: 30px;
 }
 
 .btn-env-correo:hover {
@@ -279,6 +298,7 @@ h1 {
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 0 -200%;
   }

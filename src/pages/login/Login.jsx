@@ -127,12 +127,12 @@ export default function Login() {
 
         <div className="contenedor-de-links">
           <div className="link-olvContra">
-            <Link to="/RecuperarContrasena" className="custom-link">
+            <Link to="/RecuperarContrasena" className="olvContra">
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
           <div className="link-noCuenta">
-            <Link to="/Registro" className="custom-link">
+            <Link to="/Registro" className="noCuenta">
               ¿No tienes una cuenta? Regístrate
             </Link>
           </div>

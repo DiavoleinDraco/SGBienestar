@@ -17,23 +17,23 @@
 
 /* Estilo para los contenedores de atras */
 .ones {
+  width: 680px;
+  height: 420px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 680px;
-  height: 420px;
   background: rgba(237, 230, 230, 0.582);
   border-radius: 30px;
 }
 
 .twos {
+  width: 760px;
+  height: 340px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 760px;
-  height: 340px;
   background: rgba(237, 230, 230, 0.582);
   border-radius: 30px;
 }
@@ -80,13 +80,33 @@
 /* Link de olvidar contraseña */
 .link-olvContra {
   width: 100%;
-  margin-left: 40px;
+}
+
+.olvContra {
+  text-decoration: none !important;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.olvContra:hover {
+  transform: scale(1.05) !important;
+  /* Cambiar el tamaño al pasar el mouse */
+  text-decoration: underline !important;
 }
 
 /* Link para ir al registro */
 .link-noCuenta {
   width: 100%;
-  margin-left: 40px;
+}
+
+.noCuenta {
+  text-decoration: none !important;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.noCuenta:hover {
+  transform: scale(1.05) !important;
+  /* Cambiar el tamaño al pasar el mouse */
+  text-decoration: underline !important;
 }
 
 /* Estilo del boton en login */
@@ -240,6 +260,33 @@
   .twos {
     width: 460px;
     height: 340px;
+  }
+
+}
+
+/* Responsivo para las pantallas de portatiles */
+@media (max-height: 740px) {
+
+  .contenedor-login-hijo {
+    width: 500px;
+    height: 400px;
+    transform: translate(-50%, -30%);
+  }
+
+  .ones {
+    width: 580px;
+    height: 320px;
+    transform: translate(-50%, -26%);
+  }
+
+  .twos {
+    width: 660px;
+    height: 240px;
+    transform: translate(-50%, -20%);
+  }
+
+  .contenedor-img-login {
+    transform: translate(-50%, -130%);
   }
 
 }
