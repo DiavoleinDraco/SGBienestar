@@ -14,6 +14,11 @@ export default function Prestamos() {
   const decode = jwtDecode(usuarioid);
   const [peticionExitosa, setPeticionExitosa] = useState(false);
   const [IDPrestamo, setIDPrestamo] = useState("");
+  const inforPrestamo = JSON.parse(localStorage.getItem("implementosAprestar"));
+
+
+
+
   useEffect(() => {
     const obtenerIdEstadoPendiente = async () => {
       try {
@@ -36,15 +41,34 @@ export default function Prestamos() {
 
     const fechaActual = new Date();
     setFechaInicio(fechaActual);
+
+    const handleUnload = () => {
+      localStorage.removeItem("implementosAprestar");
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+
   }, []);
+
+
+ 
 
   const obtenerDatosPrestamo = () => {
     const fechaFin = new Date(fechaInicio);
     fechaFin.setMinutes(fechaFin.getMinutes() + 15);
+    const implementos = inforPrestamo.map((implemento) => implemento.id);
+    const cantidades = inforPrestamo.map((implemento) => implemento.cantidad);
+    
+    console.log(cantidades);
 
+  
     return {
-      implementos: [implemento],
-      cantidad_implementos: [1],
+      implementos: implementos,
+      cantidad_implementos: cantidades,
       usuario: decode.id,
       fecha_inicio: fechaInicio.toISOString(),
       fecha_fin: fechaFin.toISOString(),
@@ -52,6 +76,7 @@ export default function Prestamos() {
     };
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -116,42 +141,28 @@ export default function Prestamos() {
 
         <div className="cot-UND">
           <div>
-            {" "}
             <b> Usuario: </b> {decode.nombre}
           </div>
 
           <div>
             <p>
-              {" "}
-              <b>Nombre del Implemento:</b> { }
+              <b>Implemento:</b>{" "}
+              {inforPrestamo.map((implemento) => implemento.nombre).join(", ")}
             </p>
           </div>
 
-          <div>
-            <p>
-              {" "}
-              <b>Detalles:</b> { }
-            </p>
-          </div>
+          {inforPrestamo.map((implemento, index) => (
+            <div key={index}>
+
+            </div>
+          ))}
+
+          
         </div>
 
         <form onSubmit={handleSubmit}>
           <div className="contenedor-inputs">
-            <div className="id-prestamos">
-              <Textfield
-                name="id del implemento"
-                value={implemento}
-                onChange={(value) => setImplemento(value)}
-              />
-            </div>
-
-            <div className="id-prestamos">
-              <Textfield
-                name="id del implemento para borrar"
-                value={implemento}
-                onChange={(value) => setImplemento(value)}
-              />
-            </div>
+            
           </div>
 
           <div className="contenedor-btn-prestamos">
@@ -161,10 +172,6 @@ export default function Prestamos() {
               type="submit"
             >
               Confirmar Prestamo
-            </button>
-
-            <button className="btn-prestamo" type="button" onClick={prestamo}>
-              Eliminar Prestamo
             </button>
           </div>
 

@@ -16,6 +16,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { forwardRef } from "react";
 import MuiAlert from "@mui/material/Alert";
 import'./Implementos.css';
+import { useNavigate } from 'react-router-dom';
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -27,6 +28,8 @@ export default function Implementos(){
     const [open, setOpen] = useState(false)
     const [errorMensaje, setErrorMensaje] = useState(null);
     const [isImplementoSelected, setIsImplementoSelected] = useState(false)
+    const navigate = useNavigate();
+
 
     const errorCant = () => {
       setOpen(false)
@@ -160,23 +163,32 @@ export default function Implementos(){
           setErrorMensaje("Debe ingresar una cantidad para cada implemento seleccionado.");
           setOpen(true);
         } else {
-          
           const implementosAprestar = implementosSeleccionados.map((item) => ({
-          id: item.id,
-          nombre: item.nombre,
-          cantidad: item.cantidad,
-
-        }));
+            id: item.id,
+            nombre: item.nombre,
+            cantidad: item.cantidad,
+          }));
+      
+          // Guardar implementos a prestar en el localStorage
+          localStorage.setItem('implementosAprestar', JSON.stringify(implementosAprestar));
+      
           setOpen(false); // Cerrar el Snackbar si la acción fue exitosa
           console.log('Implementos a prestar:', implementosAprestar);
+          navigate("/prestamos");
         }
       }
 
       useEffect(() => {
-        // Este efecto se activará cuando implementosSeleccionados cambie
-        console.log('Implementos sel:', implementosSeleccionados);
-      }, [implementosSeleccionados]);
+        // Verificar si hay implementos almacenados en el localStorage
+        const implementosAprestarStr = localStorage.getItem('implementosAprestar');
+        if (implementosAprestarStr) {
+          const implementosAprestar = JSON.parse(implementosAprestarStr);
+          setImplementosSeleccionados(implementosAprestar);
+        }
+      }, []);
     
+
+
   
       const tabs = [
           {
