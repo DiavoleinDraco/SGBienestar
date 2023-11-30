@@ -1,298 +1,245 @@
-.padree {
-  display: flex;
-  margin: 15em auto;
-  flex-wrap: wrap;
-  width: 500px !important;
-  height: 590px !important;
-  justify-content: space-evenly;
-  align-content: space-evenly;
+/* Estilo del contenedor hijo */
+.contenedor-login-hijo {
+  width: 600px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #f6f6f6;
-  box-shadow: 0 0 1rem 0 rgba(8, 10, 76, 0.2);
   border-radius: 30px;
-  ;
-}
-
-.title-bienvenido {
-  font-family: "Questrial", sans-serif;
-}
-
-#imagenes {
-  width: 400px;
-  height: 50px;
-}
-
-.hijoo {
   display: flex;
-  flex-wrap: wrap;
-  width: 700px !important;
-  height: 500px !important;
-  justify-content: center;
-  align-content: space-evenly;
+  flex-direction: column;
+  justify-content: space-around; /* Distribuir el espacio de forma equitativa */
+  align-items: center; /* Centrado horizontal */
+  z-index: 100;
 }
 
-.items {
-  height: 60px;
-  width: 300px;
-}
-
-.title {
-  font-family: "Questrial", sans-serif;
-  height: 100px !important;
-
-  width: 350px;
-}
-
-.notcuenta {
-  padding: 19px;
-  box-sizing: border-box;
-  height: 40px;
-}
-
-.recuperarcuenta {
-  padding: 25px;
-  height: 40px;
-  box-sizing: border-box;
+/* Estilo para los contenedores de atras */
+.ones {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 680px;
+  height: 420px;
+  background: rgba(237, 230, 230, 0.582);
+  border-radius: 30px;
 }
 
 .twos {
   position: absolute;
-  top: 276px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 760px;
+  height: 340px;
+  background: rgba(237, 230, 230, 0.582);
   border-radius: 30px;
-  height: 500px;
-  width: 585px;
-  background: rgba(255, 255, 255, 0.5);
-  z-index: -1;
 }
 
-.ones {
-  position: absolute;
-  top: 330px;
-  border-radius: 30px;
-  height: 400px;
-  width: 655px;
-  background: rgba(255, 255, 255, 0.5);
-  z-index: -1;
+
+/* Estilo de los elementos internos */
+.contenedor-login-hijo > * {
+  flex: 1; /* Ocupar espacio equitativamente */
 }
 
-.css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
-  color: #f6f6f6 !important;
+/* Ajustes adicionales para algunos elementos específicos */
+.contenedor-titulo-login {
+  flex: 1; /* Ocupar más espacio */
 }
 
-.css-1rwt2y5-MuiButtonBase-root-MuiButton-root:hover {
-  color: #3c1263 !important;
+.contenedor-de-links {
+  flex: 1; /* Ocupar más espacio */
 }
 
-.inicio-s {
-  border-radius: 50px;
-  width: 240px;
-  background: #3c1263;
-  outline: 1px solid #3c1263;
-}
-
-.inicio-s:hover {
-  border-radius: 50px;
-  width: 240px;
-  color: #3c1263 !important;
-  background: #f6f6f6 !important;
-}
-
-.item-casa {
-  width: 50px;
-  color: #f6f6f6;
-  background: #3c1263;
-  border-radius: 100% !important;
-  height: 50px;
-  box-sizing: border-box;
-}
-
-.item-casaa:hover {
-  cursor: pointer;
-}
-
-.link {
-  height: inherit;
-  width: inherit;
-  padding: 15px;
-  color: #f6f6f6;
-  border-radius: 80px;
-}
-
-.casaa {
-  border-radius: 900px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  height: inherit;
-  width: inherit;
-}
-
-.bi-house-door-fill {
-  position: relative;
-  top: 1px;
-}
-
-.title {
-  position: relative;
-  overflow: hidden;
-}
-
-.title h1 {
-  font-size: 48px;
-  color: transparent;
-  background: linear-gradient(180deg, #3c1263, #7036ab);
-  background-size: 100% 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: animateBubbles 5s infinite;
-}
-
-@keyframes animateBubbles {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 0 -200%;
-  }
-}
-
-/* Estilo de la imagen de login */
-#logo-login {
-  width: 400px;
+/* Estilo para el contenedor de la imagen en login */
+.contenedor-img-login {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -280%);
+  transform: translate(-50%, -200%);
+  z-index: 100;
 }
 
-
-
-/* Estilo para los enlaces con la clase "custom-link" para que parezcan botones */
-.custom-link {
-  display: inline-block;
-  color: #3c1263;
-  text-decoration: none;
-  border-radius: 5px;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+/* Estilo para la imagen */
+.img-login {
+  width: 500px;
+  height: 300px;
 }
 
-.custom-link:hover {
-  transform: scale(1.05);
-  /* Cambiar el tamaño al pasar el mouse */
+/* Estilo para el contenedor de links */
+.contenedor-de-links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; /* Distribuir el espacio de forma equitativa */
+  align-items: center; /* Centrado horizontal */
 }
 
-.contraseña-item {
+/* Link de olvidar contraseña */
+.link-olvContra {
+  width: 100%;
+  margin-left: 40px;
+}
+
+/* Link para ir al registro */
+.link-noCuenta {
+  width: 100%;
+  margin-left: 40px;
+}
+
+/* Estilo del boton en login */
+.contenedor-btn-iniciarSesion .buttons {
+  background: #2c0757;
+  color: #fff;
+  border: 1px solid #fff !important;
+  width: 150px !important;
   position: relative;
-  left: 4px;
+  top: 14px;
 }
 
+.contenedor-btn-iniciarSesion .buttons:hover {
+  background: #fff;
+  color: #2c0757;
+  border: 1px solid #2c0757 !important;
+}
 
-@media screen and (max-width: 720px) {
+/* Estilompara el icono de la casa */
+.icono-casa {
+  background: #2c0757;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
 
-  .padree {
-    width: 460px !important
+.icono-casa:hover {
+  background: #fff;
+  border: 1px solid #2c0757;
+  cursor: pointer;
+}
+
+.icono-casa:hover .bi {
+  color: #2c0757;
+}
+
+.bi {
+  margin-top: 10px;
+  color: #fff;
+}
+
+/* Diseño responsivo */
+@media (max-width: 770px) {
+
+  .contenedor-login-hijo {
+    width: 550px;
+    height: 500px;
+  }
+
+  .ones{
+    width: 640px;
+    height: 420px;
   }
 
   .twos {
-    width: 530px !important
-  }
-
-  .ones {
-    width: 600px !important;
-
-  }
-}
-
-@media screen and (max-width: 610px) {
-
-  .padree {
-    width: 400px !important
-  }
-
-  .twos {
-    width: 480px !important
-  }
-
-  .ones {
-    width: 550px !important;
-
-  }
-
-}
-
-@media screen and (max-width: 560px) {
-
-  .padree {
-    width: 340px !important
-  }
-
-  .twos {
-    width: 420px !important
-  }
-
-  .ones {
-    width: 490px !important;
-
-  }
-
-}
-
-@media screen and (max-width: 500px) {
-
-  .padree {
-    width: 310px !important
-  }
-
-  .twos {
-    width: 390px !important
-  }
-
-  .ones {
-    width: 460px !important;
-
+    width: 720px;
+    height: 340px;
   }
 
 }
 
-@media (max-width: 460px) {
+@media (max-width: 730px) {
 
-  body {
-    background: #fff;
+  .contenedor-login-hijo {
+    width: 500px;
+    height: 500px;
   }
 
-  .padree {
-    width: 100% !important;
-    background-color: #fff;
-    box-shadow: none !important;
-    margin-top: 180px;
+  .ones{
+    width: 600px;
+    height: 420px;
   }
 
   .twos {
-    display: none;
+    width: 680px;
+    height: 340px;
   }
 
-  .ones {
-    display: none;
+}
+
+@media (max-width: 690px) {
+
+  .contenedor-login-hijo {
+    width: 460px;
+    height: 500px;
   }
 
-  #logo-login {
-    width: 300px !important;
-    border-radius: 20px;
+  .ones{
+    width: 560px;
+    height: 420px;
   }
 
-  #imagenes {
-    background: #3c1263;
-    margin-top: 2px;
-    height: 150px !important;
-    width: 460px !important;
+  .twos {
+    width: 640px;
+    height: 340px;
   }
 
-  .title-bienvenido {
-    position: relative;
-    top: -20px;
-    font-size: 40px;
+}
+
+@media (max-width: 650px) {
+
+  .contenedor-login-hijo {
+    width: 420px;
+    height: 500px;
   }
 
+  .ones{
+    width: 520px;
+    height: 420px;
+  }
+
+  .twos {
+    width: 600px;
+    height: 340px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .contenedor-login-hijo {
+    width: 380px;
+    height: 500px;
+  }
+
+  .ones{
+    width: 480px;
+    height: 420px;
+  }
+
+  .twos {
+    width: 560px;
+    height: 340px;
+  }
+
+}
+
+@media (max-width: 570px) {
+
+  .contenedor-login-hijo {
+    width: 320px;
+    height: 500px;
+  }
+
+  .ones{
+    width: 400px;
+    height: 420px;
+  }
+
+  .twos {
+    width: 460px;
+    height: 340px;
+  }
 
 }
