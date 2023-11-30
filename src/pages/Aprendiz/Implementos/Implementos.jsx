@@ -115,7 +115,7 @@ export default function Implementos(){
               .map((implemento) => (
                 <div className="card" key={implemento.id}>
                   <Card_Implementos
-                    imagen={prueba}
+                    imagen={implemento.img}
                     textoAlt={implemento.nombre}
                     titulo={implemento.nombre.toUpperCase()}
                     descripcion={[

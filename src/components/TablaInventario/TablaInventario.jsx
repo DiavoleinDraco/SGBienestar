@@ -41,7 +41,9 @@ import Snackbar from "@mui/material/Snackbar";
 import Options from "../Options/Options";
 import BasicAccordion from "../BasicAccordion/BasicAccordion";
 import Dialogos from "../Dialogos/Dialogos";
-import "./TablaInventario.css";
+import Textfield from './../Textfield/Textfield'
+import './TablaInventario.css'
+import Img from "../Subir_img/Img";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -133,10 +135,11 @@ export default function TablaInventario() {
   const [selectedEstado, setSelectedEstado] = useState(null);
   const [aptoValues, setAptoValues] = useState([]);
   const [crearImplemento, setCrearImplemento] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [newImplemento, setNewImplemento] = useState({
     codigo: "",
     nombre: "",
-    marca: [],
+    marca: "",
     descripcion: {
       peso: "",
       color: "",
@@ -146,7 +149,7 @@ export default function TablaInventario() {
     },
     categoria: [],
     cantidad: 0,
-    img: "null",
+    img: "",
     estado: [],
   });
 
@@ -347,16 +350,10 @@ export default function TablaInventario() {
           <BasicAccordion
             titulo={"Crear"}
             contenido={
-              <div className="cont-boton">
-                <button className="boton" onClick={createCategoriaClick}>
-                  Categoría
-                </button>
-                <button className="boton" onClick={createEstadoClick}>
-                  Estado
-                </button>
-                <button className="boton" onClick={createMarcaClick}>
-                  Marca
-                </button>
+              <div>
+                <button onClick={createCategoriaClick}>Categoría</button>
+                <button onClick={createEstadoClick}>Estado</button>
+                <button onClick={createMarcaClick}>Marca</button>
               </div>
             }
           />
@@ -369,16 +366,10 @@ export default function TablaInventario() {
           <BasicAccordion
             titulo={"Eliminar"}
             contenido={
-              <div className="cont-boton">
-                <button className="boton" onClick={eliminarCatClick}>
-                  Categoría
-                </button>
-                <button className="boton" onClick={eliminarEstadoClick}>
-                  Estado
-                </button>
-                <button className="boton" onClick={eliminarMarcaClick}>
-                  Marca
-                </button>
+              <div>
+                <button onClick={eliminarCatClick}>Categoría</button>
+                <button onClick={eliminarEstadoClick}>Estado</button>
+                <button onClick={eliminarMarcaClick}>Marca</button>
               </div>
             }
           />
@@ -397,7 +388,7 @@ export default function TablaInventario() {
       });
   }, [reloadData]);
 
-  const handleCategoriaFormSubmit = (selectedCategoria) => {
+   const handleCategoriaFormSubmit = (selectedCategoria) => {
     const selectedCategoriaOption = selectedIdCat.find(
       (option) => option.label === selectedCategoria
     );
@@ -475,7 +466,6 @@ export default function TablaInventario() {
     }
   };
 
- 
   const handleChangeRadio = (event, index) => {
     const newAptoValues = event.target.value === "true"; // Convertir el valor a un booleano
     setAptoValues((prevAptoValues) => {
@@ -500,34 +490,31 @@ export default function TablaInventario() {
       }
     });
   };
-
   const handleCantidadChange = (event, index) => {
-    const newCantidad = parseInt(event.target.value);
-
-    if (!isNaN(newCantidad) && newCantidad !== "") {
-      console.log("in the cant: ", aptoValues[index]);
-
+    const newCantidad = event.target.value;
+  
+    if (!isNaN(newCantidad) || newCantidad === "") {
       setNewImplemento((prevImplemento) => {
         const updatedEstado = [...prevImplemento.estado];
-
+  
         if (updatedEstado[index]) {
           // Si existe, actualizamos la cantidad
-          updatedEstado[index].cantidad = newCantidad;
+          updatedEstado[index].cantidad = newCantidad === "" ? "" : parseInt(newCantidad);
         } else {
           updatedEstado[index] = {
             estado: selectedEstado, // Ajusta esto según tu lógica
-            cantidad: newCantidad,
+            cantidad: newCantidad === "" ? "" : parseInt(newCantidad),
             apto: false, // Establecemos a false por defecto
           };
         }
-
+  
         return {
           ...prevImplemento,
           estado: updatedEstado,
         };
       });
     } else {
-      console.error("La cantidad no es un número válido o está vacía.");
+      console.error("La cantidad no es un número válido.");
     }
   };
 
@@ -567,7 +554,7 @@ export default function TablaInventario() {
       const selectedInfoEstado = selectedEstadoOption.value;
       setSelectedEstado(selectedInfoEstado);
       setEst(selectedInfoEstado);
-      setExtraerEstado(selectedEstad)
+      setExtraerEstado(selectedEstad);
       console.log("el aptovalues que se guarda es: ", aptoValues[index]);
 
       setNewImplemento((prevNewImplemento) => {
@@ -639,6 +626,19 @@ export default function TablaInventario() {
     setOpenSanck(false);
   };
 
+  const handleImageChange = async (imageUrl) => {
+    setSelectedImage(imageUrl);
+    await setNewImplemento((prevImplemento) => {
+      const updatedImplemento = {
+        ...prevImplemento,
+        img: imageUrl,
+      };
+      console.log("Nuevo estado de implemento:", updatedImplemento);
+      return updatedImplemento;
+    });
+  };
+  
+
   const handleCreateImplementoSubmit = async (_id) => {
     if (
       !newImplemento.estado ||
@@ -662,6 +662,26 @@ export default function TablaInventario() {
       return;
     }
 
+    const requiredFields = ['codigo', 'nombre', 'marca', 'descripcion', 'categoria', 'cantidad', 'img', 'estado'];
+  for (const field of requiredFields) {
+    if (field === 'descripcion') {
+      const descripcionObj = newImplemento[field];
+      if (!descripcionObj || Object.values(descripcionObj).some(value => value === null || value === undefined || value === '')) {
+        console.error(`El campo '${field}' no puede estar vacío`);
+        setErrorMensaje(`Completa todos los campos`);
+        setOpenSanck(true);
+        return;
+      }
+    } else {
+      if (!newImplemento[field] || newImplemento[field].toString().trim() === '') {
+        console.error(`El campo '${field}' no puede estar vacío`);
+        setErrorMensaje(`Completa todos los campos`);
+        setOpenSanck(true);
+        return;
+      }
+    }
+  }
+
     const data = {
       codigo: newImplemento.codigo,
       nombre: newImplemento.nombre,
@@ -674,27 +694,8 @@ export default function TablaInventario() {
     };
     console.log("INFO DE NUEVOS IMPLEMENTOS", data);
 
-    const requiredFields = ['codigo', 'nombre', 'marca', 'descripcion', 'categoria', 'cantidad', 'img', 'estado'];
-    for (const field of requiredFields) {
-      if (field === 'descripcion') {
-        const descripcionObj = newImplemento[field];
-        if (!descripcionObj || Object.values(descripcionObj).some(value => value === null || value === undefined || value === '')) {
-          console.error(`El campo '${field}' no puede estar vacío`);
-          setErrorMensaje(`Completa todos los campos`);
-          setOpenSanck(true);
-          return;
-        }
-      } else {
-        if (!newImplemento[field] || newImplemento[field].toString().trim() === '') {
-          console.error(`El campo '${field}' no puede estar vacío`);
-          setErrorMensaje(`Completa todos los campos`);
-          setOpenSanck(true);
-          return;
-        }
-      }
-    }
 
-     try {
+    try {
       const response = await post("/implementos", data);
       console.log("Se ha creado un implemento con éxito", response);
       const newImplemento = response; // Reemplaza con la estructura real de la respuesta del servidor
@@ -702,7 +703,7 @@ export default function TablaInventario() {
       setImplementos(updatedImplementos);
       // Cierra el diálogo de creación de implemento
       handleCreateImplementoClose();
-    window.location.reload()
+      window.location.reload()
     } catch (error) {
       console.error("Error en la solicitud: ", error);
     }
@@ -744,8 +745,7 @@ export default function TablaInventario() {
                   : null
               ) || [];
           }
-
-           return {
+          return {
             ...item,
             id: item._id,
             nombre: item.nombre,
@@ -1047,7 +1047,7 @@ export default function TablaInventario() {
         nombre="Más"
         menuItems={menuItems}
         filter={
-          <div className="filter">
+          <div>
             <Popover
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
@@ -1060,18 +1060,7 @@ export default function TablaInventario() {
               </div>
             </Popover>
             <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
-              <i class="bi bi-filter"></i>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                class="bi bi-filter"
-                viewBox="0 0 16 16"
-              >
-                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-              </svg>{" "}
-              Filtrar
+              <FilterListIcon /> Filtrar
             </IconButton>
           </div>
         }
@@ -1190,7 +1179,7 @@ export default function TablaInventario() {
         hacer="Crear"
       />
 
-<Dialogos
+        <Dialogos
         opener={openEditer}
         closer={handleCloseDialogEditer}
         handle={actualizarPatch}
@@ -1198,6 +1187,7 @@ export default function TablaInventario() {
         titulo="MODIFICAR IMPLEMENTO"
         contenido={
           <div>
+           
             <TextField
               label="Codigo"
               value={
@@ -1229,9 +1219,11 @@ export default function TablaInventario() {
                         getOptionLabel={(option) => option.label}
                         inicial={implementoSeleccionado.estado[index]}
                       />
+
+                      
                       <TextField
                         label="Cantidad Estado"
-                        type="number"
+                        type="text"
                         value={
                           implementoSeleccionado.cantidadEstado[index] || ""
                         }
@@ -1243,6 +1235,7 @@ export default function TablaInventario() {
                           )
                         }
                       />
+
 
                       <div>
                         <FormLabel id="demo-controlled-radio-buttons-group">
@@ -1377,7 +1370,7 @@ export default function TablaInventario() {
                       />
                       <TextField
                         label="Cantidad Estado"
-                        type="number"
+                        type="text"
                         name="cantidad"
                         value={newImplemento.estado[index]?.cantidad || ""}
                         onChange={(e) => handleCantidadChange(e, index)}
@@ -1523,6 +1516,7 @@ export default function TablaInventario() {
                 })
               }
             />
+            <Img onChangeImage={handleImageChange}/>
           </form>
         </DialogContent>
         <DialogActions>
