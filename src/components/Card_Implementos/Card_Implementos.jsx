@@ -17,7 +17,7 @@ export default function Card_Implementos({ textoAlt, imagen, titulo, descripcion
         <CardMedia
           component="img"
           height="195"
-          image={"https://i.pinimg.com/564x/40/69/a7/4069a7b2c24fa0847352fa9e55a07a8d.jpg"}
+          image={imagen}
           alt={textoAlt}
         />
         <CardContent className='cardCont'>
