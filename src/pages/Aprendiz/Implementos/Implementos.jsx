@@ -78,6 +78,21 @@ export default function Implementos(){
     console.log(almacenar)
 
     const handleSelectImplemento = (implemento) => {
+
+      if (implemento.apto === false) {
+        // Mostrar Snackbar indicando que el implemento no es apto
+        setErrorMensaje('El implemento no es apto para ser seleccionado.');
+        setOpen(true);
+        return;
+      }
+
+      if (implemento.sanciones === true) {
+        // Mostrar Snackbar indicando que el implemento no es apto
+        setErrorMensaje('No se puede hacer la solicitud de préstamo, porque usted tiene una sanción activa');
+        setOpen(true);
+        return;
+      }
+
       setImplementosSeleccionados((prevSelected) => {
         const isSelected = prevSelected.some((item) => item.id === implemento.id);
     
@@ -86,9 +101,7 @@ export default function Implementos(){
           return prevSelected.filter((item) => item.id !== implemento.id);
         }
     
-        if (almacenar.privilegio === 1 && almacenar.privilegio === 2 && prevSelected.length >= 1) {
-          
-        } else if (almacenar.privilegio === 3 && prevSelected.length >= 1){
+        if (almacenar.privilegio === 3 && prevSelected.length >= 1){
           setErrorMensaje('Solo puedes seleccionar un implemento.');
           setOpen(true);
           return prevSelected;
@@ -107,8 +120,6 @@ export default function Implementos(){
       });
     };
   
-  
-
       const renderImplementosPorCategoria = (categoria) => (
         <div>
          <h3 className="categoria">{categoria === 'N/A' ? 'OTROS' : categoria.toUpperCase()}</h3>
@@ -132,7 +143,7 @@ export default function Implementos(){
                     ]}
                     chip={<div className="disponible">
                         <Stack className="disponi" direction="row" spacing={1}>
-                            <Chip label={`Disponible: ${implemento.cantidad}`} />
+                            <Chip label={`Disponible: ${implemento.cantidad_disponible}`} />
                         </Stack>
 
                         <Almacenar_Imple
@@ -152,8 +163,6 @@ export default function Implementos(){
           </ul>
         </div>
       );
-
-      
 
       const handlePrestarClick = () => {
         // Verificar si alguna cantidad es igual a cero
@@ -186,9 +195,6 @@ export default function Implementos(){
           setImplementosSeleccionados(implementosAprestar);
         }
       }, []);
-    
-
-
   
       const tabs = [
           {
@@ -208,7 +214,6 @@ export default function Implementos(){
             value: '2',
             content: renderImplementosPorCategoria('Gimnasio'),
           },
-          
       ];
   
       return (
@@ -246,7 +251,6 @@ export default function Implementos(){
             >PRESTAR</Button> 
           </span>
         )}
-            
           </div>
       
         <Stack className="imple">

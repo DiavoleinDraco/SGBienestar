@@ -41,7 +41,7 @@ export default function Img({ onChangeImage }) {
   return (
     <div style={{ width: '500px' }}>
       <Upload {...props}>
-        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+        <Button icon={<UploadOutlined />}>SELECCIONAR IMAGEN</Button>
       </Upload>
       {selectedImage && <img src={selectedImage} alt="Selected" style={{ marginTop: '10px', maxWidth: '100%' }} />}
     </div>

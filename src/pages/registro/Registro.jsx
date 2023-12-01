@@ -60,16 +60,31 @@ export default function Registro() {
     setAceptoTerminos(value);
   };
 
-  let updatedInfo = null;
-  const handleChange = (fieldName, fieldValue) => {
-    setInfo((prevInfo) => {
-      updatedInfo = { ...prevInfo, [fieldName]: fieldValue };
-      return updatedInfo;
-    });
-    setErrors((prevErrors) => {
-      return { ...prevErrors, [fieldName]: "" };
-    });
+  const capitalizeFirstLetter = (value) => {
+    return value
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
   };
+  
+  const handleChange = (fieldName, fieldValue) => {
+    let formattedValue = fieldValue.trim();
+  
+     if (fieldName !== 'contrasena' && (fieldName === 'correo_inst' || fieldName === 'correo_pers')) {
+      // Para otros campos (excepto contrasena), aplicar la capitalización de la primera letra de cada palabra
+      formattedValue = capitalizeFirstLetter(formattedValue);
+    }
+  
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      [fieldName]: formattedValue,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [fieldName]: "",
+    }));
+  };
+  
 
   const validarCamposObligatorios = () => {
     const camposObligatorios = [
@@ -133,6 +148,7 @@ export default function Registro() {
         throw new Error(emailValidationMessage);
       }
 
+
       info["pps"] = true;
       const response = await post("/registro", info);
       const idNewUser = await getParametre(
@@ -152,6 +168,8 @@ export default function Registro() {
       setErrorMensaje(error.message);
     }
   };
+  
+  console.log(info)
 
   useEffect(() => {
     if (fichas.length > 0 && eps.length > 0 && rol.length > 0) {

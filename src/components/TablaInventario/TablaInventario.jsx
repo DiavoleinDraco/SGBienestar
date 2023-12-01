@@ -41,8 +41,8 @@ import Snackbar from "@mui/material/Snackbar";
 import Options from "../Options/Options";
 import BasicAccordion from "../BasicAccordion/BasicAccordion";
 import Dialogos from "../Dialogos/Dialogos";
-import Textfield from './../Textfield/Textfield'
-import './TablaInventario.css'
+import Textfield from "./../Textfield/Textfield";
+import "./TablaInventario.css";
 import Img from "../Subir_img/Img";
 
 const Search = styled("div")(({ theme }) => ({
@@ -136,6 +136,7 @@ export default function TablaInventario() {
   const [aptoValues, setAptoValues] = useState([]);
   const [crearImplemento, setCrearImplemento] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imagenes, setImagenes] = useState(null);
   const [newImplemento, setNewImplemento] = useState({
     codigo: "",
     nombre: "",
@@ -348,22 +349,6 @@ export default function TablaInventario() {
       label: (
         <div>
           <BasicAccordion
-            titulo={"Crear"}
-            contenido={
-              <div>
-                <button onClick={createCategoriaClick}>Categoría</button>
-                <button onClick={createEstadoClick}>Estado</button>
-                <button onClick={createMarcaClick}>Marca</button>
-              </div>
-            }
-          />
-        </div>
-      ),
-    },
-    {
-      label: (
-        <div>
-          <BasicAccordion
             titulo={"Eliminar"}
             contenido={
               <div>
@@ -388,7 +373,7 @@ export default function TablaInventario() {
       });
   }, [reloadData]);
 
-   const handleCategoriaFormSubmit = (selectedCategoria) => {
+  const handleCategoriaFormSubmit = (selectedCategoria) => {
     const selectedCategoriaOption = selectedIdCat.find(
       (option) => option.label === selectedCategoria
     );
@@ -492,14 +477,15 @@ export default function TablaInventario() {
   };
   const handleCantidadChange = (event, index) => {
     const newCantidad = event.target.value;
-  
+
     if (!isNaN(newCantidad) || newCantidad === "") {
       setNewImplemento((prevImplemento) => {
         const updatedEstado = [...prevImplemento.estado];
-  
+
         if (updatedEstado[index]) {
           // Si existe, actualizamos la cantidad
-          updatedEstado[index].cantidad = newCantidad === "" ? "" : parseInt(newCantidad);
+          updatedEstado[index].cantidad =
+            newCantidad === "" ? "" : parseInt(newCantidad);
         } else {
           updatedEstado[index] = {
             estado: selectedEstado, // Ajusta esto según tu lógica
@@ -507,7 +493,7 @@ export default function TablaInventario() {
             apto: false, // Establecemos a false por defecto
           };
         }
-  
+
         return {
           ...prevImplemento,
           estado: updatedEstado,
@@ -626,6 +612,17 @@ export default function TablaInventario() {
     setOpenSanck(false);
   };
 
+  useEffect(() => {
+    get("/load-image/listar")
+      .then((data) => {
+        setImagenes(data);
+        console.log("imagenes?: ", data);
+      })
+      .catch((error) => {
+        console.log("Error al encontrar las imagenes", error);
+      });
+  }, []);
+
   const handleImageChange = async (imageUrl) => {
     setSelectedImage(imageUrl);
     await setNewImplemento((prevImplemento) => {
@@ -637,7 +634,6 @@ export default function TablaInventario() {
       return updatedImplemento;
     });
   };
-  
 
   const handleCreateImplementoSubmit = async (_id) => {
     if (
@@ -662,25 +658,42 @@ export default function TablaInventario() {
       return;
     }
 
-    const requiredFields = ['codigo', 'nombre', 'marca', 'descripcion', 'categoria', 'cantidad', 'img', 'estado'];
-  for (const field of requiredFields) {
-    if (field === 'descripcion') {
-      const descripcionObj = newImplemento[field];
-      if (!descripcionObj || Object.values(descripcionObj).some(value => value === null || value === undefined || value === '')) {
-        console.error(`El campo '${field}' no puede estar vacío`);
-        setErrorMensaje(`Completa todos los campos`);
-        setOpenSanck(true);
-        return;
-      }
-    } else {
-      if (!newImplemento[field] || newImplemento[field].toString().trim() === '') {
-        console.error(`El campo '${field}' no puede estar vacío`);
-        setErrorMensaje(`Completa todos los campos`);
-        setOpenSanck(true);
-        return;
+    const requiredFields = [
+      "codigo",
+      "nombre",
+      "marca",
+      "descripcion",
+      "categoria",
+      "cantidad",
+      "img",
+      "estado",
+    ];
+    for (const field of requiredFields) {
+      if (field === "descripcion") {
+        const descripcionObj = newImplemento[field];
+        if (
+          !descripcionObj ||
+          Object.values(descripcionObj).some(
+            (value) => value === null || value === undefined || value === ""
+          )
+        ) {
+          console.error(`El campo '${field}' no puede estar vacío`);
+          setErrorMensaje(`Completa todos los campos`);
+          setOpenSanck(true);
+          return;
+        }
+      } else {
+        if (
+          !newImplemento[field] ||
+          newImplemento[field].toString().trim() === ""
+        ) {
+          console.error(`El campo '${field}' no puede estar vacío`);
+          setErrorMensaje(`Completa todos los campos`);
+          setOpenSanck(true);
+          return;
+        }
       }
     }
-  }
 
     const data = {
       codigo: newImplemento.codigo,
@@ -694,7 +707,6 @@ export default function TablaInventario() {
     };
     console.log("INFO DE NUEVOS IMPLEMENTOS", data);
 
-
     try {
       const response = await post("/implementos", data);
       console.log("Se ha creado un implemento con éxito", response);
@@ -703,7 +715,7 @@ export default function TablaInventario() {
       setImplementos(updatedImplementos);
       // Cierra el diálogo de creación de implemento
       handleCreateImplementoClose();
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       console.error("Error en la solicitud: ", error);
     }
@@ -852,14 +864,11 @@ export default function TablaInventario() {
     } else if (campo === "tamano") {
       setExtraerTamano(valor);
     } else if (campo === "cantidadEstado") {
-      // Parsea el valor a un número
-      const cantidadEstadoNumerico = parseInt(valor, 10);
-
       // Asegúrate de que el valor sea un número válido
-      if (!isNaN(cantidadEstadoNumerico)) {
+      if (!isNaN(valor) || valor === "") {
         setImplementoSeleccionado((prevImplemento) => {
           const nuevaCantidadEstado = [...prevImplemento.cantidadEstado];
-          nuevaCantidadEstado[index] = cantidadEstadoNumerico;
+          nuevaCantidadEstado[index] = valor === "" ? 0 : parseInt(valor, 10);
           const total = nuevaCantidadEstado.reduce(
             (acc, cantidad) => acc + cantidad,
             0
@@ -871,6 +880,8 @@ export default function TablaInventario() {
             cantidad: total,
           };
         });
+      } else {
+        console.error("La cantidad no es un número válido.");
       }
     } else {
       // Para otros campos, actualiza el estado general de implementoSeleccionado
@@ -1179,7 +1190,7 @@ export default function TablaInventario() {
         hacer="Crear"
       />
 
-        <Dialogos
+      <Dialogos
         opener={openEditer}
         closer={handleCloseDialogEditer}
         handle={actualizarPatch}
@@ -1187,7 +1198,6 @@ export default function TablaInventario() {
         titulo="MODIFICAR IMPLEMENTO"
         contenido={
           <div>
-           
             <TextField
               label="Codigo"
               value={
@@ -1220,7 +1230,6 @@ export default function TablaInventario() {
                         inicial={implementoSeleccionado.estado[index]}
                       />
 
-                      
                       <TextField
                         label="Cantidad Estado"
                         type="text"
@@ -1235,7 +1244,6 @@ export default function TablaInventario() {
                           )
                         }
                       />
-
 
                       <div>
                         <FormLabel id="demo-controlled-radio-buttons-group">
@@ -1352,6 +1360,18 @@ export default function TablaInventario() {
                 setNewImplemento({ ...newImplemento, nombre: e.target.value })
               }
             />
+            <div>
+          <BasicAccordion
+            titulo={"CREAR"}
+            contenido={
+              <div>
+                <button onClick={createCategoriaClick}>Categoría</button>
+                <button onClick={createEstadoClick}>Estado</button>
+                <button onClick={createMarcaClick}>Marca</button>
+              </div>
+            }
+          />
+        </div>
             <div className="cont-estado">
               {Array.from({ length: additionalInfoCount }).map((_, index) => (
                 <BasicAccordion
@@ -1516,7 +1536,7 @@ export default function TablaInventario() {
                 })
               }
             />
-            <Img onChangeImage={handleImageChange}/>
+            <Img onChangeImage={handleImageChange} />
           </form>
         </DialogContent>
         <DialogActions>
