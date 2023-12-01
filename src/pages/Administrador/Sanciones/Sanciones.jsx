@@ -25,8 +25,6 @@ import HistorialSanciones from "../../../components/HistorialSanciones/Historial
 import { useLocation } from "react-router-dom";
 import React, { useEffect } from "react";
 import { style } from "@mui/system";
-// importacion de la imagen para el diseño.
-import imagen from "./png.jpg";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -206,16 +204,6 @@ export default function Sanciones() {
       <Menu></Menu>
 
       <div className="sanciones-div">
-        <div className="title-sanciones">
-          <div className="ti-san-hi">
-            <p className="title-san">
-              <b>
-                {" "}
-                Apartado de <br /> Sanciones{" "}
-              </b>
-            </p>
-          </div>
-        </div>
         <div
           className="imagen-sanciones-container"
           style={{ background: "#2c0757" }}

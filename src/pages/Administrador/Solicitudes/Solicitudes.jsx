@@ -11,8 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import get, { actualizar, getParametre, post } from "../../../UseFetch";
 import "./Solicitudes.css";
-// importacion de la imagen para el diseño.
-import imagen from "./png.jpg";
+
 
 export default function BasicTable() {
   const [tableData, setTableData] = useState([]);
@@ -27,6 +26,8 @@ export default function BasicTable() {
   const [IdRetrasado, setIdRetrasado] = useState("");
   const [filter, setFilter] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  //filtro de botones el la tabla para CSS
+  const [activeFilter, setActiveFilter] = useState(null);
 
   const ESTADO_APROBADO = "Aprobado";
   const ESTADO_RECHAZADO = "Rechazado";
@@ -281,17 +282,6 @@ export default function BasicTable() {
       <Menu></Menu>
 
       <div className="contenedor-table-solicitudes">
-
-        <div className="contenedor-TitleSoli">
-          <h2 className="TitleSoli">
-            Apartado de <br /> Solicitudes
-          </h2>
-        </div>
-        <div
-          className="imagen-sanciones-container"
-          style={{ background: "#2c0757" }}
-        >
-        </div>
         <TableContainer className="cont-table-solicitudes" component={Paper}>
           <div
             style={{
@@ -301,14 +291,11 @@ export default function BasicTable() {
               top: 0,
               zIndex: 100,
             }}
-
-
-
-
             className="btncont"
           >
 
             <input
+              className="barra-busqueda-soli"
               type="text"
               placeholder="Buscar..."
               onChange={handleSearch}
@@ -318,65 +305,88 @@ export default function BasicTable() {
 
 
             <Button
-              className="boton-solicitudes"
+              className={`boton-solicitudes ${activeFilter === "pendientes" ? "active" : ""}`}
               variant="contained"
-              onClick={() => setFilter("pendientes")}
+              onClick={() => {
+                setFilter("pendientes");
+                setActiveFilter("pendientes");
+              }}
             >
               Pendientes
             </Button>
             <Button
-              className="boton-solicitudes"
+              className={`boton-solicitudes ${activeFilter === "aprobado" ? "active" : ""}`}
               variant="contained"
-              onClick={() => setFilter("aprobado")}
+              onClick={() => {
+                setFilter("aprobado")
+                setActiveFilter("aprobado");
+              }}
             >
               Aprobado
             </Button>
 
             <Button
-              className="boton-solicitudes"
+              className={`boton-solicitudes ${activeFilter === "retrasado" ? "active" : ""}`}
               variant="contained"
-              onClick={() => setFilter("retrasado")}
+              onClick={() => {
+                setFilter("retrasado")
+                setActiveFilter("retrasado");
+              }}
             >
               Retrasado
             </Button>
 
             <Button
-              className="boton-solicitudes"
+              className={`boton-solicitudes ${activeFilter === "fallidas" ? "active" : ""}`}
               variant="contained"
-              onClick={() => setFilter("fallidas")}
+              onClick={() => {
+                setFilter("fallidas")
+                setActiveFilter("fallidas");
+              }}
             >
               Fallidas
             </Button>
 
             <Button
-              className="boton-solicitudes"
+              className={`boton-solicitudes ${activeFilter === "rechazadas" ? "active" : ""}`}
               variant="contained"
-              onClick={() => setFilter("rechazadas")}
-
+              onClick={() => {
+                setFilter("rechazadas")
+                setActiveFilter("rechazadas");
+              }}
             >
               Rechazadas
             </Button>
 
             <Button
-              className="boton-solicitudes"
+              className={`boton-solicitudes ${activeFilter === "completados" ? "active" : ""}`}
               variant="contained"
-              onClick={() => setFilter("completados")}
+              onClick={() => {
+                setFilter("completados")
+                setActiveFilter("completados");
+              }}
             >
               Completados
             </Button>
 
             <Button
-              className="boton-solicitudes"
+              className={`boton-solicitudes ${activeFilter === "perdido" ? "active" : ""}`}
               variant="contained"
-              onClick={() => setFilter("perdido")}
+              onClick={() => {
+                setFilter("perdido")
+                setActiveFilter("perdido");
+              }}
             >
               Perdido
             </Button>
 
             <Button
-              className="boton-solicitudes"
+              className={`boton-solicitudes ${activeFilter === null ? "active" : ""}`}
               variant="contained"
-              onClick={() => setFilter(null)}
+              onClick={() => {
+                setFilter(null)
+                setActiveFilter(null);
+              }}
             >
               Todos
             </Button>

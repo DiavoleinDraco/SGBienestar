@@ -35,15 +35,15 @@
 .contenedor-tabla-sanciones {
   max-height: 80vh;
   overflow-y: auto;
-  width: 90% !important;
-  height: 90% !important;
+  width: 100% !important;
+  min-height: 91% !important;
   margin-top: 40px;
   border-radius: 10px 10px 0 0;
   background: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -45%);
+  transform: translate(-50%, -51.2%);
 }
 
 /* Estio del dialogo */
@@ -108,17 +108,6 @@
 .pregunta {
   font-size: 15px !important;
   margin-top: 15px !important;
-}
-
-/* Estilo para la imagen de sanciones */
-.imagen-sanciones-container {
-  width: 100% !important;
-  height: 50% !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -90%);
-  z-index: -100;
 }
 
 /* Estilo para el modal de sanciones */
