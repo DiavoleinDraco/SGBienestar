@@ -147,7 +147,7 @@ export default function Implementos(){
                         </Stack>
 
                         <Almacenar_Imple
-                          cantidadDisponible={implemento.cantidad}
+                          cantidadDisponible={implemento.cantidad_disponible}
                           onCountChange={(newCount) => {
                             handleCountChange(implemento.id, newCount);
                           }}
