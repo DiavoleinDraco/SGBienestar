@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import Menu from '../../../components/menu/Menu';
-import Textfield from '../../../components/Textfield/Textfield';
+import React, { useState } from "react";
+import Menu from "../../../components/menu/Menu";
+import Textfield from "../../../components/Textfield/Textfield";
+import "./Ajustes.css";
 
 export default function Ajustes() {
     const [editMode, setEditMode] = useState({
@@ -10,15 +11,15 @@ export default function Ajustes() {
     });
 
     const [values, setValues] = useState({
-        nuevaEPS: '',
-        tiempoSancion: '',
-        tiempoPrestamo: '',
+        nuevaEPS: "",
+        tiempoSancion: "",
+        tiempoPrestamo: "",
     });
 
     const [initialValues, setInitialValues] = useState({
-        nuevaEPS: '',
-        tiempoSancion: '',
-        tiempoPrestamo: '',
+        nuevaEPS: "",
+        tiempoSancion: "",
+        tiempoPrestamo: "",
     });
 
     const handleInputChange = (e, adjustmentType) => {
@@ -61,72 +62,100 @@ export default function Ajustes() {
     };
 
     return (
-        <div >
+        <div className="padre-ajustes">
             <Menu />
-            <h1 style={{ marginTop: '70px' }}>Ajustes del Sistema</h1>
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div>
-                    <p>Agregar una nueva EPS</p>
-                    <Textfield
-                        className="son-codigo"
-                        name="Nueva EPS"
-                        value={values.nuevaEPS}
-                        onChange={(e) => handleInputChange(e, 'nuevaEPS')}
-                        readOnly={!editMode.nuevaEPS}
-                    />
-                    {!editMode.nuevaEPS ? (
-                        <>
-                            <button onClick={() => handleEditClick('nuevaEPS')}>Editar</button>
-                        </>
-                    ) : (
-                        <>
-                            <button onClick={() => handleSaveClick('nuevaEPS')}>Guardar cambios</button>
-                            <button onClick={() => handleDiscardChangesClick('nuevaEPS')}>Descartar cambios</button>
-                        </>
-                    )}
+            <div className="contenedor-principal-ajustes">
+
+                <div className="contenedor-titulo-ajustes">
+                    <h1>Ajustes del Sistema</h1>
                 </div>
+                <div className="contenedor-campos-ajuste">
 
-                <div>
-                    <p>Cambiar el tiempo predeterminado de una sanción</p>
-                    <Textfield
-                        className="son-codigo"
-                        name="Tiempo Sancion"
-                        value={values.tiempoSancion}
-                        onChange={(e) => handleInputChange(e, 'tiempoSancion')}
-                        readOnly={!editMode.tiempoSancion}
-                    />
-                    {!editMode.tiempoSancion ? (
-                        <>
-                            <button onClick={() => handleEditClick('tiempoSancion')}>Editar</button>
-                        </>
-                    ) : (
-                        <>
-                            <button onClick={() => handleSaveClick('tiempoSancion')}>Guardar cambios</button>
-                            <button onClick={() => handleDiscardChangesClick('tiempoSancion')}>Descartar cambios</button>
-                        </>
-                    )}
-                </div>
+                    <div className="contenedor-NuEPS">
+                        <p>Agregar una nueva EPS</p>
+                        <Textfield
+                            className="son-codigo"
+                            name="Nueva EPS"
+                            value={values.nuevaEPS}
+                            onChange={(e) => handleInputChange(e, "nuevaEPS")}
+                            readOnly={!editMode.nuevaEPS}
+                        />
+                        {!editMode.nuevaEPS ? (
+                            <>
+                                <button className="btn-editar" onClick={() => handleEditClick("nuevaEPS")}>
+                                    Editar
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button onClick={() => handleSaveClick("nuevaEPS")}>
+                                    Guardar cambios
+                                </button>
+                                <button onClick={() => handleDiscardChangesClick("nuevaEPS")}>
+                                    Descartar cambios
+                                </button>
+                            </>
+                        )}
+                    </div>
 
-                <div>
-                    <p>Cambiar el tiempo de préstamos</p>
-                    <Textfield
-                        className="son-codigo"
-                        name="Tiempo Prestamo"
-                        value={values.tiempoPrestamo}
-                        onChange={(e) => handleInputChange(e, 'tiempoPrestamo')}
-                        readOnly={!editMode.tiempoPrestamo}
-                    />
-                    {!editMode.tiempoPrestamo ? (
-                        <>
-                            <button onClick={() => handleEditClick('tiempoPrestamo')}>Editar</button>
-                        </>
-                    ) : (
-                        <>
-                            <button onClick={() => handleSaveClick('tiempoPrestamo')}>Guardar cambios</button>
-                            <button onClick={() => handleDiscardChangesClick('tiempoPrestamo')}>Descartar cambios</button>
-                        </>
-                    )}
+                    <div className="contenedor-TiSan">
+                        <p>Cambiar el tiempo predeterminado <br /> de una sanción</p>
+                        <Textfield
+                            className="son-codigo"
+                            name="Tiempo Sancion"
+                            value={values.tiempoSancion}
+                            onChange={(e) => handleInputChange(e, "tiempoSancion")}
+                            readOnly={!editMode.tiempoSancion}
+                        />
+                        {!editMode.tiempoSancion ? (
+                            <>
+                                <button className="btn-editar" onClick={() => handleEditClick("tiempoSancion")}>
+                                    Editar
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button onClick={() => handleSaveClick("tiempoSancion")}>
+                                    Guardar cambios
+                                </button>
+                                <button
+                                    onClick={() => handleDiscardChangesClick("tiempoSancion")}
+                                >
+                                    Descartar cambios
+                                </button>
+                            </>
+                        )}
+                    </div>
+
+                    <div className="contenedor-tiPres">
+                        <p>Cambiar el tiempo de préstamos</p>
+                        <Textfield
+                            className="son-codigo"
+                            name="Tiempo Prestamo"
+                            value={values.tiempoPrestamo}
+                            onChange={(e) => handleInputChange(e, "tiempoPrestamo")}
+                            readOnly={!editMode.tiempoPrestamo}
+                        />
+                        {!editMode.tiempoPrestamo ? (
+                            <>
+                                <button className="btn-editar" onClick={() => handleEditClick("tiempoPrestamo")}>
+                                    Editar
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button onClick={() => handleSaveClick("tiempoPrestamo")}>
+                                    Guardar cambios
+                                </button>
+                                <button
+                                    onClick={() => handleDiscardChangesClick("tiempoPrestamo")}
+                                >
+                                    Descartar cambios
+                                </button>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

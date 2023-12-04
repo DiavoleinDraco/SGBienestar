@@ -206,6 +206,12 @@ export default function Menu() {
 
   };
 
+  const isPopoverOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleMobilePopoverClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -394,6 +400,8 @@ export default function Menu() {
                 <Button onClick={handleCerrarSesion}>Cerrar Sesión</Button>
 
               </Box>
+              
+
             </Popover>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -405,8 +413,32 @@ export default function Menu() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
+            
               <MoreIcon />
+          
             </IconButton>
+            <Popover
+              id="profile-mobile-menu"
+              open={isPopoverOpen}
+              anchorEl={mobileMoreAnchorEl}
+              onClose={handleMobilePopoverClose}
+              anchorOrigin={{
+                vertical: 'bottom',  // Ajusta la posición vertical
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',  // Ajusta la posición vertical
+                horizontal: 'right',
+              }}
+            >
+              <Box sx={{ p: 2 }}>
+                <Button onClick={handlPerfilClik}>Perfil</Button>
+                <Button onClick={handleCerrarSesion}>Cerrar Sesión</Button>
+
+              </Box>
+              
+
+            </Popover>
           </Box>
         </Toolbar>
       </AppBar>
@@ -744,7 +776,8 @@ export default function Menu() {
       <Box component="main" sx={{ position: "relative", width: "200px" }}>
         <DrawerHeader />
       </Box> 
-     </Box>: 
+     </Box>  : 
+     
      <Box sx={{ display: "flex" }}>
         <CssBaseline />
       <AppBar position="fixed" open={open}>
@@ -879,48 +912,12 @@ export default function Menu() {
         </DrawerHeader>
         <Divider />
         <List>
+        
           <ListItem
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/admin/usuarios");
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 3.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                  color: "#ffff",
-                }}
-              >
-                <i className="bi bi-people"></i>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  className="bi bi-people"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" />
-                </svg>
-              </ListItemIcon>
-              <ListItemText primary="Usuarios" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/admin/solicitudes");
+              navigate("/usuarios/implementos");
             }}
           >
             <ListItemButton
@@ -951,7 +948,7 @@ export default function Menu() {
                 </svg>
               </ListItemIcon>
               <ListItemText
-                primary="Solicitudes"
+                primary="Implementos"
                 sx={{ opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
@@ -960,7 +957,7 @@ export default function Menu() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/admin/sanciones");
+              navigate("/usuarios/sanciones");
             }}
           >
             <ListItemButton
@@ -1001,7 +998,7 @@ export default function Menu() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/admin/inventario");
+              navigate("/usuarios/HistorialPrestamosU");
             }}
           >
             <ListItemButton
@@ -1032,100 +1029,20 @@ export default function Menu() {
                 </svg>
               </ListItemIcon>
               <ListItemText
-                primary="Inventario"
+                primary="Prestamos"
                 sx={{ opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
           </ListItem>
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/admin/Mensajes");
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 3.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                  color: "#fff",
-                }}
-              >
-                <i className="bi bi-envelope-plus"></i>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  className="bi bi-envelope-plus"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
-                  <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z" />
-                </svg>
-              </ListItemIcon>
-              <ListItemText
-                primary="Mensajes"
-                sx={{ opacity: open ? 1 : 0, }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/usuarios/Sanciones");
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 3.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                  color: "#fff",
-                }}
-              >
-                <i className="bi bi-file-earmark-text"></i>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  className="bi bi-file-earmark-text"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
-                  <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-                </svg>
-              </ListItemIcon>
-              <ListItemText
-                primary="Informes"
-                sx={{ opacity: open ? 1 : 0, }}
-              />
-            </ListItemButton>
-          </ListItem>
           
-         
+          
+       
+          <Divider />
           <ListItem
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/admin");
+              navigate("/usuarios");
             }}
           >
             <ListItemButton
@@ -1166,6 +1083,8 @@ export default function Menu() {
         <DrawerHeader />
       </Box> 
      </Box> 
+    
+    
 
       }
       

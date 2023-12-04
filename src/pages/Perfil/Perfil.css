@@ -10,43 +10,16 @@ body {
   align-items: center;
   padding: 20px;
   background: fff;
-  width: 1600px;
-  height: 1000px;
+  width: 100% !important;
+  height: 94% !important;
   background-color: #f6f6f6;
-  box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -40%);
-  border-radius: 10px;
+  transform: translate(-50%, -46%);
 }
 
-.fondo-perfil {
-  width: 100%;
-  height: 50%;
-  background: #2c0757;
-  position: absolute;
-}
 
-/* Comntenedor de las letras Apartado de Perfil */
-.cont-title-perfil {
-  z-index: 100;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-420%, -370%);
-}
-
-.perfil-titulo {
-  font-size: 30px;
-  color: #ffffff;
-}
-
-/* Titulo del perfil en el div */
-.title-perfil {
-  font-size: 30px;
-  margin-bottom: 20px;
-}
 
 .contenedor-de-texfields {
   width: 100%;
@@ -106,7 +79,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(50%, -70%);
+  transform: translate(50%, -60%);
 }
 
 .contenedor-img-perfil img {
@@ -128,8 +101,12 @@ body {
   color: #000000 !important;
 }
 
-/* Diseño responsivo de perfil */
+/* Titulo */
+.title-perfil {
+  font-size: 30px;
+}
 
+/* Diseño responsivo de perfil */
 /* Primera parte */
 @media (max-width: 1700px) {
   .contenedor-padre-perfil {
@@ -139,6 +116,16 @@ body {
 
   .cont-title-perfil {
     transform: translate(-360%, -370%);
+  }
+
+  .contenedor-info-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(50%, -60%);
   }
 }
 
@@ -201,7 +188,7 @@ body {
   }
 
   .contenedor-info-perfil {
-    transform: translate(-50%, -120%);
+    transform: translate(-50%, -110%);
   }
 
   .btn-perfil {
@@ -223,7 +210,7 @@ body {
 
   .contenedor-de-texfields {
     height: 400px;
-    transform: translate(-50%, -0%);
+    transform: translate(-50%, 10%);
   }
 
   .contenedor-info-perfil {
@@ -237,6 +224,15 @@ body {
 }
 
 /* Sexta parte */
+@media (max-width: 757px) {
+
+  .contenedor-info-perfil {
+    transform: translate(-50%, -100%);
+  }
+
+}
+
+/* Septima parte */
 @media (max-width: 650px) {
   .contenedor-padre-perfil {
     width: 400px;
@@ -249,11 +245,11 @@ body {
 
   .contenedor-de-texfields {
     height: 400px;
-    transform: translate(-50%, -0%);
+    transform: translate(-50%, 10%);
   }
 
   .contenedor-info-perfil {
-    transform: translate(-50%, -110%);
+    transform: translate(-50%, -100%);
   }
 
   .btn-perfil {

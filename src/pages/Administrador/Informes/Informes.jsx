@@ -224,7 +224,7 @@ export default function Informes() {
 
   /*
   TRAE A TODOS LOS USUARIOS
- 
+  
   */
 
   useEffect(() => {
@@ -244,6 +244,7 @@ export default function Informes() {
         if (matchedUser) {
           setMatchedUserId(matchedUser.id);
         }
+        console.log(matchedUser)
         setInformeData({
           ...informeData,
           usuarios: [matchedUser.id],
@@ -287,7 +288,7 @@ export default function Informes() {
         setInformeData({
           ...informeData,
           [fieldName]: "Activo/Inactivo",
-          usuarios: [""],
+
         });
       } else {
         setInformeData({
@@ -342,6 +343,12 @@ export default function Informes() {
   const filterEmptyFields = (data) => {
     const filteredData = {};
     for (const [key, value] of Object.entries(data)) {
+      // Excluye el campo 'usuarios' de la lógica de filtrado
+      if (key === "usuarios") {
+        filteredData[key] = value;
+        continue;
+      }
+      
       if (Array.isArray(value) && value.every((item) => item === "")) {
         continue;
       }
@@ -355,6 +362,7 @@ export default function Informes() {
     }
     return filteredData;
   };
+  
 
   const handleEnviar = () => {
     try {

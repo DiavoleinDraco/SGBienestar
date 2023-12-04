@@ -79,18 +79,6 @@ export default function RecuperarContrasena() {
       <div className="container-perfil-org">
         <Menu></Menu>
 
-        <div className="fondo-perfil"></div>
-
-        <div className="cont-title-perfil">
-          <p className="perfil-titulo">
-            {" "}
-            <b>
-              {" "}
-              Apartado de <br /> Perfil{" "}
-            </b>
-          </p>
-        </div>
-
         <div className="contenedor-padre-perfil">
           <h2 className="title-perfil">Editar datos de usuario</h2>
 
@@ -154,7 +142,7 @@ export default function RecuperarContrasena() {
                 <EditIcon> </EditIcon>
               </span>
 
-              
+
             </div>
             <div className="contenedor-texfield-perfil">
               <Textfield
@@ -170,7 +158,7 @@ export default function RecuperarContrasena() {
                 <EditIcon> </EditIcon>
               </span>
 
-              
+
             </div>
           </div>
 
@@ -191,7 +179,7 @@ export default function RecuperarContrasena() {
             {/*
             Cambiar la peticion de registro/info para poder hacer las peticiones completas con todos los datos
              */}
-          </div>  
+          </div>
         </div>
       </div>
     );
