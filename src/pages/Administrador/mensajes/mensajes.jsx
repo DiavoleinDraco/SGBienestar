@@ -8,7 +8,6 @@ import NavTabs from '../../../components/NavTabs/NavTabs';
 import Menu from '../../../components/menu/Menu';
 import { Transform } from '@material-ui/icons';
 import { Translate } from '@mui/icons-material';
-import mensajes from "../Sanciones/png.jpg"
 
 const containerStyle = {
   display: 'flex',

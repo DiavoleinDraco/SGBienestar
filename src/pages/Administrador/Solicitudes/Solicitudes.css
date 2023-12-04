@@ -14,11 +14,11 @@
 
 .cont-table-solicitudes {
   width: 100% !important;
-  height: 91% !important;
+  height: 93% !important;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -45.2%);
+  transform: translate(-50%, -46.2%);
 }
 
 /* Estilo para los botones de flitro en solicitudes */
@@ -69,4 +69,99 @@
 .barra-busqueda-soli:focus {
   border-color: #007bff; /* Cambiar color del borde cuando está enfocada */
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra al estar enfocada */
+}
+
+/* Fila de informacion */
+.css-1q1u3t4-MuiTableRow-root {
+  color: inherit;
+  display: table-row;
+  vertical-align: middle;
+  outline: 0;
+  position: sticky;
+  top: 121px;
+  background-color: #eaeaea;
+}
+
+@media (max-width: 756px) {
+
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 194px;
+    background-color: #eaeaea;
+  }
+
+}
+
+@media (max-width: 568px) {
+
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 258px;
+    background-color: #eaeaea;
+  }
+
+}
+
+@media (max-width: 463px) {
+
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 245px;
+    background-color: #eaeaea;
+  }
+
+}
+
+@media (max-width: 438px) {
+
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 308px;
+    background-color: #eaeaea;
+  }
+
+}
+
+@media (max-width: 330px) {
+
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 372px;
+    background-color: #eaeaea;
+  }
+
+}
+
+@media (max-width: 293px) {
+
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 438px;
+    background-color: #eaeaea;
+  }
+
 }

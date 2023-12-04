@@ -32,8 +32,7 @@ export default function Login() {
 
     setOpen(false);
   };
-  const token = localStorage.getItem('token')
-  const decode = jwtDecode(token)
+
 
   let updatedInfo = null;
   const handleChange = (fieldName, fieldValue) => {
@@ -45,7 +44,7 @@ export default function Login() {
       return { ...prevErrors, [fieldName]: "" };
     });
   };
-
+ 
   useEffect(() => {
     get("/dominio-sena")
       .then((data) => {
@@ -70,8 +69,8 @@ export default function Login() {
     return Object.keys(errores).length === 0;
   };
 
-  const realizarInicioSesion = () => {
-    decode && decode.privilegio > 1 ? navegacion('/usuarios') : navegacion("/admin");
+  const realizarInicioSesion = (decode) => {
+    decode  > 1 ? navegacion('/usuarios') : navegacion("/admin");
     
   };
 
@@ -91,8 +90,10 @@ export default function Login() {
       );
 
       localStorage.setItem("token", findNewToken.token);
+      const decode = jwtDecode(findNewToken.token)
+
       setErrorMensaje(null);
-      realizarInicioSesion();
+      realizarInicioSesion(decode.privilegio);
     } catch (error) {
       setOpen(true);
       setErrorMensaje(error.message);

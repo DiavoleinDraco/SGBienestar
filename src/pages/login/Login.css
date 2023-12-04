@@ -38,7 +38,6 @@
   border-radius: 30px;
 }
 
-
 /* Estilo de los elementos internos */
 .contenedor-login-hijo > * {
   flex: 1; /* Ocupar espacio equitativamente */
@@ -84,12 +83,11 @@
 
 .olvContra {
   text-decoration: none !important;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
 }
 
 .olvContra:hover {
   transform: scale(1.05) !important;
-  /* Cambiar el tamaño al pasar el mouse */
   text-decoration: underline !important;
 }
 
@@ -100,12 +98,11 @@
 
 .noCuenta {
   text-decoration: none !important;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
 }
 
 .noCuenta:hover {
   transform: scale(1.05) !important;
-  /* Cambiar el tamaño al pasar el mouse */
   text-decoration: underline !important;
 }
 
@@ -149,15 +146,36 @@
   color: #fff;
 }
 
+/* Estilo de los inputs de login */
+.MuiFormControl-root {
+  border: 0;
+  margin: 0;
+  display: inline-flex;
+  padding: 0;
+  position: relative;
+  min-width: 0;
+  flex-direction: column;
+  vertical-align: top;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.MuiInputLabel-formControl {
+  left: 0;
+  position: absolute;
+  transform: translate(0, 24px) scale(1);
+}
+
 /* Diseño responsivo */
 @media (max-width: 770px) {
-
   .contenedor-login-hijo {
     width: 550px;
     height: 500px;
   }
 
-  .ones{
+  .ones {
     width: 640px;
     height: 420px;
   }
@@ -166,17 +184,15 @@
     width: 720px;
     height: 340px;
   }
-
 }
 
 @media (max-width: 730px) {
-
   .contenedor-login-hijo {
     width: 500px;
     height: 500px;
   }
 
-  .ones{
+  .ones {
     width: 600px;
     height: 420px;
   }
@@ -185,17 +201,15 @@
     width: 680px;
     height: 340px;
   }
-
 }
 
 @media (max-width: 690px) {
-
   .contenedor-login-hijo {
     width: 460px;
     height: 500px;
   }
 
-  .ones{
+  .ones {
     width: 560px;
     height: 420px;
   }
@@ -204,17 +218,15 @@
     width: 640px;
     height: 340px;
   }
-
 }
 
 @media (max-width: 650px) {
-
   .contenedor-login-hijo {
     width: 420px;
     height: 500px;
   }
 
-  .ones{
+  .ones {
     width: 520px;
     height: 420px;
   }
@@ -223,17 +235,15 @@
     width: 600px;
     height: 340px;
   }
-
 }
 
 @media (max-width: 600px) {
-
   .contenedor-login-hijo {
     width: 380px;
     height: 500px;
   }
 
-  .ones{
+  .ones {
     width: 480px;
     height: 420px;
   }
@@ -242,17 +252,15 @@
     width: 560px;
     height: 340px;
   }
-
 }
 
 @media (max-width: 570px) {
-
   .contenedor-login-hijo {
     width: 320px;
     height: 500px;
   }
 
-  .ones{
+  .ones {
     width: 400px;
     height: 420px;
   }
@@ -261,12 +269,10 @@
     width: 460px;
     height: 340px;
   }
-
 }
 
 /* Responsivo para las pantallas de portatiles */
 @media (max-height: 740px) {
-
   .contenedor-login-hijo {
     width: 500px;
     height: 400px;
@@ -288,5 +294,4 @@
   .contenedor-img-login {
     transform: translate(-50%, -130%);
   }
-
 }

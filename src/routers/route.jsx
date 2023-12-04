@@ -73,7 +73,7 @@ export function LasRutas() {
         <Route path="/usuarios/HistorialPrestamosU" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><HistorialPrestamosU /></Suspense>, 3,2)} />
 
         <Route
-          path="usuarios/sanciones"
+          path="/admin/sanciones"
           element={proteccionRutas(
             <Suspense fallback={<CircularColor></CircularColor>}>
               <Sanciones />
