@@ -112,7 +112,7 @@ export default function Registro() {
   };
 
   const validateEmail = (email, roleId) => {
-    const isAprendiz = roleId === "65373e296c11b0f186ccef0b";
+    const isAprendiz = roleId === "656b2e19969c95e7475fd9cd";
 
     if (!isAprendiz && email.endsWith("soy.sena.edu.co")) {
       return "El correo electrónico institucional no es válido para el rol seleccionado.";

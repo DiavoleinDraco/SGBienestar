@@ -55,14 +55,14 @@ export default function Sanciones() {
 
   let datosObjeto = null;
 
-  //___
+  //_
 
   const openConfirmDialog = () => {
     setConfirmDialogOpen(true);
   };
   const handleConfirmAction = async () => {
     await handleEnviarSanciones();
-    window.location.reload();
+   // window.location.reload();
     setConfirmDialogOpen(false);
   };
 
@@ -71,7 +71,7 @@ export default function Sanciones() {
     setConfirmDialogOpen(false);
   };
 
-  //_______________
+  //_____
 
   useEffect(() => {
     const datosAlmacenados = sessionStorage.getItem("as");
@@ -86,10 +86,10 @@ export default function Sanciones() {
     }
   }, []);
 
-  //___ Convierte los datos a un objeto si están presentes en el sessionStorage
+  //_ Convierte los datos a un objeto si están presentes en el sessionStorage
   datosObjeto = JSON.parse(datosAlmacenados);
 
-  //_________
+  //___
 
   const handleClickOpenCrear = () => {
     setOpenDialogoCrear(true);
@@ -115,62 +115,89 @@ export default function Sanciones() {
   ];
 
   const handleChange = (selectedOptions) => {
+    console.log(selectedOptions)
     setSelectedOptions(selectedOptions);
   };
 
-  const handleSanciones = (fieldName, value) => {
-    const num = value.target.value;
-    console.log(value);
+
+  const handleSanciones = (fieldName, event) => {
+    const num = event.target.value;
+ 
     if (fieldName === "usuario") {
-      setIdUsuario(value);
+      setIdUsuario(event.target.value);
     } else if (fieldName === "description") {
-      if (selectedOptions.length != undefined) {
-        setSancionesAplicadas(value);
-      } else {
-        setSancionesAplicadas((prevSanciones) =>
-          prevSanciones ? prevSanciones + ", " + value : value
-        );
-      }
+      const selectedSanciones = Array.isArray(selectedOptions) && selectedOptions.length > 0
+        ? selectedOptions.map(option => option.label).join(", ")
+        : "";
+      console.log(selectedSanciones)
+      const descriptionValue = event.target.value;
+ 
+      setSancionesAplicadas(selectedSanciones
+        ? (descriptionValue ? selectedSanciones + ", " + descriptionValue : selectedSanciones)
+        : descriptionValue
+      );
+      console.log(sancionesAplicadas)
+
     } else if (fieldName === "estado") {
-      setEstadoS(value);
+      setEstadoS(event.target.value);
     } else if (fieldName === "duracion") {
       const parsedValue = parseFloat(num);
       setTiempoS(parsedValue);
     }
   };
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
 
   const handleEnviarSanciones = async () => {
     console.log(datosObjeto.id);
-
+ 
     let tiempoEnHoras = parseFloat(tiempoS);
     console.log(tiempoEnHoras);
+    if (isNaN(tiempoEnHoras)) {
+      setErrorMensaje("Tiempo de la sanción no válido");
+      setOpen(true);
+      return;
+    }
+ 
     if (unidadTiempo === "Días") {
       tiempoEnHoras *= 24;
     } else if (unidadTiempo === "Meses") {
       tiempoEnHoras *= 730;
     }
-
+ 
     let combinedDescription = sancionesAplicadas;
+    console.log(sancionesAplicadas);
     if (selectedOptions.length > 0) {
       const selectedSanciones = selectedOptions
         .map((option) => option.label)
         .join(", ");
-      combinedDescription = combinedDescription
-        ? combinedDescription + ", " + selectedSanciones
-        : selectedSanciones;
+ 
+      if (combinedDescription) {
+        combinedDescription += ", " + selectedSanciones;
+      } else {
+        combinedDescription = selectedSanciones;
+      }
     }
+   
+    console.log(sancionesAplicadas);
     console.log({
       usuario: datosObjeto.id,
       description: combinedDescription,
       estado: estadoS,
       duracion: Math.round(tiempoEnHoras),
     });
-    if (
-      !combinedDescription ||
-      !estadoS ||
-      !tiempoEnHoras ||
-      isNaN(tiempoEnHoras)
-    ) {
+ 
+    if (!combinedDescription || !estadoS || isNaN(tiempoEnHoras)) {
       setErrorMensaje(
         "Debes completar los campos requeridos antes de aplicar la sanción"
       );
@@ -178,20 +205,23 @@ export default function Sanciones() {
     } else {
       setErrorMensaje("");
       setOpen(false);
-
+ 
       const data = {
         usuario: datosObjeto.id,
         description: combinedDescription,
         estado: estadoS,
         duracion: Math.round(tiempoEnHoras),
       };
-
+ 
+      console.log(data);
+ 
       try {
         const response = await post("/sanciones", data);
         setDialogMessage("Se le ha aplicado la sanción a este aprendiz");
         setDialogOpen(true);
         sessionStorage.removeItem("as");
         console.log("Se ha creado la sanción con éxito");
+        console.log("sancion", data);
         setOpenDialogoCrear(false);
       } catch (error) {
         console.error("Error en la solicitud:", error);
@@ -346,36 +376,17 @@ export default function Sanciones() {
             />
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
-          >
-            <div style={{ flex: 1, marginLeft: "44px", marginRight: "44px" }}>
-              <p style={{ marginLeft: "-310px" }}>Sanción</p>
-              <div className="cont-mul-sele">
-                <MultipleSelect
-                  options={selectOptions}
-                  selectedOptions={selectedOptions}
-                  onChange={handleChange}
-                  handleSanciones={(value) =>
-                    handleSanciones("description", value)
-                  }
-                  className="custom-multiple-select"
-                />
-              </div>
-            </div>
-          </div>
+       
 
           <div style={{ marginBottom: "10px", width: "100%" }}>
             <p style={{ marginLeft: "-260px" }}>Nueva sanción</p>
             <input
               style={{ width: "380px", height: "30px" }}
               name=""
-              onChange={(value) => handleSanciones("description", value)}
+              onChange={(event) => handleSanciones("description", event)}
             />
+
+
           </div>
 
           <div
@@ -430,7 +441,7 @@ export default function Sanciones() {
             >
               {errorMensaje && (
                 <Alert
-                  onClose={() => setErrSorMensaje("")}
+                  onClose={() => setErrorMensaje("")}
                   severity="error"
                   sx={{}}
                 >
@@ -442,7 +453,7 @@ export default function Sanciones() {
             <div className="item item-link" style={{ marginTop: "10px" }}>
               <Link
                 className="custom-link link-inicio"
-                to={window.location.reload}
+              to={window.location.reload}
               ></Link>
             </div>
           </div>

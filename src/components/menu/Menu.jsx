@@ -657,7 +657,11 @@ export default function Menu() {
               />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }}>
+          
+          <ListItem disablePadding sx={{ display: "block" }}
+            onClick={() => {
+              navigate("/ajustes");
+            }}>
             <ListItemButton
               sx={{
                 minHeight: 48,

@@ -7,6 +7,9 @@ const Login = lazy(() => import('../pages/login/Login'));
 const Autenticacion = lazy(() => import('../pages/autenticacion/Autenticacion'));
 import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
 import jwtDecode from 'jwt-decode';
+import Ajustes from '../pages/Administrador/Ajustes/Ajustes.jsx';
+import HistorialPrestamosU from '../pages/Aprendiz/Historial_Prestamos/HistorialPrestamosU.jsx';
+import UsuarioSanciones from '../pages/Aprendiz/UsuarioSanciones/UsuarioSanciones.jsx';
 const Dashboard = lazy(() => import('../pages/Administrador/Dashboard/Dashboard'));
 const Sanciones = lazy(() => import('../pages/Administrador/Sanciones/Sanciones'));
 const Usuarios = lazy(() => import('../pages/Administrador/Usuarios/Usuarios'));
@@ -22,6 +25,8 @@ const Implementos = lazy(() => import('../pages/Aprendiz/Implementos/Implementos
 const Perfil = lazy(() => import('../pages/Perfil/Perfil.jsx'))
 
 
+
+
 export function LasRutas() {
 
   const token = localStorage.getItem('token');
@@ -30,7 +35,7 @@ export function LasRutas() {
 
   const proteccionRutas = (elemento, privilegioAdmitido1, privilegioAdmitido2) => {
 
-    console.log(decode.privilegio)
+    
 
     if (!localStorage.getItem('token')) {
       return <Navigate to="/login" />;
@@ -78,7 +83,10 @@ export function LasRutas() {
         <Route path='/prestamo/info/:prestamoId' element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><PrestamoDetalle /></Suspense>, 3, 2)} />
         <Route path="/inventario" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Inventario /></Suspense>, 1)} />
         <Route path="/solicitudes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Solicitudes /></Suspense>, 1)} />
-        <Route path="/prestamos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Prestamos /></Suspense>, 1)} />
+        <Route path="/Ajustes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Ajustes /></Suspense>, 1)} />
+        <Route path="/prestamos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Prestamos /></Suspense>, 2,3)} />
+        <Route path="/UsuarioSanciones" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><UsuarioSanciones/></Suspense>, 2,3)} />
+        <Route path="/HistorialPrestamosU" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><HistorialPrestamosU /></Suspense>, 2,3)} />
         <Route path="/aprendiz" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Board /></Suspense>, 3, 2)} />
         <Route path="/implementos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Implementos /></Suspense>, 3, 2)} />
         <Route path="/perfil" element={(<Suspense fallback={<CircularColor></CircularColor>}><Perfil /></Suspense>)} />
@@ -86,3 +94,4 @@ export function LasRutas() {
     </Router>
   );
 }
+

@@ -115,15 +115,15 @@ export default function Prestamos() {
 
     return (
       <div className="contenedor-prestamos">
-        <p className="parr-qr">
-          La petición se creó con éxito. <br /> Presiona si quieres descargar el qr.
-        </p>
-        <div className="qr">
-          <GenerateQr busqueda={IDPrestamo}></GenerateQr>
-        </div>
+      <p className="parr-qr">
+        La petición se creó con éxito. <br /> Presiona si quieres descargar el QR.
+      </p>
+      <div className="qr">
+        <GenerateQr busqueda={IDPrestamo} />
       </div>
-    );
-  }
+    </div>
+  );
+}
   console.log(peticionExitosa);
   return (
     <div className="contenedor-prestamos-principal">
