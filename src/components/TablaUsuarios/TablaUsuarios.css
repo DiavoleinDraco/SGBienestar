@@ -44,7 +44,7 @@ width: calc(100% - 190px) !important;
 }
 .icon-search{
     color: #2c0757 !important;
-    z-index: 999;
+    z-index: 999;width: 30px !important;
  
 }
 .sancionarb button{

@@ -162,16 +162,14 @@ export default function Informes() {
 
   const encabezadoImplemento = () => (
     <div className="container-Informes">
-      <div className="fondo-banco"></div>
-      <div className="fondo-morado"></div>
       <div className="contenedorsito">
-        <div style={{ display: "inline-block" }}>
-          <p style={{ display: "inline-block", marginRight: "10px" }}>
+        <div className="cont-funcionario">
+          <p style={{ display: "inline-block" }}>
             Nombre del Funcionario:
           </p>
           <input
             style={{
-              padding: "8px",
+              padding: "10px",
               border: "1px solid #2c0757",
               borderRadius: "4px",
               boxSizing: "border-box",
@@ -198,18 +196,13 @@ export default function Informes() {
         />
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-        }}
-      >
+      <div className="cont-observacion">
         <p>Observaciones</p>
         <TextField
           style={{
-            maxHeight: '46px',
-            overflowY: 'auto', // Muestra una barra de desplazamiento vertical si es necesario
+            Height:'60%',
+            width:"100%",
+            overflowY: 'auto',// Muestra una barra de desplazamiento vertical si es necesario
           }}
 
           multiline
@@ -412,8 +405,11 @@ export default function Informes() {
       if (selectedOption.label === "Historial de Informes") {
         return (
           <>
-            <h2>Historial de Informes</h2>
-            <TablaInformes />
+          <div className="cont-inf-user">   
+          <h2 className="titulo-inv-user">Informe de Usuario</h2>
+            <TablaInformes /> 
+          </div>
+         
           </>
         );
       } else {
@@ -421,7 +417,8 @@ export default function Informes() {
           case "Informe de Inventario":
             return (
               <>
-                <h2 className="ti-HInfo">Informe de Inventario</h2>
+                   <div className="cont-inf-inv">
+                   <h2 className="titulo-inv">Informe de Inventario</h2>
                 {encabezadoContentImplemento}
 
                 <div className="contenedor-estado">
@@ -433,14 +430,25 @@ export default function Informes() {
                     value={selectedEstado}
                   />
                 </div>
+                </div>
               </>
             );
 
           case "Informe de Usuario":
             return (
               <>
-                <h2 className="ti-HInfo">Informe de Usuario</h2>
+              <div className="padre-informe-user">
+              <div className="cont-inf-user">
+              <h2 className="titulo-inv-user">Informe de Usuario</h2>
                 {encabezadoContentImplemento}
+                <button className="botton-user-enviar" onClick={handleEnviar}>
+          Enviar
+        </button>
+              </div>
+
+              </div>
+       
+              
               </>
             );
 
@@ -449,7 +457,8 @@ export default function Informes() {
           case "Informe de Sanciones":
             return (
               <>
-                <h2 className="ti-HInfo">Informe de Sanciones</h2>
+               <div className="cont-inv-sancion">
+              <h2 className="titulo-inv-sancio">Informe de Sanciones</h2>
                 {encabezadoContentImplemento}
                 <div className="contenedor-numeroDoc">
                   <Textfield
@@ -466,6 +475,7 @@ export default function Informes() {
                     required
                   />
                 </div>
+              </div>
               </>
             );
 
@@ -541,11 +551,6 @@ export default function Informes() {
   return (
     <Box>
       <Menu></Menu>
-      <div className="cont-tilte-informes">
-        <h1 className="title-informes">
-          Apartado de <br /> informes
-        </h1>
-      </div>
       <React.Fragment>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Elija el informe que desea generar</DialogTitle>
@@ -600,17 +605,14 @@ export default function Informes() {
       ) : (
         getContentForSelectedOption()
       )}
-      <div className="contenedor-de-enviar">
-        <button className="btn-informes-env" onClick={handleEnviar}>
-          Enviar
-        </button>
+    
+       
         {enviado && (
           <div className="contenedor-ex-pd">
             <Buttons nombre="Excel" onclick={descargarExcel}></Buttons>
             <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
           </div>
         )}
-      </div>
     </Box>
   );
 }

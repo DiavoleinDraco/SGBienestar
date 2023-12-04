@@ -18,9 +18,9 @@ export default function NavTabs({ tabs }) {
   };
 
   return (
-    <Box  sx={{ width:'90%',typography: 'body1', background:"#e3e3e3"}}>
+    <Box  sx={{ width:'100%',typography: 'body1',height:"50px"}}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '10%', margin:"auto"}}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '40%', margin:"auto"}}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             {tabs.map((tab) => (
               <Tab key={tab.value} label={tab.label} value={tab.value} />

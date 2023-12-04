@@ -5,19 +5,15 @@ import NavTabs from '../../../components/NavTabs/NavTabs';
 import './Usuarios.css';
 import TablaUsuarios from '../../../components/TablaUsuarios/TablaUsuarios';
 
-export default function Usuarios() {
-    return (
-        <Box>
-            <Menu />
-            <div className='cont-img'>
-            </div>
-            <div className="contenedor-title-usu">
-            <h1 id='titulouser'>Usuarios</h1>
-            </div>
-            <div className="cont-table-usuariuos">
-                <TablaUsuarios />
-            </div>
-        </Box>
+export default function Usuarios(){
 
+    
+
+    return (
+        <Box sx={{  background:"#e4e7e4",height:"100vh",width:"100% ", borderRadius:"10px", margin:"1px auto 2px ",flexDirection:"column", display: 'flex',justifyContent:"center",alignItems:"center"}}>
+            <Menu />
+            <TablaUsuarios />
+        </Box>
+        
     );
 };

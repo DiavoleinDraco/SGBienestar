@@ -152,7 +152,7 @@ export default function TablaUsarios() {
     console.log(sessionStorage.getItem("as"));
     console.log("user:", data[userData]);
 
-    navigate("/admin/sanciones", { state: { userData } });
+    navigate("/sanciones", { state: { userData } });
   }
 
   function rowContent(_index, row) {
@@ -183,11 +183,10 @@ export default function TablaUsarios() {
   return (
     <Paper
       style={{
-        height: 900,
-        width: "100%",
-        position: "absolute",
-        top: "15%"
-
+        height: 996,
+        width: "99%",
+        borderRadius:"30px",       
+      
       }}
     >
       <Toolbar className="cont-busc">
