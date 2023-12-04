@@ -7,9 +7,6 @@ const Login = lazy(() => import('../pages/login/Login'));
 const Autenticacion = lazy(() => import('../pages/autenticacion/Autenticacion'));
 import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
 import jwtDecode from 'jwt-decode';
-import Ajustes from '../pages/Administrador/Ajustes/Ajustes.jsx';
-import HistorialPrestamosU from '../pages/Aprendiz/Historial_Prestamos/HistorialPrestamosU.jsx';
-import UsuarioSanciones from '../pages/Aprendiz/UsuarioSanciones/UsuarioSanciones.jsx';
 const Dashboard = lazy(() => import('../pages/Administrador/Dashboard/Dashboard'));
 const Sanciones = lazy(() => import('../pages/Administrador/Sanciones/Sanciones'));
 const Usuarios = lazy(() => import('../pages/Administrador/Usuarios/Usuarios'));
@@ -23,7 +20,9 @@ const Prestamos = lazy(() => import('../pages/Aprendiz/prestamos/prestamos'));
 const Board = lazy(() => import('../pages/Aprendiz/Board_Aprendiz/Board_Aprendiz.jsx'));
 const Implementos = lazy(() => import('../pages/Aprendiz/Implementos/Implementos.jsx'));
 const Perfil = lazy(() => import('../pages/Perfil/Perfil.jsx'))
-
+const Ajustes = lazy(() => import('../pages/Administrador/Ajustes/Ajustes.jsx'))
+const HistorialPrestamosU = lazy(() => import('../pages/Aprendiz/Historial_Prestamos/HistorialPrestamosU.jsx'))
+const UsuarioSanciones = lazy(() => import('../pages/Aprendiz/UsuarioSanciones/UsuarioSanciones.jsx'))
 
 
 
@@ -31,16 +30,18 @@ export function LasRutas() {
 
   const token = localStorage.getItem('token');
   const decode = token ? jwtDecode(token) : null;
-
-
+  const ruta = decode && decode.token > 1 ? "/usuarios" : "/admin"
   const proteccionRutas = (elemento, privilegioAdmitido1, privilegioAdmitido2) => {
 
-    
+
 
     if (!localStorage.getItem('token')) {
       return <Navigate to="/login" />;
     }
 
+   
+/*
+    
     if (
       (privilegioAdmitido1 && decode.privilegio === privilegioAdmitido1) ||
       (privilegioAdmitido2 && decode.privilegio === privilegioAdmitido2)
@@ -53,6 +54,8 @@ export function LasRutas() {
     ) : (
       <Navigate to="/admin" />
     );
+  */  
+   return elemento
 
   };
   return (
@@ -61,12 +64,16 @@ export function LasRutas() {
         <Route path="/home" element={<Suspense fallback={<CircularColor></CircularColor>}><Home /></Suspense>} />
         <Route path="/registro" element={<Suspense fallback={<CircularColor></CircularColor>}><Registro /></Suspense>} />
         <Route path="/login" element={<Suspense fallback={<CircularColor></CircularColor>}><Login /></Suspense>} />
-        <Route path="/auth/" element={(<Suspense fallback={<CircularColor></CircularColor>}><Autenticacion /></Suspense>)} />
+        <Route path="/auth" element={(<Suspense fallback={<CircularColor></CircularColor>}><Autenticacion /></Suspense>)} />
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena />} />
         <Route path="/admin" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Dashboard /></Suspense>, 1)} />
-        <Route path="/usuarios" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Usuarios /></Suspense>, 1)} />
+        <Route path="/admin/usuarios" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Usuarios /></Suspense>, 1)} />
+        <Route path="/admin/Ajustes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Ajustes /></Suspense>, 1)} />
+        <Route path="/usuarios/Sanciones" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><UsuarioSanciones /></Suspense>, 3,2)} />
+        <Route path="/usuarios/HistorialPrestamosU" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><HistorialPrestamosU /></Suspense>, 3,2)} />
+
         <Route
-          path="/sanciones"
+          path="usuarios/sanciones"
           element={proteccionRutas(
             <Suspense fallback={<CircularColor></CircularColor>}>
               <Sanciones />
@@ -77,21 +84,19 @@ export function LasRutas() {
           path="/*"
           element={<Navigate to="/home" replace />}
         />
-        <Route path="/informes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Informes /></Suspense>, 1)} />
-        <Route path="/mensajes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Mensajes /></Suspense>, 1)} />
-        <Route path="/mensajes/:messageId" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><MensajeDetalle /></Suspense>, 1)} />
-        <Route path='/prestamo/info/:prestamoId' element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><PrestamoDetalle /></Suspense>, 3, 2)} />
-        <Route path="/inventario" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Inventario /></Suspense>, 1)} />
-        <Route path="/solicitudes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Solicitudes /></Suspense>, 1)} />
-        <Route path="/Ajustes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Ajustes /></Suspense>, 1)} />
-        <Route path="/prestamos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Prestamos /></Suspense>, 2,3)} />
-        <Route path="/UsuarioSanciones" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><UsuarioSanciones/></Suspense>, 2,3)} />
-        <Route path="/HistorialPrestamosU" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><HistorialPrestamosU /></Suspense>, 2,3)} />
-        <Route path="/aprendiz" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Board /></Suspense>, 3, 2)} />
-        <Route path="/implementos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Implementos /></Suspense>, 3, 2)} />
-        <Route path="/perfil" element={(<Suspense fallback={<CircularColor></CircularColor>}><Perfil /></Suspense>)} />
+        <Route path="/admin/informes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Informes /></Suspense>, 1)} />
+        <Route path="/admin/mensajes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Mensajes /></Suspense>, 1)} />
+        <Route path="/admin/mensajes/:messageId" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><MensajeDetalle /></Suspense>, 1)} />
+        <Route path='/usuarios/prestamo/info/:prestamoId' element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><PrestamoDetalle /></Suspense>, 3, 2)} />
+        <Route path="/admin/inventario" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Inventario /></Suspense>, 1)} />
+        <Route path="/admin/solicitudes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Solicitudes /></Suspense>, 1)} />
+        <Route path="/admin/prestamos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Prestamos /></Suspense>, 3,2)} />
+        <Route path="/usuarios" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Board /></Suspense>, 3, 2)} />
+        <Route path="/usuarios/implementos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Implementos /></Suspense>, 3, 2)} />
+        <Route path={ruta+"/perfil"} element={(<Suspense fallback={<CircularColor></CircularColor>}><Perfil /></Suspense>)} />
       </Routes>
     </Router>
   );
 }
+
 

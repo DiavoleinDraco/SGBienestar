@@ -183,7 +183,7 @@ export default function Implementos(){
       
           setOpen(false); // Cerrar el Snackbar si la acción fue exitosa
           console.log('Implementos a prestar:', implementosAprestar);
-          navigate("/prestamos");
+          navigate("/admin/prestamos");
         }
       }
 

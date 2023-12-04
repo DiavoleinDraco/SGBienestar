@@ -55,7 +55,7 @@ export default function MensajesDetalle() {
     try {
      
       await eliminar('/mail/mail/', _id);
-      redireccionar("/mensajes"); 
+      redireccionar("/admin/mensajes"); 
     } catch (error) {
       console.error("Error al eliminar", error);
     }

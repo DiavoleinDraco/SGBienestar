@@ -3,14 +3,23 @@ import Popper from '@mui/material/Popper';
 import Button from '@mui/material/Button';
 import { Close, Message } from '@mui/icons-material';
 import ComposeBar from '../componentedeprueba/Redactar_mensaje';
+import Checkbox from '@mui/material/Checkbox';
 import './comentarios.css';
+import jwtDecode from 'jwt-decode';
 
 export default function Comentarioas() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anonimo, setAnonimo] = useState(false);
+  const token = localStorage.getItem('token')
+  const decode = jwtDecode(token)
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleAnonimoChange = () => {
+    setAnonimo(!anonimo);
   };
 
   return (
@@ -55,16 +64,24 @@ export default function Comentarioas() {
             {/* Área morada */}
           </div>
           <div className="compose-bar-area">
-            <ComposeBar style="chat-widget" endpoint='/mail/admin' showAsunto={true} showChecklist={false}
-              defaultRecipient='sgbienestar.sena@gmail.com'/>
+            <ComposeBar
+              style="chat-widget"
+              endpoint='/mail/usuario/notificacion'
+              showAsunto={true}
+              showChecklist={false}
+              defaultRecipient={anonimo ? "Anonimo@anonimo.com" : decode && decode.correo_inst}
+            />
           </div>
           <div className="comment-box">
             {/* Cuadro de comentarios */}
+            <label>
+              Anónimo:
+              <Checkbox checked={anonimo} onChange={handleAnonimoChange} />
+            </label>
             Espacio para enviar comentarios
           </div>
         </div>
       </Popper>
-
     </div>
   );
 }

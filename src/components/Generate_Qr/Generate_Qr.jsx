@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Container, Card, CardContent, makeStyles, Grid, TextField, Button } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import get from '../../UseFetch';
 import QRCode from 'qrcode';
 
-
 export default function GenerateQr({ busqueda }) {
     const [imageUrl, setImageUrl] = useState('');
-    console.log(busqueda)
+
     const qrRef = useRef(null);
+
     useEffect(() => {
-        get('/prestamos').then((data) => console.log(data))
+        generateQrCodeWithLogo(150);
     }, []);
 
     const generateQrCodeWithLogo = async (size) => {
@@ -21,12 +21,12 @@ export default function GenerateQr({ busqueda }) {
                 margin: 1,
                 width: size,
                 color: {
-                    dark: '#2C0757', // Color de los módulos oscuros
-                    light: '#fff', // Color de los módulos claros
+                    dark: '#2C0757', 
+                    light: '#fff', 
                 },
             };
 
-            const qrCode = await QRCode.toDataURL(`http://localhost:5173/prestamo/info/${busqueda}`, qrOptions);
+            const qrCode = await QRCode.toDataURL(import.meta.env.VITE_HOST + `/prestamo/info/${busqueda}`, qrOptions);
 
             setImageUrl(qrCode);
 
@@ -35,21 +35,28 @@ export default function GenerateQr({ busqueda }) {
         }
     };
 
+    const handleDownload = () => {
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = 'qr_code.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
-
         <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-            <Button className={"adios"} variant="contained"
-                color="primary" onClick={() => generateQrCodeWithLogo(150)}>Generate</Button>
+            <Button variant="contained" color="primary" onClick={handleDownload}>
+                Download
+            </Button>
             <br />
             <br />
             <br />
-            {imageUrl ? (
-                <a href={imageUrl} download>
-                    <img src={imageUrl} alt="img" />
-                </a>
-            ) : null}
+            {imageUrl && (
+                <div>
+                    <img src={imageUrl} alt="QR Code" />
+                </div>
+            )}
         </Grid>
-
     );
 }
-

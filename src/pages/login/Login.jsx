@@ -12,6 +12,7 @@ import "./Login.css";
 import miimagen from "../../pages/imagenes/sena-bienestar.png";
 import get, { getParametre, post } from "../../UseFetch.js";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 export default function Login() {
   const [info, setInfo] = useState({});
   const [errors, setErrors] = useState({});
@@ -31,6 +32,8 @@ export default function Login() {
 
     setOpen(false);
   };
+  const token = localStorage.getItem('token')
+  const decode = jwtDecode(token)
 
   let updatedInfo = null;
   const handleChange = (fieldName, fieldValue) => {
@@ -68,7 +71,8 @@ export default function Login() {
   };
 
   const realizarInicioSesion = () => {
-    navegacion("/admin");
+    decode && decode.privilegio > 1 ? navegacion('/usuarios') : navegacion("/admin");
+    
   };
 
   const handleLoginClick = async () => {

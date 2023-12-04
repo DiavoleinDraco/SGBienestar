@@ -1,4 +1,4 @@
-const UrlApi = "https://proyecto-backend-sgbienestar.onrender.com"
+const UrlApi = import.meta.env.VITE_BACKEND
 
 export default async function get(pat) {
   try {

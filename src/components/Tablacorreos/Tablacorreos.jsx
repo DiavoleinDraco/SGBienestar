@@ -95,7 +95,7 @@ export default function DataGridProDemo({ Delete, Consulta }) {
     setPage(0);
   };
   const handleCellClick = (_id) => {
-    navigate(`/mensajes/${_id}`);
+    navigate(`/admin/mensajes/${_id}`);
   };
 
   return (

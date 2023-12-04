@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import "./Textfield.css";
 import { useState } from "react";
 
-export default function Textfield({ name, required, onChange, inicial, soloNumeros }) {
+export default function Textfield({ name, required, onChange, inicial, soloNumeros, editable = true }) {
   const [error, setError] = useState('');
   const [data, setData] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
@@ -57,7 +57,7 @@ export default function Textfield({ name, required, onChange, inicial, soloNumer
             helperText={error || errorTelefono}
             type={soloNumeros ? "number" : "text"}
             className={soloNumeros ? "no-spinners" : ""}
-
+            disabled={!editable} // Deshabilitar el campo si editable es false
           />
         </div>
       </Box>

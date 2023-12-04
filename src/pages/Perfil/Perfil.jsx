@@ -44,7 +44,6 @@ export default function RecuperarContrasena() {
     setEditable(false);
     console.log("editable");
     setActualizar(false);
-
     //actualizar('/registro/usuarios/',decode.id, actualizar)
   };
 
@@ -145,7 +144,7 @@ export default function RecuperarContrasena() {
               <Textfield
                 editable={editable}
                 name={"Genero"}
-                inicial={userData.direccion}
+                inicial={userData.genero}
                 onChange={(value) => handleInputChange("genero", value)}
               ></Textfield>
               <span
@@ -154,6 +153,24 @@ export default function RecuperarContrasena() {
               >
                 <EditIcon> </EditIcon>
               </span>
+
+              
+            </div>
+            <div className="contenedor-texfield-perfil">
+              <Textfield
+                editable={editable}
+                name={"EPS"}
+                inicial={userData.eps}
+                onChange={(value) => handleInputChange("eps", value)}
+              ></Textfield>
+              <span
+                style={{ marginLeft: "-1%", cursor: "pointer" }}
+                onClick={handleEditarClick}
+              >
+                <EditIcon> </EditIcon>
+              </span>
+
+              
             </div>
           </div>
 
@@ -169,7 +186,12 @@ export default function RecuperarContrasena() {
             </div>
             <p>Nombres y Apellidos: {decode.nombre + " " + decode.apellidos}</p>
             <p>Correo Institucional: {decode.correo_inst}</p>
-          </div>
+            <p>Fecha de nacimiento: {userData && userData.nacimiento}</p>
+            <p>Tipo de sangre: {userData && userData.rh}</p>
+            {/*
+            Cambiar la peticion de registro/info para poder hacer las peticiones completas con todos los datos
+             */}
+          </div>  
         </div>
       </div>
     );

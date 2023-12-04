@@ -163,7 +163,7 @@ export default function PrestamoDetalle() {
 
   const handleDeleteClick = async (_id) => {
     try {
-      await eliminar('/prestamos/', _id);
+      await eliminar('/usuarios/prestamos/', _id);
       redireccionar("/mensajes");
     } catch (error) {
       console.error("Error al eliminar", error);

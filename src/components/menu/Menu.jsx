@@ -169,7 +169,7 @@ export default function Menu() {
 
   /*Viajar a perifl */
   const handlPerfilClik = () => {
-    navigate("/perfil")
+    navigate("/admin/perfil")
   }
   const handleClickOpen = () => {
     setOpenDialogo(true);
@@ -421,7 +421,7 @@ export default function Menu() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/usuarios");
+              navigate("/admin/usuarios");
             }}
           >
             <ListItemButton
@@ -458,7 +458,7 @@ export default function Menu() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/solicitudes");
+              navigate("/admin/solicitudes");
             }}
           >
             <ListItemButton
@@ -498,7 +498,7 @@ export default function Menu() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/sanciones");
+              navigate("/admin/sanciones");
             }}
           >
             <ListItemButton
@@ -539,7 +539,7 @@ export default function Menu() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/inventario");
+              navigate("/admin/inventario");
             }}
           >
             <ListItemButton
@@ -579,7 +579,7 @@ export default function Menu() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/Mensajes");
+              navigate("/admin/Mensajes");
             }}
           >
             <ListItemButton
@@ -620,7 +620,7 @@ export default function Menu() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/informes");
+              navigate("/admin/informes");
             }}
           >
             <ListItemButton
@@ -660,7 +660,7 @@ export default function Menu() {
           
           <ListItem disablePadding sx={{ display: "block" }}
             onClick={() => {
-              navigate("/ajustes");
+              navigate("/admin/ajustes");
             }}>
             <ListItemButton
               sx={{

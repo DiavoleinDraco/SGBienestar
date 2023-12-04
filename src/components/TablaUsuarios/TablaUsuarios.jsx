@@ -152,7 +152,7 @@ export default function TablaUsarios() {
     console.log(sessionStorage.getItem("as"));
     console.log("user:", data[userData]);
 
-    navigate("/sanciones", { state: { userData } });
+    navigate("/admin/sanciones", { state: { userData } });
   }
 
   function rowContent(_index, row) {

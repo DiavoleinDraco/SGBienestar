@@ -35,6 +35,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import'./Board_Aprendiz.css';
+import Comentarioas from '../../../components/Comentarios/comentarios';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -180,6 +181,7 @@ export default function Board() {
 
   return (
     <Box sx={{ display: 'flex',}}>
+    <Comentarioas></Comentarioas>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
       <Toolbar>
@@ -248,7 +250,7 @@ export default function Board() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/implementos");
+              navigate("/admin/implementos");
             }}
           >
             <ListItemButton
@@ -287,7 +289,7 @@ export default function Board() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/aprendiz");
+              navigate("/usuarios");
             }}
           >
             <ListItemButton
