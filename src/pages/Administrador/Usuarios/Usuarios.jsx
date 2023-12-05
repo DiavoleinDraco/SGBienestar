@@ -10,8 +10,15 @@ export default function Usuarios(){
     
 
     return (
-        <Box sx={{  background:"#e4e7e4",height:"100vh",width:"100% ", borderRadius:"10px", margin:"1px auto 2px ",flexDirection:"column", display: 'flex',justifyContent:"center",alignItems:"center"}}>
+        <Box sx={{   display: 'flex', 
+        background:"#fff",
+        alignItems:"space-around",
+        flexDirection:"column",
+        justifyContent:"center",
+        width:"100%",
+        height:"100vh"}}>
             <Menu />
+            <div className='cajita'></div>
             <TablaUsuarios />
         </Box>
         

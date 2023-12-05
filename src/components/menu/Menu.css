@@ -77,7 +77,7 @@
   .css-h4y409-MuiList-root {
       display: flex;
       flex-direction: column;
-      height: 50%;
+      height: 70%;
       justify-content: space-evenly !important;
   }
   /* .css-uxa1ks-MuiListItem-root:hover{
@@ -86,7 +86,7 @@
   }  */
   
   .css-10hburv-MuiTypography-root{
-    font-size: 17px !important;
+    font-size: 15px !important;
     font-weight: bold;
     }
     .css-1ex1afd-MuiTableCell-root {

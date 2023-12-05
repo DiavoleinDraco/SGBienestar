@@ -1,39 +1,5 @@
-#titulouser {
-    color: #fff;
-    font-size: 30px;
-}
 
-.contenedor-title-usu {
-    z-index: 100;
-    width: 200px;
-    height: 100px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-260%,-500%);
-}
-
-
-.cont-img {
-    width: 100% !important;
-    height: 40% !important;
-    background: #2c0757;
-    position: absolute;
-}
-
-.imagen-user {
-    width: 100%;
-    object-fit: cover;
-    height: 100%;
-}
-
-
-/* Estilo del contenedor de la tabla de usuarios*/
-.cont-table-usuariuos {
-    width: 90%;
-    height: 80%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -30%);
+.cajita{
+    height: 90px;
+    width: 40px;
 }

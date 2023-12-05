@@ -52,3 +52,7 @@ width: calc(100% - 190px) !important;
     box-shadow: 6px 6px 20px -1px rgba(0, 0, 0, 0.15),
         -6px -6px 20px -1px rgba(255, 255, 255, 0.7);
 }
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root{
+    color: #ff0000 !important;
+    border: 1px solid #ff0000 !important;
+}

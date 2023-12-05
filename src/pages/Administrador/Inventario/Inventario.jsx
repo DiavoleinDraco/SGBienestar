@@ -6,18 +6,17 @@ import TablaInventario from '../../../components/TablaInventario/TablaInventario
 
 export default function Inventario(){
     return (
-        <Box sx={{ margin:"85px 0px", 
-        display: 'flex',
-        flexDirection:"column", 
-        background:"grey",
-        alignItems:"center",
+        <Box sx={{ 
+        display: 'flex', 
+        background:"#fff",
+        alignItems:"space-around",
+        flexDirection:"column",
         width:"100%",
-        height:"95vh"}}>
+        height:"100vh"}}>
             <Menu />
-            <div className='cont-inventario'>
-            <h1 className='titulo-inv'>Inventario</h1>
-            </div>
+            <div className='cajita'></div>
             <TablaInventario />
+            
         </Box>
     )
 }

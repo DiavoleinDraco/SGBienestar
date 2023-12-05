@@ -351,10 +351,10 @@ export default function TablaInventario() {
           <BasicAccordion
             titulo={"Eliminar"}
             contenido={
-              <div>
-                <button onClick={eliminarCatClick}>Categoría</button>
-                <button onClick={eliminarEstadoClick}>Estado</button>
-                <button onClick={eliminarMarcaClick}>Marca</button>
+              <div className="cont-botton-eliminar">
+                <button className="botton-eliminar" onClick={eliminarCatClick}>Categoría</button>
+                <button className="botton-eliminar" onClick={eliminarEstadoClick}>Estado</button>
+                <button className="botton-eliminar" onClick={eliminarMarcaClick}>Marca</button>
               </div>
             }
           />
@@ -1040,9 +1040,9 @@ export default function TablaInventario() {
 
   return (
     <Paper className="tabla-inventario">
-      <Toolbar>
-        <Search>
-          <SearchIconWrapper>
+      <Toolbar className="cont-busc">
+        <Search className="buscador">
+          <SearchIconWrapper className="lupaa" >
             <SearchIcon className="icon-search" />
           </SearchIconWrapper>
           <StyledInputBase
@@ -1364,10 +1364,10 @@ export default function TablaInventario() {
           <BasicAccordion
             titulo={"CREAR"}
             contenido={
-              <div>
-                <button onClick={createCategoriaClick}>Categoría</button>
-                <button onClick={createEstadoClick}>Estado</button>
-                <button onClick={createMarcaClick}>Marca</button>
+              <div className="cont-botton-eliminar">
+                <button className="botton-eliminar" onClick={createCategoriaClick}>Categoría</button>
+                <button className="botton-eliminar" onClick={createEstadoClick}>Estado</button>
+                <button className="botton-eliminar" onClick={createMarcaClick}>Marca</button>
               </div>
             }
           />

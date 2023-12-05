@@ -200,8 +200,8 @@ export default function Informes() {
         <p>Observaciones</p>
         <TextField
           style={{
-            Height:'60%',
-            width:"100%",
+            Height: '60%',
+            width: "100%",
             overflowY: 'auto',// Muestra una barra de desplazamiento vertical si es necesario
           }}
 
@@ -341,7 +341,7 @@ export default function Informes() {
         filteredData[key] = value;
         continue;
       }
-      
+
       if (Array.isArray(value) && value.every((item) => item === "")) {
         continue;
       }
@@ -355,7 +355,7 @@ export default function Informes() {
     }
     return filteredData;
   };
-  
+
 
   const handleEnviar = () => {
     try {
@@ -405,50 +405,58 @@ export default function Informes() {
       if (selectedOption.label === "Historial de Informes") {
         return (
           <>
-          <div className="cont-inf-user">   
-          <h2 className="titulo-inv-user">Informe de Usuario</h2>
-            <TablaInformes /> 
-          </div>
-         
+            <div className="cont-inf-user">
+              <h2 className="titulo-inv-user">Informe de Usuario</h2>
+              <TablaInformes />
+            </div>
+
           </>
         );
       } else {
         switch (selectedOption.label) {
           case "Informe de Inventario":
             return (
-              <>
-                   <div className="cont-inf-inv">
-                   <h2 className="titulo-inv">Informe de Inventario</h2>
-                {encabezadoContentImplemento}
+              <><div className="contenedor-inf-inventario">
+                 <div className="cont-inf-inv">
+                  <h2 className="titulo-inv">Informe de Inventario</h2>
+                  {encabezadoContentImplemento}
 
-                <div className="contenedor-estado">
-                  <ComSelect
-                    nombre="Estado"
-                    items={selectedEstadoInfoo.map((opcion) => opcion.label)}
-                    onChange={(value) => handleEstadoFormit(value)}
-                    getOptionLabel={(option) => option.label}
-                    value={selectedEstado}
-                  />
+                  <div className="contenedor-estado">
+                    <ComSelect
+                      nombre="Estado"
+                      items={selectedEstadoInfoo.map((opcion) => opcion.label)}
+                      onChange={(value) => handleEstadoFormit(value)}
+                      getOptionLabel={(option) => option.label}
+                      value={selectedEstado}
+                    />
+                  </div>
                 </div>
-                </div>
+
+              </div>
+               
               </>
             );
 
           case "Informe de Usuario":
             return (
               <>
-              <div className="padre-informe-user">
-              <div className="cont-inf-user">
-              <h2 className="titulo-inv-user">Informe de Usuario</h2>
-                {encabezadoContentImplemento}
-                <button className="botton-user-enviar" onClick={handleEnviar}>
-          Enviar
-        </button>
-              </div>
+                <div className="contenedor-informe-user">
+                  <div className="purpple"></div>
+                  <div className="padre-informe-user">
+                    <div className="cont-inf-user">
+                      <h2 className="titulo-inv-user">Informe de Usuario</h2>
+                      {encabezadoContentImplemento}
+                      <button className="botton-user-enviar" onClick={handleEnviar}>
+                        Enviar
+                      </button>
+                    </div>
+                    
+                  </div>
 
-              </div>
-       
-              
+                </div>
+
+
+
               </>
             );
 
@@ -457,25 +465,31 @@ export default function Informes() {
           case "Informe de Sanciones":
             return (
               <>
-               <div className="cont-inv-sancion">
-              <h2 className="titulo-inv-sancio">Informe de Sanciones</h2>
-                {encabezadoContentImplemento}
-                <div className="contenedor-numeroDoc">
+              <div className="contenedor-inf-sancion">
+              <div className="cont-inv-sancion">
+                  <h2 className="titulo-inv-sancio">Informe de Sanciones</h2>
+                  {encabezadoContentImplemento}
+                  <div className="cont-sancion-inputs">
                   <Textfield
-                    name="Ingrese el Documento"
-                    onChange={(value) => setNumeroDocumento(value)}
-                  />
+                      name="Ingrese el Documento"
+                      onChange={(value) => setNumeroDocumento(value)}
+                    />
+                    <div className="estado-sancion">
+                    <ComSelect 
+                      nombre="Estado de Sancion"
+                      items={["Activo", "Inactivo", "Todo"]}
+                      onChange={(value) => handleInformeDataChange("estado", value)}
+                      required
+                    />
+                    </div>
+                   
+                  </div>  
+                        
                 </div>
+                
 
-                <div className="contenedor-estadSan">
-                  <ComSelect
-                    nombre="Estado de Sancion"
-                    items={["Activo", "Inactivo", "Todo"]}
-                    onChange={(value) => handleInformeDataChange("estado", value)}
-                    required
-                  />
-                </div>
               </div>
+              
               </>
             );
 
@@ -553,29 +567,33 @@ export default function Informes() {
       <Menu></Menu>
       <React.Fragment>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Elija el informe que desea generar</DialogTitle>
-          <DialogContent>
-            <ComSelect
-              nombre="Tipo de informe"
-              items={selectedTipoInfo.map((opcion) => opcion.label)}
-              onChange={(value) => handleTipoInformeFormit(value)}
-              getOptionLabel={(option) => option.label}
-              value={selectedOption}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={() => {
-                navigate("/admin");
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button onClick={handleClose}>Generar</Button>
-            <Button onClick={() => setShowHistorial(true)}>
-              Historial de Informes
-            </Button>
-          </DialogActions>
+          <div className="cont-informe">
+            <DialogTitle>Elija el informe que desea generar</DialogTitle>
+            <DialogContent>
+              <ComSelect
+                nombre="Tipo de informe"
+                items={selectedTipoInfo.map((opcion) => opcion.label)}
+                onChange={(value) => handleTipoInformeFormit(value)}
+                getOptionLabel={(option) => option.label}
+                value={selectedOption}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className="botton-inf-user"
+                onClick={() => {
+                  navigate("/admin");
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button className="botton-inf-user" onClick={handleClose}>Generar</Button>
+              <Button className="botton-inf-user" onClick={() => setShowHistorial(true)}>
+                Historial de Informes
+              </Button>
+            </DialogActions>
+          </div>
+
         </Dialog>
       </React.Fragment>
 
@@ -583,6 +601,7 @@ export default function Informes() {
         <Snackbar
           className="Snackbar-contraseña"
           open={openSnack}
+
           autoHideDuration={6000}
           onClose={handleCloseSnackBar}
         >
@@ -597,22 +616,21 @@ export default function Informes() {
       </Stack>
 
       {showHistorial ? (
-        <div>
+        <div className="cont-hist-inf">
           <h2 className="ti-HInfo">Historial de Informes</h2>
-
           <TablaInformes />
         </div>
       ) : (
         getContentForSelectedOption()
       )}
-    
-       
-        {enviado && (
-          <div className="contenedor-ex-pd">
-            <Buttons nombre="Excel" onclick={descargarExcel}></Buttons>
-            <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
-          </div>
-        )}
+
+
+      {enviado && (
+        <div className="contenedor-ex-pd">
+          <Buttons nombre="Excel" onclick={descargarExcel}></Buttons>
+          <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
+        </div>
+      )}
     </Box>
   );
 }

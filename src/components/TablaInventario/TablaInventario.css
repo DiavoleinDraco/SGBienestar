@@ -1,21 +1,22 @@
  .tabla-inventario{
     background: #2c0757;
-    height:64%;
-    width: 90%;
-    transform: translateY(184px);
-    POSITION: absolute;
+    height:85%;
+    width: 100%;transform: translateY(20px); 
 }  
-
 .tabla-inv{
     height: 25px !important;
     font-size: 14px;
 }
 /*MAS BOTON */
 .css-zddlty-MuiButtonBase-root-MuiButton-root {
-    outline: #f6f6f6 1px solid;
-    background: transparent;
-    left: 269px;
-      border-radius: 3px !important;
+    outline: #431a1a 1px solid;
+    display: block !important;
+    bottom: -25px;
+    position: fixed;
+    background: #2c0757;
+    right: 405px;
+    z-index: 9999;
+    border-radius: 3px !important;
   border-radius: 6px;
   color: #f6f6f6;
   }
@@ -26,18 +27,18 @@
       box-sizing: border-box;
       border-radius: 200px !important;
       display: block !important;
-      bottom: -130px;
+      bottom: -80px;
       position: fixed;
-      right: -90px;
+      right: -3px;
       z-index: 9999;
     }
     .MuiSvgIcon-root {
-  color: #5e2222 !important;
+  color: #ffffff !important;
     }
+    /* botton del mas  */
     .css-1p7a5wk-MuiButtonBase-root-MuiFab-root{
       background: #2c0757;
     }
-  
   .MuiTypography-root .MuiTypography-body1 .css-ahj2mt-MuiTypography-root{
       background: rgb(51, 99, 153) !important;
   }
@@ -84,16 +85,11 @@
       row-gap: 6px;
       align-items: center;
       justify-content: space-evenly !important;
-  
   }
-  
-  
   .css-1elwnq4-MuiPaper-root-MuiAccordion-root{
-   
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-  
    }
       .css-ahj2mt-MuiTypography-root{
           display: flex;
@@ -111,7 +107,6 @@
       justify-self: end;
   }
   .estadooo{
-     background: #5d2e96;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -200,11 +195,17 @@
       height: 25px;
       border-radius: 3px;
       color: #f6f6f6;
-  
-  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-  
+      box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
   }
-  .cont-boton{
+  .botton-eliminar{
+    background: #2c0757;
+      border: none !important;
+      height: 25px;
+      border-radius: 3px;
+      color: #f6f6f6;
+      box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+  }
+  .cont-botton-eliminar{
       width: 100% !important;
       display: flex;
       justify-content: space-evenly;
@@ -234,3 +235,39 @@
   .css-zddlty-MuiButtonBase-root-MuiButton-root {
      transform: translate(399px, -40px);
   } 
+  /* buscador ------------------- */
+  
+.buscador{
+ width: 300px !important;
+}
+.css-gzkfr-MuiTableCell-root{
+ font-size: 1.5em !important;
+}
+.css-1191obr-MuiPaper-root-MuiAppBar-root {
+
+width: calc(100% - 190px) !important;
+}
+.lupaa{
+    width: 45px;
+}
+.css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
+    width: 27ch  !important;
+    border: none;
+}
+.css-yz9k0d-MuiInputBase-input {
+    color: #000000 !important;
+    font-family: "questrial" !important; 
+    height: 18px !important;
+   background:#e3e3e3 !important;
+   border: none !important;
+   border-radius: 26px;
+
+}
+.cont-busc{
+    background:inherit !important;
+}
+.icon-search{
+    color: #2c0757 !important;
+    z-index: 999;width: 30px !important;
+ 
+}

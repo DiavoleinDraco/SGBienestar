@@ -6,13 +6,24 @@
 .Boton-prestar{
         outline:1px solid  #2c075786 !important;
         border-radius: 6px;
-        color:  #2c075786 !important;
-        background: transparent !important;  
+        color:  #2c075786 !important; 
+        display: block !important;
+        bottom: 348px;
+        position: fixed;
+        background: #2c0757;
+        right: 90px;
+        z-index: 9999;
     }
 .Boton-prestarr{
         border-radius: 6px;
         color:  #fff !important;
-        background:#2c075786 !important; 
+        background:#58525f86 !important; 
+        display: block !important;
+        bottom: 348px;
+        position: fixed;
+        background: #2c0757;
+        right: 90px;
+        z-index: 9999;
     }
     .titulo-imple{
         height: 90px;
