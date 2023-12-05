@@ -1,11 +1,11 @@
 body{
-    background-image: url(./fondo/Background\ original.png) ;
+    background-image: url(./fondo/Background\ original.png)  !important;
     /*background-image: url(./fondo/Background\ original.png);*/
-    background-size: 100% 100%;
+    background-size: 100% 100% !important;
     /* Hace que el fondo cubra toda la pantalla sin recortar */
-    background-attachment: fixed;
+    background-attachment: fixed !important;
     /* Evita que el fondo se mueva con el contenido */
-    background-repeat: no-repeat;
+    background-repeat: no-repeat !important;
     /* Evita la repetición del fondo */
   }
 

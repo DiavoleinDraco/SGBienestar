@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import jwtDecode from 'jwt-decode';
 import { getParametre } from '../../UseFetch';
+import "./UsuarioSanciones.css";
 
 const HistorialSancionUsuario = () => {
   const usuarioid = localStorage.getItem("token");
@@ -35,17 +36,18 @@ const HistorialSancionUsuario = () => {
     return new Date(dateString).toLocaleString();
   };
   return (
-    <Paper elevation={3} style={{ padding: 20, margin: 20 }}>
+    <div className='contenedor-tabla-HisSan'>
+    <Paper elevation={3} className='tabla-contenedor'>
       <Typography variant="h5" gutterBottom></Typography>
       {tableData.length > 0 ? (
-        <TableContainer>
+        <TableContainer style={{height: "100%"}}>
           <Table>
             <TableHead>
-              <TableRow>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Tipo de Sancion</TableCell>
-                <TableCell>Tiempo</TableCell>
-                <TableCell>Estado</TableCell>
+              <TableRow className='fila-encabezado'>
+                <TableCell> <b>Fecha</b> </TableCell>
+                <TableCell> <b>Tipo de Sancion</b> </TableCell>
+                <TableCell> <b>Tiempo</b> </TableCell>
+                <TableCell> <b>Estado</b> </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -65,6 +67,7 @@ const HistorialSancionUsuario = () => {
         <Typography variant="body1">No hay Sanciones registradas.</Typography>
       )}
     </Paper>
+    </div>
   );
 };
 

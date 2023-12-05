@@ -1,0 +1,11 @@
+.contenedor-title-pres {
+    background: #f6f6f6;
+    margin-top: 6.3%;
+    position: sticky;
+    top: 6.3%;
+    z-index: 100;
+}
+
+.contenedor-title-pres h1 {
+    color: #000;
+}

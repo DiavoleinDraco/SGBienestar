@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import jwtDecode from 'jwt-decode';
 import { getParametre } from '../../UseFetch';
+import "./HistorialPrestamos.css";
 
 
 const HistorialPrestamos = () => {
@@ -29,19 +30,20 @@ const HistorialPrestamos = () => {
 
 
   return (
-    <Paper elevation={3} style={{ padding: 20, margin: 20 }}>
+    <div className='contenedor-tabla-HisPres'>
+    <Paper elevation={3} className='tabla-contenedor-prestamos'>
       <Typography variant="h5" gutterBottom>
        
       </Typography>
       {tableData.length > 0 ? (
-        <TableContainer>
+        <TableContainer style={{height: "100%"}}>
           <Table>
             <TableHead>
-              <TableRow>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Implemento</TableCell>
-                <TableCell>Cantidad</TableCell>
-                <TableCell>Estado</TableCell>
+              <TableRow className='fila-encabezado-prestamos'>
+                <TableCell> <b>Fecha</b> </TableCell>
+                <TableCell> <b>Implemento</b> </TableCell>
+                <TableCell> <b>Cantidad</b> </TableCell>
+                <TableCell> <b>Estado</b> </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -58,9 +60,10 @@ const HistorialPrestamos = () => {
           </Table>
         </TableContainer>
       ) : (
-        <Typography variant="body1">No hay préstamos registrados.</Typography>
+        <Typography variant="body1">No  hay préstamos registrados.</Typography>
       )}
     </Paper>
+    </div>
   );
 };
 

@@ -1,0 +1,27 @@
+/* Contenedor de la tabla principal */
+.contenedor-tabla-HisPres {
+    background: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 87%;
+    transform: translate(-50%,-42.6%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo de la tabla de historial de prestamos */
+.tabla-contenedor-prestamos {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+/* Etilo del elcabezado */
+.fila-encabezado-prestamos {
+    position: sticky !important;
+    top: 0;
+    background: #f6f6f6;
+}
