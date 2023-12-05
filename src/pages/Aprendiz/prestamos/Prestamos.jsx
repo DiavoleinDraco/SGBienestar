@@ -5,6 +5,8 @@ import "./Prestamos.css";
 import Textfield from "../../../components/Textfield/Textfield";
 import GenerateQr from "../../../components/Generate_Qr/Generate_Qr";
 import img from "../../imagenes/sena-bienestar.png";
+import Menu from "../../../components/menu/Menu";
+
 
 export default function Prestamos() {
   const [implemento, setImplemento] = useState("");
@@ -55,17 +57,17 @@ export default function Prestamos() {
   }, []);
 
 
- 
+
 
   const obtenerDatosPrestamo = () => {
     const fechaFin = new Date(fechaInicio);
     fechaFin.setMinutes(fechaFin.getMinutes() + 15);
     const implementos = inforPrestamo.map((implemento) => implemento.id);
     const cantidades = inforPrestamo.map((implemento) => implemento.cantidad);
-    
+
     console.log(cantidades);
 
-  
+
     return {
       implementos: implementos,
       cantidad_implementos: cantidades,
@@ -76,7 +78,7 @@ export default function Prestamos() {
     };
   };
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -114,71 +116,82 @@ export default function Prestamos() {
     );
 
     return (
+
+      <div>
+           <Menu></Menu>
       <div className="contenedor-prestamos">
-      <p className="parr-qr">
-        La petición se creó con éxito. <br /> Presiona si quieres descargar el QR.
-      </p>
-      <div className="qr">
-        <GenerateQr busqueda={IDPrestamo} />
+
+        <p className="parr-qr">
+          La petición se creó con éxito. <br /> Presiona si quieres descargar el QR.
+        </p>
+        <div className="qr">
+          <GenerateQr busqueda={IDPrestamo} />
+        </div>
       </div>
-    </div>
-  );
-}
+      </div>
+    );
+  }
   console.log(peticionExitosa);
   return (
-    <div className="contenedor-prestamos-principal">
-      <div className="img-contenedor">
-        <img className="img-prestamos" src={img} alt="Logo de bienestar" />
-      </div>
-      <div className="contenedor-prestamos">
-        <h1>Detalles del prestamo</h1>
-        <p className="parr-prestamo">
-          Querido usuario, usted tendra un tiempo de 15 minutos para ir a buscar
-          el implemento deportivo, recuerde devolverlo dentro del horario
-          estipulado, en buenas condiciones y respetando las normas señaladas en
-          las politicas de prestamos designadas por el area de Bienestar.
-        </p>
 
-        <div className="cot-UND">
-          <div>
-            <b> Usuario: </b> {decode.nombre}
+    <div>
+      
+
+      <div className="contenedor-prestamos-principal">
+        
+        <div className="img-contenedor">
+          <img className="img-prestamos" src={img} alt="Logo de bienestar" />
+        </div>
+        <div className="contenedor-prestamos">
+          <h1>Detalles del prestamo</h1>
+          <p className="parr-prestamo">
+            Querido usuario, usted tendra un tiempo de 15 minutos para ir a buscar
+            el implemento deportivo, recuerde devolverlo dentro del horario
+            estipulado, en buenas condiciones y respetando las normas señaladas en
+            las politicas de prestamos designadas por el area de Bienestar.
+          </p>
+
+          <div className="cot-UND">
+            <div>
+              <b> Usuario: </b> {decode.nombre}
+            </div>
+
+            <div>
+              <p>
+                <b>Implemento:</b>{" "}
+                {inforPrestamo.map((implemento) => implemento.nombre).join(", ")}
+              </p>
+            </div>
+
+            {inforPrestamo.map((implemento, index) => (
+              <div key={index}>
+
+              </div>
+            ))}
+
+
           </div>
 
-          <div>
-            <p>
-              <b>Implemento:</b>{" "}
-              {inforPrestamo.map((implemento) => implemento.nombre).join(", ")}
-            </p>
-          </div>
-
-          {inforPrestamo.map((implemento, index) => (
-            <div key={index}>
+          <form onSubmit={handleSubmit}>
+            <div className="contenedor-inputs">
 
             </div>
-          ))}
 
-          
+            <div className="contenedor-btn-prestamos">
+              <button
+                className="btn-prestamo"
+                style={{ marginRight: "10%" }}
+                type="submit"
+              >
+                Confirmar Prestamo
+              </button>
+            </div>
+
+            <div>
+              <p>Fecha de generación: {fechaInicio.toLocaleString()}</p>
+            </div>
+          </form>
         </div>
-
-        <form onSubmit={handleSubmit}>
-          <div className="contenedor-inputs">
-            
-          </div>
-
-          <div className="contenedor-btn-prestamos">
-            <button
-              className="btn-prestamo"
-              style={{ marginRight: "10%" }}
-              type="submit"
-            >
-              Confirmar Prestamo
-            </button>
-          </div>
-
-          <div>
-            <p>Fecha de generación: {fechaInicio.toLocaleString()}</p>
-          </div>
-        </form>
       </div>
     </div>
   );

@@ -29,11 +29,23 @@ export default function TablaInformes() {
   const [tableData, setTableData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+
+
   const filterData = () => {
-    return tableData.filter((row) =>
-      row.numero.toString().includes(searchTerm)
-    );
+    return tableData.filter((row) => {
+      const numeroMatch = row.numero.toString().includes(searchTerm);
+      const otherFieldsMatch = Object.values(row).some(
+        (value) =>
+          value &&
+          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      );
+  
+      return numeroMatch || otherFieldsMatch;
+    });
   };
+
+
+  
 
   const handleButtonClick = (row, tipo) => {
     try {
@@ -47,24 +59,24 @@ export default function TablaInformes() {
     const fetchData = async () => {
       try {
         const data = await get("/informe/informes");
-
+  
         const modifiedData = data.map((item) => {
           const modifiedNombre = quitarNumeroDelNombre(item.nombre);
-          console.log(
-            `Nombre original: ${item.nombre}, Nombre modificado: ${modifiedNombre}`
-          );
           return {
             ...item,
             nombre: modifiedNombre,
           };
         });
-
+  
+        
+        modifiedData.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+  
         setTableData(modifiedData);
       } catch (error) {
         console.error("Error al obtener datos de la API", error);
       }
     };
-
+  
     fetchData();
   }, []);
 
@@ -97,7 +109,7 @@ export default function TablaInformes() {
       <input
         style={{ margin: "10px" }}
         type="text"
-        placeholder="Buscar por número de informe"
+        placeholder="Buscar"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -146,7 +158,7 @@ export default function TablaInformes() {
                             EXCEL
                           </button>
                         </div>
-                      ) : // Renderizar contenido normal para las otras columnas
+                      ) : 
                       column.format && typeof row[column.id] === "number" ? (
                         column.format(row[column.id])
                       ) : (

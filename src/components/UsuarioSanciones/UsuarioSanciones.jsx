@@ -13,6 +13,7 @@ const HistorialSancionUsuario = () => {
     const fetchData = async () => {
       try {
         const data = await getParametre("/sanciones/usuario/", decode.id);
+        const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setTableData(data);
       } catch (error) {
         console.error("Error al obtener datos de la API", error);
@@ -36,37 +37,48 @@ const HistorialSancionUsuario = () => {
     return new Date(dateString).toLocaleString();
   };
   return (
-    <div className='contenedor-tabla-HisSan'>
-    <Paper elevation={3} className='tabla-contenedor'>
-      <Typography variant="h5" gutterBottom></Typography>
-      {tableData.length > 0 ? (
-        <TableContainer style={{height: "100%"}}>
-          <Table>
-            <TableHead>
-              <TableRow className='fila-encabezado'>
-                <TableCell> <b>Fecha</b> </TableCell>
-                <TableCell> <b>Tipo de Sancion</b> </TableCell>
-                <TableCell> <b>Tiempo</b> </TableCell>
-                <TableCell> <b>Estado</b> </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {tableData.map((loan) => (
-                <TableRow key={loan.id}>
-                  <TableCell>{formatDate(loan.createdAt)}</TableCell>
-                  <TableCell>{loan.description}</TableCell>
-                  <TableCell>{loan.duracion}</TableCell>
-                  
-                  <TableCell>{loan.estado ? 'Activo' : 'Inactivo'}</TableCell>
+    <div className="contenedor-tabla-HisSan">
+      <Paper elevation={3} className="tabla-contenedor">
+        <Typography variant="h5" gutterBottom></Typography>
+        {tableData.length > 0 ? (
+          <TableContainer style={{ height: "100%" }}>
+            <Table>
+              <TableHead>
+                <TableRow className="fila-encabezado">
+                  <TableCell className="title-encabezado">
+                    {" "}
+                    <b>Fecha</b>{" "}
+                  </TableCell>
+                  <TableCell className="title-encabezado">
+                    {" "}
+                    <b>Tipo de Sancion</b>{" "}
+                  </TableCell>
+                  <TableCell className="title-encabezado">
+                    {" "}
+                    <b>Tiempo</b>{" "}
+                  </TableCell>
+                  <TableCell className="title-encabezado">
+                    {" "}
+                    <b>Estado</b>{" "}
+                  </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <Typography variant="body1">No hay Sanciones registradas.</Typography>
-      )}
-    </Paper>
+              </TableHead>
+              <TableBody>
+                {tableData.map((loan) => (
+                  <TableRow key={loan.id}>
+                    <TableCell>{formatDate(loan.createdAt)}</TableCell>
+                    <TableCell>{loan.description}</TableCell>
+                    <TableCell>{loan.duracion}</TableCell>
+                    <TableCell>{loan.estado ? "Activo" : "Inactivo"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <Typography variant="body1">No hay Sanciones registradas.</Typography>
+        )}
+      </Paper>
     </div>
   );
 };

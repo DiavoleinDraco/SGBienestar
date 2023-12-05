@@ -10,7 +10,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import get, { actualizar, getParametre, post } from "../../../UseFetch";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+
 import "./Solicitudes.css";
+
 
 
 export default function BasicTable() {
@@ -26,8 +32,9 @@ export default function BasicTable() {
   const [IdRetrasado, setIdRetrasado] = useState("");
   const [filter, setFilter] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  //filtro de botones el la tabla para CSS
   const [activeFilter, setActiveFilter] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
 
   const ESTADO_APROBADO = "Aprobado";
   const ESTADO_RECHAZADO = "Rechazado";
@@ -78,6 +85,23 @@ export default function BasicTable() {
       rowWithoutAccents.estado.nombre.toLowerCase().includes(searchTermLowerCase)
     );
   };
+
+
+
+  useEffect(() => {
+    const savedFilter = localStorage.getItem("solicitudesFilter");
+    if (savedFilter) {
+      setFilter(savedFilter);
+      setActiveFilter(savedFilter);
+    }
+  }, []);
+  
+
+  /*
+  useEffect(() => {
+    localStorage.setItem("solicitudesFilter", filter);
+  }, [filter]);
+  */
 
 
   //_____Peticion para traer todas los prestamos
@@ -183,19 +207,24 @@ export default function BasicTable() {
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
+    window.location.reload()
   };
 
 
-  const handleRechazar = async (id) => {
+  const handleRechazar = (id) => {
+    const rowData = tableData.find((row) => row._id === id);
+
+    if (rowData.estado.nombre === ESTADO_FALLIDO) {
+      setErrorMessage("No se puede rechazar una solicitud fallida.");
+      setAlertOpen(true);
+      return;
+    }
+
+    setDialogOpen(true);
+  };
+
+  const handleDialogReject = async (id) => {
     try {
-      const rowData = tableData.find((row) => row._id === id);
-
-      if (rowData.estado.nombre === ESTADO_FALLIDO) {
-        setErrorMessage("No se puede rechazar una solicitud fallida.");
-        setAlertOpen(true);
-        return;
-      }
-
       const data = {
         id,
         estado: idRechazado,
@@ -205,10 +234,13 @@ export default function BasicTable() {
 
       setErrorMessage("");
       setAlertOpen(false);
+      setDialogOpen(false);
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
+    window.location.reload()
   };
+
 
 
   const handleRecibido = async (id) => {
@@ -223,6 +255,7 @@ export default function BasicTable() {
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
+    window.location.reload()
   };
 
 
@@ -308,8 +341,11 @@ export default function BasicTable() {
               className={`boton-solicitudes ${activeFilter === "pendientes" ? "active" : ""}`}
               variant="contained"
               onClick={() => {
+                localStorage.setItem('solicitudesFilter', 'pendientes')
+                window.location.reload()
                 setFilter("pendientes");
                 setActiveFilter("pendientes");
+                
               }}
             >
               Pendientes
@@ -318,17 +354,21 @@ export default function BasicTable() {
               className={`boton-solicitudes ${activeFilter === "aprobado" ? "active" : ""}`}
               variant="contained"
               onClick={() => {
+                localStorage.setItem('solicitudesFilter', 'aprobado')
                 setFilter("aprobado")
                 setActiveFilter("aprobado");
               }}
             >
               Aprobado
+              
             </Button>
 
             <Button
               className={`boton-solicitudes ${activeFilter === "retrasado" ? "active" : ""}`}
               variant="contained"
               onClick={() => {
+                localStorage.setItem('solicitudesFilter', 'retrasado')
+                window.location.reload()
                 setFilter("retrasado")
                 setActiveFilter("retrasado");
               }}
@@ -340,6 +380,8 @@ export default function BasicTable() {
               className={`boton-solicitudes ${activeFilter === "fallidas" ? "active" : ""}`}
               variant="contained"
               onClick={() => {
+                localStorage.setItem('solicitudesFilter', 'fallidas')
+                window.location.reload()
                 setFilter("fallidas")
                 setActiveFilter("fallidas");
               }}
@@ -351,6 +393,7 @@ export default function BasicTable() {
               className={`boton-solicitudes ${activeFilter === "rechazadas" ? "active" : ""}`}
               variant="contained"
               onClick={() => {
+                localStorage.setItem('solicitudesFilter', 'rechazadas')
                 setFilter("rechazadas")
                 setActiveFilter("rechazadas");
               }}
@@ -362,6 +405,7 @@ export default function BasicTable() {
               className={`boton-solicitudes ${activeFilter === "completados" ? "active" : ""}`}
               variant="contained"
               onClick={() => {
+                localStorage.setItem('solicitudesFilter', 'completados')
                 setFilter("completados")
                 setActiveFilter("completados");
               }}
@@ -372,7 +416,8 @@ export default function BasicTable() {
             <Button
               className={`boton-solicitudes ${activeFilter === "perdido" ? "active" : ""}`}
               variant="contained"
-              onClick={() => {
+              onClick={() => { localStorage.setItem('solicitudesFilter', 'perdido' )
+              window.location.reload()
                 setFilter("perdido")
                 setActiveFilter("perdido");
               }}
@@ -381,9 +426,10 @@ export default function BasicTable() {
             </Button>
 
             <Button
-              className={`boton-solicitudes ${activeFilter === null ? "active" : ""}`}
+              className={`boton-solicitudes ${activeFilter === "Todos" ? "active" : ""}`}
               variant="contained"
               onClick={() => {
+                localStorage.setItem('solicitudesFilter', "Todos")
                 setFilter(null)
                 setActiveFilter(null);
               }}
@@ -428,10 +474,10 @@ export default function BasicTable() {
                 {filter === "pendientes" && (
                   <>
                     <TableCell align="right">
-                      <b>Aceptar solicitud</b>
+                      <b>ACEPTAR SOLICITUD</b>
                     </TableCell>
                     <TableCell align="right">
-                      <b>Rechazar solicitud</b>
+                      <b>RECHAZAR SOLICITUD</b>
                     </TableCell>
                   </>
                 )}
@@ -477,6 +523,20 @@ export default function BasicTable() {
                     </>
                   ) : filter === "pendientes" ? (
                     <>
+                      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+                        <DialogTitle>Confirmar Rechazo</DialogTitle>
+                        <DialogContent>
+                          <p>¿Estás seguro de que quieres rechazar esta solicitud?</p>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={() => setDialogOpen(false)} color="primary">
+                            Cancelar
+                          </Button>
+                          <Button onClick={() => handleDialogReject(row._id) && setDialogOpen(false) }  color="primary">
+                            Rechazar
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
                       <TableCell align="right">
                         <Button
                           style={{ background: "#e3e3e3", color: "#2c0757" }}
@@ -507,3 +567,4 @@ export default function BasicTable() {
     </div>
   );
 }
+

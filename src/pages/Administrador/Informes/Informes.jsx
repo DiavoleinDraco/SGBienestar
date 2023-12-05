@@ -114,7 +114,7 @@ export default function Informes() {
 
   const handleClose = () => {
     try {
-      setOpen(false);
+      setOpen(true);
 
       if (selectedOption && selectedOption.label === "Historial de Informes") {
         setShowHistorial(true);
@@ -571,8 +571,7 @@ export default function Informes() {
             >
               Cancelar
             </Button>
-            <Button onClick={handleClose}>Generar</Button>
-            <Button onClick={() => setShowHistorial(true)}>
+            <Button onClick={() => setShowHistorial(true) & setOpen(false) }>
               Historial de Informes
             </Button>
           </DialogActions>
