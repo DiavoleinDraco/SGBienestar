@@ -464,8 +464,8 @@ export default function Sanciones() {
             aria-labelledby="confirm-dialog-title"
             aria-describedby="confirm-dialog-description"
           >
-            <DialogTitle id="confirm-dialog-title">Confirmación</DialogTitle>
-            <DialogContent className="contenedor">
+            <DialogTitle className="dialogo-aplicar-sancion" id="confirm-dialog-title">Confirmación</DialogTitle>
+            <DialogContent>
               <Typography className="pregunta" id="confirm-dialog-description">
                 ¿Está seguro de que desea aplicar esta sanción?
               </Typography>

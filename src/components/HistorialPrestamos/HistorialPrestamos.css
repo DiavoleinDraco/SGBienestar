@@ -1,0 +1,61 @@
+/* Contenedor de la tabla principal */
+.contenedor-tabla-HisPres {
+    background: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 84%;
+    transform: translate(-50%, -40%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Estilo de la tabla de historial de prestamos */
+  .tabla-contenedor-prestamos {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  /* Etilo del elcabezado */
+  .fila-encabezado-prestamos {
+    position: sticky !important;
+    top: 0;
+    background: #f6f6f6;
+  }
+  
+  /* Estilo para el encabezado */
+  .title-encabezado-pres {
+    font-size: 22px;
+  }
+  
+  /* Diseño resposivo */
+  @media (max-height: 740px) {
+      /* Contenedor de la tabla principal */
+      .contenedor-tabla-HisPres {
+        background: black;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 83%;
+        transform: translate(-50%, -40%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    
+      @media (max-width: 570px) {
+          .title-encabezado-pres {
+          font-size: 18px;
+        }
+      }
+    
+      @media (max-width: 360px) {
+          .title-encabezado-pres {
+          font-size: 12px;
+        }
+      }
+    }
