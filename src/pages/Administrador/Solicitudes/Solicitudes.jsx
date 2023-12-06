@@ -198,6 +198,8 @@ export default function BasicTable() {
 
   //______________Codigo tabla____________
 
+  //______________Codigo tabla____________
+
   const handleAceptar = async (id) => {
     try {
 
@@ -210,17 +212,20 @@ export default function BasicTable() {
         return;
       }
 
+      const data = {
+        id
+      };
 
       const response = await getParametre("/prestamos/aprobar/", id);
-
-
+  
+      
       setTableData((prevTableData) =>
         prevTableData.map((row) =>
-          row._id === id ? { ...row, estado: { nombre: "Completado" } } : row
+          row._id === id ? { ...row, estado: { nombre: "Aprobado" } } : row
         )
       );
-
-
+  
+     
       setErrorMessage("");
       setAlertOpen(false);
     } catch (error) {

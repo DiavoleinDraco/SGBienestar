@@ -8,6 +8,7 @@ const HistorialSancionUsuario = () => {
   const usuarioid = localStorage.getItem("token");
   const decode = jwtDecode(usuarioid);
   const [tableData, setTableData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,24 +25,52 @@ const HistorialSancionUsuario = () => {
   }, []);
 
   const formatDate = (dateString) => {
-    const options = { 
+    const options = {
       weekday: 'long',
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric', 
-      hour: 'numeric', 
-      minute: 'numeric', 
-      second: 'numeric', 
-      timeZoneName: 'short' 
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZoneName: 'short'
     };
     return new Date(dateString).toLocaleString();
   };
+
+
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+
+  const filteredData = tableData.filter((loan) => {
+    const formattedDate = formatDate(loan.createdAt).toLowerCase();
+    const formattedEstado = loan.estado ? "activo" : "inactivo";
+  
+    return (
+      loan.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (loan.duracion && loan.duracion.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
+      formattedDate.includes(searchTerm.toLowerCase()) ||
+      formattedEstado.includes(searchTerm.toLowerCase())
+    );
+  });
+  
+
   return (
     <div className="contenedor-tabla-HisSan">
       <Paper elevation={3} className="tabla-contenedor">
         <Typography variant="h5" gutterBottom></Typography>
         {tableData.length > 0 ? (
           <TableContainer style={{ height: "100%" }}>
+            <input
+              type="text"
+              placeholder="Buscar..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+
             <Table>
               <TableHead>
                 <TableRow className="fila-encabezado">
@@ -64,7 +93,7 @@ const HistorialSancionUsuario = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tableData.map((loan) => (
+                {filteredData.map((loan) => (
                   <TableRow key={loan.id}>
                     <TableCell>{formatDate(loan.createdAt)}</TableCell>
                     <TableCell>{loan.description}</TableCell>
