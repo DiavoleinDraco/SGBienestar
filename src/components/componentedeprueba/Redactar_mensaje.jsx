@@ -9,10 +9,12 @@ export default function ComposeBar({
   showRecipientInput = false,
   showAsunto = false,
   showChecklist = true,
-  defaultRecipient = '', // Nueva prop para el destinatario por defecto
+  defaultRecipient = [''], // Nueva prop para el destinatario por defecto
   recipient: initialRecipient = '',
   endpoint = '/mail/admin',
-  defaultAsunto = ""
+  defaultAsunto = "",
+  showEnviarButton = true,
+  onEnviarClick
 }) {
   const [message, setMessage] = useState('');
   const [recipient, setRecipient] = useState(defaultRecipient || initialRecipient); // Usar defaultRecipient si está presente
@@ -26,6 +28,8 @@ export default function ComposeBar({
   const handleChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
   };
+
+
 
   const handleTodosClick = () => {
     if (showRecipientInput) {
@@ -77,13 +81,13 @@ export default function ComposeBar({
   }
 
   const handleSendMessage = () => {
-    console.log( { mensaje: message, correo: recipient, asunto: subject }) 
+    console.log({ mensaje: message, correo: recipient, asunto: subject })
     if (!recipient || !message || !subject) {
       alert('Por favor, completa todos los campos antes de enviar el mensaje.');
       return;
     }
-    
-        setIsLoading(true);
+
+    setIsLoading(true);
     post(endpoint, { mensaje: message, correo: recipient, asunto: subject })
       .then((response) => {
         alert('Mensaje enviado a ' + recipient + ': ' + message);
@@ -150,7 +154,18 @@ export default function ComposeBar({
           onChange={handleMessageChange}
         ></textarea>
         <div className='cont-botton'>
-          <button className="compose-button" onClick={handleSendMessage} disabled={isLoading || isMessageSent}>
+          <button
+            className="compose-button"
+            onClick={() => {
+              if (onEnviarClick) {
+                onEnviarClick({ mensaje: message, correo: recipient, asunto: subject });
+              } else {
+                handleSendMessage();
+              }
+            }}
+            disabled={isLoading || isMessageSent}
+            style={{ display: showEnviarButton ? 'inline-block' : 'none' }}
+          >
             Enviar
           </button>
           {onClose && (

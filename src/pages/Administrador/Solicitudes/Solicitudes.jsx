@@ -14,8 +14,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-
+import "./mensaje.css"
 import "./Solicitudes.css";
+import ComposeBar from "../../../components/componentedeprueba/Redactar_mensaje";
 
 
 
@@ -86,8 +87,14 @@ export default function BasicTable() {
     );
   };
 
-
-
+ const handleSendMessage = ({mensaje,correo,asunto}) => {
+  data = {
+    message: mensaje,
+    correo: correo,
+    asunto: asunto,
+  }
+   post("/mail",data)
+ }
   useEffect(() => {
     const savedFilter = localStorage.getItem("solicitudesFilter");
     if (savedFilter) {
@@ -95,17 +102,20 @@ export default function BasicTable() {
       setActiveFilter(savedFilter);
     }
   }, []);
-  
+
 
   /*
   useEffect(() => {
-    localStorage.setItem("solicitudesFilter", filter);
+  localStorage.setItem("solicitudesFilter", filter);
   }, [filter]);
   */
 
 
   //_____Peticion para traer todas los prestamos
 
+  const updateTableData = async () => {
+
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -118,7 +128,7 @@ export default function BasicTable() {
     };
 
     fetchData();
-  }, []);
+  }, [filter]);
 
 
   //___________
@@ -186,9 +196,13 @@ export default function BasicTable() {
   //_____ botones 
 
 
+  //______________Codigo tabla____________
+
   const handleAceptar = async (id) => {
     try {
+
       const rowData = tableData.find((row) => row._id === id);
+
 
       if (rowData.estado.nombre === ESTADO_FALLIDO) {
         setErrorMessage("No se puede aprobar una solicitud fallida.");
@@ -196,19 +210,28 @@ export default function BasicTable() {
         return;
       }
 
-      const data = {
-        id
-      };
 
       const response = await getParametre("/prestamos/aprobar/", id);
+
+
+      setTableData((prevTableData) =>
+        prevTableData.map((row) =>
+          row._id === id ? { ...row, estado: { nombre: "Completado" } } : row
+        )
+      );
+
 
       setErrorMessage("");
       setAlertOpen(false);
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
-    window.location.reload()
   };
+
+
+  //______________Codigo tabla____________
+
+
 
 
   const handleRechazar = (id) => {
@@ -220,6 +243,7 @@ export default function BasicTable() {
       return;
     }
 
+
     setDialogOpen(true);
   };
 
@@ -229,16 +253,21 @@ export default function BasicTable() {
         id,
         estado: idRechazado,
       };
-
+     
       const response = await post("/prestamos/finalizar", data);
-
+      setTableData((prevTableData) =>
+      prevTableData.map((row) =>
+        row._id === id ? { ...row, estado: { nombre: "Rechazado" } } : row
+      )
+    );
       setErrorMessage("");
       setAlertOpen(false);
+
       setDialogOpen(false);
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
-    window.location.reload()
+    //window.location.reload()
   };
 
 
@@ -251,11 +280,19 @@ export default function BasicTable() {
         estado: idCompletado,
       };
 
+      setTableData((prevTableData) =>
+        prevTableData.map((row) =>
+          row._id === id ? { ...row, estado: { nombre: "Aprobado" } } : row
+        )
+      );
+
+
+
       const response = await post("/prestamos/finalizar", data);
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
-    window.location.reload()
+    //window.location.reload()
   };
 
 
@@ -342,10 +379,10 @@ export default function BasicTable() {
               variant="contained"
               onClick={() => {
                 localStorage.setItem('solicitudesFilter', 'pendientes')
-                window.location.reload()
+                //window.location.reload()
                 setFilter("pendientes");
                 setActiveFilter("pendientes");
-                
+
               }}
             >
               Pendientes
@@ -360,7 +397,7 @@ export default function BasicTable() {
               }}
             >
               Aprobado
-              
+
             </Button>
 
             <Button
@@ -368,7 +405,7 @@ export default function BasicTable() {
               variant="contained"
               onClick={() => {
                 localStorage.setItem('solicitudesFilter', 'retrasado')
-                window.location.reload()
+                //window.location.reload()
                 setFilter("retrasado")
                 setActiveFilter("retrasado");
               }}
@@ -381,7 +418,7 @@ export default function BasicTable() {
               variant="contained"
               onClick={() => {
                 localStorage.setItem('solicitudesFilter', 'fallidas')
-                window.location.reload()
+                //window.location.reload()
                 setFilter("fallidas")
                 setActiveFilter("fallidas");
               }}
@@ -416,8 +453,9 @@ export default function BasicTable() {
             <Button
               className={`boton-solicitudes ${activeFilter === "perdido" ? "active" : ""}`}
               variant="contained"
-              onClick={() => { localStorage.setItem('solicitudesFilter', 'perdido' )
-              window.location.reload()
+              onClick={() => {
+                localStorage.setItem('solicitudesFilter', 'perdido')
+                //window.location.reload()
                 setFilter("perdido")
                 setActiveFilter("perdido");
               }}
@@ -527,12 +565,22 @@ export default function BasicTable() {
                         <DialogTitle>Confirmar Rechazo</DialogTitle>
                         <DialogContent>
                           <p>¿Estás seguro de que quieres rechazar esta solicitud?</p>
+                          <ComposeBar
+                            style="custom-style"
+                             showChecklist={false}
+                            defaultRecipient={[row.usuario && row.usuario.correo_inst]}
+                            defaultAsunto="Notificacióm de Rechazo de Prestamo"
+                           endpoint="/mail"
+                           showEnviarButton={false}
+                           onEnviarClick={(mensaje,correo,asunto) => handleSendMessage({mensaje,correo,asunto})}
+                          >
+                          </ComposeBar>
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={() => setDialogOpen(false)} color="primary">
                             Cancelar
                           </Button>
-                          <Button onClick={() => handleDialogReject(row._id) && setDialogOpen(false) }  color="primary">
+                          <Button onClick={() => handleDialogReject(row._id) && setDialogOpen(false)} color="primary">
                             Rechazar
                           </Button>
                         </DialogActions>
@@ -567,4 +615,3 @@ export default function BasicTable() {
     </div>
   );
 }
-
