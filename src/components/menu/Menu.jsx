@@ -442,16 +442,22 @@ export default function Menu() {
           </Box>
         </Toolbar>
       </AppBar>
+      
 
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
+          
           <IconButton onClick={handleDrawerClose}>
+          <div className="MuiBackdrop-root"></div>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
+              
             ) : (
               <ChevronLeftIcon />
+              
             )}
           </IconButton>
+       
         </DrawerHeader>
         <Divider />
         <List>
@@ -911,6 +917,7 @@ export default function Menu() {
           </IconButton>
         </DrawerHeader>
         <Divider />
+        
         <List>
         
           <ListItem
