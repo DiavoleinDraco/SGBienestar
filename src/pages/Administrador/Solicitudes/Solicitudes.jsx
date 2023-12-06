@@ -186,29 +186,42 @@ export default function BasicTable() {
   //_____ botones 
 
 
+  //______________Codigo tabla____________
+
   const handleAceptar = async (id) => {
     try {
+      
       const rowData = tableData.find((row) => row._id === id);
-
+  
+     
       if (rowData.estado.nombre === ESTADO_FALLIDO) {
         setErrorMessage("No se puede aprobar una solicitud fallida.");
         setAlertOpen(true);
         return;
       }
-
-      const data = {
-        id
-      };
-
+  
+      
       const response = await getParametre("/prestamos/aprobar/", id);
-
+  
+      
+      setTableData((prevTableData) =>
+        prevTableData.map((row) =>
+          row._id === id ? { ...row, estado: { nombre: "Aprobado" } } : row
+        )
+      );
+  
+     
       setErrorMessage("");
       setAlertOpen(false);
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
-    window.location.reload()
   };
+
+  
+  //______________Codigo tabla____________
+
+
 
 
   const handleRechazar = (id) => {

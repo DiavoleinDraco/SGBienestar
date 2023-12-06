@@ -4,31 +4,67 @@ import jwtDecode from 'jwt-decode';
 import { getParametre } from '../../UseFetch';
 import "./HistorialPrestamos.css";
 
-
 const HistorialPrestamos = () => {
   const usuarioid = localStorage.getItem("token");
   const decode = jwtDecode(usuarioid);
   const [tableData, setTableData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const formatDate = (dateString) => {
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZoneName: 'short'
+    };
+    return new Date(dateString).toLocaleString();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getParametre("/prestamos/usuario/", decode.id);
         const sortedData = data.sort((a, b) => new Date(b.fecha_fin) - new Date(a.fecha_fin));
-  
+
         setTableData(sortedData);
       } catch (error) {
         console.error("Error al obtener datos de la API", error);
       }
     };
-  
+
     fetchData();
   }, [decode.id]);
 
-  console.log(tableData);
 
+  
 
- 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+  
+  const filteredData = tableData.filter((loan) => {
+    const formattedDate = formatDate(loan.fecha_fin)?.toLowerCase() || "";
+    
+    const implementoNombreMatches = loan.implementos.some(
+      (implemento) => removeAccents(implemento.nombre.toLowerCase()).includes(removeAccents(searchTerm.toLowerCase()))
+    );
+  
+    return (
+      (removeAccents(loan.estado.nombre).toLowerCase().includes(removeAccents(searchTerm.toLowerCase()))) || 
+      implementoNombreMatches || 
+      (loan.cantidad_implementos && loan.cantidad_implementos.toString().toLowerCase().includes(removeAccents(searchTerm.toLowerCase()))) ||
+      removeAccents(formattedDate).includes(removeAccents(searchTerm.toLowerCase()))
+    );
+  });
+  
+  
 
 
   return (
@@ -37,6 +73,12 @@ const HistorialPrestamos = () => {
         <Typography variant="h5" gutterBottom></Typography>
         {tableData.length > 0 ? (
           <TableContainer style={{ height: "100%" }}>
+            <input
+              type="text"
+              placeholder="Buscar..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
             <Table>
               <TableHead>
                 <TableRow className="fila-encabezado-prestamos">
@@ -59,9 +101,8 @@ const HistorialPrestamos = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tableData.map((loan) => (
+                {filteredData.map((loan) => (
                   <TableRow key={loan.id}>
-                    {/* Parsear y formatear la fecha */}
                     <TableCell>
                       {new Date(loan.fecha_fin).toLocaleString()}
                     </TableCell>
@@ -72,6 +113,7 @@ const HistorialPrestamos = () => {
                     <TableCell>{loan.estado.nombre}</TableCell>
                   </TableRow>
                 ))}
+
               </TableBody>
             </Table>
           </TableContainer>
