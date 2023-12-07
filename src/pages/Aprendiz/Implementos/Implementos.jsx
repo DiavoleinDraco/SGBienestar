@@ -218,11 +218,11 @@ export default function Implementos(){
   
       return (
         <>
-        <Box sx={{ background:"#e3e3e3",display: 'flex',width:"100%",flexDirection:"column"}}>
+        <Box sx={{ background:"#fff",display: 'flex',width:"100%",flexDirection:"column"}}>
           <Board />
+          <div className="cajita"></div>
           <div className="cont-implem">
-            <div className="square"></div>
-            <div className="squares"></div>
+            <div className="caja-imple"></div>
           <h2 className="titulo-imple">Implementos</h2>
 
           </div>

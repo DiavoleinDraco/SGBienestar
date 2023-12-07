@@ -8,27 +8,33 @@
   box-shadow: none !important;
    height: 7vh;
    width: 100% !important;
-
-   box-shadow: 0 1px 9px 0 rgba(0,0,0,.12), inset 0 -1px 0 0 #dadce0 !important;
 }
 /* barra de menu  vertical  */
 .MuiDrawer-paper {
-  background:#2c0757 !important;
+  background:#2c0757;
    width:86px !important;
   color: #ffffff !important;
   display: none;
   z-index: 999999999999999;
   
 }
+.logoo{
+  height: 50px;
+  width: 180px;
+  transform: translateX(70px);
+background-repeat: no-repeat;
+border-radius: 90px;
+border-bottom-left-radius: 50px;
+background-size: contain;
+  background-image: url('logoo.png');
+}
 .css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper {
-  background:#2c0757 !important;
+  background:#2c0757;
   color: white;
   display: flex;
   position: fixed;
   height: 100vh !important;
   width:250px !important;  
-  border-top-right-radius: 30PX;
-position: none !important;
 }
 
 .css-10hburv-MuiTypography-root{
@@ -104,7 +110,7 @@ position: none !important;
 .css-va53ml-MuiButtonBase-root-MuiListItemButton-root{
   width: 90%;
   justify-self:center;
-  height: 20px !important;
+  height: 10px !important;
   margin: auto;
   border-radius: 7px;
 }
@@ -116,10 +122,10 @@ background: #fbf7f710;
 }
 
 .css-va53ml-MuiButtonBase-root-MuiListItemButton-root{
-  transform: translateX(-10px);
+  transform: translateX(-6px);
 }
 .Overlay-backdrop--side {
-  background: rgba(34, 34, 34, 0.441);
+  background:var(--app-drawer-scrim-background, rgba(0, 0, 0, 0.5));
   bottom: 0;
   display: flex;
   left: 0;
@@ -127,18 +133,23 @@ background: #fbf7f710;
   right: 0;
   top: 0;
   z-index: -999999 !important;
+  margin-left: 250PX;
 }
-
-.MuiBackdrop-root {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  z-index: -999;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
-  background: rgba(34, 34, 34, 0.441);
-  -webkit-tap-highlight-color: transparent;
+.css-15m4tmw-MuiListItem-root{
+  padding: 0 !important;
+}
+.MuiButtonBase-root{
+  padding: 1 !important;
+}
+.css-1ic4du8-MuiListItemText-root {
+  -webkit-flex: 1 1 auto; 
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-top: 0 !important;
+   margin-bottom: 0 !important;
+  opacity: 1;
+}
+.css-h4y409-MuiList-root{
+  padding: 0 !important;
 }

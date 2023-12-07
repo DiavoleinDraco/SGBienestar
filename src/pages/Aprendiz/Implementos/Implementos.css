@@ -8,27 +8,31 @@
         border-radius: 6px;
         color:  #2c075786 !important; 
         display: block !important;
-        bottom: 348px;
+        bottom: 891px;
         position: fixed;
         background: #2c0757;
-        right: 90px;
+        right: 60px;
         z-index: 9999;
     }
+    .css-13xfq8m-MuiTabPanel-root {
+        background: #e3e3e3;
+}
 .Boton-prestarr{
         border-radius: 6px;
         color:  #fff !important;
         background:#58525f86 !important; 
         display: block !important;
-        bottom: 348px;
+        bottom: 891px;
         position: fixed;
         background: #2c0757;
-        right: 90px;
+        right: 60px;
         z-index: 9999;
     }
     .titulo-imple{
         height: 90px;
-        color:#fff;
+        color: #2c0757;
         font-size: 3rem;
+        transform: translate(-390PX,-180PX);
     }
     .css-1191obr-MuiPaper-root-MuiAppBar-root {
         width: calc(100% - 240px) !important;
@@ -44,26 +48,11 @@
         height: 300px;
 
     }
-    .square{
-        background: #e3e3e3;
-        position: absolute;
-        height: 230px;
-        transform: rotate(45deg);
-        width: 240px;
-        left: -45px;
-        top: 10px;
-        
-    }
-    .squares{
-        background:#4f0e9b93;
-        position: absolute;
-        height: 230px;
-        transform: rotate(55deg);
-        width: 240px;
-        left: -1px;
-        top: -12px;
-        
-    }
+   .caja-imple{
+    height: 100%;
+    width: 65%;
+    clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);
+background: lightgray;   }
 
     /* contenido de las cartas */
     .categoria{
@@ -73,7 +62,6 @@
         box-sizing: border-box;
         padding: 15px 3px;
         width: 100% !important;
-      
         font-weight: normal;
     }
     .contCard{
