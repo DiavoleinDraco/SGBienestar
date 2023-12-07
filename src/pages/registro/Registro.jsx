@@ -15,6 +15,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import { forwardRef } from "react";
+import jwtDecode from "jwt-decode";
 
 export default function Registro() {
   const navegacion = useNavigate();
@@ -39,7 +40,8 @@ export default function Registro() {
   const [activeSliderIndex, setActiveSliderIndex] = useState(0);
   const [activeMenuIndex, setActiveMenuIndex] = useState(0);
   const [isFichaRequired, setIsFichaRequired] = useState(false);
-
+  const token = localStorage.getItem('token')
+  const decode = token ? jwtDecode(token) : null
   const handleMenuClick = (index) => {
     setActiveSliderIndex(index);
     setActiveMenuIndex(index);
@@ -169,7 +171,6 @@ export default function Registro() {
     }
   };
   
-  console.log(info)
 
   useEffect(() => {
     if (fichas.length > 0 && eps.length > 0 && rol.length > 0) {
@@ -194,7 +195,16 @@ export default function Registro() {
   useEffect(() => {
     get("/rol")
       .then((data) => {
-        setRol(data);
+        console.log(decode && decode.privilegio)
+        if(decode && decode.privilegio == 1){
+          setRol(data);
+        }else{
+          const rolesFiltrados = data.filter((rol) => rol.nombre !== 'Administrador')
+          setRol(rolesFiltrados)
+        }
+       
+
+        
       })
       .catch((error) => {
         console.error("Error al encontrart el resultado", error);

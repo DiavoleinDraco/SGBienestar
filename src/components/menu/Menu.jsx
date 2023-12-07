@@ -37,6 +37,7 @@ import Slide from "@mui/material/Slide";
 import './Menu.css';
 import { Popover } from "@mui/material";
 import jwtDecode from "jwt-decode";
+import CustomizedDialogs from "../DialogAjustes/DialogAjustes";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -158,8 +159,15 @@ export default function Menu() {
   const [open, setOpen] = useState(false);
   const [openDialogo, setOpenDialogo] = useState(false);
   const navigate = useNavigate();
+  const [openDialog, setOpenDialog] = useState(false);
 
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+};
 
+const handleClickCloseDialog = () => {
+  setOpenDialog(false);
+};
 
    /*!Para cerrar sesion */
   const handleCerrarSesion = () => {
@@ -313,58 +321,19 @@ export default function Menu() {
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Button
+            <IconButton
               vsize="large"
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleClickOpen}
+              onClick={handleClickOpenDialog}
               color="inherit"
             >
-              <i class="bi bi-bell"></i>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6" />
-              </svg>
-            </Button>
-            <Dialog
-              fullScreen
-              open={openDialogo}
-              onClose={handleClose}
-              TransitionComponent={Transition}
-            >
-              <AppBar sx={{ position: "relative" }}>
-                <Toolbar>
-                  <IconButton
-                    edge="start"
-                    color="inherit"
-                    onClick={handleClose}
-                    aria-label="close"
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                  <Typography
-                    sx={{ ml: 2, flex: 1 }}
-                    variant="h6"
-                    component="div"
-                  >
-                    Notificaciones
-                  </Typography>
-                </Toolbar>
-              </AppBar>
-              <List>
-                <ListItem>
-                  <ListItemText primary="Phone ringtone" secondary="Titania" />
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemText
-                    primary="Default notification ringtone"
-                    secondary="Tethys"
-                  />
-                </ListItem>
-              </List>
-            </Dialog>
+            <SettingsIcon></SettingsIcon>
+            <CustomizedDialogs open={openDialog} handleClickOpen={handleClickOpenDialog} handleClose={handleClickCloseDialog}></CustomizedDialogs>
+            </IconButton>
+         
             {/*esto */}
             <IconButton
               size="large"
