@@ -40,7 +40,7 @@ const HistorialPrestamos = () => {
   }, [decode.id]);
 
 
-  
+
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -48,37 +48,40 @@ const HistorialPrestamos = () => {
   const removeAccents = (str) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   };
-  
+
   const filteredData = tableData.filter((loan) => {
     const formattedDate = formatDate(loan.fecha_fin)?.toLowerCase() || "";
-    
+
     const implementoNombreMatches = loan.implementos.some(
       (implemento) => removeAccents(implemento.nombre.toLowerCase()).includes(removeAccents(searchTerm.toLowerCase()))
     );
-  
+
     return (
-      (removeAccents(loan.estado.nombre).toLowerCase().includes(removeAccents(searchTerm.toLowerCase()))) || 
-      implementoNombreMatches || 
+      (removeAccents(loan.estado.nombre).toLowerCase().includes(removeAccents(searchTerm.toLowerCase()))) ||
+      implementoNombreMatches ||
       (loan.cantidad_implementos && loan.cantidad_implementos.toString().toLowerCase().includes(removeAccents(searchTerm.toLowerCase()))) ||
       removeAccents(formattedDate).includes(removeAccents(searchTerm.toLowerCase()))
     );
   });
-  
-  
+
+
 
 
   return (
     <div className="contenedor-tabla-HisPres">
+      <div className="contenedor-barr-HisPres">
+        <input
+          className='barr-HisPres'
+          type="text"
+          placeholder="Buscar..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
       <Paper elevation={3} className="tabla-contenedor-prestamos">
         <Typography variant="h5" gutterBottom></Typography>
         {tableData.length > 0 ? (
           <TableContainer style={{ height: "100%" }}>
-            <input
-              type="text"
-              placeholder="Buscar..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
             <Table>
               <TableHead>
                 <TableRow className="fila-encabezado-prestamos">
