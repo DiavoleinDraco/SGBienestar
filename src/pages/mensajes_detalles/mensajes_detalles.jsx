@@ -68,11 +68,11 @@ export default function MensajesDetalle() {
   const mensaje = (
     <div className="mensajes-detalle-content">
       <div className="mensaje-header">
-        <div className="contenedor-table-dt-mensajes" style={{ textAlign: "center", background: "gray" }}>
-          <table className="table-dt-mensajes" style={{ align: "center", width: "800", cellSpacing: "0", cellPadding: "0", border: "0" }}>
+        <div className="contenedor-table-dt-mensajes">
+          <table className="table-dt-mensajes">
             <tbody>
               <tr>
-                <td bgcolor="#f2f2f2" style={{ padding: "20px", textAlign: "center" }}>
+                <td>
                   <h1 style={{ color: "#000000" }}>Servicio Nacional de Aprendizaje</h1>
                   <p style={{ color: "#000000" }}>Hola, {user && user.correo}</p>
                   <p style={{ color: "#000000" }}>Asunto: {user && user.asunto}</p>
@@ -88,7 +88,7 @@ export default function MensajesDetalle() {
   )
 
   return (
-    <Box sx={{ display: 'flex', position: 'relative', top: '100px' }}>
+    <Box>
       <Menu />
       <div className="mensajes-detalle-container">
         <div className="mensajes-detalle-header">

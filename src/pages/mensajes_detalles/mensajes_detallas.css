@@ -2,13 +2,13 @@
 .mensajes-detalle-container {
   display: flex;
   flex-direction: column;
-  height: 80vh;
-  width: 80%;
-  background-color: #fff;
+  height: 91vh;
+  width: 100%;
+  background-color: #f2f2f2;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 10%);
+  transform: translate(-50%, -45.4%);
 }
 
 .mensajes-detalle-header {
@@ -27,7 +27,7 @@
 }
 
 .cuadro-responder {
-  background: #e0e0e0; /* Cambia el color de fondo según tus preferencias */
+  background: #fff; /* Cambia el color de fondo según tus preferencias */
   padding: 10px;
   margin-top: 10px; /* Ajusta el margen superior según sea necesario */
 }
@@ -37,6 +37,8 @@
   width: 100%;
   padding: 20px;
   background-color: #fff;
+  display: flex;
+  justify-content: center;
 }
 
 .mensaje-info {
@@ -64,3 +66,22 @@ mensaje-header {
   margin-right: 5px; /* Ajusta el margen entre los botones según sea necesario */
 }
 
+/* Estilo para el icono de retroceso y borrar */
+.css-i4bv87-MuiSvgIcon-root {
+  width: 1.7em !important;
+  height: 1.7em !important;
+  color: #000000;
+}
+
+/* Estilo para la tabla que contiene la informacion de quien es el mensaje */
+.table-dt-mensajes {
+  background: #f2f2f2;
+}
+
+/* Estilo del compose bar al undir el boton de responder */
+.compose-bar.custom-style .compose-textarea {
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 200px !important;
+  min-height: 200px !important;
+}
