@@ -185,8 +185,6 @@ export default function TablaUsarios() {
       style={{
         height: 1100,
         width: "100%",
-         
-      
       }}
     >
       <Toolbar className="cont-busc">

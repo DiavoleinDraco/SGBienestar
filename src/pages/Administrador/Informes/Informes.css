@@ -44,7 +44,7 @@
     -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.24);
 -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.24);
 box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.24);
-z-index: 9999;
+
  }
  .contenedor-informe-user{
   height: 100vh !important;
@@ -213,7 +213,7 @@ right: 0 !important;
     align-items: center;
   row-gap: 50px;
   justify-content: space-between;
-    height: 70%;
+    height: 90px;
 
    
     transform: translateY(-15px);
@@ -356,4 +356,177 @@ padding: 12px 8px;
 .titulo-histor-info{
   color: #2c0757;
   transform: translateY(150px);
+}
+/* RESPONSIVO INFORMES-INVENTARIO */
+@media screen
+and (min-device-width: 1200px)
+and (max-device-width: 1600px)
+{
+  .botton-user-enviar{
+    color: #f6f6f6 !important;
+    background: #2c0757 !important;
+    font-size: 0.700rem !important;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);    
+    border: none;
+    height: 40px;
+    width: 90px;
+    position: absolute;
+    border-radius: 4px;
+    transform: translate(-60px,-73px);
+  }
+.container-Informes {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 50px;
+    justify-content: space-between;
+    height: 70%;
+    transform: translateY(-15px);
+    width: 470px;
+    height: 400px;
+}
+
+  .contenedor-inf-inventario{
+    background: #ffffff;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+
+  .contenedor-dependencia{
+  
+  
+  }
+  .cont-inf-inv{
+    background: #fff;
+    width: 430px;
+    height: 85vh !important;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(30px);
+    align-items: center;
+    border-radius: 30px;
+    row-gap: -2px;
+    justify-content: start;
+  }
+  .contenedorsito{
+    height: 110px;
+   
+   
+  }
+
+
+  .titulo-inv{
+    height: 20px;
+    }
+ /* userr */
+ .cont-inf-user{
+  background: #fff;
+  display: flex !important;
+ flex-direction: column;
+  width: 510px;
+  height: 590px !important;
+  align-items: center;
+  row-gap: 1px;
+  border-radius: 30px;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.24);
+-moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.24);
+box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.24);
+transform: translateY(30px);
+}
+.contenedor-informe-user{
+height: 100vh !important;
+width: 100%;
+display: flex;
+justify-content: center;
+z-index: -99999;
+align-items: center;
+background: #e6e6e6;
+}
+      .titulo-inv-user{
+    
+        color: #2c0757;
+        padding: 10px 11px;
+    
+      }
+      .contenedor-dependencia{
+    
+      }
+      .contenedorsito{
+   
+        height: 90px;
+      }
+      .cont-observacion{
+  
+        width: 59%;
+        height: 140px;
+      
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+       
+      }
+      /* sanciones*/
+      .cont-inv-sancion{
+        background: #fff;
+        width: 590px;
+        height:590px !important;
+        display: flex;
+       flex-wrap: wrap;
+        border-radius: 30px;
+        transform: translateY(30px);
+      }
+      .titulo-inv-sancio{
+    color: #2c0757;
+    width: 100%;
+      }
+      .cont-sancion-inputs{
+       transform: translate(29px,-67px);
+        height: 170px;
+        width: 300px;
+    
+    
+    
+      }
+      .contenedor-inf-sancion{
+    background: #0382ac;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      }
+
+      .contenedor-de-inpust-agregar-implementos{
+        background: #0f171a;
+      }
+      .cont-agregar-implementos{
+        background: #0e003e;
+        height: 200px;
+        overflow: scroll;
+        width: 200px;
+      }
+      .contenedor-nuevo-imple{
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #0382ac;
+      }
+      .cont-nuevo-imple{
+        height: 510px;
+        border-radius: 30px;
+        width: 430px;
+        transform: translateY(35px);
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+  
 }
