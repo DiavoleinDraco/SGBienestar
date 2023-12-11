@@ -12,6 +12,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
+import DialogActions from '@mui/material/DialogActions';
+
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -29,7 +31,6 @@ import { useNavigate } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
@@ -37,7 +38,19 @@ import Slide from "@mui/material/Slide";
 import './Menu.css';
 import { Popover } from "@mui/material";
 import jwtDecode from "jwt-decode";
-import CustomizedDialogs from "../DialogAjustes/DialogAjustes";
+import Button from '@mui/material/Button';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import Ajustes from "../../pages/Administrador/Ajustes/Ajustes";
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -157,17 +170,15 @@ export default function Menu() {
   const [profileMenuAnchorEl, setProfileMenuAnchorEl] = useState(null);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [openDialogo, setOpenDialogo] = useState(false);
   const navigate = useNavigate();
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialogo, setOpenDialogo] = React.useState(false);
 
-  const handleClickOpenDialog = () => {
-    setOpenDialog(true);
-};
-
-const handleClickCloseDialog = () => {
-  setOpenDialog(false);
-};
+  const handleClicksetOpenDialogo = () => {
+    setOpenDialogo(true);
+  };
+  const handleCloseDialogo = () => {
+    setOpenDialogo(false);
+  };
 
   /*!Para cerrar sesion */
   const handleCerrarSesion = () => {
@@ -321,18 +332,47 @@ const handleClickCloseDialog = () => {
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
+          
+      <IconButton
               vsize="large"
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleClickOpenDialog}
+              onClick={handleClicksetOpenDialogo}
               color="inherit"
             >
             <SettingsIcon></SettingsIcon>
-            <CustomizedDialogs open={openDialog} handleClickOpen={handleClickOpenDialog} handleClose={handleClickCloseDialog}></CustomizedDialogs>
             </IconButton>
+      <BootstrapDialog
+        onClose={handleCloseDialogo}
+        aria-labelledby="customized-dialog-title"
+        open={openDialogo}
+        maxWidth="xl"
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+            Ajustes de administrador
+        </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleCloseDialogo}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            <Ajustes></Ajustes>
+          </Typography>
+        
+        </DialogContent>
+  
+      </BootstrapDialog>
          
             {/*esto */}
             <IconButton

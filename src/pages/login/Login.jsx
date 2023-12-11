@@ -68,9 +68,7 @@ export default function Login() {
     return Object.keys(errores).length === 0;
   };
 
-  const realizarInicioSesion = (decode) => {
-    decode > 1 ? navegacion("/usuarios") : navegacion("/admin");
-  };
+  
 
   const handleLoginClick = async () => {
     try {
@@ -89,9 +87,9 @@ export default function Login() {
 
       localStorage.setItem("token", findNewToken.token);
       const decode = jwtDecode(findNewToken.token);
+      decode > 1 ? navegacion("/usuarios") : navegacion("/admin");
 
       setErrorMensaje(null);
-      realizarInicioSesion(decode.privilegio);
     } catch (error) {
       setOpen(true);
       setErrorMensaje(error.message);

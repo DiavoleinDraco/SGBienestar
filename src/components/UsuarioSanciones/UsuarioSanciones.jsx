@@ -48,7 +48,7 @@ const HistorialSancionUsuario = () => {
   const filteredData = tableData.filter((loan) => {
     const formattedDate = formatDate(loan.createdAt).toLowerCase();
     const formattedEstado = loan.estado ? "activo" : "inactivo";
-  
+
     return (
       loan.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (loan.duracion && loan.duracion.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
@@ -56,21 +56,23 @@ const HistorialSancionUsuario = () => {
       formattedEstado.includes(searchTerm.toLowerCase())
     );
   });
-  
+
 
   return (
     <div className="contenedor-tabla-HisSan">
+      <div className="contenedor-barr-HisSan">
+        <input
+          className='barr-HisSan'
+          type="text"
+          placeholder="Buscar..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
       <Paper elevation={3} className="tabla-contenedor">
         <Typography variant="h5" gutterBottom></Typography>
         {tableData.length > 0 ? (
           <TableContainer style={{ height: "100%" }}>
-            <input
-              type="text"
-              placeholder="Buscar..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-
             <Table>
               <TableHead>
                 <TableRow className="fila-encabezado">
