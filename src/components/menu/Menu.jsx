@@ -444,6 +444,8 @@ export default function Menu() {
               <Box sx={{ p: 2 }}>
                 <Button onClick={handlPerfilClik}>Perfil</Button>
                 <Button onClick={handleCerrarSesion}>Cerrar Sesión</Button>
+                <Button onClick={handleClicksetOpenDialogo}>Ajustes</Button>
+                
 
               </Box>
               

@@ -27,14 +27,25 @@ export default function Implementos(){
     const [implementosSeleccionados, setImplementosSeleccionados] = useState([]);
     const [open, setOpen] = useState(false)
     const [errorMensaje, setErrorMensaje] = useState(null);
+    const [configuracion, setConfiguracion] = useState({})
     const [isImplementoSelected, setIsImplementoSelected] = useState(false)
     const navigate = useNavigate();
-
-
+    let fechaActual = new Date()
+    const tiempoHm = fechaActual.getHours().toString().padStart(2, '0') + ':' + fechaActual.getMinutes().toString().padStart(2, '0');
+    const isTiempoEnRango = tiempoHm >= (configuracion && configuracion.horario_inicio) && tiempoHm <= (configuracion && configuracion.horario_fin);
+    console.log(isTiempoEnRango)
     const errorCant = () => {
       setOpen(false)
     }
 
+    useEffect(() => {
+      try {
+        get("/config-sistema").then((config) =>setConfiguracion(config) )
+      } catch (error) {
+        console.log(error)
+      }
+     
+    },[])
 
     useEffect(() => {
         get('/implementos')
@@ -235,6 +246,7 @@ export default function Implementos(){
               onClick={handlePrestarClick}
               color="primary"
               size="large" // Puedes ajustar el tamaño del botón aquí
+              disabled={!isTiempoEnRango}
                // Estilos adicionales
             > PRESTAR {implementosSeleccionados.length} {'IMPLEMENTO(S)'}</Button>
             </span>
