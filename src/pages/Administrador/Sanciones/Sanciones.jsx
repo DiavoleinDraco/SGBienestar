@@ -233,14 +233,6 @@ export default function Sanciones() {
     <div className="container-sanciones">
       <Menu></Menu>
 
-      <div className="sanciones-div">
-        <div
-          className="imagen-sanciones-container"
-          style={{ background: "#2c0757" }}
-        >
-        </div>
-      </div>
-
       <div className="contenedor-tabla-sanciones">
         {" "}
         <HistorialSanciones />

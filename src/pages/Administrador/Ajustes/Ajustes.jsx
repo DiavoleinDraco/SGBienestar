@@ -7,6 +7,7 @@ import Buttons from "../../../components/Buttons/Buttons";
 import CircularColor from "../../../components/Cargando/Cargando";
 import get from "../../../UseFetch";
 import { useNavigate } from "react-router-dom";
+import "./Ajustes.css";
 
 export default function Ajustes() {
     const [datosActualizados, setDatosActualizados] = useState({});
@@ -106,7 +107,7 @@ export default function Ajustes() {
                         style={{ marginLeft: "-1%", cursor: "pointer" }}
                         onClick={handleEditarClick}
                     >
-                        <EditIcon> </EditIcon>
+                        <EditIcon className="lapices-ajuste" style={{ color: '#000' }}> </EditIcon>
                     </span>
                 </div>
 
@@ -121,7 +122,7 @@ export default function Ajustes() {
                         style={{ marginLeft: "-1%", cursor: "pointer" }}
                         onClick={handleEditarClick}
                     >
-                        <EditIcon style={{ color: 'red' }} />
+                        <EditIcon className="lapices-ajuste" style={{ color: '#000' }} />
                     </span>
                 </div>
 
@@ -136,7 +137,7 @@ export default function Ajustes() {
                         style={{ marginLeft: "-1%", cursor: "pointer" }}
                         onClick={handleEditarClick}
                     >
-                        <EditIcon> </EditIcon>
+                        <EditIcon className="lapices-ajuste" style={{ color: '#000' }}> </EditIcon>
                     </span>
                 </div>
 
@@ -151,8 +152,7 @@ export default function Ajustes() {
                         style={{ marginLeft: "-1%", cursor: "pointer" }}
                         onClick={handleEditarClick}
                     >
-                        <EditIcon> </EditIcon>
-                        <EditIcon></EditIcon>
+                        <EditIcon className="lapices-ajuste" style={{ color: '#000' }}> </EditIcon>
                     </span>
 
 
@@ -167,7 +167,7 @@ export default function Ajustes() {
                         style={{ marginLeft: "-1%", cursor: "pointer" }}
                         onClick={handleEditarClick}
                     >
-                        <EditIcon> </EditIcon>
+                        <EditIcon className="lapices-ajuste" style={{ color: '#000' }}> </EditIcon>
                     </span>
 
 

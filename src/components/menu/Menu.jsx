@@ -345,12 +345,13 @@ export default function Menu() {
             <SettingsIcon></SettingsIcon>
             </IconButton>
       <BootstrapDialog
+        className="contenedor-ajustes"
         onClose={handleCloseDialogo}
         aria-labelledby="customized-dialog-title"
         open={openDialogo}
         maxWidth="xl"
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+        <DialogTitle sx={{ m: 0, p: 2, ml: -24 }} id="customized-dialog-title">
             Ajustes de administrador
         </DialogTitle>
         <IconButton
@@ -363,7 +364,7 @@ export default function Menu() {
             color: (theme) => theme.palette.grey[500],
           }}
         >
-          <CloseIcon />
+          <CloseIcon style={{color: "#000", marginTop: "-4px"}} />
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
