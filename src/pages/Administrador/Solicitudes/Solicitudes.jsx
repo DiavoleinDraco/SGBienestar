@@ -17,6 +17,7 @@ import DialogActions from "@mui/material/DialogActions";
 import "./mensaje.css"
 import "./Solicitudes.css";
 import ComposeBar from "../../../components/componentedeprueba/Redactar_mensaje";
+import { RawOff } from "@mui/icons-material";
 
 
 
@@ -35,7 +36,7 @@ export default function BasicTable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  const [message,setMessage] = useState("")
 
   const ESTADO_APROBADO = "Aprobado";
   const ESTADO_RECHAZADO = "Rechazado";
@@ -87,13 +88,11 @@ export default function BasicTable() {
     );
   };
 
- const handleSendMessage = ({mensaje,correo,asunto}) => {
-  data = {
-    message: mensaje,
-    correo: correo,
-    asunto: asunto,
-  }
-   post("/mail",data)
+ const handleMessageChange = (e) => {
+    const {name, value} = e.target
+    if(name == "message"){
+      setMessage(value)
+    }
  }
   useEffect(() => {
     const savedFilter = localStorage.getItem("solicitudesFilter");
@@ -252,19 +251,29 @@ export default function BasicTable() {
     setDialogOpen(true);
   };
 
-  const handleDialogReject = async (id) => {
+  const handleDialogReject = async (id,correo_inst) => {
     try {
+      console.log(id)
+      const rowData = tableData.find((row) => row._id === id)
+      console.log(rowData)
       const data = {
         id,
         estado: idRechazado,
       };
-     
-      const response = await post("/prestamos/finalizar", data);
+
+      console.log(data)
+
+      
       setTableData((prevTableData) =>
       prevTableData.map((row) =>
         row._id === id ? { ...row, estado: { nombre: "Rechazado" } } : row
       )
     );
+      const mail = await post("/mail", {correo: [rowData.usuario.correo_inst], asunto: "Notificacion de rechazo de prestamo" , mensaje: message})
+      const response = await post("/prestamos/finalizar", data);
+
+   
+
       setErrorMessage("");
       setAlertOpen(false);
 
@@ -287,7 +296,7 @@ export default function BasicTable() {
 
       setTableData((prevTableData) =>
         prevTableData.map((row) =>
-          row._id === id ? { ...row, estado: { nombre: "Aprobado" } } : row
+          row._id === id ? { ...row, estado: { nombre: "Completado" } } : row
         )
       );
 
@@ -570,22 +579,21 @@ export default function BasicTable() {
                         <DialogTitle>Confirmar Rechazo</DialogTitle>
                         <DialogContent>
                           <p>¿Estás seguro de que quieres rechazar esta solicitud?</p>
-                          <ComposeBar
-                            style="custom-style"
-                             showChecklist={false}
-                            defaultRecipient={[row.usuario && row.usuario.correo_inst]}
-                            defaultAsunto="Notificacióm de Rechazo de Prestamo"
-                           endpoint="/mail"
-                           showEnviarButton={false}
-                           onEnviarClick={(mensaje,correo,asunto) => handleSendMessage({mensaje,correo,asunto})}
-                          >
-                          </ComposeBar>
+                        <textarea 
+                        name="message"
+                        placeholder="Escribe la razón..."
+                        value={message}
+                        onChange={handleMessageChange}
+                        >
+                        
+                        </textarea>
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={() => setDialogOpen(false)} color="primary">
                             Cancelar
                           </Button>
                           <Button onClick={() => handleDialogReject(row._id) && setDialogOpen(false)} color="primary">
+
                             Rechazar
                           </Button>
                         </DialogActions>

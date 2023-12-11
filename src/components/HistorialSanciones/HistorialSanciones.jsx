@@ -178,7 +178,7 @@ export default function HistorialSanciones() {
     }
   }
 
-  //  UseEffect__________ //__________
+  // UseEffect__________ //__________
 
   useEffect(() => {
     get("/sanciones")
@@ -220,17 +220,20 @@ export default function HistorialSanciones() {
     ? sancionesData.filter((sancion) => sancion.activa).reverse()
     : sancionesData.filter((sancion) => !sancion.activa).reverse();
 
-  const handleRowClick = (id) => {
+  const handleRowClick = (id, index) => {
     if (selected.includes(id)) {
-      setSelected(selected.filter((selectedId) => selectedId !== id));
+      setSelected(selected.filter((selectedIds) => selectedIds !== id));
     } else {
       setSelected([...selected, id]);
     }
+
   };
+  ;
+
 
   const isSelected = (id) => selected.includes(id);
 
-  //______  Eliminacion de la sanciion ____
+  //______ Eliminacion de la sanciion ____
 
   const handleDelete = async () => {
     const selectedIds = selected;
@@ -268,28 +271,28 @@ export default function HistorialSanciones() {
   //_____ Search de tabla, filttro de busqueda ______
 
   const handleSearchChange = (event) => {
-    const searchValue = event.target.value.toLowerCase(); 
+    const searchValue = event.target.value.toLowerCase();
     setSearchTerm(searchValue);
-  
+
     const filteredSanciones = sancionesData.filter((sancion) => {
       const nombre = sancion.nombre.toLowerCase();
-      const documento = sancion.documento.toString().toLowerCase(); 
+      const documento = sancion.documento.toString().toLowerCase();
       const programa = sancion.programa.toLowerCase();
       const sancionTexto = sancion.sancion.toLowerCase();
       const sancionTiempo = sancion.tiempo.toLowerCase();
       const fechaSancion = sancion.fecha.toLowerCase();
-  
-      
+
+
       const normalizedSearchValue = searchValue.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  
-      
+
+
       const normalizedNombre = nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       const normalizedDocumento = documento.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       const normalizedPrograma = programa.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       const normalizedSancionTexto = sancionTexto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       const normalizedSancionTiempo = sancionTiempo.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       const normalizedFechaSancion = fechaSancion.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  
+
       return (
         normalizedNombre.includes(normalizedSearchValue) ||
         normalizedDocumento.includes(normalizedSearchValue) ||
@@ -299,10 +302,10 @@ export default function HistorialSanciones() {
         normalizedFechaSancion.includes(normalizedSearchValue)
       );
     });
-  
+
     setFilteredData(filteredSanciones);
   };
-  
+
 
   //__________ RETURN______________________
 
@@ -353,9 +356,8 @@ export default function HistorialSanciones() {
             <div className="cont-btn-san-act-inact">
               <button
                 style={{ margin: "10px" }}
-                className={`filtro-button ${
-                  mostrarSancionesActivas ? "active" : "inactive"
-                }`}
+                className={`filtro-button ${mostrarSancionesActivas ? "active" : "inactive"
+                  }`}
                 onClick={handleToggleFiltro}
               >
                 Sanciones
@@ -392,7 +394,7 @@ export default function HistorialSanciones() {
                       if (selected.length === rows.length) {
                         setSelected([]);
                       } else {
-                        setSelected(rows.map((row) => row.index));
+                        setSelected(rows.map((row) => row.id));
                       }
                     }}
                   />
@@ -410,55 +412,56 @@ export default function HistorialSanciones() {
             <TableBody>
               {searchTerm
                 ? filteredData.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      selected={isSelected(row.id)}
-                      onClick={() => handleRowClick(row.id)}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox checked={isSelected(row.index)} />
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {row.index}
-                      </TableCell>
-                      <TableCell align="right">
-                        {row.nombre + " " + row.apellido}
-                      </TableCell>
-                      <TableCell align="right">{row.documento}</TableCell>
-                      <TableCell align="right">{row.programa}</TableCell>
-                      <TableCell align="right">{row.sancion}</TableCell>
-                      <TableCell align="right">{row.tiempo}</TableCell>
-                      <TableCell align="right">{row.fecha}</TableCell>
-                      <TableCell align="right">
-                        {row.activa ? "Activa" : "Inactiva"}
-                      </TableCell>
-                    </TableRow>
-                  ))
+                  <TableRow
+                    key={row.id}
+                    selected={isSelected(row.id)}
+                    onClick={() => handleRowClick(row.id, row.index)}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox checked={isSelected(row.id)} />
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      {row.index}
+                    </TableCell>
+                    <TableCell align="right">
+                      {row.nombre + " " + row.apellido}
+                    </TableCell>
+                    <TableCell align="right">{row.documento}</TableCell>
+                    <TableCell align="right">{row.programa}</TableCell>
+                    <TableCell align="right">{row.sancion}</TableCell>
+                    <TableCell align="right">{row.tiempo}</TableCell>
+                    <TableCell align="right">{row.fecha}</TableCell>
+                    <TableCell align="right">
+                      {row.activa ? "Activa" : "Inactiva"}
+                    </TableCell>
+                  </TableRow>
+                ))
                 : rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      selected={isSelected(row.id)}
-                      onClick={() => handleRowClick(row.id)}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox checked={isSelected(row.index)} />
-                      </TableCell>
-                      <TableCell component="th" scope="row"></TableCell>
-                      <TableCell align="right">
-                        {row.nombre + " " + row.apellido}
-                      </TableCell>
-                      <TableCell align="right">{row.documento}</TableCell>
-                      <TableCell align="right">{row.programa}</TableCell>
-                      <TableCell align="right">{row.sancion}</TableCell>
-                      <TableCell align="right">{row.tiempo}</TableCell>
-                      <TableCell align="right">{row.fecha}</TableCell>
-                      <TableCell align="right">
-                        {row.activa ? "Activa" : "Inactiva"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  <TableRow
+                    key={row.id}
+                    selected={isSelected(row.id)}
+                    onClick={() => handleRowClick(row.id, row.index)}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    {console.log(row.id)}
+                    <TableCell padding="checkbox">
+                      <Checkbox checked={isSelected(row.id)} />
+                    </TableCell>
+                    <TableCell component="th" scope="row"></TableCell>
+                    <TableCell align="right">
+                      {row.nombre + " " + row.apellido}
+                    </TableCell>
+                    <TableCell align="right">{row.documento}</TableCell>
+                    <TableCell align="right">{row.programa}</TableCell>
+                    <TableCell align="right">{row.sancion}</TableCell>
+                    <TableCell align="right">{row.tiempo}</TableCell>
+                    <TableCell align="right">{row.fecha}</TableCell>
+                    <TableCell align="right">
+                      {row.activa ? "Activa" : "Inactiva"}
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
