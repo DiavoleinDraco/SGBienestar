@@ -5,13 +5,13 @@ import Textfield from "../../../components/Textfield/Textfield";
 import EditIcon from "@mui/icons-material/Edit";
 import Buttons from "../../../components/Buttons/Buttons";
 import CircularColor from "../../../components/Cargando/Cargando";
-import get from "../../../UseFetch";
+import get,{actualizar} from "../../../UseFetch";
 import { useNavigate } from "react-router-dom";
 
 export default function Ajustes() {
     const [datosActualizados, setDatosActualizados] = useState({});
     const [editable, setEditable] = useState(false);
-    const [actualizar, setActualizar] = useState(false);
+    const [actualizarr, setActualizar] = useState(false);
     const [eps, setEps] = useState({})
     const [actualConfig, setActualConfig] = useState({})
     const [loading, setLoading] = useState(true);
@@ -48,18 +48,24 @@ export default function Ajustes() {
         }
       };
 
-      const handleSaveChanges = () => {
-        setEditable(false);
-        setActualizar(false);
-        setActualizarEps(false);
+      const handleSaveChanges = async() => {
+        try {
+          setEditable(false);
+          setActualizar(false);
+          setActualizarEps(false);
+          
+          console.log(datosActualizados);
+          console.log(eps);
+         await actualizar('/config-sistema', `/${actualConfig._id}`, datosActualizados);
+          
+          // actualizar('/registro/eps/', decode.id, eps);
       
-        // actualizar('/registro/usuarios/', decode.id, datosActualizados);
-      
-        // actualizar('/registro/eps/', decode.id, eps);
-      
-        console.log(datosActualizados);
-        console.log(eps);
-      };
+        }
+        catch (error) {
+          console.log(error)
+        }
+      }
+     
       
     const handleEditarClick = () => {
         console.log(editable);
@@ -68,7 +74,7 @@ export default function Ajustes() {
 
     useEffect(() => {
         const handleUnload = (event) => {
-          if (actualizar || actualizarEps) {
+          if (actualizarr || actualizarEps) {
             const message =
               "¡Atención! Hay cambios no guardados. ¿Seguro que quieres salir?";
             event.returnValue = message;
@@ -81,7 +87,7 @@ export default function Ajustes() {
         return () => {
           window.removeEventListener("beforeunload", handleUnload);
         };
-      }, [actualizar, actualizarEps]);
+      }, [actualizarr, actualizarEps]);
       
       if (loading) {
         return <CircularColor></CircularColor>;
