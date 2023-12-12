@@ -86,7 +86,7 @@ export function LasRutas() {
         <Route path="/admin/inventario" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Inventario /></Suspense>, 1)} />
         <Route path="/admin/solicitudes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Solicitudes /></Suspense>, 1)} />
         <Route path="/admin/prestamos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Prestamos /></Suspense>, 3,2)} />
-        <Route path="/usuarios" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Board /></Suspense>, 3, 2)} />
+        <Route path="/usuarios" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Dashboard /></Suspense>, 3, 2)} />
         <Route path="/usuarios/implementos" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Implementos /></Suspense>, 3, 2)} />
         <Route path={ruta+"/perfil"} element={(<Suspense fallback={<CircularColor></CircularColor>}><Perfil /></Suspense>)} />
       </Routes>
