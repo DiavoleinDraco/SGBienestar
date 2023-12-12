@@ -26,7 +26,12 @@ export default function DataGridProDemo({ Delete, Consulta }) {
   const [data, setData] = useState([]);
   const [rows, setRows] = useState([]);
   const [highlightedRow, setHighlightedRow] = useState(null);
+  if(Consulta && Consulta == "/mail"){
+    localStorage.setItem("seccion", "/mail/mail/")
+  }else{
+    localStorage.setItem("seccion", "/mail/comentario/")
 
+  }
   const navigate = useNavigate();
 
   const tableCellStyle = {

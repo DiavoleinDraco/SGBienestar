@@ -31,13 +31,13 @@ export function LasRutas() {
   const token = localStorage.getItem('token');
   const decode = token ? jwtDecode(token) : null;
   const ruta = decode && decode.token > 1 ? "/usuarios" : "/admin"
+
   const proteccionRutas = (elemento, privilegioAdmitido1, privilegioAdmitido2) => {
-
-
-
+  
     if (!localStorage.getItem('token')) {
       return <Navigate to="/login" />;
     }
+    
     
     if (
       (privilegioAdmitido1 && decode.privilegio === privilegioAdmitido1) ||
@@ -81,7 +81,7 @@ export function LasRutas() {
         />
         <Route path="/admin/informes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Informes /></Suspense>, 1)} />
         <Route path="/admin/mensajes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Mensajes /></Suspense>, 1)} />
-        <Route path="/admin/mensajes/:messageId" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><MensajeDetalle /></Suspense>, 1)} />
+        <Route path="/admin/mensajes/:messageId" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><MensajeDetalle  /></Suspense>, 1)} />
         <Route path='/usuarios/prestamo/info/:prestamoId' element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><PrestamoDetalle /></Suspense>, 3, 2)} />
         <Route path="/admin/inventario" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Inventario /></Suspense>, 1)} />
         <Route path="/admin/solicitudes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Solicitudes /></Suspense>, 1)} />

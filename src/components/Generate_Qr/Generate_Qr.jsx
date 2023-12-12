@@ -5,7 +5,7 @@ import QRCode from 'qrcode';
 
 export default function GenerateQr({ busqueda }) {
     const [imageUrl, setImageUrl] = useState('');
-
+    console.log(busqueda)
     const qrRef = useRef(null);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function GenerateQr({ busqueda }) {
                 },
             };
 
-            const qrCode = await QRCode.toDataURL(import.meta.env.VITE_HOST + `/prestamo/info/${busqueda}`, qrOptions);
+            const qrCode = await QRCode.toDataURL(import.meta.env.VITE_HOST + `/usuarios/prestamo/info/${busqueda}`, qrOptions);
 
             setImageUrl(qrCode);
 

@@ -89,8 +89,11 @@ export default function Prestamos() {
 
     const data = obtenerDatosPrestamo();
     console.log(data);
-    setPeticionExitosa(true);
     const response = await post("/prestamos", data);
+   console.log(response)
+    setIDPrestamo(response)
+    setPeticionExitosa(true);
+
   };
 
   const prestamo = async () => {
@@ -111,10 +114,7 @@ export default function Prestamos() {
     }
   };
   if (peticionExitosa) {
-    getParametre("/prestamos/usuario/", decode.id).then((response) =>
-      setIDPrestamo(response[response.length - 1]._id)
-    );
-
+   console.log(IDPrestamo)
     return (
 
       <div>

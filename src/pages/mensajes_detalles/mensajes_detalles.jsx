@@ -20,9 +20,10 @@ export default function MensajesDetalle() {
   const [showResponder, setShowResponder] = useState(false);
   const [showReenviar, setShowReenviar] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const seccion = localStorage.getItem("seccion")
 
   const infoCorreo = () => {
-    getParametre("/mail/mail/", messageId)
+    getParametre(seccion, messageId)
       .then((userData) => {
         setUser(userData);
         console.log(userData);
@@ -54,7 +55,7 @@ export default function MensajesDetalle() {
   const handleDeleteClick = async (_id) => {
     try {
      
-      await eliminar('/mail/mail/', _id);
+      await eliminar(seccion, _id);
       redireccionar("/admin/mensajes"); 
     } catch (error) {
       console.error("Error al eliminar", error);
