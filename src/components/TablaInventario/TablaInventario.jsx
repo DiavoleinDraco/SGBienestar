@@ -358,7 +358,18 @@ export default function TablaInventario() {
               </div>
             }
           />
+          <BasicAccordion
+            titulo={"CREAR"}
+            contenido={
+              <div className="cont-botton-eliminar">
+                <button className="botton-eliminar" onClick={createCategoriaClick}>Categoría</button>
+                <button className="botton-eliminar" onClick={createEstadoClick}>Estado</button>
+                <button className="botton-eliminar" onClick={createMarcaClick}>Marca</button>
+              </div>
+            }
+          />
         </div>
+        
       ),
     },
   ];
@@ -715,7 +726,7 @@ export default function TablaInventario() {
       setImplementos(updatedImplementos);
       // Cierra el diálogo de creación de implemento
       handleCreateImplementoClose();
-      window.location.reload();
+      window.location.reload()
     } catch (error) {
       console.error("Error en la solicitud: ", error);
     }
@@ -1362,18 +1373,7 @@ export default function TablaInventario() {
                 setNewImplemento({ ...newImplemento, nombre: e.target.value })
               }
             />
-            <div>
-          <BasicAccordion
-            titulo={"CREAR"}
-            contenido={
-              <div className="cont-botton-eliminar">
-                <button className="botton-eliminar" onClick={createCategoriaClick}>Categoría</button>
-                <button className="botton-eliminar" onClick={createEstadoClick}>Estado</button>
-                <button className="botton-eliminar" onClick={createMarcaClick}>Marca</button>
-              </div>
-            }
-          />
-        </div>
+            
             <div className="cont-estado">
               {Array.from({ length: additionalInfoCount }).map((_, index) => (
                 <BasicAccordion
