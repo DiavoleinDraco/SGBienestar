@@ -964,6 +964,7 @@ export default function TablaInventario() {
         datosActualizar
       );
       console.log("se modificó el implemento con exito: ", response);
+      window.location.reload()
     } catch (error) {
       console.error("Error en la solicitud de actualización:", error);
     }
