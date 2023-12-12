@@ -62,30 +62,38 @@ export default function Registro() {
     setAceptoTerminos(value);
   };
 
-  const capitalizeFirstLetter = (value) => {
-    return value
+  let updatedInfo = null;
+
+  const capitalizeFirstLetter = (str) => {
+  return str.toLowerCase().replace(/\b\w/g, (match) => match.toUpperCase());
+};
+
+const capitalizeNamesAndLastNames = (fieldName, fieldValue) => {
+  // Solo capitalizar el primer carácter de cada palabra si es un campo de nombres o apellidos
+  if (fieldName === 'nombres' || fieldName === 'apellidos') {
+    return fieldValue
       .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .map((word) => capitalizeFirstLetter(word))
       .join(' ');
-  };
-  
-  const handleChange = (fieldName, fieldValue) => {
-    let formattedValue = fieldValue.trim();
-  
-     if (fieldName !== 'contrasena' && (fieldName === 'correo_inst' || fieldName === 'correo_pers')) {
-      // Para otros campos (excepto contrasena), aplicar la capitalización de la primera letra de cada palabra
-      formattedValue = capitalizeFirstLetter(formattedValue);
-    }
-  
-    setInfo((prevInfo) => ({
-      ...prevInfo,
-      [fieldName]: formattedValue,
-    }));
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [fieldName]: "",
-    }));
-  };
+  }
+  return fieldValue;
+};
+
+const handleChange = (fieldName, fieldValue) => {
+  // Aplicar capitalización solo a nombres y apellidos
+  const capitalizedValue = capitalizeNamesAndLastNames(fieldName, fieldValue);
+
+  setInfo((prevInfo) => {
+    updatedInfo = { ...prevInfo, [fieldName]: capitalizedValue };
+    return updatedInfo;
+  });
+
+  setErrors((prevErrors) => {
+    return { ...prevErrors, [fieldName]: '' };
+  });
+};
+
+console.log(info);
   
 
   const validarCamposObligatorios = () => {

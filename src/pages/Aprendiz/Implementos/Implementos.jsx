@@ -130,17 +130,23 @@ export default function Implementos(){
           return prevSelected.filter((item) => item.id !== implemento.id);
         }
     
-        if (almacenar.privilegio === 3 && prevSelected.length >= 1){
-          setErrorMensaje('Solo puedes seleccionar un implemento.');
-          setOpen(true);
-          return prevSelected;
-        }
-    
-        setIsImplementoSelected(true);
-        return [...prevSelected, { ...implemento, cantidad: 0 }];
-      });
-    };
+        
+    if (almacenar.privilegio === 3) {
+      if (prevSelected.length >= 1) {
+        setErrorMensaje('Solo puedes seleccionar un implemento.');
+        setOpen(true);
+        return prevSelected;
+      } else if (implemento.categoria === 'Gimnasio') {
+        setErrorMensaje('No se permite el préstamo de implementos de Gimnasio');
+        setOpen(true);
+        return prevSelected;
+      }
+    }
 
+    setIsImplementoSelected(true);
+    return [...prevSelected, { ...implemento, cantidad: 0 }];
+  });
+};
     const handleCountChange = (implementoId, newCount) => {
       setImplementosSeleccionados((prevSelected) => {
         return prevSelected.map((item) =>
@@ -149,49 +155,52 @@ export default function Implementos(){
       });
     };
   
-      const renderImplementosPorCategoria = (categoria) => (
-        <div>
-         <h3 className="categoria">{categoria === 'N/A' ? 'OTROS' : categoria.toUpperCase()}</h3>
-          <ul className="contCard">
-            {implementos
-              .filter((implemento) => implemento.categoria === categoria)
-              .map((implemento) => (
-                <div className="card" key={implemento.id}>
-                  <Card_Implementos
-                    imagen={implemento.img}
-                    textoAlt={implemento.nombre}
-                    titulo={implemento.nombre.toUpperCase()}
-                    descripcion={[
-                      implemento.descripcion,
-                      ', Color:     ',
-                      implemento.color,
-                      ',   Marca: ',
-                      implemento.marca,
-                      ',    Peso: ',
-                      implemento.peso,
-                    ]}
-                    chip={<div className="disponible">
-                        <Stack className="disponi" direction="row" spacing={1}>
-                            <Chip label={`Disponible: ${implemento.cantidad_disponible}`} />
-                        </Stack>
-
-                        <Almacenar_Imple
-                          cantidadDisponible={implemento.cantidad_disponible}
-                          onCountChange={(newCount) => {
-                            handleCountChange(implemento.id, newCount);
-                          }}
-                          isImplementoSelected={implementosSeleccionados.some((item) => item.id === implemento.id)}
-                        />
-
-                        </div>}
-                    onSelect={() => handleSelectImplemento(implemento)}
-                    isSelected={implementosSeleccionados.some((item) => item.id === implemento.id)}
-                  />
-                </div>
-              ))}
-          </ul>
-        </div>
-      );
+    const renderImplementosPorCategoria = (categoria) => (
+      <div>
+        <h3 className="categoria">{categoria === 'N/A' ? 'OTROS' : categoria.toUpperCase()}</h3>
+        <ul className="contCard">
+          {implementos
+            .filter((implemento) => implemento.categoria === categoria)
+            .map((implemento) => (
+              <div className="card" key={implemento.id}>
+                <Card_Implementos
+                  imagen={implemento.img}
+                  textoAlt={implemento.nombre}
+                  titulo={implemento.nombre.toUpperCase()}
+                  descripcion={[
+                    implemento.descripcion ? implemento.descripcion : '',
+                    ', Color:     ',
+                    implemento.color ? implemento.color : '',
+                    ',   Marca: ',
+                    implemento.marca ? implemento.marca : '',
+                    ',    Peso: ',
+                    implemento.peso ? implemento.peso : '',
+                    ',     Estado:    ',
+                    implemento.estado ? implemento.estado : ''
+                  ]}
+                  chip={
+                    <div className="disponible">
+                      <Stack className="disponi" direction="row" spacing={1}>
+                        <Chip label={`Disponible: ${implemento.cantidad_disponible}`} />
+                      </Stack>
+    
+                      <Almacenar_Imple
+                        cantidadDisponible={implemento.cantidad_disponible}
+                        onCountChange={(newCount) => {
+                          handleCountChange(implemento.id, newCount);
+                        }}
+                        isImplementoSelected={implementosSeleccionados.some((item) => item.id === implemento.id)}
+                      />
+                    </div>
+                  }
+                  onSelect={() => handleSelectImplemento(implemento)}
+                  isSelected={implementosSeleccionados.some((item) => item.id === implemento.id)}
+                />
+              </div>
+            ))}
+        </ul>
+      </div>
+    );
 
       const handlePrestarClick = () => {
         // Verificar si alguna cantidad es igual a cero
@@ -222,7 +231,14 @@ export default function Implementos(){
         if (implementosAprestarStr) {
           const implementosAprestar = JSON.parse(implementosAprestarStr);
           setImplementosSeleccionados(implementosAprestar);
+          // Limpiar implementos almacenados en localStorage después de cargarlos
+          localStorage.removeItem('implementosAprestar');
         }
+      
+        // Efecto de limpieza al desmontar el componente
+        return () => {
+          setImplementosSeleccionados([]);
+        };
       }, []);
   
       const tabs = [
@@ -247,14 +263,12 @@ export default function Implementos(){
   
       return (
         <>
-        <Box sx={{ background:"#e3e3e3",display: 'flex',width:"100%",flexDirection:"column"}}>
-      
+        <Box sx={{ background:"#fff",display: 'flex',width:"100%",flexDirection:"column"}}>
           <Board />
+          <div className="cajita"></div>
           {!isTiempoEnRango ? <div style={{position: "absolute", left: "5px", bottom:"5px", zIndex: "999"}}>  <Alertas tiempo={"Estas ingresando fuera de los tiempos estipulados de prestamo, todo prestamo sera negado"}></Alertas> </div>
 :  <div style={{display: "none", position: "absolute", left: "5px", bottom:"5px", zIndex: "999"}}>  <Alertas tiempo={"Estas ingresando fuera de los tiempos estipulados de prestamo, todo prestamo sera negado"}></Alertas></div> }
           <div className="cont-implem">
-            <div className="square"></div>
-            <div className="squares"></div>
           <h2 className="titulo-imple">Implementos</h2>
 
           </div>

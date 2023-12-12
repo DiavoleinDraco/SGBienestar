@@ -1007,12 +1007,12 @@ export default function TablaInventario() {
         })}
         <TableCell>
           <IconButton onClick={() => actualizarImplemento(row)}>
-            <DriveFileRenameOutlineIcon />
+            <DriveFileRenameOutlineIcon className="pencil" />
           </IconButton>
         </TableCell>
         <TableCell>
           <IconButton onClick={() => handleEliminarClick(row.id)}>
-            <DeleteIcon />
+            <DeleteIcon className="delete-inv" />
           </IconButton>
         </TableCell>
       </React.Fragment>
@@ -1197,7 +1197,7 @@ export default function TablaInventario() {
         hacer="Guardar cambios"
         titulo="MODIFICAR IMPLEMENTO"
         contenido={
-          <div>
+          <div className="cont-modificar-imple">
             <TextField
               label="Codigo"
               value={
@@ -1268,9 +1268,10 @@ export default function TablaInventario() {
                   }
                 />
               ))}
-            <div>
+            <div className="cont-cant-modificar">
               Cantidad
               <input
+              className="input-modificar-implemento"
                 name=""
                 value={
                   implementoSeleccionado ? implementoSeleccionado.cantidad : ""

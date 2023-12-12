@@ -12,6 +12,11 @@
   background-color: #2c0757;
   border: 1px solid #2c0757;
   margin-left: 10px;
+  padding: 10px 2px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);    
+  
+  width: 80px;
+  border-radius: 4px;
 }
 
 .btn-descarga-tableInformes .btn-tbleInformes:hover {
@@ -41,4 +46,23 @@
         max-height: 400px !important;
     }
 
+}
+.buscador-historial{
+  border: none;
+  background: #e3e3e3;
+  height: 22px;
+  width: 50%;
+  text-align: center;
+  border-radius: 10px;
+
+}
+.cont-busc-hist{
+display: flex;
+justify-content: center;
+align-items: center;
+height: 57px;
+}
+.bi-search{
+  color:#2c0757;
+  transform: translateX(40px);
 }
