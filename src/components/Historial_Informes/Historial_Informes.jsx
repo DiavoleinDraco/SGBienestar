@@ -39,13 +39,13 @@ export default function TablaInformes() {
           value &&
           value.toString().toLowerCase().includes(searchTerm.toLowerCase())
       );
-  
+
       return numeroMatch || otherFieldsMatch;
     });
   };
 
 
-  
+
 
   const handleButtonClick = (row, tipo) => {
     try {
@@ -59,7 +59,7 @@ export default function TablaInformes() {
     const fetchData = async () => {
       try {
         const data = await get("/informe/informes");
-  
+
         const modifiedData = data.map((item) => {
           const modifiedNombre = quitarNumeroDelNombre(item.nombre);
           return {
@@ -67,16 +67,16 @@ export default function TablaInformes() {
             nombre: modifiedNombre,
           };
         });
-  
-        
+
+
         modifiedData.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-  
+
         setTableData(modifiedData);
       } catch (error) {
         console.error("Error al obtener datos de la API", error);
       }
     };
-  
+
     fetchData();
   }, []);
 
@@ -96,28 +96,36 @@ export default function TablaInformes() {
   return (
     <Paper
       sx={{
-        width: "90%",
-        height: "65%",
+        width: "100%",
+        height: "75%",
         position: "absolute",
         top: "50%",
         left: "50%",
         transform: "translate(-50%,-34%)",
       }}
     >
-      <div className="fondo-morado-HistInfor"></div>
 
-      <input
-        style={{ margin: "10px" }}
-        type="text"
-        placeholder="Buscar"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
 
       <TableContainer sx={{ maxHeight: 400 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
+              <div className="cont-busc-hist">
+                <i class="bi bi-search"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+                <input
+                  className="buscador-historial"
+                  style={{ margin: "10px" }}
+                  type="text"
+                  placeholder="Buscar"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+
+              </div>
+
               <TableCell align="center" colSpan={5}>
                 Todos los Informes
               </TableCell>
@@ -142,7 +150,7 @@ export default function TablaInformes() {
                   {columns.map((column, columnIndex) => (
                     <TableCell key={column.id} align={column.align}>
                       {columnIndex === columns.length - 1 ||
-                      columnIndex === columns.length - 1 ? (
+                        columnIndex === columns.length - 1 ? (
                         // Renderizar botones en las dos últimas columnas
                         <div className="btn-descarga-tableInformes">
                           <button
@@ -158,12 +166,12 @@ export default function TablaInformes() {
                             EXCEL
                           </button>
                         </div>
-                      ) : 
-                      column.format && typeof row[column.id] === "number" ? (
-                        column.format(row[column.id])
-                      ) : (
-                        row[column.id]
-                      )}
+                      ) :
+                        column.format && typeof row[column.id] === "number" ? (
+                          column.format(row[column.id])
+                        ) : (
+                          row[column.id]
+                        )}
                     </TableCell>
                   ))}
                 </TableRow>

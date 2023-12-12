@@ -78,9 +78,23 @@
   vertical-align: middle;
   outline: 0;
   position: sticky;
-  top: 121px;
+  top: 0;
   background-color: #eaeaea;
 }
+
+/* Nuevo responsivo */
+@media (max-width: 1453px) {
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 130px;
+    background-color: #eaeaea;
+  }
+}
+/* Hasta aqui el nuevo resposivo */
 
 @media (max-width: 756px) {
 
@@ -161,6 +175,34 @@
     outline: 0;
     position: sticky;
     top: 438px;
+    background-color: #eaeaea;
+  }
+
+}
+
+@media (max-width: 279px) {
+
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 500px;
+    background-color: #eaeaea;
+  }
+
+}
+
+@media (max-width: 238px) {
+
+  .css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky;
+    top: 567px;
     background-color: #eaeaea;
   }
 

@@ -81,3 +81,10 @@
     top: 20px;
     color: #000;
 }
+
+/* Estio para los iconos de lapices en ajustes */
+.lapices-ajuste {
+    position: relative;
+    left: 140px;
+    bottom: 50px;
+}

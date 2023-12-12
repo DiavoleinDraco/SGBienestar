@@ -194,3 +194,28 @@
 .dialogo-aplicar-sancion {
   margin-right: 240px !important;
 }
+
+/* Estilo parea la barra en sanciones */
+.barra-sanciones {
+  background: #dadada !important;
+  position: sticky !important;
+  top: 0;
+  z-index: 200;
+}
+
+.css-15wwp11-MuiTableHead-root {
+  display: table-header-group;
+  position: sticky !important;
+  background: #dadada;
+  z-index: 99;
+}
+
+.css-1q1u3t4-MuiTableRow-root {
+  color: inherit;
+  display: table-row;
+  vertical-align: middle;
+  outline: 0;
+  position: sticky !important;
+  top: 100px;
+  z-index: 99;
+}

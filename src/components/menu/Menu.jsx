@@ -345,12 +345,13 @@ export default function Menu() {
             <SettingsIcon></SettingsIcon>
             </IconButton>
       <BootstrapDialog
+        className="contenedor-ajustes"
         onClose={handleCloseDialogo}
         aria-labelledby="customized-dialog-title"
         open={openDialogo}
         maxWidth="xl"
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+        <DialogTitle sx={{ m: 0, p: 2, ml: -24 }} id="customized-dialog-title">
             Ajustes de administrador
         </DialogTitle>
         <IconButton
@@ -363,7 +364,7 @@ export default function Menu() {
             color: (theme) => theme.palette.grey[500],
           }}
         >
-          <CloseIcon />
+          <CloseIcon style={{color: "#000", marginTop: "-4px"}} />
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
@@ -404,6 +405,42 @@ export default function Menu() {
                 horizontal: 'right',
               }}
             >
+              <Box sx={{ p: 2,}}>
+                <Button onClick={handlPerfilClik}>Perfil</Button>
+                <Button onClick={handleCerrarSesion}>Cerrar Sesión</Button>
+
+                  </Box>
+
+
+            </Popover>
+          </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+            
+              <MoreIcon />
+          
+            </IconButton>
+            <Popover
+              id="profile-mobile-menu"
+              open={isPopoverOpen}
+              anchorEl={mobileMoreAnchorEl}
+              onClose={handleMobilePopoverClose}
+              anchorOrigin={{
+                vertical: 'bottom',  // Ajusta la posición vertical
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',  // Ajusta la posición vertical
+                horizontal: 'right',
+              }}
+            >
               <Box sx={{ p: 2 }}>
                 <Button onClick={handlPerfilClik}>Perfil</Button>
                 <Button onClick={handleCerrarSesion}>Cerrar Sesión</Button>
@@ -413,45 +450,8 @@ export default function Menu() {
 
                 </Popover>
               </Box>
-              <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-                >
-
-                  <MoreIcon />
-
-                </IconButton>
-                <Popover
-                  id="profile-mobile-menu"
-                  open={isPopoverOpen}
-                  anchorEl={mobileMoreAnchorEl}
-                  onClose={handleMobilePopoverClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',  // Ajusta la posición vertical
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',  // Ajusta la posición vertical
-                    horizontal: 'right',
-                  }}
-                >
-                  <Box sx={{ p: 2 }}>
-                    <Button onClick={handlPerfilClik}>Perfil</Button>
-                    <Button onClick={handleCerrarSesion}>Cerrar Sesión</Button>
-
-                  </Box>
-
-
-                </Popover>
-              </Box>
             </Toolbar>
           </AppBar>
-
           <Drawer variant="permanent" open={open}>
             <DrawerHeader>
               <div className="Overlay-backdrop--side"></div>
@@ -467,7 +467,6 @@ export default function Menu() {
             </DrawerHeader>
             <Divider />
             <List>
-              <div className="logoo"></div>
               <ListItem
                 disablePadditengo un menu de a
                 sx={{ display: "block" }}

@@ -23,9 +23,7 @@
 
 width: calc(100% - 190px) !important;
 }
-.lupaa{
-    width: 45px;
-}
+
 .css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
     width: 27ch  !important;
     border: none;
@@ -44,7 +42,9 @@ width: calc(100% - 190px) !important;
 }
 .icon-search{
     color: #2c0757 !important;
-    z-index: 999;width: 30px !important;
+    z-index: 999;
+    width: 30px !important;
+    height: 30px ;
  
 }
 
@@ -52,4 +52,7 @@ width: calc(100% - 190px) !important;
     color: #ff0000 !important;
     font-size: 0.710rem;
     border: 1px solid #ff0000 !important;
+}
+.css-1ps6pg7-MuiPaper-root{
+    transform: none !important;
 }

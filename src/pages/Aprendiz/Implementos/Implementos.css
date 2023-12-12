@@ -8,9 +8,9 @@
         border-radius: 6px;
         color:  #2c075786 !important; 
         display: block !important;
-        bottom: 891px;
+        background: transparent;
+        bottom: 998px;
         position: fixed;
-        background: #2c0757;
         right: 60px;
         z-index: 9999;
     }
@@ -22,7 +22,7 @@
         color:  #fff !important;
         background:#58525f86 !important; 
         display: block !important;
-        bottom: 891px;
+        bottom: 998px;
         position: fixed;
         background: #2c0757;
         right: 60px;
@@ -32,20 +32,23 @@
         height: 90px;
         color: #2c0757;
         font-size: 3rem;
-        transform: translate(-390PX,-180PX);
+
     }
     .css-1191obr-MuiPaper-root-MuiAppBar-root {
         width: calc(100% - 240px) !important;
     }
     .cont-prestar{
-        background: #332c3b !important;
+        background: #a4a1a8 !important;
         display: flex !important;
         justify-content: end !important;
         align-items: center !important;
     }
     .cont-implem{
-        background: #2c0757;
+        background: #ffffff;
         height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
     }
    .caja-imple{

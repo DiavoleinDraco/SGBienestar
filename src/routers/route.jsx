@@ -68,7 +68,6 @@ export function LasRutas() {
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena />} />
         <Route path="/admin" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Dashboard /></Suspense>, 1)} />
         <Route path="/admin/usuarios" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Usuarios /></Suspense>, 1)} />
-        <Route path="/admin/Ajustes" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Ajustes /></Suspense>, 1)} />
         <Route path="/usuarios/Sanciones" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><UsuarioSanciones /></Suspense>, 3,2)} />
         <Route path="/usuarios/HistorialPrestamosU" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><HistorialPrestamosU /></Suspense>, 3,2)} />
 

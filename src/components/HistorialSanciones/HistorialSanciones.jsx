@@ -21,6 +21,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Button from "@mui/material/Button";
+import { BackHand } from "@mui/icons-material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -226,11 +227,7 @@ export default function HistorialSanciones() {
     } else {
       setSelected([...selected, id]);
     }
-
   };
-  ;
-
-
   const isSelected = (id) => selected.includes(id);
 
   //______ Eliminacion de la sanciion ____
@@ -282,16 +279,28 @@ export default function HistorialSanciones() {
       const sancionTiempo = sancion.tiempo.toLowerCase();
       const fechaSancion = sancion.fecha.toLowerCase();
 
+      const normalizedSearchValue = searchValue
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
-      const normalizedSearchValue = searchValue.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-
-      const normalizedNombre = nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const normalizedDocumento = documento.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const normalizedPrograma = programa.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const normalizedSancionTexto = sancionTexto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const normalizedSancionTiempo = sancionTiempo.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const normalizedFechaSancion = fechaSancion.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const normalizedNombre = nombre
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      const normalizedDocumento = documento
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      const normalizedPrograma = programa
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      const normalizedSancionTexto = sancionTexto
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      const normalizedSancionTiempo = sancionTiempo
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      const normalizedFechaSancion = fechaSancion
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
       return (
         normalizedNombre.includes(normalizedSearchValue) ||
@@ -305,7 +314,6 @@ export default function HistorialSanciones() {
 
     setFilteredData(filteredSanciones);
   };
-
 
   //__________ RETURN______________________
 
@@ -340,8 +348,8 @@ export default function HistorialSanciones() {
       </Dialog>
 
       <div className="contenedor-table-sanciones">
-        <TableContainer component={Paper}>
-          <Toolbar className="barra-sanciones">
+        <TableContainer style={{ borderRadius: "none" }} component={Paper}>
+          <Toolbar style={{ position: "sticky", top: "0" }} className="barra-sanciones">
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -383,7 +391,7 @@ export default function HistorialSanciones() {
           </Toolbar>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <TableRow style={{ position: "sticky", top: "0px" }}>
                 <TableCell padding="checkbox">
                   <Checkbox
                     indeterminate={

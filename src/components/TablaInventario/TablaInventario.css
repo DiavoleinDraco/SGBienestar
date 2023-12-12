@@ -49,10 +49,10 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap !important;
-      height: 700px;
+      height: 700px !important;
       justify-content: space-evenly;
       align-items: center;
-      width: 530px;
+      width: 530px !important;
   }
   .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
       background: #F6F6F6;
@@ -136,7 +136,7 @@
   }
   .css-1elwnq4-MuiPaper-root-MuiAccordion-root {
       margin: auto;
-      width: 55% !important;
+      width: 69% !important;
   }
   
   .css-yw020d-MuiAccordionSummary-expandIconWrapper {
@@ -270,4 +270,30 @@ width: calc(100% - 190px) !important;
     color: #2c0757 !important;
     z-index: 999;width: 30px !important;
  
+}
+.pencil{
+    color: #bcbbbb !important;
+}
+.delete-inv{
+    color: #bcbbbb !important;
+}
+.cont-modificar-imple{
+    height: 55vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.cont-cant-modificar{
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 220px;
+}
+.input-modificar-implemento{
+    text-align: center;
+    border: none;
+    background: #e3e3e3;
 }

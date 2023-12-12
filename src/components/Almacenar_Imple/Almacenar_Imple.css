@@ -1,5 +1,4 @@
 .cont-p{
-   
   width: 80% !important;
   display: flex !important;
   flex-wrap: wrap;
@@ -12,13 +11,18 @@
     margin: auto;
 }
 .inpu{
-    width: 150px;
+    width: 100px;
+    transform: translateY(-6px);
+    border-radius: 4px;
     flex-grow: 99;
     border: none !important;
   border: none !important;
     text-align: center;
-    margin: auto;
+    background: #d0cece;
 
+}
+.css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-grouped {
+    min-width: 63px;
 }
 .button-mas{
     width: 50px !important;

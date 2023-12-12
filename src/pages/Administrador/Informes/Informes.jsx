@@ -199,8 +199,9 @@ export default function Informes() {
       <div className="cont-observacion">
         <p>Observaciones</p>
         <TextField
+        className="obs"
           style={{
-            Height: '60%',
+            Height: '70%',
             width: "100%",
             overflowY: 'auto',// Muestra una barra de desplazamiento vertical si es necesario
           }}
@@ -441,14 +442,10 @@ export default function Informes() {
             return (
               <>
                 <div className="contenedor-informe-user">
-                  <div className="purpple"></div>
                   <div className="padre-informe-user">
                     <div className="cont-inf-user">
                       <h2 className="titulo-inv-user">Informe de Usuario</h2>
                       {encabezadoContentImplemento}
-                      <button className="botton-user-enviar" onClick={handleEnviar}>
-                        Enviar
-                      </button>
                     </div>
 
                   </div>
@@ -623,19 +620,22 @@ export default function Informes() {
       </Stack>
 
       {showHistorial ? (
-        <div className="cont-hist-inf">
-          <h2 className="ti-HInfo">Historial de Informes</h2>
+        <div className="cont-histo-inf">
+          <h2 className="titulo-histor-info">Historial de Informes</h2>
           <TablaInformes />
         </div>
       ) : (
         getContentForSelectedOption()
       )}
-
+      <button className="botton-user-enviar" onClick={handleEnviar}>
+        Enviar
+      </button>
 
       {enviado && (
         <div className="contenedor-ex-pd">
           <Buttons nombre="Excel" onclick={descargarExcel}></Buttons>
           <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
+          <div> </div>
         </div>
       )}
     </Box>

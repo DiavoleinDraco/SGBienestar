@@ -14,12 +14,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import "./mensaje.css"
+import "./mensaje.css";
 import "./Solicitudes.css";
 import ComposeBar from "../../../components/componentedeprueba/Redactar_mensaje";
 import { RawOff } from "@mui/icons-material";
-
-
 
 export default function BasicTable() {
   const [tableData, setTableData] = useState([]);
@@ -36,7 +34,7 @@ export default function BasicTable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [message,setMessage] = useState("")
+  const [message, setMessage] = useState("");
 
   const ESTADO_APROBADO = "Aprobado";
   const ESTADO_RECHAZADO = "Rechazado";
@@ -45,8 +43,6 @@ export default function BasicTable() {
   const ESTADO_PENDIENTE = "Pendiente";
   const ESTADO_PERDIDO = "Perdido";
   const ESTADO_RETRASADO = "Retrasado";
-
-
 
   //_____Filtro de sanciones________
 
@@ -77,23 +73,31 @@ export default function BasicTable() {
 
     return (
       rowWithoutAccents.fecha_inicio.includes(searchTermLowerCase) ||
-      (rowWithoutAccents.usuario?.nombres + " " + rowWithoutAccents.usuario?.apellidos)
+      (
+        rowWithoutAccents.usuario?.nombres +
+        " " +
+        rowWithoutAccents.usuario?.apellidos
+      )
         .toLowerCase()
         .includes(searchTermLowerCase) ||
-      rowWithoutAccents.usuario?.n_doc.toLowerCase().includes(searchTermLowerCase) ||
+      rowWithoutAccents.usuario?.n_doc
+        .toLowerCase()
+        .includes(searchTermLowerCase) ||
       rowWithoutAccents.implementos.some((implemento) =>
         implemento.nombre.toLowerCase().includes(searchTermLowerCase)
       ) ||
-      rowWithoutAccents.estado.nombre.toLowerCase().includes(searchTermLowerCase)
+      rowWithoutAccents.estado.nombre
+        .toLowerCase()
+        .includes(searchTermLowerCase)
     );
   };
 
- const handleMessageChange = (e) => {
-    const {name, value} = e.target
-    if(name == "message"){
-      setMessage(value)
+  const handleMessageChange = (e) => {
+    const { name, value } = e.target;
+    if (name == "message") {
+      setMessage(value);
     }
- }
+  };
   useEffect(() => {
     const savedFilter = localStorage.getItem("solicitudesFilter");
     if (savedFilter) {
@@ -102,19 +106,15 @@ export default function BasicTable() {
     }
   }, []);
 
-
   /*
   useEffect(() => {
   localStorage.setItem("solicitudesFilter", filter);
   }, [filter]);
   */
 
-
   //_____Peticion para traer todas los prestamos
 
-  const updateTableData = async () => {
-
-  }
+  const updateTableData = async () => {};
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -128,7 +128,6 @@ export default function BasicTable() {
 
     fetchData();
   }, [filter]);
-
 
   //___________
 
@@ -166,13 +165,10 @@ export default function BasicTable() {
           (row) => row.nombre === ESTADO_PENDIENTE
         );
 
-        const perdido = filtrados.find(
-          (row) => row.nombre === ESTADO_PERDIDO
-        );
+        const perdido = filtrados.find((row) => row.nombre === ESTADO_PERDIDO);
         const retrasado = filtrados.find(
           (row) => row.nombre === ESTADO_RETRASADO
         );
-
 
         setIdAprobado(aprobado?._id || null);
         setIdRechazado(rechazado?._id || null);
@@ -187,13 +183,28 @@ export default function BasicTable() {
     };
 
     fetchDataEstado();
-  }, [idAprobado, idRechazado, idFallido, idCompletado, IdPendiente, IdPerdido, IdRetrasado]);
+  }, [
+    idAprobado,
+    idRechazado,
+    idFallido,
+    idCompletado,
+    IdPendiente,
+    IdPerdido,
+    IdRetrasado,
+  ]);
 
-  console.log("IDss", idAprobado, idRechazado, idFallido, idCompletado, IdPendiente, IdPerdido, IdRetrasado);
+  console.log(
+    "IDss",
+    idAprobado,
+    idRechazado,
+    idFallido,
+    idCompletado,
+    IdPendiente,
+    IdPerdido,
+    IdRetrasado
+  );
 
-
-  //_____ botones 
-
+  //_____ botones
 
   //______________Codigo tabla____________
 
@@ -201,9 +212,7 @@ export default function BasicTable() {
 
   const handleAceptar = async (id) => {
     try {
-
       const rowData = tableData.find((row) => row._id === id);
-
 
       if (rowData.estado.nombre === ESTADO_FALLIDO) {
         setErrorMessage("No se puede aprobar una solicitud fallida.");
@@ -212,19 +221,17 @@ export default function BasicTable() {
       }
 
       const data = {
-        id
+        id,
       };
 
       const response = await getParametre("/prestamos/aprobar/", id);
-  
-      
+
       setTableData((prevTableData) =>
         prevTableData.map((row) =>
           row._id === id ? { ...row, estado: { nombre: "Aprobado" } } : row
         )
       );
-  
-     
+
       setErrorMessage("");
       setAlertOpen(false);
     } catch (error) {
@@ -232,11 +239,7 @@ export default function BasicTable() {
     }
   };
 
-
   //______________Codigo tabla____________
-
-
-
 
   const handleRechazar = (id) => {
     const rowData = tableData.find((row) => row._id === id);
@@ -247,32 +250,32 @@ export default function BasicTable() {
       return;
     }
 
-
     setDialogOpen(true);
   };
 
-  const handleDialogReject = async (id,correo_inst) => {
+  const handleDialogReject = async (id, correo_inst) => {
     try {
-      console.log(id)
-      const rowData = tableData.find((row) => row._id === id)
-      console.log(rowData)
+      console.log(id);
+      const rowData = tableData.find((row) => row._id === id);
+      console.log(rowData);
       const data = {
         id,
         estado: idRechazado,
       };
 
-      console.log(data)
+      console.log(data);
 
-      
       setTableData((prevTableData) =>
-      prevTableData.map((row) =>
-        row._id === id ? { ...row, estado: { nombre: "Rechazado" } } : row
-      )
-    );
-      const mail = await post("/mail", {correo: [rowData.usuario.correo_inst], asunto: "Notificacion de rechazo de prestamo" , mensaje: message})
+        prevTableData.map((row) =>
+          row._id === id ? { ...row, estado: { nombre: "Rechazado" } } : row
+        )
+      );
+      const mail = await post("/mail", {
+        correo: [rowData.usuario.correo_inst],
+        asunto: "Notificacion de rechazo de prestamo",
+        mensaje: message,
+      });
       const response = await post("/prestamos/finalizar", data);
-
-   
 
       setErrorMessage("");
       setAlertOpen(false);
@@ -284,11 +287,8 @@ export default function BasicTable() {
     //window.location.reload()
   };
 
-
-
   const handleRecibido = async (id) => {
     try {
-
       const data = {
         id: id,
         estado: idCompletado,
@@ -300,8 +300,6 @@ export default function BasicTable() {
         )
       );
 
-
-
       const response = await post("/prestamos/finalizar", data);
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
@@ -309,13 +307,14 @@ export default function BasicTable() {
     //window.location.reload()
   };
 
-
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const filterTableData = () => {
-    const dataToRender = searchTerm ? tableData.filter(filterBySearchTerm) : tableData;
+    const dataToRender = searchTerm
+      ? tableData.filter(filterBySearchTerm)
+      : tableData;
 
     const sortedData = dataToRender.sort((a, b) => {
       const dateA = new Date(a.fecha_inicio);
@@ -328,22 +327,29 @@ export default function BasicTable() {
 
     switch (filterLowerCase) {
       case "pendientes":
-        return sortedData.filter((row) => row.estado.nombre === ESTADO_PENDIENTE);
+        return sortedData.filter(
+          (row) => row.estado.nombre === ESTADO_PENDIENTE
+        );
       case "aprobado":
       case "perdido":
       case "retrasado":
-        return sortedData.filter((row) => row.estado.nombre.toLowerCase() === filterLowerCase);
+        return sortedData.filter(
+          (row) => row.estado.nombre.toLowerCase() === filterLowerCase
+        );
       case "rechazadas":
-        return sortedData.filter((row) => row.estado.nombre === ESTADO_RECHAZADO);
+        return sortedData.filter(
+          (row) => row.estado.nombre === ESTADO_RECHAZADO
+        );
       case "fallidas":
         return sortedData.filter((row) => row.estado.nombre === ESTADO_FALLIDO);
       case "completados":
-        return sortedData.filter((row) => row.estado.nombre === ESTADO_COMPLETADO);
+        return sortedData.filter(
+          (row) => row.estado.nombre === ESTADO_COMPLETADO
+        );
       default:
         return sortedData;
     }
   };
-
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
@@ -354,15 +360,8 @@ export default function BasicTable() {
     return formattedDate;
   };
 
-
-
-
-
-
-
   return (
     <div>
-
       <Menu></Menu>
 
       <div className="contenedor-table-solicitudes">
@@ -377,7 +376,6 @@ export default function BasicTable() {
             }}
             className="btncont"
           >
-
             <input
               className="barra-busqueda-soli"
               type="text"
@@ -387,40 +385,43 @@ export default function BasicTable() {
               style={{ marginLeft: "10px", marginTop: "10px" }}
             />
 
-
             <Button
-              className={`boton-solicitudes ${activeFilter === "pendientes" ? "active" : ""}`}
+              className={`boton-solicitudes ${
+                activeFilter === "pendientes" ? "active" : ""
+              }`}
               variant="contained"
               onClick={() => {
-                localStorage.setItem('solicitudesFilter', 'pendientes')
+                localStorage.setItem("solicitudesFilter", "pendientes");
                 //window.location.reload()
                 setFilter("pendientes");
                 setActiveFilter("pendientes");
-
               }}
             >
               Pendientes
             </Button>
             <Button
-              className={`boton-solicitudes ${activeFilter === "aprobado" ? "active" : ""}`}
+              className={`boton-solicitudes ${
+                activeFilter === "aprobado" ? "active" : ""
+              }`}
               variant="contained"
               onClick={() => {
-                localStorage.setItem('solicitudesFilter', 'aprobado')
-                setFilter("aprobado")
+                localStorage.setItem("solicitudesFilter", "aprobado");
+                setFilter("aprobado");
                 setActiveFilter("aprobado");
               }}
             >
               Aprobado
-
             </Button>
 
             <Button
-              className={`boton-solicitudes ${activeFilter === "retrasado" ? "active" : ""}`}
+              className={`boton-solicitudes ${
+                activeFilter === "retrasado" ? "active" : ""
+              }`}
               variant="contained"
               onClick={() => {
-                localStorage.setItem('solicitudesFilter', 'retrasado')
+                localStorage.setItem("solicitudesFilter", "retrasado");
                 //window.location.reload()
-                setFilter("retrasado")
+                setFilter("retrasado");
                 setActiveFilter("retrasado");
               }}
             >
@@ -428,12 +429,14 @@ export default function BasicTable() {
             </Button>
 
             <Button
-              className={`boton-solicitudes ${activeFilter === "fallidas" ? "active" : ""}`}
+              className={`boton-solicitudes ${
+                activeFilter === "fallidas" ? "active" : ""
+              }`}
               variant="contained"
               onClick={() => {
-                localStorage.setItem('solicitudesFilter', 'fallidas')
+                localStorage.setItem("solicitudesFilter", "fallidas");
                 //window.location.reload()
-                setFilter("fallidas")
+                setFilter("fallidas");
                 setActiveFilter("fallidas");
               }}
             >
@@ -441,11 +444,13 @@ export default function BasicTable() {
             </Button>
 
             <Button
-              className={`boton-solicitudes ${activeFilter === "rechazadas" ? "active" : ""}`}
+              className={`boton-solicitudes ${
+                activeFilter === "rechazadas" ? "active" : ""
+              }`}
               variant="contained"
               onClick={() => {
-                localStorage.setItem('solicitudesFilter', 'rechazadas')
-                setFilter("rechazadas")
+                localStorage.setItem("solicitudesFilter", "rechazadas");
+                setFilter("rechazadas");
                 setActiveFilter("rechazadas");
               }}
             >
@@ -453,11 +458,13 @@ export default function BasicTable() {
             </Button>
 
             <Button
-              className={`boton-solicitudes ${activeFilter === "completados" ? "active" : ""}`}
+              className={`boton-solicitudes ${
+                activeFilter === "completados" ? "active" : ""
+              }`}
               variant="contained"
               onClick={() => {
-                localStorage.setItem('solicitudesFilter', 'completados')
-                setFilter("completados")
+                localStorage.setItem("solicitudesFilter", "completados");
+                setFilter("completados");
                 setActiveFilter("completados");
               }}
             >
@@ -465,12 +472,14 @@ export default function BasicTable() {
             </Button>
 
             <Button
-              className={`boton-solicitudes ${activeFilter === "perdido" ? "active" : ""}`}
+              className={`boton-solicitudes ${
+                activeFilter === "perdido" ? "active" : ""
+              }`}
               variant="contained"
               onClick={() => {
-                localStorage.setItem('solicitudesFilter', 'perdido')
+                localStorage.setItem("solicitudesFilter", "perdido");
                 //window.location.reload()
-                setFilter("perdido")
+                setFilter("perdido");
                 setActiveFilter("perdido");
               }}
             >
@@ -478,19 +487,18 @@ export default function BasicTable() {
             </Button>
 
             <Button
-              className={`boton-solicitudes ${activeFilter === "Todos" ? "active" : ""}`}
+              className={`boton-solicitudes ${
+                activeFilter === "Todos" ? "active" : ""
+              }`}
               variant="contained"
               onClick={() => {
-                localStorage.setItem('solicitudesFilter', "Todos")
-                setFilter(null)
-                setActiveFilter(null);
+                localStorage.setItem("solicitudesFilter", "Todos");
+                setFilter(null);
+                setActiveFilter("Todos");
               }}
             >
               Todos
             </Button>
-
-
-
           </div>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead
@@ -518,7 +526,9 @@ export default function BasicTable() {
                 <TableCell align="right">
                   <b>ESTADO DE LA SOLICITUD</b>
                 </TableCell>
-                {(filter === "aprobado" || filter === "perdido" || filter === "retrasado") && (
+                {(filter === "aprobado" ||
+                  filter === "perdido" ||
+                  filter === "retrasado") && (
                   <TableCell align="right">
                     <b>RECIBIR</b>
                   </TableCell>
@@ -554,13 +564,16 @@ export default function BasicTable() {
                     {row.implementos?.map((implemento) => (
                       <span key={implemento.id}>
                         {implemento.nombre}
-                        {implemento !== row.implementos[row.implementos.length - 1] && ", "}
+                        {implemento !==
+                          row.implementos[row.implementos.length - 1] && ", "}
                       </span>
                     ))}
                   </TableCell>
 
                   <TableCell align="right">{row.estado.nombre}</TableCell>
-                  {filter === "aprobado" || filter === "perdido" || filter === "retrasado" ? (
+                  {filter === "aprobado" ||
+                  filter === "perdido" ||
+                  filter === "retrasado" ? (
                     <>
                       <TableCell align="right">
                         <Button
@@ -575,25 +588,37 @@ export default function BasicTable() {
                     </>
                   ) : filter === "pendientes" ? (
                     <>
-                      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+                      <Dialog
+                        open={dialogOpen}
+                        onClose={() => setDialogOpen(false)}
+                      >
                         <DialogTitle>Confirmar Rechazo</DialogTitle>
                         <DialogContent>
-                          <p>¿Estás seguro de que quieres rechazar esta solicitud?</p>
-                        <textarea 
-                        name="message"
-                        placeholder="Escribe la razón..."
-                        value={message}
-                        onChange={handleMessageChange}
-                        >
-                        
-                        </textarea>
+                          <p>
+                            ¿Estás seguro de que quieres rechazar esta
+                            solicitud?
+                          </p>
+                          <textarea
+                            name="message"
+                            placeholder="Escribe la razón..."
+                            value={message}
+                            onChange={handleMessageChange}
+                          ></textarea>
                         </DialogContent>
                         <DialogActions>
-                          <Button onClick={() => setDialogOpen(false)} color="primary">
+                          <Button
+                            onClick={() => setDialogOpen(false)}
+                            color="primary"
+                          >
                             Cancelar
                           </Button>
-                          <Button onClick={() => handleDialogReject(row._id) && setDialogOpen(false)} color="primary">
-
+                          <Button
+                            onClick={() =>
+                              handleDialogReject(row._id) &&
+                              setDialogOpen(false)
+                            }
+                            color="primary"
+                          >
                             Rechazar
                           </Button>
                         </DialogActions>
