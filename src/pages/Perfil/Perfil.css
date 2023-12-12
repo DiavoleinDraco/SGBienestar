@@ -62,13 +62,13 @@ body {
 
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
   background: #2c0757;
-  color: #fff;
+  color: #fff !important;
   border: 1px solid #fff !important;
 }
 
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root:hover {
   background: #fff;
-  color: #2c0757;
+  color: #2c0757 !important;
   border: 1px solid #2c0757 !important;
 }
 
