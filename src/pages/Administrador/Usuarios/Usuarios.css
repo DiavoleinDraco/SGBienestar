@@ -3,3 +3,16 @@
     height: 15px;
     width: 40px;
 }
+@media screen
+and (min-width: 1200px)
+and (max-width: 1600px)
+{
+    .cajita{
+        height:68px;
+        width: 40px;
+    }
+.caja-user{
+    height: 90vh;
+}
+
+}

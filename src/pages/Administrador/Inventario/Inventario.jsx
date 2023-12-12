@@ -17,6 +17,7 @@ export default function Inventario(){
             <div className='cajita'></div>
             <TablaInventario />
             
+       
         </Box>
     )
 }

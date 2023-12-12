@@ -187,3 +187,14 @@ background: #fbf7f710;
 .icon-tuerca:hover {
   cursor: pointer;
 }
+@media screen
+and (min-width: 1200px)
+and (max-width: 1600px)
+{
+  .css-h4y409-MuiList-root {
+    display: flex;
+    flex-direction: column;
+    height: 75%;
+    justify-content: space-evenly !important;
+}
+}

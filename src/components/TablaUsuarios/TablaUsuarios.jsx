@@ -182,10 +182,7 @@ export default function TablaUsarios() {
 
   return (
     <Paper
-      style={{
-        height: 1100,
-        width: "100%",
-      }}
+    className="table-user"
     >
       <Toolbar className="cont-busc">
         <Search className="buscador">

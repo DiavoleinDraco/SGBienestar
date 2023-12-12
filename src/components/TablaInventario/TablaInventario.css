@@ -14,7 +14,7 @@
     bottom: -25px;
     position: fixed;
     background: #2c0757;
-    right: 405px;
+    right:455px;
     z-index: 9999;
     border-radius: 3px !important;
   border-radius: 6px;
@@ -27,9 +27,9 @@
       box-sizing: border-box;
       border-radius: 200px !important;
       display: block !important;
-      bottom: -80px;
+      bottom: 20px;
       position: fixed;
-      right: -3px;
+      right: 13px;
       z-index: 9999;
     }
     .MuiSvgIcon-root {
@@ -38,6 +38,7 @@
     /* botton del mas  */
     .css-1p7a5wk-MuiButtonBase-root-MuiFab-root{
       background: #2c0757;
+      z-index: 9999999;
     }
   .MuiTypography-root .MuiTypography-body1 .css-ahj2mt-MuiTypography-root{
       background: rgb(51, 99, 153) !important;
@@ -296,4 +297,40 @@ width: calc(100% - 190px) !important;
     text-align: center;
     border: none;
     background: #e3e3e3;
+}
+
+
+@media screen
+and (min-device-width: 1200px)
+and (max-device-width: 1600px)
+{
+ 
+
+.formulario-inv{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap !important;
+    height: 70VH !important;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 930px !important ;
+}
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+    height: 90vh;
+}
+.css-ypiqx9-MuiDialogContent-root{
+    height: 33vh !important;
+}
+.css-zddlty-MuiButtonBase-root-MuiButton-root {
+    outline: #431a1a 1px solid;
+    display: block !important;
+    bottom: 429px;
+    position: fixed;
+    background: #2c0757;
+    right:455px;
+    z-index: 9999;
+    border-radius: 3px !important;
+
+  color: #f6f6f6;
+  }
 }

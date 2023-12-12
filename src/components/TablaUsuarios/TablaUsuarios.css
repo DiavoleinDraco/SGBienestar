@@ -1,27 +1,15 @@
 .css-pl8gqh-MuiStack-root{
     justify-content: center;
 }
-.css-yz9k0d-MuiInputBase-input::placeholder{
-    color: #2c0757!important;
-    font-size: 1em;
-    font-family: 'Anton', sans-serif !important;
-}
-.MuiTableCell-root{
-    text-align: center !important;
-    font-size: 1em !important;
-    text-transform: capitalize !important;
-    font-family: "questrial" !important;
-}
 
-.buscador{
- width: 300px !important;
-}
-.css-gzkfr-MuiTableCell-root{
- font-size: 1.5em !important;
-}
-.css-1191obr-MuiPaper-root-MuiAppBar-root {
-
-width: calc(100% - 190px) !important;
+.css-1q1u3t4-MuiTableRow-root {
+    color: inherit;
+    display: table-row;
+    vertical-align: middle;
+    outline: 0;
+    position: sticky !important;
+     top: 0 !important;
+    z-index: 0 !important; 
 }
 
 .css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
@@ -34,11 +22,23 @@ width: calc(100% - 190px) !important;
     height: 18px !important;
    background:#e3e3e3 !important;
    border: none !important;
-   border-radius: 26px;
 
 }
+.buscador{
+    width: 300px !important;
+   }
+   .css-gzkfr-MuiTableCell-root{
+    font-size: 1.5em !important;
+   }
+   .css-1191obr-MuiPaper-root-MuiAppBar-root {
+   
+   width: calc(100% - 190px) !important;
+   }
+   .lupaa{
+       width: 45px;
+   }
 .cont-busc{
-    background:inherit !important;
+    background: #fff !important;
 }
 .icon-search{
     color: #2c0757 !important;
@@ -46,6 +46,10 @@ width: calc(100% - 190px) !important;
     width: 30px !important;
     height: 30px ;
  
+}
+.table-user{
+    height: 80vh !important;
+    width: 100% !important;
 }
 
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root{
@@ -55,4 +59,20 @@ width: calc(100% - 190px) !important;
 }
 .css-1ps6pg7-MuiPaper-root{
     transform: none !important;
+}
+
+@media screen
+and (min-width: 1200px)
+and (max-width: 1600px)
+{
+    .table-user{
+        height: 79vh !important;
+
+    }
+    .css-i4bv87-MuiSvgIcon-root {
+        width: 1.4em !important;
+        height: 1.4em !important;
+        color: #f6f6f6;
+    }
+
 }
