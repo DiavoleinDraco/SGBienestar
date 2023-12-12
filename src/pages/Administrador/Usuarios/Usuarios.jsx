@@ -12,14 +12,16 @@ export default function Usuarios(){
     return (
         <Box sx={{   display: 'flex', 
         background:"#fff",
-        alignItems:"space-around",
+        alignItems:"space-between",
         flexDirection:"column",
         justifyContent:"center",
         width:"100%",
         height:"100vh"}}>
             <Menu />
             <div className='cajita'></div>
+            <div className='caja-user'>  
             <TablaUsuarios />
+            </div>
         </Box>
         
     );

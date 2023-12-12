@@ -73,29 +73,31 @@ export default function Login() {
   const handleLoginClick = async () => {
     try {
       const camposObligatoriosLlenos = validarCamposObligatorios();
-
+  
       if (!camposObligatoriosLlenos) {
         throw new Error("Completa todos los campos obligatorios.");
       }
-
-      const responde = await post("/registro/login", info);
-      console.log(info["correo_inst"]);
-      const findNewToken = await getParametre(
-        "/registro/usuario/findByMail/",
-        info["correo_inst"]
-      );
-
-      localStorage.setItem("token", findNewToken.token);
-      const decode = jwtDecode(findNewToken.token);
-      decode > 1 ? navegacion("/usuarios") : navegacion("/admin");
-
+  
+      const response = await post("/registro/login", info).then((responde) => {
+        localStorage.setItem("token", responde.token);
+        const decode = jwtDecode(responde.token);
+        console.log("Prueba");
+    
+        if (decode.privilegio > 1) {
+          navegacion("/usuarios");
+        } else {
+          navegacion("/admin");
+        }
+    
+      })
+    
       setErrorMensaje(null);
     } catch (error) {
       setOpen(true);
       setErrorMensaje(error.message);
     }
   };
-
+  
   return (
     <div className="contenedor-login">
       <div className="contenedor-img-login">

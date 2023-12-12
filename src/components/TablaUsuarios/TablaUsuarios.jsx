@@ -183,9 +183,9 @@ export default function TablaUsarios() {
   return (
     <Paper
       style={{
-        height: 996,
-        width: "99%",
-        borderRadius:"30px",       
+        height: 1100,
+        width: "100%",
+         
       
       }}
     >

@@ -23,9 +23,7 @@
 
 width: calc(100% - 190px) !important;
 }
-.lupaa{
-    width: 45px;
-}
+
 .css-7mt4h1-MuiInputBase-root .MuiInputBase-input {
     width: 27ch  !important;
     border: none;
@@ -44,15 +42,17 @@ width: calc(100% - 190px) !important;
 }
 .icon-search{
     color: #2c0757 !important;
-    z-index: 999;width: 30px !important;
+    z-index: 999;
+    width: 30px !important;
+    height: 30px ;
  
 }
-.sancionarb button{
-    background: #EBEBEB;
-    box-shadow: 6px 6px 20px -1px rgba(0, 0, 0, 0.15),
-        -6px -6px 20px -1px rgba(255, 255, 255, 0.7);
-}
+
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root{
     color: #ff0000 !important;
+    font-size: 0.710rem;
     border: 1px solid #ff0000 !important;
+}
+.css-1ps6pg7-MuiPaper-root{
+    transform: none !important;
 }

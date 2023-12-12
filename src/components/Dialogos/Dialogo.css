@@ -1,4 +1,4 @@
-.cont-dialogo {
+/* .cont-dialogo {
     height: 250px;
     width: 40%;
     margin: auto;
@@ -19,7 +19,7 @@
 
 /* Dialogo.css */
 
-.cont-dialogo {
+/* .cont-dialogo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,13 +51,13 @@
 
 .dialogo-botones {
     margin-left: 10px;
-}
+} */
 
 /* Estilos para los botones (puedes ajustar según tu tema) */
-.dialogo-botones button {
+/* .dialogo-botones button {
     margin-left: 10px;
 }
 
 .MuiSvgIcon-root {
     color: #000000 !important;
-}
+} */ 

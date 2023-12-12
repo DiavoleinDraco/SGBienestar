@@ -1,7 +1,11 @@
 .cardCont{
-    margin-top: 15px;
+
     box-sizing: border-box !important;
     display: flex;
+    height:120px;
     flex-wrap: wrap;
     justify-content: center;
+}
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root{
+    color: #000 !important;
 }

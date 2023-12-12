@@ -199,8 +199,9 @@ export default function Informes() {
       <div className="cont-observacion">
         <p>Observaciones</p>
         <TextField
+        className="obs"
           style={{
-            Height: '60%',
+            Height: '70%',
             width: "100%",
             overflowY: 'auto',// Muestra una barra de desplazamiento vertical si es necesario
           }}
@@ -417,7 +418,7 @@ export default function Informes() {
           case "Informe de Inventario":
             return (
               <><div className="contenedor-inf-inventario">
-                 <div className="cont-inf-inv">
+                <div className="cont-inf-inv">
                   <h2 className="titulo-inv">Informe de Inventario</h2>
                   {encabezadoContentImplemento}
 
@@ -433,7 +434,7 @@ export default function Informes() {
                 </div>
 
               </div>
-               
+
               </>
             );
 
@@ -441,16 +442,12 @@ export default function Informes() {
             return (
               <>
                 <div className="contenedor-informe-user">
-                  <div className="purpple"></div>
                   <div className="padre-informe-user">
                     <div className="cont-inf-user">
                       <h2 className="titulo-inv-user">Informe de Usuario</h2>
                       {encabezadoContentImplemento}
-                      <button className="botton-user-enviar" onClick={handleEnviar}>
-                        Enviar
-                      </button>
                     </div>
-                    
+
                   </div>
 
                 </div>
@@ -465,31 +462,31 @@ export default function Informes() {
           case "Informe de Sanciones":
             return (
               <>
-              <div className="contenedor-inf-sancion">
-              <div className="cont-inv-sancion">
-                  <h2 className="titulo-inv-sancio">Informe de Sanciones</h2>
-                  {encabezadoContentImplemento}
-                  <div className="cont-sancion-inputs">
-                  <Textfield
-                      name="Ingrese el Documento"
-                      onChange={(value) => setNumeroDocumento(value)}
-                    />
-                    <div className="estado-sancion">
-                    <ComSelect 
-                      nombre="Estado de Sancion"
-                      items={["Activo", "Inactivo", "Todo"]}
-                      onChange={(value) => handleInformeDataChange("estado", value)}
-                      required
-                    />
-                    </div>
-                   
-                  </div>  
-                        
-                </div>
-                
+                <div className="contenedor-inf-sancion">
+                  <div className="cont-inv-sancion">
+                    <h2 className="titulo-inv-sancio">Informe de Sanciones</h2>
+                    {encabezadoContentImplemento}
+                    <div className="cont-sancion-inputs">
+                      <Textfield
+                        name="Ingrese el Documento"
+                        onChange={(value) => setNumeroDocumento(value)}
+                      />
+                      <div className="estado-sancion">
+                        <ComSelect
+                          nombre="Estado de Sancion"
+                          items={["Activo", "Inactivo", "Todo"]}
+                          onChange={(value) => handleInformeDataChange("estado", value)}
+                          required
+                        />
+                      </div>
 
-              </div>
-              
+                    </div>
+
+                  </div>
+
+
+                </div>
+
               </>
             );
 
@@ -503,52 +500,59 @@ export default function Informes() {
           case "Informe de Nuevo Implemento":
             return (
               <>
-                <h2 className="ti-HInfo">Informe nuevo implemento</h2>
+                <div className="contenedor-inf-crear">
+                  <div className="cont-inf-crear">
+                    <h2 className="titulo-crear">Informe nuevo implemento</h2>
 
-                {encabezadoContentImplemento}
+                    {encabezadoContentImplemento}
 
-                {implemento.map((implemento, index) => (
-                  <div key={index}>
-                    <div className="contenedor-de-inpust-agregar-implementos">
-                      <Textfield
-                        name={`Nombre ${index + 1}`}
-                        onChange={(value) =>
-                          handleInformeDataChange(
-                            "implemento",
-                            value,
-                            index,
-                            "nombre"
-                          )
-                        }
-                      />
-                      <Textfield
-                        name={`Cantidad ${index + 1}`}
-                        soloNumeros={true}
-                        onChange={(value) =>
-                          handleInformeDataChange(
-                            "implemento",
-                            value,
-                            index,
-                            "cantidad"
-                          )
-                        }
-                      />
-                      <Textfield
-                        name={`Caracteristicas ${index + 1}`}
-                        onChange={(value) =>
-                          handleInformeDataChange(
-                            "implemento",
-                            value,
-                            index,
-                            "caracteristicas"
-                          )
-                        }
-                      />
-                    </div>
+                    {implemento.map((implemento, index) => (
+                      <div key={index}>
+
+                        <Textfield
+                          name={`Nombre ${index + 1}`}
+                          onChange={(value) =>
+                            handleInformeDataChange(
+                              "implemento",
+                              value,
+                              index,
+                              "nombre"
+                            )
+                          }
+                        />
+                        <Textfield
+                          name={`Cantidad ${index + 1}`}
+                          soloNumeros={true}
+                          onChange={(value) =>
+                            handleInformeDataChange(
+                              "implemento",
+                              value,
+                              index,
+                              "cantidad"
+                            )
+                          }
+                        />
+                        <Textfield
+                          name={`Caracteristicas ${index + 1}`}
+                          onChange={(value) =>
+                            handleInformeDataChange(
+                              "implemento",
+                              value,
+                              index,
+                              "caracteristicas"
+                            )
+                          }
+                        />
+                      </div>
+
+                    ))}
+
+                    <button className="botton-crear" onClick={agregarImplemento}>Agregar Implemento</button>
+
                   </div>
-                ))}
 
-                <button className="btn-agregar-implemento" onClick={agregarImplemento}>Agregar Implemento</button>
+                </div>
+
               </>
             );
 
@@ -588,7 +592,7 @@ export default function Informes() {
                 Cancelar
               </Button>
               <Button className="botton-inf-user" onClick={handleClose}>Generar</Button>
-              <Button onClick={() => setShowHistorial(true) & setOpen(false) }>
+              <Button className="botton-inf-user" onClick={() => setShowHistorial(true) & setOpen(false)}>
                 Historial de Informes
               </Button>
             </DialogActions>
@@ -616,19 +620,22 @@ export default function Informes() {
       </Stack>
 
       {showHistorial ? (
-        <div className="cont-hist-inf">
-          <h2 className="ti-HInfo">Historial de Informes</h2>
+        <div className="cont-histo-inf">
+          <h2 className="titulo-histor-info">Historial de Informes</h2>
           <TablaInformes />
         </div>
       ) : (
         getContentForSelectedOption()
       )}
-
+      <button className="botton-user-enviar" onClick={handleEnviar}>
+        Enviar
+      </button>
 
       {enviado && (
         <div className="contenedor-ex-pd">
           <Buttons nombre="Excel" onclick={descargarExcel}></Buttons>
           <Buttons nombre="Pdf" onclick={descargarPdf}></Buttons>
+          <div> </div>
         </div>
       )}
     </Box>
