@@ -178,3 +178,17 @@ background: #fbf7f710;
   border: none !important;
   display: contents;
 }
+
+.MuiTypography-h6 {
+  font-size: 20px !important;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  position: relative !important;
+  left: 4% !important;
+}
+
+.icon-tuerca:hover {
+  cursor: pointer;
+}

@@ -178,8 +178,10 @@ export default function Ajustes() {
 
 
                 </div>
+                <div className="cont-crear-adm">
                 <p>Crea un nuevo administrador</p>
                 <Buttons nombre={"Crear Admin"} onclick={handleButtonClick}>Crear</Buttons>
+                </div>
             </div>
               
             <div >

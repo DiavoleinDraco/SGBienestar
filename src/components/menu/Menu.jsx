@@ -290,7 +290,7 @@ export default function Menu() {
           color="inherit"
         >
           <Badge color="error">
-            <NotificationsIcon />
+            <NotificationsIcon style={{color: "#fff"}} />
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -303,7 +303,7 @@ export default function Menu() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <AccountCircle style={{color: "#fff"}} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -328,7 +328,7 @@ export default function Menu() {
               ...(open && { display: "none" }),
             }}
           >
-            <MenuIcon />
+            <MenuIcon style={{color: "#fff"}} />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -342,7 +342,7 @@ export default function Menu() {
               onClick={handleClicksetOpenDialogo}
               color="inherit"
             >
-            <SettingsIcon></SettingsIcon>
+            <SettingsIcon style={{fontSize: "16px"}} className="icon-tuerca"></SettingsIcon>
             </IconButton>
       <BootstrapDialog
         className="contenedor-ajustes"
@@ -351,7 +351,7 @@ export default function Menu() {
         open={openDialogo}
         maxWidth="xl"
       >
-        <DialogTitle sx={{ m: 0, p: 2, ml: -24 }} id="customized-dialog-title">
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
             Ajustes de administrador
         </DialogTitle>
         <IconButton
@@ -364,7 +364,7 @@ export default function Menu() {
             color: (theme) => theme.palette.grey[500],
           }}
         >
-          <CloseIcon style={{color: "#000", marginTop: "-4px"}} />
+          <CloseIcon style={{color: "#fff", marginTop: "-4px"}} />
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
@@ -386,7 +386,7 @@ export default function Menu() {
               color="inherit"
             >
               <i class="bi bi-person-circle"></i>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+              <svg style={{color: "#fff"}} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
               </svg>
@@ -424,7 +424,7 @@ export default function Menu() {
               color="inherit"
             >
             
-              <MoreIcon />
+              <MoreIcon style={{color: "#fff"}} />
           
             </IconButton>
             <Popover
@@ -462,10 +462,10 @@ export default function Menu() {
           <IconButton onClick={handleDrawerClose}>
           <div className="MuiBackdrop-root"></div>
             {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
+              <ChevronRightIcon style={{color: "#fff"}} />
               
             ) : (
-              <ChevronLeftIcon />
+              <ChevronLeftIcon style={{color: "#fff"}} />
               
             )}
           </IconButton>
@@ -810,7 +810,7 @@ export default function Menu() {
               ...(open && { display: "none" }),
             }}
           >
-            <MenuIcon />
+            <MenuIcon style={{color: "#fff"}} />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -842,7 +842,7 @@ export default function Menu() {
                     onClick={handleClose}
                     aria-label="close"
                   >
-                    <CloseIcon />
+                    <CloseIcon style={{color: "#fff"}} />
                   </IconButton>
                   <Typography
                     sx={{ ml: 2, flex: 1 }}
@@ -877,7 +877,7 @@ export default function Menu() {
               color="inherit"
             >
               <i class="bi bi-person-circle"></i>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+              <svg style={{color: "#fff"}} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
               </svg>
@@ -912,7 +912,7 @@ export default function Menu() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <MoreIcon style={{color: "#fff"}} />
             </IconButton>
           </Box>
         </Toolbar>
@@ -922,9 +922,9 @@ export default function Menu() {
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
+              <ChevronRightIcon style={{color: "#fff"}} />
             ) : (
-              <ChevronLeftIcon />
+              <ChevronLeftIcon style={{color: "#fff"}} />
             )}
           </IconButton>
         </DrawerHeader>
