@@ -17,6 +17,7 @@ import { forwardRef } from "react";
 import MuiAlert from "@mui/material/Alert";
 import'./Implementos.css';
 import { useNavigate } from 'react-router-dom';
+import Alertas from "../../../components/Alertas/Alertas";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -29,6 +30,8 @@ export default function Implementos(){
     const [errorMensaje, setErrorMensaje] = useState(null);
     const [configuracion, setConfiguracion] = useState({})
     const [isImplementoSelected, setIsImplementoSelected] = useState(false)
+    const [isComponentInitialized, setIsComponentInitialized] = useState(false); // Nuevo estado
+
     const navigate = useNavigate();
     let fechaActual = new Date()
     const tiempoHm = fechaActual.getHours().toString().padStart(2, '0') + ':' + fechaActual.getMinutes().toString().padStart(2, '0');
@@ -38,6 +41,21 @@ export default function Implementos(){
       setOpen(false)
     }
 
+    useEffect(() => {
+   
+      setIsComponentInitialized(true);
+    }, []);
+  
+    useEffect(() => {
+      if (isComponentInitialized) {
+        const implementosAprestarStr = localStorage.getItem('implementosAprestar');
+        if (implementosAprestarStr) {
+          const implementosAprestar = JSON.parse(implementosAprestarStr);
+          setImplementosSeleccionados(implementosAprestar);
+        }
+      }
+    }, [isComponentInitialized]);
+  
     useEffect(() => {
       try {
         get("/config-sistema").then((config) =>setConfiguracion(config) )
@@ -230,7 +248,10 @@ export default function Implementos(){
       return (
         <>
         <Box sx={{ background:"#e3e3e3",display: 'flex',width:"100%",flexDirection:"column"}}>
+      
           <Board />
+          {!isTiempoEnRango ? <div style={{position: "absolute", left: "5px", bottom:"5px", zIndex: "999"}}>  <Alertas tiempo={"Estas ingresando fuera de los tiempos estipulados de prestamo, todo prestamo sera negado"}></Alertas> </div>
+:  <div style={{display: "none", position: "absolute", left: "5px", bottom:"5px", zIndex: "999"}}>  <Alertas tiempo={"Estas ingresando fuera de los tiempos estipulados de prestamo, todo prestamo sera negado"}></Alertas></div> }
           <div className="cont-implem">
             <div className="square"></div>
             <div className="squares"></div>

@@ -38,9 +38,6 @@ export function LasRutas() {
     if (!localStorage.getItem('token')) {
       return <Navigate to="/login" />;
     }
-
-   
-/*
     
     if (
       (privilegioAdmitido1 && decode.privilegio === privilegioAdmitido1) ||
@@ -54,8 +51,7 @@ export function LasRutas() {
     ) : (
       <Navigate to="/admin" />
     );
-  */  
-   return elemento
+
 
   };
   return (
