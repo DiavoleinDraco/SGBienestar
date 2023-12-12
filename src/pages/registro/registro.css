@@ -271,7 +271,7 @@ ul.slider li:target {
 .registro-s {
   border-radius: 50px;
   width: 240px;
-  background: #3c1263;
+  background: #fff;
   outline: 1px solid #3c1263;
 }
 
@@ -309,6 +309,15 @@ ul.slider li:target {
   background-color: #3c1263 !important;
   color: #fff !important;
   border: 1px solid #fff !important;
+}
+.MuiTypography-h6 {
+  font-size: 20px !important;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  position: relative !important;
+  /* left: 24%; */
 }
 
 /*Aqui el primer ancho*/
@@ -591,7 +600,8 @@ ul.slider li:target {
   .registro-s {
     border-radius: 50px;
     width: 240px;
-    background: #3c1263;
+    color: #3c1263 !important;
+    background: #f6f6f6 !important;
   }
 
   .MuiTooltip-popper {
@@ -602,16 +612,23 @@ ul.slider li:target {
     height: 60px !important;
     width: inherit !important;
   }
-
   .MuiTypography-root {
     /* outline: 1px solid #a2cd2f !important; */
     height: inherit !important;
-    padding: 11px 8px 5px 8px !important;
+    /* padding: 11px 8px 5px 8px !important; */
     font-size: 12px !important;
-    width: 300px !important;
+    width: 200px !important;
+    box-sizing: border-box;
+}
+  .MuiTypography-root {
+    /* outline: 1px solid #a2cd2f !important; */
+    height: inherit !important;
+    padding: 1px 8px 5px 8px !important;
+    font-size: 12px !important;
+    width: 100% !important;
+    margin: auto;
     box-sizing: border-box;
   }
-
   #transition-modal-descripcion {
     outline: rebeccapurple 1px solid !important;
   }
@@ -882,11 +899,9 @@ ul.slider li:target {
 
   .registro-s {
     border-radius: 50px;
-    width: 200px;
-    height: 40px;
-    align-self: center;
-    outline: 1px solid #3c1263 !important;
-    background-color: #3c1263 !important;
+    width: 240px;
+    color: #3c1263 !important;
+    background: #f6f6f6 !important;
   }
 
   .registro-s:hover {

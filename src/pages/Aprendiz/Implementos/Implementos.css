@@ -13,6 +13,15 @@
         position: fixed;
         right: 60px;
         z-index: 9999;
+        border-radius: 6px;
+        color: #fff !important;
+        background: #2c0757 !important;
+        display: block !important;
+        position: fixed;
+        bottom: 20px; /* Ajusta la distancia desde la parte inferior según tus necesidades */
+        right: 68px; /* Ajusta la distancia desde la derecha según tus necesidades */
+        z-index: 9999;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
     }
     .css-13xfq8m-MuiTabPanel-root {
         background: #e3e3e3;

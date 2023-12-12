@@ -16,7 +16,6 @@ const modalStyle = {
   width: 300,
   height: 600,
   bgcolor: "#f6f6f6",
-  outline: "1px solid black",
   boxShadow: 24,
   maxHeight: "80vh",
   overflow: "auto",
@@ -84,7 +83,6 @@ export default function ModalTyC({ nombre, texto, onChange }) {
         <Fade in={open}>
           <Box sx={modalStyle}>
             <Typography
-              style={{ marginRight: "50px" }}
               id="transition-modal-title"
               variant="h6"
               component="h2"

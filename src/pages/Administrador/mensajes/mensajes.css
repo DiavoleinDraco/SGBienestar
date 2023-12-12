@@ -12,6 +12,10 @@
   right: 50px;
   z-index: 9999;
 }
+.css-h4y409-MuiList-root{ 
+margin: 20px !important;
+padding: auto !important;
+}
 
 .bi-send-plus {
   color: #f6f6f6;

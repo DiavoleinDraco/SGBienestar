@@ -1,3 +1,7 @@
+*{
+  font-family: questrial;
+}
+
 /* Estilo del contenedor hijo */
 .contenedor-login-hijo {
   width: 600px;
@@ -82,7 +86,10 @@
   align-items: center;
   /* Centrado horizontal */
 }
-
+.email {
+  left: 0 !important; 
+ top: 0 !important;
+}
 /* Link de olvidar contraseña */
 .link-olvContra {
   width: 100%;
@@ -117,6 +124,7 @@
 .contenedor-btn-iniciarSesion .buttons {
   background: #2c0757;
   color: #fff;
+  padding: 6px 9px;
   border: 1px solid #fff !important;
   width: 150px !important;
   position: relative;
@@ -143,7 +151,6 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid #fff;
 }
 
 .icono-casa:hover {
@@ -289,25 +296,25 @@
 /* Responsivo para las pantallas de portatiles */
 @media (max-height: 740px) {
   .contenedor-login-hijo {
-    width: 500px;
-    height: 400px;
+    width: 430px;
+    height: 435px;
     transform: translate(-50%, -50%);
   }
 
   .ones {
-    width: 580px;
-    height: 320px;
+    width: 535px;
+    height: 380px;
     transform: translate(-50%, -50%);
   }
 
   .twos {
-    width: 660px;
-    height: 240px;
+    width: 620px;
+    height: 335px;
     transform: translate(-50%, -50%);
   }
 
   .contenedor-img-login {
-    transform: translate(-50%, -148%);
+    transform: translate(-50%, -138%);
   }
 
   .contenedor-icono-casa {
