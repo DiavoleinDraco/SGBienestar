@@ -180,7 +180,6 @@ export default function Prestamos() {
             <div className="contenedor-btn-prestamos">
               <button
                 className="btn-prestamo"
-                style={{ marginRight: "10%" }}
                 type="submit"
               >
                 Confirmar Prestamo

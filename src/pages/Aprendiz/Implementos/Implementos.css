@@ -17,17 +17,19 @@
     .css-13xfq8m-MuiTabPanel-root {
         background: #e3e3e3;
 }
-.Boton-prestarr{
-        border-radius: 6px;
-        color:  #fff !important;
-        background:#58525f86 !important; 
-        display: block !important;
-        bottom: 998px;
-        position: fixed;
-        background: #2c0757;
-        right: 60px;
-        z-index: 9999;
-    }
+.Boton-prestarr {
+    border-radius: 6px;
+    color: #fff !important;
+    background: #2c0757 !important;
+    display: block !important;
+    position: fixed;
+    bottom: 20px; /* Ajusta la distancia desde la parte inferior según tus necesidades */
+    right: 20px; /* Ajusta la distancia desde la derecha según tus necesidades */
+    z-index: 9999;
+    box-shadow: 0 0 10px rgb(0, 0, 0); /* Ajusta la sombra según tus necesidades */
+}
+
+
     .titulo-imple{
         height: 90px;
         color: #2c0757;
