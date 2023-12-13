@@ -380,10 +380,9 @@ export default function HistorialSanciones() {
                   </span>
                   <IconButton
                     id="icon-sanciones"
-                    style={{ color: "black" }}
                     onClick={handleDelete}
                   >
-                    <DeleteIcon />
+                    <DeleteIcon style={{ color: "#000" }} />
                   </IconButton>
                 </div>
               )}
@@ -394,6 +393,7 @@ export default function HistorialSanciones() {
               <TableRow style={{ position: "sticky", top: "0px" }}>
                 <TableCell padding="checkbox">
                   <Checkbox
+                    style={{ color: "#000" }}
                     indeterminate={
                       selected.length > 0 && selected.length < rows.length
                     }
@@ -450,7 +450,7 @@ export default function HistorialSanciones() {
                     key={row.id}
                     selected={isSelected(row.id)}
                     onClick={() => handleRowClick(row.id, row.index)}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 }}}
                   >
                     {console.log(row.id)}
                     <TableCell padding="checkbox">

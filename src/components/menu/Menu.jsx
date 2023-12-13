@@ -364,7 +364,7 @@ export default function Menu() {
             color: (theme) => theme.palette.grey[500],
           }}
         >
-          <CloseIcon style={{color: "#fff", marginTop: "-4px"}} />
+          <CloseIcon style={{color: "#000", marginTop: "-4px"}} />
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>

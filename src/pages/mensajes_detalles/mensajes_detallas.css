@@ -66,13 +66,6 @@ mensaje-header {
   margin-right: 5px; /* Ajusta el margen entre los botones según sea necesario */
 }
 
-/* Estilo para el icono de retroceso y borrar */
-.css-i4bv87-MuiSvgIcon-root {
-  width: 1.7em !important;
-  height: 1.7em !important;
-  color: #000000;
-}
-
 /* Estilo para la tabla que contiene la informacion de quien es el mensaje */
 .table-dt-mensajes {
   background: #f2f2f2;

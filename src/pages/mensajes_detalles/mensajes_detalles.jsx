@@ -93,10 +93,10 @@ export default function MensajesDetalle() {
       <Menu />
       <div className="mensajes-detalle-container">
         <div className="mensajes-detalle-header">
-          <IconButton onClick={() => redireccionar("/admin/mensajes")}>
+          <IconButton style={{background: "#000"}} onClick={() => redireccionar("/admin/mensajes")}>
             <ArrowBackIcon />
           </IconButton>
-          <IconButton onClick={() => handleDeleteClick(messageId)}>
+          <IconButton style={{background: "#000"}} onClick={() => handleDeleteClick(messageId)}>
             <DeleteIcon />
           </IconButton>
         </div>

@@ -262,8 +262,8 @@ export default function Sanciones() {
             m: 0,
             p: 2,
             position: "absolute",
-            left: "54%",
-            transform: "translateX(-50%)",
+            left: "50%",
+            transform: "translateX(0%)",
           }}
           id="customized-dialog-title"
         >
@@ -280,7 +280,7 @@ export default function Sanciones() {
             color: (theme) => theme.palette.grey[500],
           }}
         >
-          <CloseIcon />
+          <CloseIcon style={{color: "#000"}} />
         </IconButton>
         <DialogContent dividers style={{ overflowX: "hidden" }}>
           <div
