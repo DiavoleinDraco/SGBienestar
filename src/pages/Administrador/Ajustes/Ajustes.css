@@ -95,20 +95,3 @@
     border-radius: 20px;
     margin: 20px;
 }
-
-/* Estilo para los botones de ajustes */
-.css-pl8gqh-MuiStack-root>:not(style):not(style) {
-    margin: 0;
-    background: #2c0757;
-    color: #fff;
-    border: 1px solid #fff !important;
-    margin: 3px;
-}
-
-.css-pl8gqh-MuiStack-root>:not(style):not(style):hover {
-    background: #fff;
-    color: #2c0757;
-    border: #fff;
-    border: 1px solid #2c0757 !important;
-    cursor: pointer;
-}
