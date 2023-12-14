@@ -41,6 +41,21 @@ export default function Implementos(){
       setOpen(false)
     }
 
+    const imagenesTemporales = [
+      "https://media.istockphoto.com/id/488788931/es/foto/orange-basket-ball-foto-sobre-el-fondo-blanco.jpg?s=612x612&w=is&k=20&c=0t8skBaQDuViilmKwQR-WAe-1CMlJxk5ltCDov5paCI=",
+      "https://media.istockphoto.com/id/93889291/es/foto/f%C3%BAtbol-americano-estilo-antiguo-utilizado-aislado-sobre-fondo-blanco-pelota-de-f%C3%BAtbol.jpg?s=612x612&w=is&k=20&c=Pl7TMD8jrXoboQuvINoG-BI19D0JYOiwpVZgbggR6iE=",
+      "https://media.istockphoto.com/id/187071354/es/foto/soccer-web-en-blanco-y-negro.jpg?s=612x612&w=is&k=20&c=6Qk6q5CGvuZKZIokz5zFmrS95Mrsnf_oDd2MqKPho3M=",
+      "https://media.istockphoto.com/id/618341990/es/foto/pelota-de-voleibol-aislada-sobre-fondo-blanco.jpg?s=612x612&w=is&k=20&c=1KgZ4TXJMR6P9KK6yURQIRVQgV_24RugGnYGogfh7Ps=",
+      "https://media.istockphoto.com/id/1425158165/es/foto/ping-pong-de-ping-pong-de-mesa-y-pelota-blanca-sobre-tabla-azul.jpg?s=612x612&w=is&k=20&c=9i-pv-UR0Avjgk83Qwv8awfMMRRbwWdQp4q7YYHEoXg=",
+      "https://media.istockphoto.com/id/1425158165/es/foto/ping-pong-de-ping-pong-de-mesa-y-pelota-blanca-sobre-tabla-azul.jpg?s=612x612&w=is&k=20&c=9i-pv-UR0Avjgk83Qwv8awfMMRRbwWdQp4q7YYHEoXg=",
+      "https://media.istockphoto.com/id/1295770766/es/foto/juego-de-ajedrez.jpg?s=612x612&w=is&k=20&c=6AEY7qkm7Ya41siU8oizrK9zclVARZgbVvtyDg5Yhm8=",
+      "https://media.istockphoto.com/id/842349834/es/foto/ingl%C3%A9s-ventilador-celebrando.jpg?s=612x612&w=is&k=20&c=z4mA4HceRFtsWB-acPGiBj4ZsiuNdWT1ChSOX9nP6-Q=",
+      "https://images.unsplash.com/photo-1556009756-5a06dce4729d?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1520697517317-6767553cc51a?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://media.istockphoto.com/id/488788931/es/foto/orange-basket-ball-foto-sobre-el-fondo-blanco.jpg?s=612x612&w=is&k=20&c=0t8skBaQDuViilmKwQR-WAe-1CMlJxk5ltCDov5paCI="
+
+    ]
+
     useEffect(() => {
    
       setIsComponentInitialized(true);
@@ -92,7 +107,7 @@ export default function Implementos(){
                 color: item.descripcion.color || 'N/A',
                 detalles: item.descripcion.detalles || 'N/A',
                 descripcion: descripcion,
-                img: item.img
+                img: imagenesTemporales[Math.floor(Math.random() * imagenesTemporales.length)], // Asignar una imagen aleatoria
               }
             });
             setImplementos(transformedData);
@@ -281,7 +296,6 @@ export default function Implementos(){
               onClick={handlePrestarClick}
               color="primary"
               size="large" // Puedes ajustar el tamaño del botón aquí
-              disabled={!isTiempoEnRango}
                // Estilos adicionales
             > PRESTAR {implementosSeleccionados.length} {'IMPLEMENTO(S)'}</Button>
             </span>

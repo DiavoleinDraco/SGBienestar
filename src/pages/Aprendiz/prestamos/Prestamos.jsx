@@ -6,6 +6,9 @@ import Textfield from "../../../components/Textfield/Textfield";
 import GenerateQr from "../../../components/Generate_Qr/Generate_Qr";
 import img from "../../imagenes/sena-bienestar.png";
 import Menu from "../../../components/menu/Menu";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Prestamos() {
@@ -17,11 +20,23 @@ export default function Prestamos() {
   const [peticionExitosa, setPeticionExitosa] = useState(false);
   const [IDPrestamo, setIDPrestamo] = useState("");
   const inforPrestamo = JSON.parse(localStorage.getItem("implementosAprestar"));
+  const navegar = useNavigate()
 
+  const handleVolver = () => {
+    navegar("/usuarios/implementos")
+  }
 
-
+ 
+  const handleVolverAtrasClick = () => {
+    navegar("/usuarios/implementos")
+  }
 
   useEffect(() => {
+    if(!inforPrestamo){
+      navegar("/usuarios/implementos")
+
+    }
+
     const obtenerIdEstadoPendiente = async () => {
       try {
         const estados = await get("/estado-prestamo");
@@ -44,22 +59,40 @@ export default function Prestamos() {
     const fechaActual = new Date();
     setFechaInicio(fechaActual);
 
-    const handleUnload = () => {
+    const handleUnload = async () => {
+      // Eliminar elemento del localStorage
       localStorage.removeItem("implementosAprestar");
+  
+      // Intenta esperar un poco antes de redirigir
+      await new Promise(resolve => setTimeout(resolve, 100));
+  
+      // Redirigir al usuario
+      navegar("/usuarios/implementos");
     };
 
-    window.addEventListener("beforeunload", handleUnload);
+    const handleBeforeUnload = (event) => {
+      // Mostrar mensaje al usuario antes de salir o recargar
+      const message = "Si sales, se cancelará el préstamo. ¿Estás seguro?";
+      event.returnValue = message;
+      return message;
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("unload", handleUnload);
 
     return () => {
-      window.removeEventListener("beforeunload", handleUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("unload", handleUnload);
     };
-
   }, []);
 
 
 
 
+
+
   const obtenerDatosPrestamo = () => {
+   
     const fechaFin = new Date(fechaInicio);
     fechaFin.setMinutes(fechaFin.getMinutes() + 15);
     const implementos = inforPrestamo.map((implemento) => implemento.id);
@@ -81,6 +114,10 @@ export default function Prestamos() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!inforPrestamo){
+      navegar("/usuarios/implementos")
+
+    }
 
     if (estado.trim() === "") {
       console.error("El campo de estado no puede estar vacío.");
@@ -90,7 +127,7 @@ export default function Prestamos() {
     const data = obtenerDatosPrestamo();
     console.log(data);
     const response = await post("/prestamos", data);
-   console.log(response)
+    console.log(response)
     setIDPrestamo(response)
     setPeticionExitosa(true);
 
@@ -98,6 +135,7 @@ export default function Prestamos() {
 
   const prestamo = async () => {
     try {
+     
       if (!implemento) {
         console.error(
           "Ingrese un ID de implemento válido para eliminar prestamo."
@@ -114,20 +152,33 @@ export default function Prestamos() {
     }
   };
   if (peticionExitosa) {
-   console.log(IDPrestamo)
+    console.log(IDPrestamo)
     return (
 
       <div>
-           <Menu></Menu>
-      <div className="contenedor-prestamos">
-
-        <p className="parr-qr">
-          La petición se creó con éxito. <br /> Presiona si quieres descargar el QR.
-        </p>
-        <div className="qr">
-          <GenerateQr busqueda={IDPrestamo} />
+        <Menu></Menu>
+        <div className="contenedor-prestamos">
+        <div style={{display: "flex", alignItems: "center"}}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleVolverAtrasClick}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              color: "black",
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          </div>
+          <p className="parr-qr">
+            La petición se creó con éxito. <br /> Presiona si quieres descargar el QR.
+          </p>
+          <div className="qr">
+            <GenerateQr busqueda={IDPrestamo} />
+          </div>
         </div>
-      </div>
       </div>
     );
   }
@@ -135,15 +186,31 @@ export default function Prestamos() {
   return (
 
     <div>
-      
+      <Menu></Menu>
 
       <div className="contenedor-prestamos-principal">
-        
+
         <div className="img-contenedor">
           <img className="img-prestamos" src={img} alt="Logo de bienestar" />
         </div>
+
         <div className="contenedor-prestamos">
+        <div style={{display: "flex", alignItems: "center"}}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleVolverAtrasClick}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              color: "black",
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          </div>
           <h1>Detalles del prestamo</h1>
+
           <p className="parr-prestamo">
             Querido usuario, usted tendra un tiempo de 15 minutos para ir a buscar
             el implemento deportivo, recuerde devolverlo dentro del horario
@@ -159,15 +226,16 @@ export default function Prestamos() {
             <div>
               <p>
                 <b>Implemento:</b>{" "}
-                {inforPrestamo.map((implemento) => implemento.nombre).join(", ")}
+                {inforPrestamo ? inforPrestamo.map((implemento) => implemento.nombre).join(", ") :  handleVolver
+}
               </p>
             </div>
 
-            {inforPrestamo.map((implemento, index) => (
+            {inforPrestamo ?  inforPrestamo.map((implemento, index) => (
               <div key={index}>
 
               </div>
-            ))}
+            )) :  handleVolver}
 
 
           </div>
@@ -189,8 +257,10 @@ export default function Prestamos() {
             <div>
               <p>Fecha de generación: {fechaInicio.toLocaleString()}</p>
             </div>
+
           </form>
         </div>
+
       </div>
     </div>
   );

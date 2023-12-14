@@ -7,6 +7,7 @@ const Login = lazy(() => import('../pages/login/Login'));
 const Autenticacion = lazy(() => import('../pages/autenticacion/Autenticacion'));
 import RecuperarContrasena from '../pages/recuperarC/RecuperarContrasena.jsx';
 import jwtDecode from 'jwt-decode';
+import PaginaIntermedia from '../pages/Intermedia/intermedia.jsx';
 const Dashboard = lazy(() => import('../pages/Administrador/Dashboard/Dashboard'));
 const Sanciones = lazy(() => import('../pages/Administrador/Sanciones/Sanciones'));
 const Usuarios = lazy(() => import('../pages/Administrador/Usuarios/Usuarios'));
@@ -23,7 +24,6 @@ const Perfil = lazy(() => import('../pages/Perfil/Perfil.jsx'))
 const Ajustes = lazy(() => import('../pages/Administrador/Ajustes/Ajustes.jsx'))
 const HistorialPrestamosU = lazy(() => import('../pages/Aprendiz/Historial_Prestamos/HistorialPrestamosU.jsx'))
 const UsuarioSanciones = lazy(() => import('../pages/Aprendiz/UsuarioSanciones/UsuarioSanciones.jsx'))
-
 
 
 export function LasRutas() {
@@ -66,6 +66,7 @@ export function LasRutas() {
         <Route path="/admin/usuarios" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><Usuarios /></Suspense>, 1)} />
         <Route path="/usuarios/Sanciones" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><UsuarioSanciones /></Suspense>, 3,2)} />
         <Route path="/usuarios/HistorialPrestamosU" element={proteccionRutas(<Suspense fallback={<CircularColor></CircularColor>}><HistorialPrestamosU /></Suspense>, 3,2)} />
+        <Route path="/intermedia" element={<PaginaIntermedia />} />
 
         <Route
           path="/admin/sanciones"

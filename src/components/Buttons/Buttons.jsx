@@ -3,11 +3,11 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import './Buttons.css';
 
-export default function Buttons({ nombre, onclick}) {
+export default function Buttons({ nombre, onclick, type}) {
 
   return (
     <Stack  className='pad' direction="row" spacing={2}>
-      <Button className='buttons buttons-log-reg' variant="outlined" onClick={onclick}>{nombre}</Button>
+      <Button type={type}  className='buttons buttons-log-reg' variant="outlined" onClick={onclick}>{nombre}</Button>
     </Stack>
   );
 }

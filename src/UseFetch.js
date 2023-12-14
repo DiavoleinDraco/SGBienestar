@@ -1,3 +1,5 @@
+import jwtDecode from "jwt-decode"
+
 const UrlApi = import.meta.env.VITE_BACKEND
 
 export default async function get(pat) {
@@ -49,6 +51,35 @@ export async function post(pat, data) {
   }
 }
 
+
+export async function postLogin(pat, data) {
+  try {
+    const response = await fetch(UrlApi + pat, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    
+      const responseData = await response.json(); 
+      console.log(responseData)
+      localStorage.setItem("token", responseData.token)
+
+      const decode = jwtDecode(responseData.token);
+      console.log(decode);
+      localStorage.setItem("privilegio", decode.privilegio)
+      if( decode.privilegio > 1){
+        return "/intermedia"
+      }else{
+        return "/intermedia"
+      }
+ 
+  } catch (error) {
+    console.log('An error occurred:', error);
+  }
+}
 
 
 export async function getParametre(pat, parametro) {

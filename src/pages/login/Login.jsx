@@ -10,7 +10,7 @@ import Stack from "@mui/material/Stack";
 import { forwardRef } from "react";
 import "./Login.css";
 import miimagen from "../../pages/imagenes/sena-bienestar.png";
-import get, { getParametre, post } from "../../UseFetch.js";
+import get, { getParametre, post, postLogin } from "../../UseFetch.js";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 export default function Login() {
@@ -78,19 +78,8 @@ export default function Login() {
         throw new Error("Completa todos los campos obligatorios.");
       }
   
-      const response = await post("/registro/login", info).then((responde) => {
-        localStorage.setItem("token", responde.token);
-        const decode = jwtDecode(responde.token);
-        console.log("Prueba");
-    
-        if (decode.privilegio > 1) {
-          navegacion("/usuarios");
-        } else {
-          navegacion("/admin");
-        }
-    
-      })
-    
+      const response = await postLogin("/registro/login", info)    
+      navegacion(response);
       setErrorMensaje(null);
     } catch (error) {
       setOpen(true);
