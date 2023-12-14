@@ -34,26 +34,7 @@ export default function Dashboard(){
             <div className="contenedor-horario">
                 <p>Horario inicio: {actualConfig && actualConfig.horario_inicio}</p>
                 <p>Horario Fin: {actualConfig && actualConfig.horario_fin}</p>
-
-            </div>
-            <div className="contenedor-video">
-            <Box
-      sx={{
-        p: 8,
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <Skeleton
-        sx={{ bgcolor: 'grey.900' }}
-        variant="rectangular"
-        width={510}
-        height={318}
-      />
-    </Box>
             </div>
         </Box>
-        
     )
 }
